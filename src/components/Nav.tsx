@@ -43,7 +43,7 @@ export default function Nav() {
     const scrollY = window.scrollY;
     const compact = scrollY > 80;
     setIsCompact(compact);
-    rawWidth.set(compact ? 520 : 680);
+    rawWidth.set(compact ? 600 : 720);
     glowOpacity.set(compact ? 0.6 : 0);
 
     // Detect active section
@@ -218,14 +218,14 @@ export default function Nav() {
             <div className="hidden md:block w-px h-5 bg-white/10 mx-2 shrink-0" />
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-1 flex-1 justify-center min-w-0">
+            <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center min-w-0">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.slice(1);
                 return (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="relative px-3 py-1.5 text-sm rounded-full transition-colors duration-200 whitespace-nowrap"
+                    className="relative px-2.5 py-1.5 text-sm rounded-full transition-colors duration-200 whitespace-nowrap shrink-0"
                   >
                     {isActive && (
                       <motion.span
@@ -249,7 +249,7 @@ export default function Nav() {
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-5 bg-white/10 mx-2 shrink-0" />
+            <div className="hidden lg:block w-px h-5 bg-white/10 mx-2 shrink-0" />
 
             {/* LinkedIn */}
             <a

@@ -23,14 +23,14 @@ export default function About() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 items-stretch">
           {/* Story */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-6"
+            className="space-y-6 flex flex-col justify-between"
           >
             <p className="text-muted leading-relaxed">
               I&apos;m an AI Engineer with 3 years at HP, where I led a team of

@@ -39,8 +39,8 @@ const tierLabels: Record<string, string> = {
 };
 
 /* ─── Card dimensions (base, before scaling) ─── */
-const CARD_W = 300;
-const CARD_H = 400;
+const CARD_W = 420;
+const CARD_H = 540;
 const N = projects.length;
 
 /* ─── Scatter positions as viewport % ─── */
@@ -88,7 +88,7 @@ function getCardTransform(
   const s = SCATTER[index];
   const scX = (s.x / 100) * vw;
   const scY = (s.y / 100) * vh;
-  const scS = 0.55;
+  const scS = 0.48;
   const scR = s.r;
 
   /* ── Circle ── */
@@ -96,14 +96,14 @@ function getCardTransform(
   const cR = Math.min(vw, vh) * 0.24;
   const cX = vw / 2 + cR * Math.cos(cAngle);
   const cY = vh * 0.56 + cR * Math.sin(cAngle);
-  const cS = 0.40;
+  const cS = 0.35;
 
   /* ── Arc ── */
   const at = index / (N - 1);
   const aX = (0.10 + at * 0.80) * vw;
   const aY = vh * 0.50 + vh * 0.15 * Math.sin(at * Math.PI);
   const aS =
-    0.42 + 0.05 * (1 - Math.abs((index - (N - 1) / 2) / ((N - 1) / 2)));
+    0.38 + 0.05 * (1 - Math.abs((index - (N - 1) / 2) / ((N - 1) / 2)));
 
   let x: number,
     y: number,
@@ -214,7 +214,7 @@ function MorphCard({
         className="w-full h-full cursor-pointer"
         onClick={onClick}
       >
-        <div className="relative h-full w-full overflow-hidden rounded-xl shadow-lg border border-white/10 bg-[#0c0c14] hover:border-accent/30 transition-colors duration-300">
+        <div className="relative h-full w-full overflow-hidden rounded-xl shadow-lg border border-white/10 bg-[#0c0c14] hover:border-accent/30 transition-colors duration-300 select-none">
           {/* Image / Gradient with icon fallback */}
           <div className="relative h-[60%]">
             {showImage ? (
@@ -239,45 +239,48 @@ function MorphCard({
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c14] via-[#0c0c14]/20 to-transparent" />
             {hasLiveUrl && (
-              <span className="absolute top-2 left-2 flex items-center gap-1 text-[8px] font-bold text-emerald-400 bg-black/50 px-1.5 py-0.5 rounded-full">
+              <span className="absolute top-3 left-3 flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-black/50 px-2 py-1 rounded-full">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 LIVE
               </span>
             )}
-            <span className="absolute top-2 right-2 text-[8px] font-mono text-white/40 bg-black/50 px-1.5 py-0.5 rounded-full">
+            <span className="absolute top-3 right-3 text-[10px] font-mono text-white/40 bg-black/50 px-2 py-1 rounded-full">
               {project.year}
             </span>
           </div>
 
           {/* Info */}
-          <div className="p-3 flex flex-col h-[40%]">
+          <div className="p-4 flex flex-col h-[40%]">
             <span
-              className={`self-start px-1.5 py-0.5 rounded text-[7px] font-bold uppercase tracking-wider border mb-1.5 ${tierColors[project.tier]}`}
+              className={`self-start px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border mb-2 ${tierColors[project.tier]}`}
             >
               {tierLabels[project.tier]}
             </span>
-            <div className="flex items-center gap-1.5 mb-1">
+            <div className="flex items-center gap-2 mb-1.5">
               <IconComp
-                size={13}
+                size={18}
                 weight="duotone"
                 className="text-accent shrink-0"
               />
-              <h3 className="text-[11px] font-bold text-white leading-tight truncate">
+              <h3 className="text-sm font-bold text-white font-heading leading-tight truncate">
                 {project.title}
               </h3>
             </div>
-            <div className="flex flex-wrap gap-0.5 mt-auto">
-              {project.techStack.slice(0, 2).map((t) => (
+            <p className="text-xs text-white/50 leading-relaxed line-clamp-3 mb-2">
+              {project.tagline}
+            </p>
+            <div className="flex flex-wrap gap-1 mt-auto">
+              {project.techStack.slice(0, 4).map((t) => (
                 <span
                   key={t}
-                  className="text-[7px] px-1.5 py-0.5 rounded-full bg-white/5 text-white/40 border border-white/10"
+                  className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 text-white/40 border border-white/10"
                 >
                   {t}
                 </span>
               ))}
-              {project.techStack.length > 2 && (
-                <span className="text-[7px] px-1 py-0.5 rounded-full bg-white/5 text-white/30">
-                  +{project.techStack.length - 2}
+              {project.techStack.length > 4 && (
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/5 text-white/30">
+                  +{project.techStack.length - 4}
                 </span>
               )}
             </div>

@@ -55,12 +55,12 @@ const techItems: TechItem[] = [
 ];
 
 const categoryColors: Record<string, { bg: string; text: string; border: string; glow: string }> = {
-  ai: { bg: "bg-violet-500/15", text: "text-violet-300", border: "border-violet-500/30", glow: "shadow-violet-500/20" },
-  frontend: { bg: "bg-cyan-500/15", text: "text-cyan-300", border: "border-cyan-500/30", glow: "shadow-cyan-500/20" },
-  backend: { bg: "bg-emerald-500/15", text: "text-emerald-300", border: "border-emerald-500/30", glow: "shadow-emerald-500/20" },
-  mobile: { bg: "bg-pink-500/15", text: "text-pink-300", border: "border-pink-500/30", glow: "shadow-pink-500/20" },
-  devops: { bg: "bg-amber-500/15", text: "text-amber-300", border: "border-amber-500/30", glow: "shadow-amber-500/20" },
-  automation: { bg: "bg-red-500/15", text: "text-red-300", border: "border-red-500/30", glow: "shadow-red-500/20" },
+  ai: { bg: "bg-violet-500/30", text: "text-violet-200", border: "border-violet-400/40", glow: "shadow-violet-500/30" },
+  frontend: { bg: "bg-cyan-500/30", text: "text-cyan-200", border: "border-cyan-400/40", glow: "shadow-cyan-500/30" },
+  backend: { bg: "bg-emerald-500/30", text: "text-emerald-200", border: "border-emerald-400/40", glow: "shadow-emerald-500/30" },
+  mobile: { bg: "bg-pink-500/30", text: "text-pink-200", border: "border-pink-400/40", glow: "shadow-pink-500/30" },
+  devops: { bg: "bg-amber-500/30", text: "text-amber-200", border: "border-amber-400/40", glow: "shadow-amber-500/30" },
+  automation: { bg: "bg-red-500/30", text: "text-red-200", border: "border-red-400/40", glow: "shadow-red-500/30" },
 };
 
 const categoryLabels: Record<string, string> = {
