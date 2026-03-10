@@ -3,15 +3,17 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowDown } from "@phosphor-icons/react";
-
-const stats = [
-  { value: "14", label: "Projects Built" },
-  { value: "60%", label: "Cost Savings via AI" },
-  { value: "3+", label: "Years Enterprise" },
-  { value: "12", label: "Team Members Led" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LiquidButton, WaveButton } from "@/components/ui/liquid-glass-button";
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const stats = [
+    { value: "14", label: t.hero.stats.projects },
+    { value: "60%", label: t.hero.stats.savings },
+    { value: "3+", label: t.hero.stats.years },
+    { value: "12", label: t.hero.stats.team },
+  ];
   return (
     <section
       id="hero"
@@ -41,7 +43,7 @@ export default function Hero() {
             >
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm text-accent font-medium">
-                Available for projects
+                {t.hero.available}
               </span>
             </motion.div>
 
@@ -51,13 +53,13 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
             >
-              Hello, I&apos;m{" "}
+              {t.hero.greeting}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
                 Andrés
               </span>
               <br />
               <span className="text-3xl sm:text-4xl lg:text-5xl text-muted font-normal">
-                AI Engineer
+                {t.hero.role}
               </span>
             </motion.h1>
 
@@ -67,9 +69,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-muted max-w-xl leading-relaxed"
             >
-              I build multi-agent AI systems, intelligent automation pipelines,
-              and full-stack products from concept to deployment. Specializing in
-              LangGraph, LLM orchestration, and creative web experiences.
+              {t.hero.bio}
             </motion.p>
 
             <motion.div
@@ -78,22 +78,17 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex items-center gap-4"
             >
-              <a
-                href="#projects"
-                className="group px-7 py-3.5 bg-accent text-background font-semibold rounded-full hover:bg-accent-light transition-all duration-200 flex items-center gap-2"
-              >
-                See My Work
-                <ArrowDown
-                  size={18}
-                  className="group-hover:translate-y-0.5 transition-transform"
-                />
-              </a>
-              <a
-                href="#contact"
-                className="px-7 py-3.5 border border-border text-foreground font-medium rounded-full hover:border-accent hover:text-accent transition-all duration-200"
-              >
-                Get In Touch
-              </a>
+              <WaveButton asChild size="lg" className="rounded-full text-accent font-semibold">
+                <a href="#projects" className="flex items-center gap-2">
+                  {t.hero.cta_work}
+                  <ArrowDown size={18} />
+                </a>
+              </WaveButton>
+              <LiquidButton asChild size="lg" className="rounded-full text-foreground font-medium">
+                <a href="#contact">
+                  {t.hero.cta_contact}
+                </a>
+              </LiquidButton>
             </motion.div>
           </div>
 
@@ -170,7 +165,7 @@ export default function Hero() {
         transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
       >
-        <span className="text-xs text-muted">Scroll Down</span>
+        <span className="text-xs text-muted">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}

@@ -22,6 +22,7 @@ import {
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 import { Project } from "@/lib/types";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, Icon> = {
   ChartLineUp, Brain, Lightning, Newspaper, DeviceMobile,
@@ -33,9 +34,6 @@ const tierColors: Record<string, string> = {
   "medium-ai": "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   web: "bg-blue-500/20 text-blue-400 border-blue-500/30",
   devops: "bg-green-500/20 text-green-400 border-green-500/30",
-};
-const tierLabels: Record<string, string> = {
-  "heavy-ai": "HEAVY AI", "medium-ai": "MEDIUM AI", web: "WEB", devops: "DEVOPS",
 };
 
 /* ─── Card dimensions (base, before scaling) ─── */
@@ -214,6 +212,8 @@ function MorphCard({
   cardW: number;
   cardH: number;
 }) {
+  const { t } = useLanguage();
+  const tierLabels = t.projects.tiers as Record<string, string>;
   const IconComp = iconMap[project.icon] || Cube;
   const hasLiveUrl = !!project.liveUrl;
   const [imgError, setImgError] = React.useState(false);
@@ -323,6 +323,8 @@ function DetailModal({
   project: Project;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
+  const tierLabels = t.projects.tiers as Record<string, string>;
   const IconComp = iconMap[project.icon] || Cube;
   const [modalImgError, setModalImgError] = React.useState(false);
   const modalImgRef = React.useRef<HTMLImageElement>(null);
@@ -442,7 +444,7 @@ function DetailModal({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-semibold rounded-full hover:bg-accent-light transition-colors text-sm"
             >
-              Visit Project <ArrowSquareOut size={16} />
+              {t.projects.visit} <ArrowSquareOut size={16} />
             </a>
           )}
         </div>
@@ -451,8 +453,11 @@ function DetailModal({
   );
 }
 
-/* ─── Sorted projects: live first, then newest first ─── */
+/* ─── Sorted projects: tier order (heavy-ai → web → medium-ai → devops), then live first, then newest first ─── */
+const tierOrder: Record<string, number> = { "heavy-ai": 0, web: 1, "medium-ai": 2, devops: 3 };
 const sortedProjects = [...projects].sort((a, b) => {
+  const tierDiff = (tierOrder[a.tier] ?? 99) - (tierOrder[b.tier] ?? 99);
+  if (tierDiff !== 0) return tierDiff;
   const aLive = a.liveUrl ? 1 : 0;
   const bLive = b.liveUrl ? 1 : 0;
   if (aLive !== bLive) return bLive - aLive;
@@ -461,6 +466,7 @@ const sortedProjects = [...projects].sort((a, b) => {
 
 /* ─── Main Section: Scatter → Circle → Arc morph ─── */
 export default function Projects() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [viewSize, setViewSize] = useState({ w: 1200, h: 800 });
@@ -592,13 +598,13 @@ export default function Projects() {
           {/* Header */}
           <div className="absolute top-0 left-0 right-0 pt-14 sm:pt-20 pb-3 text-center z-30 pointer-events-none">
             <span className="text-accent font-mono text-sm">
-              01 — Projects
+              {t.projects.label}
             </span>
             <h2 className="text-4xl sm:text-5xl font-bold mt-1 sm:mt-3">
-              What I&apos;ve built
+              {t.projects.heading}
             </h2>
             <p className="text-muted mt-1 sm:mt-3 max-w-md mx-auto text-sm">
-              Scroll to explore — click any card for details.
+              {t.projects.instruction}
             </p>
             <div className="w-48 h-0.5 bg-white/10 rounded-full mx-auto mt-2 sm:mt-4">
               <div

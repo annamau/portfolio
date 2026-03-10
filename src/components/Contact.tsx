@@ -9,11 +9,12 @@ import {
   PaperPlaneTilt,
   CalendarBlank,
 } from "@phosphor-icons/react";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Contact() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+  const { t } = useLanguage();
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -50,13 +51,12 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <span className="text-accent font-mono text-sm">04 — Contact</span>
+          <span className="text-accent font-mono text-sm">{t.contact.label}</span>
           <h2 className="text-4xl sm:text-5xl font-bold mt-3">
-            Let&apos;s work together
+            {t.contact.heading}
           </h2>
           <p className="text-muted mt-4 max-w-2xl">
-            Have a project in mind? Let&apos;s talk about how I can help bring
-            it to life.
+            {t.contact.description}
           </p>
         </motion.div>
 
@@ -79,7 +79,7 @@ export default function Contact() {
                 htmlFor="name"
                 className="text-sm text-muted mb-2 block"
               >
-                Name
+                {t.contact.name_label}
               </label>
               <input
                 id="name"
@@ -87,7 +87,7 @@ export default function Contact() {
                 type="text"
                 required
                 className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors"
-                placeholder="Your name"
+                placeholder={t.contact.name_placeholder}
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ export default function Contact() {
                 htmlFor="email"
                 className="text-sm text-muted mb-2 block"
               >
-                Email
+                {t.contact.email_label}
               </label>
               <input
                 id="email"
@@ -103,7 +103,7 @@ export default function Contact() {
                 type="email"
                 required
                 className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors"
-                placeholder="you@example.com"
+                placeholder={t.contact.email_placeholder}
               />
             </div>
             <div>
@@ -111,7 +111,7 @@ export default function Contact() {
                 htmlFor="message"
                 className="text-sm text-muted mb-2 block"
               >
-                Message
+                {t.contact.message_label}
               </label>
               <textarea
                 id="message"
@@ -119,28 +119,31 @@ export default function Contact() {
                 required
                 rows={5}
                 className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors resize-none"
-                placeholder="Tell me about your project..."
+                placeholder={t.contact.message_placeholder}
               />
             </div>
-            <button
+            <LiquidButton
               type="submit"
               disabled={status === "sending"}
-              className="flex items-center gap-2 px-7 py-3.5 bg-accent text-background font-semibold rounded-full hover:bg-accent-light transition-all duration-200 disabled:opacity-50"
+              size="lg"
+              className="text-accent font-semibold rounded-full"
             >
-              {status === "sending" ? (
-                "Sending..."
-              ) : status === "sent" ? (
-                "Message Sent!"
-              ) : (
-                <>
-                  Send Message
-                  <PaperPlaneTilt size={18} />
-                </>
-              )}
-            </button>
+              <span className="flex items-center gap-2">
+                {status === "sending" ? (
+                  t.contact.sending
+                ) : status === "sent" ? (
+                  t.contact.sent
+                ) : (
+                  <>
+                    {t.contact.send}
+                    <PaperPlaneTilt size={18} />
+                  </>
+                )}
+              </span>
+            </LiquidButton>
             {status === "error" && (
               <p className="text-red-400 text-sm">
-                Something went wrong. Please try again.
+                {t.contact.error}
               </p>
             )}
           </motion.form>
@@ -154,10 +157,9 @@ export default function Contact() {
             className="flex flex-col justify-center space-y-8"
           >
             <div>
-              <h3 className="text-xl font-bold mb-4">Get in touch</h3>
+              <h3 className="text-xl font-bold mb-4">{t.contact.sidebar_heading}</h3>
               <p className="text-muted leading-relaxed">
-                I&apos;m open to freelance projects, consulting, and full-time
-                opportunities. Let&apos;s build something great together.
+                {t.contact.sidebar_text}
               </p>
             </div>
 
@@ -208,8 +210,8 @@ export default function Contact() {
                 <CalendarBlank size={22} weight="duotone" />
               </div>
               <div>
-                <span className="font-semibold text-sm">Schedule with me</span>
-                <p className="text-[11px] text-accent/60">Book a free consultation</p>
+                <span className="font-semibold text-sm">{t.contact.calendar_label}</span>
+                <p className="text-[11px] text-accent/60">{t.contact.calendar_sub}</p>
               </div>
             </button>
           </motion.div>

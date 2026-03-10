@@ -3,19 +3,21 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { List, X, LinkedinLogo, CalendarBlank } from "@phosphor-icons/react";
-
-const navLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Sections the island checks for "collision" (proximity to their headers)
 const collisionSections = ["projects", "about", "experience", "contact"];
 
 export default function Nav() {
+  const { locale, setLocale, t } = useLanguage();
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.experience, href: "#experience" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [isCompact, setIsCompact] = useState(false);
@@ -87,7 +89,12 @@ export default function Nav() {
     }
 
     setNudgeDir(newNudge);
-    if (newNudge === "left") {
+    // Disable collision nudge on mobile to prevent the nav from shifting off-screen
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      rawX.set(0);
+      rawScale.set(1);
+    } else if (newNudge === "left") {
       rawX.set(-120);
       rawScale.set(0.95);
     } else if (newNudge === "right") {
@@ -275,6 +282,15 @@ export default function Nav() {
               <CalendarBlank size={18} weight="bold" />
             </button>
 
+            {/* Language toggle */}
+            <button
+              onClick={() => setLocale(locale === "en" ? "es" : "en")}
+              className="hidden md:flex items-center justify-center h-7 px-2.5 rounded-full text-[11px] font-bold border border-white/10 text-white/50 hover:text-accent hover:border-accent/30 transition-all duration-200 shrink-0"
+              aria-label="Switch language"
+            >
+              {locale === "en" ? "ES" : "EN"}
+            </button>
+
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -325,6 +341,12 @@ export default function Nav() {
                     <LinkedinLogo size={18} weight="bold" />
                     LinkedIn
                   </a>
+                  <button
+                    onClick={() => { setLocale(locale === "en" ? "es" : "en"); setMobileOpen(false); }}
+                    className="text-sm text-white/60 hover:text-accent transition-colors px-3 py-1.5 rounded-xl text-left font-medium"
+                  >
+                    {locale === "en" ? "🇪🇸 Español" : "🇬🇧 English"}
+                  </button>
                 </div>
               </div>
             </motion.div>

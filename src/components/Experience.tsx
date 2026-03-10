@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { Buildings, Briefcase } from "@phosphor-icons/react";
 import { experiences } from "@/data/experience";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Experience() {
+  const { t } = useLanguage();
   return (
     <section id="experience" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -16,13 +18,13 @@ export default function Experience() {
           className="mb-16"
         >
           <span className="text-accent font-mono text-sm">
-            03 — Background
+            {t.experience.label}
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold mt-3">
-            Work history
+            {t.experience.heading}
           </h2>
           <p className="text-muted mt-4 max-w-2xl">
-            Where engineering rigor meets AI innovation.
+            {t.experience.description}
           </p>
         </motion.div>
 
@@ -56,11 +58,11 @@ export default function Experience() {
                   </div>
 
                   <p className="text-muted leading-relaxed mb-4">
-                    {exp.description}
+                    {t.experience.entries[i]?.description ?? exp.description}
                   </p>
 
                   <ul className="space-y-2 mb-4">
-                    {exp.highlights.map((h) => (
+                    {(t.experience.entries[i]?.highlights ?? exp.highlights).map((h) => (
                       <li
                         key={h}
                         className="text-sm text-muted flex items-start gap-2"
