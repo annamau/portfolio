@@ -20,17 +20,13 @@ export default function Contact() {
     setStatus("sending");
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          message: data.get("message"),
-        }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
       });
 
       if (res.ok) {
@@ -71,9 +67,13 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            name="contact"
+            method="POST"
+            data-netlify="true"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
+            <input type="hidden" name="form-name" value="contact" />
             <div>
               <label
                 htmlFor="name"
