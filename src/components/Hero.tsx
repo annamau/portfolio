@@ -21,6 +21,18 @@ export default function Hero() {
         <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
           {/* Left content */}
           <div className="space-y-8">
+            {/* Mobile profile photo */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="lg:hidden"
+            >
+              <div className="relative w-20 h-20 rounded-full overflow-hidden ring-2 ring-accent/30">
+                <Image src="/profile.png" alt="Andrés Naves Mauri" fill sizes="80px" className="object-cover" priority />
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -149,22 +161,23 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-muted">Scroll Down</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowDown size={16} className="text-muted" />
-          </motion.div>
-        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
+      >
+        <span className="text-xs text-muted">Scroll Down</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ArrowDown size={16} className="text-muted" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

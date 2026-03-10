@@ -153,7 +153,7 @@ function Bubble({ bubble, mouseX, mouseY, dimmed, containerCenter }: BubbleProps
   const colors = categoryColors[bubble.item.category];
   // Calculate font size proportional to bubble radius
   const baseFontSize = bubble.item.size === "lg" ? 12 : bubble.item.size === "md" ? 10.5 : 9;
-  const fontSize = Math.max(7, baseFontSize * (bubble.r / getBubbleRadius(bubble.item)));
+  const fontSize = Math.max(10, baseFontSize * (bubble.r / getBubbleRadius(bubble.item)));
 
   // Calculate magnification based on mouse distance
   const bx = containerCenter.x + bubble.x;

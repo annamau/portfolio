@@ -194,12 +194,12 @@ function SegmentLabel({ stage, pct, isHorizontal, showValues, showPercentage, sh
   const display = stage.displayValue ?? formatValue(stage.value);
   const valueEl = showValues && <span className="whitespace-nowrap font-semibold text-foreground text-sm">{display}</span>;
   const pctEl = showPercentage && <span className="rounded-full bg-foreground px-3 py-1 font-bold text-background text-xs shadow-sm">{formatPercentage(pct)}</span>;
-  const labelEl = showLabels && <span className="whitespace-nowrap font-medium text-muted text-xs">{stage.label}</span>;
+  const labelEl = showLabels && <span className="font-medium text-muted text-xs break-words">{stage.label}</span>;
 
   if (layout === "spread") {
     return (
       <motion.div animate={{ opacity: 1 }} className={cn("absolute inset-0 flex", isHorizontal ? "flex-col items-center" : "flex-row items-center")} initial={{ opacity: 0 }} transition={{ delay: index * staggerDelay + 0.25, duration: 0.35, ease: "easeOut" }}>
-        {isHorizontal ? (<><div className="flex h-[16%] items-end justify-center pb-1">{valueEl}</div><div className="flex flex-1 items-center justify-center">{pctEl}</div><div className="flex h-[16%] items-start justify-center pt-1">{labelEl}</div></>) : (<><div className="flex w-[16%] items-center justify-end pr-2">{valueEl}</div><div className="flex flex-1 items-center justify-center">{pctEl}</div><div className="flex w-[16%] items-center justify-start pl-2">{labelEl}</div></>)}
+        {isHorizontal ? (<><div className="flex h-[16%] items-end justify-center pb-1">{valueEl}</div><div className="flex flex-1 items-center justify-center">{pctEl}</div><div className="flex h-[16%] items-start justify-center pt-1">{labelEl}</div></>) : (<><div className="flex w-[24%] lg:w-[16%] items-center justify-end pr-2">{valueEl}</div><div className="flex flex-1 items-center justify-center">{pctEl}</div><div className="flex w-[24%] lg:w-[16%] items-center justify-start pl-2">{labelEl}</div></>)}
       </motion.div>
     );
   }

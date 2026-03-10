@@ -41,7 +41,10 @@ const tierLabels: Record<string, string> = {
 /* ─── Card dimensions (base, before scaling) ─── */
 const CARD_W = 420;
 const CARD_H = 540;
+const CARD_W_SM = 300;
+const CARD_H_SM = 500;
 const N = projects.length;
+const MOBILE_CARD_COUNT = 8;
 
 /* ─── Scatter positions as viewport % ─── */
 const SCATTER: { x: number; y: number; r: number }[] = [
@@ -83,27 +86,43 @@ function getCardTransform(
   vw: number,
   vh: number,
   dragOffset: number = 0,
+  cardW: number = CARD_W,
+  isMobile: boolean = false,
 ): CardTransform {
+  /* ── On mobile, hide overflow cards during scatter/circle/arc ── */
+  if (isMobile && index >= MOBILE_CARD_COUNT && progress < 0.48) {
+    return { x: vw / 2, y: vh / 2, scale: 0, rotate: 0, opacity: 0 };
+  }
+  if (isMobile && index >= MOBILE_CARD_COUNT && progress < 0.55) {
+    const fadeT = smoothstep((progress - 0.48) / 0.07);
+    const CS = 0.95, CG = 16;
+    const sp = cardW * CS + CG;
+    const mg = cardW * CS / 2 + 20;
+    return { x: mg + index * sp + dragOffset, y: vh * 0.50, scale: CS * fadeT, rotate: 0, opacity: fadeT };
+  }
+
   /* ── Scatter ── */
   const s = SCATTER[index];
   const scX = (s.x / 100) * vw;
   const scY = (s.y / 100) * vh;
-  const scS = 0.48;
+  const scS = isMobile ? 0.30 : 0.48;
   const scR = s.r;
 
   /* ── Circle ── */
-  const cAngle = -Math.PI / 2 + index * ((2 * Math.PI) / N);
-  const cR = Math.min(vw, vh) * 0.24;
+  const visibleN = isMobile ? MOBILE_CARD_COUNT : N;
+  const cAngle = -Math.PI / 2 + index * ((2 * Math.PI) / visibleN);
+  const cR = Math.min(vw, vh) * (isMobile ? 0.28 : 0.24);
   const cX = vw / 2 + cR * Math.cos(cAngle);
-  const cY = vh * 0.56 + cR * Math.sin(cAngle);
-  const cS = 0.35;
+  const cY = vh * 0.50 + cR * Math.sin(cAngle);
+  const cS = isMobile ? 0.30 : 0.35;
 
   /* ── Arc ── */
-  const at = index / (N - 1);
+  const arcN = isMobile ? MOBILE_CARD_COUNT : N;
+  const at = index / (arcN - 1);
   const aX = (0.10 + at * 0.80) * vw;
   const aY = vh * 0.50 + vh * 0.15 * Math.sin(at * Math.PI);
   const aS =
-    0.38 + 0.05 * (1 - Math.abs((index - (N - 1) / 2) / ((N - 1) / 2)));
+    (isMobile ? 0.30 : 0.38) + 0.05 * (1 - Math.abs((index - (arcN - 1) / 2) / ((arcN - 1) / 2)));
 
   let x: number,
     y: number,
@@ -111,52 +130,65 @@ function getCardTransform(
     rotate: number,
     opacity = 1;
 
-  if (progress <= 0.05) {
-    // Entry — scale up from 0
-    const t = progress / 0.05;
+  if (progress <= 0.03) {
+    // Entry — scale up from 0 (skip fade on mobile to avoid invisible cards)
+    const t = isMobile ? 1 : progress / 0.03;
     x = scX;
     y = scY;
     scale = scS * t;
     rotate = scR;
     opacity = t;
-  } else if (progress <= 0.25) {
+  } else if (progress <= 0.12) {
     // Scatter hold
     x = scX;
     y = scY;
     scale = scS;
     rotate = scR;
-  } else if (progress <= 0.45) {
+  } else if (progress <= 0.24) {
     // Scatter → Circle
-    const t = smoothstep((progress - 0.25) / 0.2);
+    const t = smoothstep((progress - 0.12) / 0.12);
     x = lerp(scX, cX, t);
     y = lerp(scY, cY, t);
     scale = lerp(scS, cS, t);
     rotate = lerp(scR, 0, t);
-  } else if (progress <= 0.65) {
+  } else if (progress <= 0.36) {
     // Circle hold
     x = cX;
     y = cY;
     scale = cS;
     rotate = 0;
-  } else if (progress <= 0.85) {
+  } else if (progress <= 0.48) {
     // Circle → Arc
-    const t = smoothstep((progress - 0.65) / 0.2);
+    const t = smoothstep((progress - 0.36) / 0.12);
     x = lerp(cX, aX, t);
     y = lerp(cY, aY, t);
     scale = lerp(cS, aS, t);
     rotate = 0;
-  } else {
+  } else if (progress <= 0.55) {
     // Arc → Carousel row
-    const t = smoothstep((progress - 0.85) / 0.15);
-    const CAROUSEL_SCALE = 0.85;
-    const CAROUSEL_GAP = 24;
-    const cardSpacing = CARD_W * CAROUSEL_SCALE + CAROUSEL_GAP;
-    const margin = CARD_W * CAROUSEL_SCALE / 2 + 60;
+    const t = smoothstep((progress - 0.48) / 0.07);
+    const CAROUSEL_SCALE = isMobile ? 0.95 : 0.85;
+    const CAROUSEL_GAP = isMobile ? 16 : 24;
+    const cardSpacing = cardW * CAROUSEL_SCALE + CAROUSEL_GAP;
+    const margin = cardW * CAROUSEL_SCALE / 2 + (isMobile ? 20 : 60);
     const rowX = margin + index * cardSpacing + dragOffset;
-    const rowY = vh * 0.55;
+    const rowY = isMobile ? vh * 0.49 : vh * 0.50;
     x = lerp(aX, rowX, t);
     y = lerp(aY, rowY, t);
     scale = lerp(aS, CAROUSEL_SCALE, t);
+    rotate = 0;
+    opacity = 1;
+  } else {
+    // Carousel hold — stays in carousel for the remaining 45% of scroll
+    const CAROUSEL_SCALE = isMobile ? 0.95 : 0.85;
+    const CAROUSEL_GAP = isMobile ? 16 : 24;
+    const cardSpacing = cardW * CAROUSEL_SCALE + CAROUSEL_GAP;
+    const margin = cardW * CAROUSEL_SCALE / 2 + (isMobile ? 20 : 60);
+    const rowX = margin + index * cardSpacing + dragOffset;
+    const rowY = isMobile ? vh * 0.49 : vh * 0.50;
+    x = rowX;
+    y = rowY;
+    scale = CAROUSEL_SCALE;
     rotate = 0;
     opacity = 1;
   }
@@ -171,12 +203,16 @@ function MorphCard({
   zIndex,
   onClick,
   inCarousel,
+  cardW,
+  cardH,
 }: {
   project: Project;
   transform: CardTransform;
   zIndex: number;
   onClick: () => void;
   inCarousel?: boolean;
+  cardW: number;
+  cardH: number;
 }) {
   const IconComp = iconMap[project.icon] || Cube;
   const hasLiveUrl = !!project.liveUrl;
@@ -198,9 +234,9 @@ function MorphCard({
         position: "absolute",
         left: 0,
         top: 0,
-        width: CARD_W,
-        height: CARD_H,
-        transform: `translate(${transform.x - CARD_W / 2}px, ${transform.y - CARD_H / 2}px) scale(${transform.scale}) rotate(${transform.rotate}deg)`,
+        width: cardW,
+        height: cardH,
+        transform: `translate(${transform.x - cardW / 2}px, ${transform.y - cardH / 2}px) scale(${transform.scale}) rotate(${transform.rotate}deg)`,
         transformOrigin: "center center",
         opacity: transform.opacity,
         zIndex,
@@ -216,7 +252,7 @@ function MorphCard({
       >
         <div className="relative h-full w-full overflow-hidden rounded-xl shadow-lg border border-white/10 bg-[#0c0c14] hover:border-accent/30 transition-colors duration-300 select-none">
           {/* Image / Gradient with icon fallback */}
-          <div className="relative h-[60%]">
+          <div className="relative h-[55%]">
             {showImage ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -239,51 +275,39 @@ function MorphCard({
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c14] via-[#0c0c14]/20 to-transparent" />
             {hasLiveUrl && (
-              <span className="absolute top-3 left-3 flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-black/50 px-2 py-1 rounded-full">
+              <span className="absolute top-3 left-3 flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-black/50 px-2 py-1 rounded-full">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 LIVE
               </span>
             )}
-            <span className="absolute top-3 right-3 text-[10px] font-mono text-white/40 bg-black/50 px-2 py-1 rounded-full">
+            <span className="absolute top-3 right-3 text-xs font-mono text-white/40 bg-black/50 px-2 py-1 rounded-full">
               {project.year}
             </span>
           </div>
 
           {/* Info */}
-          <div className="p-4 flex flex-col h-[40%]">
+          <div className="p-5 flex flex-col h-[45%]">
             <span
-              className={`self-start px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border mb-2 ${tierColors[project.tier]}`}
+              className={`self-start px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider border mb-2 ${tierColors[project.tier]}`}
             >
               {tierLabels[project.tier]}
             </span>
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="flex items-center gap-2 mb-2">
               <IconComp
-                size={18}
+                size={20}
                 weight="duotone"
                 className="text-accent shrink-0"
               />
-              <h3 className="text-sm font-bold text-white font-heading leading-tight truncate">
+              <h3 className="text-base font-bold text-white font-heading leading-tight truncate">
                 {project.title}
               </h3>
             </div>
-            <p className="text-xs text-white/50 leading-relaxed line-clamp-3 mb-2">
+            <p className="text-sm text-white/55 leading-relaxed line-clamp-3 mb-3">
               {project.tagline}
             </p>
-            <div className="flex flex-wrap gap-1 mt-auto">
-              {project.techStack.slice(0, 4).map((t) => (
-                <span
-                  key={t}
-                  className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 text-white/40 border border-white/10"
-                >
-                  {t}
-                </span>
-              ))}
-              {project.techStack.length > 4 && (
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/5 text-white/30">
-                  +{project.techStack.length - 4}
-                </span>
-              )}
-            </div>
+            <p className="text-xs text-white/40 leading-relaxed line-clamp-2 mt-auto">
+              {project.description}
+            </p>
           </div>
         </div>
       </motion.div>
@@ -341,7 +365,7 @@ function DetailModal({
         className="relative z-10 w-full max-w-lg rounded-2xl overflow-hidden border border-white/10 bg-[#0c0c14] shadow-2xl"
       >
         {/* Header image */}
-        <div className="relative h-48">
+        <div className="relative h-32 sm:h-48">
           {showModalImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -366,7 +390,7 @@ function DetailModal({
             <X size={16} weight="bold" />
           </button>
           {project.liveUrl && (
-            <span className="absolute top-3 left-3 flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-black/40 px-2 py-1 rounded-full backdrop-blur-sm">
+            <span className="absolute top-3 left-3 flex items-center gap-1 text-xs font-bold text-emerald-400 bg-black/40 px-2 py-1 rounded-full backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               LIVE
             </span>
@@ -377,11 +401,11 @@ function DetailModal({
         <div className="p-6">
           <div className="flex items-center gap-2 mb-1">
             <span
-              className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border ${tierColors[project.tier]}`}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider border ${tierColors[project.tier]}`}
             >
               {tierLabels[project.tier]}
             </span>
-            <span className="text-[10px] font-mono text-white/30">
+            <span className="text-xs font-mono text-white/30">
               {project.year}
             </span>
           </div>
@@ -403,7 +427,7 @@ function DetailModal({
             {project.techStack.map((t) => (
               <span
                 key={t}
-                className="text-[10px] px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10"
+                className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10"
               >
                 {t}
               </span>
@@ -427,12 +451,24 @@ function DetailModal({
   );
 }
 
+/* ─── Sorted projects: live first, then newest first ─── */
+const sortedProjects = [...projects].sort((a, b) => {
+  const aLive = a.liveUrl ? 1 : 0;
+  const bLive = b.liveUrl ? 1 : 0;
+  if (aLive !== bLive) return bLive - aLive;
+  return parseInt(b.year) - parseInt(a.year);
+});
+
 /* ─── Main Section: Scatter → Circle → Arc morph ─── */
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [viewSize, setViewSize] = useState({ w: 1200, h: 800 });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const isMobile = viewSize.w < 768;
+  const cardW = isMobile ? CARD_W_SM : CARD_W;
+  const cardH = isMobile ? CARD_H_SM : CARD_H;
 
   /* ─── Drag carousel state ─── */
   const [dragOffset, setDragOffset] = useState(0);
@@ -445,7 +481,7 @@ export default function Projects() {
   const momentumRef = useRef<number>(0);
   const hasDraggedRef = useRef(false);
   const DRAG_THRESHOLD = 6;
-  const isCarouselMode = progress >= 0.92;
+  const isCarouselMode = progress >= 0.55;
 
   useEffect(() => {
     const update = () =>
@@ -476,14 +512,14 @@ export default function Projects() {
 
   /* ─── Drag handlers for carousel ─── */
   const getClampedOffset = useCallback((offset: number) => {
-    const CAROUSEL_SCALE = 0.85;
-    const CAROUSEL_GAP = 24;
-    const cardSpacing = CARD_W * CAROUSEL_SCALE + CAROUSEL_GAP;
-    const margin = CARD_W * CAROUSEL_SCALE / 2 + 60;
+    const CAROUSEL_SCALE = isMobile ? 0.95 : 0.85;
+    const CAROUSEL_GAP = isMobile ? 16 : 24;
+    const cardSpacing = cardW * CAROUSEL_SCALE + CAROUSEL_GAP;
+    const margin = cardW * CAROUSEL_SCALE / 2 + (isMobile ? 20 : 60);
     const maxOffset = margin;
     const minOffset = -(N - 1) * cardSpacing + viewSize.w - margin;
     return Math.max(minOffset, Math.min(maxOffset, offset));
-  }, [viewSize.w]);
+  }, [viewSize.w, isMobile, cardW]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (!isCarouselMode) return;
@@ -540,7 +576,7 @@ export default function Projects() {
         id="projects"
         ref={sectionRef}
         className="relative"
-        style={{ height: "350vh" }}
+        style={{ height: isMobile ? "250vh" : "500vh" }}
       >
         <div
           className="sticky top-0 h-screen overflow-hidden"
@@ -554,17 +590,17 @@ export default function Projects() {
           onPointerLeave={handlePointerUp}
         >
           {/* Header */}
-          <div className="absolute top-0 left-0 right-0 pt-20 pb-4 text-center z-30 pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 pt-14 sm:pt-20 pb-3 text-center z-30 pointer-events-none">
             <span className="text-accent font-mono text-sm">
               01 — Projects
             </span>
-            <h2 className="text-4xl sm:text-5xl font-bold mt-3">
+            <h2 className="text-4xl sm:text-5xl font-bold mt-1 sm:mt-3">
               What I&apos;ve built
             </h2>
-            <p className="text-muted mt-3 max-w-md mx-auto text-sm">
+            <p className="text-muted mt-1 sm:mt-3 max-w-md mx-auto text-sm">
               Scroll to explore — click any card for details.
             </p>
-            <div className="w-48 h-0.5 bg-white/10 rounded-full mx-auto mt-4">
+            <div className="w-48 h-0.5 bg-white/10 rounded-full mx-auto mt-2 sm:mt-4">
               <div
                 className="h-full bg-accent/60 rounded-full transition-all duration-100"
                 style={{ width: `${progress * 100}%` }}
@@ -573,13 +609,15 @@ export default function Projects() {
           </div>
 
           {/* Cards */}
-          {projects.map((project, i) => {
+          {sortedProjects.map((project, i) => {
             const transform = getCardTransform(
               i,
               progress,
               viewSize.w,
               viewSize.h,
               dragOffset,
+              cardW,
+              isMobile,
             );
             return (
               <MorphCard
@@ -589,6 +627,8 @@ export default function Projects() {
                 zIndex={10 + i}
                 onClick={() => !hasDraggedRef.current && setSelectedProject(project)}
                 inCarousel={isCarouselMode}
+                cardW={cardW}
+                cardH={cardH}
               />
             );
           })}
