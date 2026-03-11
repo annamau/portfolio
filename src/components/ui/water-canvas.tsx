@@ -20,11 +20,11 @@ interface WaterCanvasProps {
 
 // Simulation constants
 const COLS = 80         // horizontal resolution of the heightfield
-const GRAVITY = -0.004  // downward pull per tick
-const DAMPING = 0.982   // velocity retention per tick
-const SPREAD = 0.18     // how fast waves propagate between columns
-const PUSH_RADIUS = 10  // columns affected by cursor push
-const PUSH_FORCE = 0.08 // force applied per hover frame
+const GRAVITY = -0.002  // softer spring toward rest
+const DAMPING = 0.996   // high retention → waves persist long after cursor leaves
+const SPREAD = 0.12     // gentler wave propagation
+const PUSH_RADIUS = 12  // wider, softer area of influence
+const PUSH_FORCE = 0.018 // gentle steady push (was 0.08)
 
 export default function WaterCanvas({
   containerRef,
@@ -191,7 +191,7 @@ export default function WaterCanvas({
       // 1. Apply gravity toward fill level (spring to rest)
       for (let i = 0; i < n; i++) {
         const displacement = h[i] - fillLevel
-        v[i] += GRAVITY * displacement * 8 // spring force
+        v[i] += GRAVITY * displacement * 4 // softer spring constant
         v[i] *= DAMPING
       }
 
@@ -251,17 +251,13 @@ export default function WaterCanvas({
       const col = Math.floor(relX * COLS)
       s.mouseCol = Math.max(0, Math.min(COLS - 1, col))
 
-      // Push the water down where cursor is (like poking the surface)
-      const relY = (e.clientY - rect.top) / rect.height
-      // Only push if cursor is in the upper area (near water surface)
+      // Gently push water down under cursor — smooth and steady
       for (let i = -PUSH_RADIUS; i <= PUSH_RADIUS; i++) {
         const ci = s.mouseCol + i
         if (ci >= 0 && ci < COLS) {
           const dist = Math.abs(i) / PUSH_RADIUS
-          const falloff = 1 - dist * dist // quadratic falloff
-          // Push water away from cursor — down if above surface, sideways displacement
-          const pushDir = relY < 0.6 ? -1 : 1
-          s.velocities[ci] += pushDir * PUSH_FORCE * falloff
+          const falloff = (1 - dist * dist) * (1 - dist * dist) // quartic for softer edges
+          s.velocities[ci] -= PUSH_FORCE * falloff
         }
       }
       s.prevMouseCol = s.mouseCol
@@ -270,13 +266,14 @@ export default function WaterCanvas({
     const handleEnter = () => {
       const s = stateRef.current
       if (!s) return
-      // Initial splash — drop water level at center then release
+      // Soft initial ripple when cursor enters
       const center = Math.floor(COLS / 2)
-      for (let i = -12; i <= 12; i++) {
+      for (let i = -14; i <= 14; i++) {
         const ci = center + i
         if (ci >= 0 && ci < COLS) {
-          const falloff = 1 - Math.abs(i) / 12
-          s.velocities[ci] -= 0.04 * falloff
+          const t = Math.abs(i) / 14
+          const falloff = (1 - t * t) * (1 - t * t)
+          s.velocities[ci] -= 0.012 * falloff
         }
       }
     }

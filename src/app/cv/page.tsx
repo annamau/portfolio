@@ -116,191 +116,215 @@ const colors = {
   warm: "#f4efe7",
 };
 
-async function loadImageDataUrl(src?: string) {
+async function loadImageDataUrl(src?: string): Promise<{ dataUrl: string; width: number; height: number } | null> {
   if (!src) return null;
   const response = await fetch(src);
   if (!response.ok) return null;
   const blob = await response.blob();
-  return await new Promise<string>((resolve, reject) => {
+  const dataUrl = await new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => resolve(String(reader.result));
     reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
-}
-
-function drawTextBlock(doc: jsPDF, text: string, x: number, y: number, width: number, lineHeight: number) {
-  const lines = doc.splitTextToSize(text, width);
-  doc.text(lines, x, y);
-  return y + lines.length * lineHeight;
+  const dims = await new Promise<{ width: number; height: number }>((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    img.onerror = () => resolve({ width: 1, height: 1 });
+    img.src = dataUrl;
+  });
+  return { dataUrl, ...dims };
 }
 
 async function generateCvPdf(cv: CVData, profile: CVProfile) {
   const doc = new jsPDF({ unit: "mm", format: "a4" });
-  const pageWidth = 210;
-  const pageHeight = 297;
-  const left = 14;
-  const right = 14;
-  const width = pageWidth - left - right;
-  let y = 14;
+  const PW = 210;
+  const PH = 297;
+  const M = 12;          // margin
+  const W = PW - M * 2;  // usable width
+  let y = M;
   const photo = await loadImageDataUrl(profile.photoUrl);
 
-  const ensureSpace = (needed: number) => {
-    if (y + needed > pageHeight - 14) {
-      doc.addPage();
-      y = 16;
-    }
+  doc.setLineHeightFactor(1.25);
+
+  const textH = (text: string, x: number, yPos: number, maxW: number, lh: number) => {
+    const lines = doc.splitTextToSize(text, maxW);
+    doc.text(lines, x, yPos);
+    return yPos + lines.length * lh;
   };
 
-  doc.setFillColor(colors.canvas);
-  doc.rect(0, 0, pageWidth, pageHeight, "F");
+  const ensureSpace = (needed: number) => {
+    if (y + needed > PH - M) { doc.addPage(); y = M; }
+  };
+
+  const sectionLine = (label: string) => {
+    ensureSpace(8);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(colors.accent);
+    doc.text(label.toUpperCase(), M, y + 2.5);
+    const tw = doc.getTextWidth(label.toUpperCase());
+    doc.setDrawColor(colors.line);
+    doc.setLineWidth(0.25);
+    doc.line(M + tw + 2, y + 2, PW - M, y + 2);
+    y += 6;
+  };
+
+  // ── HEADER ──
+  const headerH = 36;
   doc.setFillColor(colors.ink);
-  doc.roundedRect(left, y, width, 46, 6, 6, "F");
+  doc.roundedRect(M, y, W, headerH, 4, 4, "F");
+
+  // Accent bar
   doc.setFillColor(colors.accent);
-  doc.roundedRect(left + 4, y + 4, 3.2, 38, 1.6, 1.6, "F");
+  doc.roundedRect(M + 3, y + 3, 2.5, headerH - 6, 1.2, 1.2, "F");
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(23);
-  doc.setTextColor("#ffffff");
-  doc.text(profile.name.toUpperCase(), left + 12, y + 14);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(11);
-  doc.setTextColor("#9fded6");
-  doc.text(cv.headline || profile.title, left + 12, y + 21);
-
-  doc.setFontSize(8.4);
-  doc.setTextColor("#d7e4f0");
-  const contactLine = [profile.email, profile.location, profile.website, profile.linkedin, profile.github]
-    .filter(Boolean)
-    .join("  |  ");
-  const contactLines = doc.splitTextToSize(contactLine, width - 52);
-  doc.text(contactLines, left + 12, y + 28);
-
+  // Photo (preserve aspect ratio)
+  const photoW = 18;
+  let photoH = 24;
   if (photo) {
+    const aspect = photo.width / photo.height;
+    photoH = photoW / aspect;
+    if (photoH > headerH - 6) { photoH = headerH - 6; }
+    const photoX = PW - M - photoW - 4;
+    const photoY = y + (headerH - photoH) / 2;
     doc.setFillColor("#ffffff");
-    doc.roundedRect(pageWidth - right - 30, y + 8, 22, 22, 4, 4, "F");
-    doc.addImage(photo, "JPEG", pageWidth - right - 29, y + 9, 20, 20);
+    doc.roundedRect(photoX - 1, photoY - 1, photoW + 2, photoH + 2, 3, 3, "F");
+    doc.addImage(photo.dataUrl, "JPEG", photoX, photoY, photoW, photoH);
   }
 
-  y += 52;
-  doc.setFillColor(colors.accentSoft);
-  doc.roundedRect(left, y, width, 22, 5, 5, "F");
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9.5);
-  doc.setTextColor(colors.accentDeep);
-  doc.text("PROFESSIONAL SUMMARY", left + 4, y + 6.5);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.2);
-  doc.setTextColor(colors.ink);
-  y = drawTextBlock(doc, cv.professionalSummary, left + 4, y + 12.5, width - 8, 4.4) + 3;
+  const textRight = photo ? PW - M - photoW - 10 : PW - M - 8;
+  const textW = textRight - (M + 10);
 
-  const drawSectionLabel = (label: string) => {
-    ensureSpace(10);
-    doc.setFillColor(colors.warm);
-    doc.roundedRect(left, y, 34, 6.5, 3.2, 3.2, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.setTextColor("#ffffff");
+  doc.text(profile.name.toUpperCase(), M + 10, y + 10);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor("#9fded6");
+  doc.text(cv.headline || profile.title, M + 10, y + 16);
+
+  doc.setFontSize(7);
+  doc.setTextColor("#c8dae8");
+  const contactParts = [profile.email, profile.location, profile.website, profile.linkedin, profile.github].filter(Boolean);
+  const contactStr = contactParts.join("  |  ");
+  const cLines = doc.splitTextToSize(contactStr, textW);
+  doc.text(cLines, M + 10, y + 22);
+
+  y += headerH + 4;
+
+  // ── PROFESSIONAL SUMMARY ──
+  doc.setFillColor(colors.accentSoft);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  const summaryLines = doc.splitTextToSize(cv.professionalSummary, W - 8);
+  const summaryH = summaryLines.length * 3.5 + 10;
+  doc.roundedRect(M, y, W, summaryH, 3, 3, "F");
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(7.5);
+  doc.setTextColor(colors.accentDeep);
+  doc.text("PROFESSIONAL SUMMARY", M + 4, y + 5);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(colors.ink);
+  doc.text(summaryLines, M + 4, y + 10);
+  y += summaryH + 3;
+
+  // ── EXPERIENCE ──
+  sectionLine("Experience");
+  for (const exp of cv.experience) {
+    ensureSpace(16);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
     doc.setTextColor(colors.ink);
-    doc.text(label.toUpperCase(), left + 4, y + 4.4);
-    y += 10;
-  };
-
-  drawSectionLabel("Experience");
-  for (const exp of cv.experience) {
-    ensureSpace(22);
-    doc.setDrawColor(colors.line);
-    doc.setLineWidth(0.3);
-    doc.line(left, y - 1.6, pageWidth - right, y - 1.6);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10.5);
-    doc.setTextColor(colors.ink);
-    doc.text(exp.role, left, y + 3);
+    doc.text(exp.role, M, y + 2);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.5);
+    doc.setFontSize(7.5);
     doc.setTextColor(colors.mist);
-    const periodWidth = doc.getTextWidth(exp.period);
-    doc.text(exp.period, pageWidth - right - periodWidth, y + 3);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.8);
+    const pw = doc.getTextWidth(exp.period);
+    doc.text(exp.period, PW - M - pw, y + 2);
+    doc.setFontSize(7.5);
     doc.setTextColor(colors.slate);
-    doc.text(`${exp.company} | ${exp.location}`, left, y + 8);
-    y += 12;
+    doc.text(`${exp.company} | ${exp.location}`, M, y + 6);
+    y += 9;
 
-    doc.setFontSize(8.6);
+    doc.setFontSize(7.8);
     doc.setTextColor(colors.ink);
     for (const bullet of exp.bullets) {
-      ensureSpace(8);
+      ensureSpace(6);
       doc.setFillColor(colors.accent);
-      doc.circle(left + 1.2, y - 0.7, 0.7, "F");
-      y = drawTextBlock(doc, bullet, left + 4, y, width - 4, 4) + 1.2;
+      doc.circle(M + 1, y - 0.5, 0.5, "F");
+      y = textH(bullet, M + 3.5, y, W - 3.5, 3.3) + 0.6;
     }
     y += 2;
   }
 
-  drawSectionLabel("Skills");
+  // ── SKILLS (compact inline) ──
+  sectionLine("Skills");
   for (const [category, items] of Object.entries(cv.skills)) {
-    ensureSpace(12);
-    const line = items.join("  |  ");
-    const lineHeight = 4.1;
-    const lines = doc.splitTextToSize(line, width - 12);
-    const boxHeight = Math.max(10, lines.length * lineHeight + 6);
-    doc.setFillColor("#ffffff");
-    doc.setDrawColor(colors.line);
-    doc.roundedRect(left, y, width, boxHeight, 3, 3, "FD");
+    ensureSpace(6);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(8.7);
+    doc.setFontSize(7.5);
     doc.setTextColor(colors.accentDeep);
-    doc.text(category.toUpperCase(), left + 4, y + 4.8);
+    const catLabel = category + ": ";
+    doc.text(catLabel, M, y + 2);
+    const catW = doc.getTextWidth(catLabel);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(colors.slate);
-    doc.text(lines, left + 4, y + 9);
-    y += boxHeight + 3;
+    const skillStr = items.join("  |  ");
+    const skillLines = doc.splitTextToSize(skillStr, W - catW - 1);
+    doc.text(skillLines, M + catW, y + 2);
+    y += skillLines.length * 3.2 + 1.5;
   }
+  y += 1;
 
+  // ── PROJECTS (compact) ──
   if (cv.projects.length) {
-    drawSectionLabel("Projects");
+    sectionLine("Projects");
     for (const project of cv.projects) {
-      ensureSpace(14);
-      const descLines = doc.splitTextToSize(project.description, width - 8);
-      const techLines = doc.splitTextToSize(project.tech, width - 8);
-      const cardHeight = 10 + descLines.length * 4 + techLines.length * 3.5;
-      doc.setFillColor("#ffffff");
-      doc.setDrawColor(colors.line);
-      doc.roundedRect(left, y, width, cardHeight, 3, 3, "FD");
+      ensureSpace(10);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
+      doc.setFontSize(8);
       doc.setTextColor(colors.ink);
-      doc.text(project.name, left + 4, y + 5.2);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8.5);
-      doc.setTextColor(colors.slate);
-      doc.text(descLines, left + 4, y + 10);
+      doc.text(project.name, M, y + 2);
       doc.setFont("helvetica", "italic");
-      doc.setFontSize(8.1);
+      doc.setFontSize(7);
       doc.setTextColor(colors.mist);
-      doc.text(techLines, left + 4, y + 10 + descLines.length * 4.1);
-      y += cardHeight + 3;
+      const techStr = `(${project.tech})`;
+      const nameW = doc.getTextWidth(project.name + "  ");
+      doc.setFontSize(7);
+      const techSpace = W - nameW - 2;
+      if (techSpace > 20) {
+        const techFit = doc.splitTextToSize(techStr, techSpace);
+        doc.text(techFit[0], M + nameW + 1, y + 2);
+      }
+      y += 4;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.5);
+      doc.setTextColor(colors.slate);
+      y = textH(project.description, M, y, W, 3.2) + 1.5;
     }
   }
 
-  drawSectionLabel("Education");
+  // ── EDUCATION ──
+  sectionLine("Education");
   for (const edu of cv.education) {
-    ensureSpace(10);
+    ensureSpace(7);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(9.2);
+    doc.setFontSize(8);
     doc.setTextColor(colors.ink);
-    doc.text(edu.degree, left, y + 2);
+    doc.text(edu.degree, M, y + 2);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.3);
+    doc.setFontSize(7);
     doc.setTextColor(colors.mist);
-    const periodWidth = doc.getTextWidth(edu.period);
-    doc.text(edu.period, pageWidth - right - periodWidth, y + 2);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.6);
+    const pw = doc.getTextWidth(edu.period);
+    doc.text(edu.period, PW - M - pw, y + 2);
+    doc.setFontSize(7.5);
     doc.setTextColor(colors.slate);
-    doc.text(edu.institution, left, y + 6.5);
-    y += 10;
+    doc.text(edu.institution, M, y + 5.5);
+    y += 8;
   }
 
   return doc;
@@ -687,112 +711,4 @@ function SectionHeader({ title, icon }: { title: string; icon: ReactNode }) {
 
 function ContactItem({ icon, children }: { icon: ReactNode; children: ReactNode }) {
   return <span className="flex items-center gap-1.5">{icon}{children}</span>;
-}
-                              </div>
-                              <p className="text-[11px] text-gray-500 mt-0.5 mb-2">
-                                {exp.company} · {exp.location}
-                              </p>
-                              <ul className="space-y-1.5">
-                                {exp.bullets.map((b, j) => (
-                                  <li
-                                    key={j}
-                                    className="flex gap-2.5 text-[12.5px] text-gray-700 leading-snug"
-                                  >
-                                    <span className="shrink-0 mt-[5px] w-1.5 h-1.5 rounded-full bg-teal-500" />
-                                    <span>{b}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </CVSection>
-
-                      {/* Skills */}
-                      <CVSection icon={<Code size={14} weight="fill" />} title="Technical Skills">
-                        <div className="space-y-2">
-                          {Object.entries(cvData.skills).map(([cat, skills]) => (
-                            <div key={cat} className="flex flex-wrap gap-x-1 text-[12.5px]">
-                              <span className="font-bold text-gray-800">{cat}:</span>
-                              <span className="text-gray-500">
-                                {skills.join("  ·  ")}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </CVSection>
-
-                      {/* Projects */}
-                      {cvData.projects?.length > 0 && (
-                        <CVSection icon={<Rocket size={14} weight="fill" />} title="Key Projects">
-                          <div className="space-y-3">
-                            {cvData.projects.map((p, i) => (
-                              <div key={i}>
-                                <p className="font-bold text-[13px] text-gray-900">
-                                  {p.name}
-                                </p>
-                                <p className="text-[12px] text-gray-600 mt-0.5 leading-relaxed">
-                                  {p.description}
-                                </p>
-                                <p className="text-[11px] text-gray-400 italic mt-0.5">
-                                  {p.tech}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </CVSection>
-                      )}
-
-                      {/* Education */}
-                      <CVSection icon={<GraduationCap size={14} weight="fill" />} title="Education">
-                        <div className="space-y-2">
-                          {cvData.education.map((edu, i) => (
-                            <div key={i}>
-                              <div className="flex justify-between items-baseline gap-4">
-                                <span className="font-bold text-[13px] text-gray-900">
-                                  {edu.degree}
-                                </span>
-                                <span className="text-[11px] text-gray-400 shrink-0">
-                                  {edu.period}
-                                </span>
-                              </div>
-                              <p className="text-[11px] text-gray-500">{edu.institution}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </CVSection>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-// ── Reusable section wrapper for the HTML preview ──
-function CVSection({
-  icon,
-  title,
-  children,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <div className="flex items-center gap-2 mb-2.5">
-        <span className="text-teal-600">{icon}</span>
-        <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-teal-700">
-          {title}
-        </h3>
-        <div className="flex-1 h-px bg-gradient-to-r from-teal-200 to-transparent" />
-      </div>
-      {children}
-    </div>
-  );
 }

@@ -181,6 +181,7 @@ Rules:
 - Avoid buzzword stuffing.
 - Prefer short, scannable sentences.
 - Keep the content credible. Do not invent experience.
+- Always include "Entrena con Inteligencia" in the projects list. It is the candidate's flagship SaaS product (AI personal trainer platform for 8+ sports, with real users, Stripe billing, multi-language support). It demonstrates end-to-end product ownership and is relevant to nearly any technical role.
 
 Return only valid JSON with this exact shape:
 {
