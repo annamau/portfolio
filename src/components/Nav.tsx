@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import Image from "next/image";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { List, X, LinkedinLogo, CalendarBlank } from "@phosphor-icons/react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -33,9 +34,7 @@ export default function Nav() {
   const rawScale = useMotionValue(1);
   const springScale = useSpring(rawScale, { stiffness: 300, damping: 20 });
 
-  // Width morphing between expanded and compact
-  const rawWidth = useMotionValue(680);
-  const springWidth = useSpring(rawWidth, { stiffness: 200, damping: 30 });
+
 
   // Glow intensity tied to scroll
   const glowOpacity = useMotionValue(0);
@@ -45,7 +44,7 @@ export default function Nav() {
     const scrollY = window.scrollY;
     const compact = scrollY > 80;
     setIsCompact(compact);
-    rawWidth.set(compact ? 600 : 720);
+
     glowOpacity.set(compact ? 0.6 : 0);
 
     // Detect active section
@@ -104,7 +103,7 @@ export default function Nav() {
       rawX.set(0);
       rawScale.set(1);
     }
-  }, [rawWidth, glowOpacity, rawX, rawScale]);
+  }, [glowOpacity, rawX, rawScale]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -119,21 +118,7 @@ export default function Nav() {
     };
   }, [handleScroll]);
 
-  // Border gradient rotation via CSS variable
-  const borderRotation = useMotionValue(0);
-  useEffect(() => {
-    let frame: number;
-    let angle = 0;
-    const spin = () => {
-      angle = (angle + 0.4) % 360;
-      borderRotation.set(angle);
-      frame = requestAnimationFrame(spin);
-    };
-    frame = requestAnimationFrame(spin);
-    return () => cancelAnimationFrame(frame);
-  }, [borderRotation]);
-
-  const borderRotationCSS = useTransform(borderRotation, (v) => `${v}deg`);
+  // Border gradient rotation — pure CSS animation (off main thread)
 
   return (
     <>
@@ -145,20 +130,16 @@ export default function Nav() {
         style={{
           x: springX,
           scale: springScale,
-          width: springWidth,
           maxWidth: "calc(100vw - 32px)",
         }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50"
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-[width] duration-300 ease-out ${isCompact ? "w-[600px]" : "w-[720px]"}`}
       >
         {/* Liquid glass island */}
         <motion.div
           className="relative rounded-[28px] overflow-hidden"
-          style={{
-            // @ts-expect-error CSS custom property
-            "--border-angle": borderRotationCSS,
-          }}
+          style={{}}
         >
-          {/* Animated gradient border */}
+          {/* Animated gradient border — CSS animation on compositor thread */}
           <div
             className="absolute -inset-[1px] rounded-[28px] pointer-events-none"
             style={{
@@ -167,6 +148,7 @@ export default function Nav() {
               maskComposite: "exclude",
               WebkitMaskComposite: "xor",
               padding: "1px",
+              animation: "nav-border-spin 2.5s linear infinite",
             }}
           />
 
@@ -199,21 +181,23 @@ export default function Nav() {
                 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                  <Image
                   src="/logo.svg"
                   alt="AN"
+                  width={36}
+                  height={36}
+                  priority
                   className="w-full h-full invert drop-shadow-[0_0_8px_rgba(245,158,11,0.3)]"
                 />
               </motion.div>
               <AnimatePresence>
                 {!isCompact && (
                   <motion.span
-                    initial={{ opacity: 0, width: 0 }}
-                    animate={{ opacity: 1, width: "auto" }}
-                    exit={{ opacity: 0, width: 0 }}
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    exit={{ opacity: 0, scaleX: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="font-semibold text-foreground whitespace-nowrap overflow-hidden"
+                    className="font-semibold text-foreground whitespace-nowrap overflow-hidden origin-left"
                   >
                     Andrés<span className="text-accent">.</span>
                   </motion.span>

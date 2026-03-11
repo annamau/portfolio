@@ -1,12 +1,14 @@
+import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import Growth from "@/components/Growth";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import { GlobalSmoke } from "@/components/GlobalSmoke";
+
+const GlobalSmoke = dynamic(() => import("@/components/GlobalSmoke").then(m => m.GlobalSmoke));
+const Projects = dynamic(() => import("@/components/Projects"));
+const Growth = dynamic(() => import("@/components/Growth"));
+const About = dynamic(() => import("@/components/About"));
+const Experience = dynamic(() => import("@/components/Experience"));
+const Contact = dynamic(() => import("@/components/Contact"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (

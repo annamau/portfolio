@@ -65,7 +65,10 @@ class Renderer {
   }
 
   updateScale() {
-    const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+    const isMobile = window.innerWidth < 768;
+    const dpr = isMobile
+      ? Math.min(1, 0.5 * window.devicePixelRatio)
+      : Math.max(1, 0.5 * window.devicePixelRatio);
     const { innerWidth: width, innerHeight: height } = window;
     this.canvas.width = width * dpr;
     this.canvas.height = height * dpr;
@@ -157,28 +160,79 @@ export const SmokeBackground: React.FC<SmokeBackgroundProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<Renderer | null>(null);
+  const colorRef = useRef(smokeColor);
+  colorRef.current = smokeColor;
 
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
-    const renderer = new Renderer(canvas, fragmentShaderSource);
-    rendererRef.current = renderer;
-
-    const handleResize = () => renderer.updateScale();
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
     let animationFrameId: number;
-    const loop = (now: number) => {
-      renderer.render(now);
-      animationFrameId = requestAnimationFrame(loop);
-    };
-    loop(0);
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    let cleaned = false;
+
+    // Defer WebGL init to avoid blocking the main thread during initial paint
+    const initId = (typeof requestIdleCallback !== "undefined"
+      ? requestIdleCallback
+      : (cb: () => void) => setTimeout(cb, 80))(() => {
+      if (cleaned) return;
+      const renderer = new Renderer(canvas, fragmentShaderSource);
+      rendererRef.current = renderer;
+
+      // Apply the current color immediately
+      const rgbColor = hexToRgb(colorRef.current);
+      if (rgbColor) renderer.updateColor(rgbColor);
+
+      const handleResize = () => renderer.updateScale();
+      handleResize();
+
+      const debouncedResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(handleResize, 150);
+      };
+      window.addEventListener("resize", debouncedResize);
+
+      let lastRender = 0;
+      const FRAME_INTERVAL = 42; // ~24fps
+
+      const loop = (now: number) => {
+        if (now - lastRender >= FRAME_INTERVAL) {
+          renderer.render(now);
+          lastRender = now;
+        }
+        animationFrameId = requestAnimationFrame(loop);
+      };
+      loop(0);
+
+      // Pause when tab is hidden
+      const handleVisibility = () => {
+        if (document.visibilityState === "hidden") {
+          cancelAnimationFrame(animationFrameId);
+        } else {
+          lastRender = 0;
+          animationFrameId = requestAnimationFrame(loop);
+        }
+      };
+      document.addEventListener("visibilitychange", handleVisibility);
+
+      // Store cleanup references
+      (canvas as unknown as Record<string, unknown>).__smokeCleanup = () => {
+        window.removeEventListener("resize", debouncedResize);
+        document.removeEventListener("visibilitychange", handleVisibility);
+        renderer.reset();
+      };
+    });
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      cleaned = true;
+      if (typeof cancelIdleCallback !== "undefined") {
+        cancelIdleCallback(initId as number);
+      } else {
+        clearTimeout(initId as ReturnType<typeof setTimeout>);
+      }
       cancelAnimationFrame(animationFrameId);
-      renderer.reset();
+      clearTimeout(resizeTimer);
+      const cleanup = (canvas as unknown as Record<string, unknown>).__smokeCleanup as (() => void) | undefined;
+      cleanup?.();
     };
   }, []);
 

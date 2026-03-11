@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
 import {
@@ -254,12 +255,13 @@ function MorphCard({
           {/* Image / Gradient with icon fallback */}
           <div className="relative h-[55%]">
             {showImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                ref={imgRef}
+              <Image
                 src={project.image}
                 alt={project.title}
-                className="h-full w-full object-cover"
+                fill
+                sizes="(max-width: 640px) 300px, 420px"
+                className="object-cover"
+                loading="lazy"
                 onError={() => setImgError(true)}
               />
             ) : (
@@ -369,12 +371,13 @@ function DetailModal({
         {/* Header image */}
         <div className="relative h-32 sm:h-48">
           {showModalImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              ref={modalImgRef}
+            <Image
               src={project.image}
               alt={project.title}
-              className="h-full w-full object-cover"
+              fill
+              sizes="(max-width: 640px) 100vw, 512px"
+              className="object-cover"
+              loading="lazy"
               onError={() => setModalImgError(true)}
             />
           ) : (

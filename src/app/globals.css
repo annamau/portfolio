@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Nav border gradient rotation — runs on compositor thread */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes nav-border-spin {
+  to { --border-angle: 360deg; }
+}
+
 :root {
   --background: #0a0a0f;
   --foreground: #f0f0f5;

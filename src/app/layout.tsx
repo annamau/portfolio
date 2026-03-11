@@ -121,7 +121,13 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
         </LanguageProvider>
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+        <Script
+          id="calendly-css"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `var l=document.createElement('link');l.rel='stylesheet';l.href='https://assets.calendly.com/assets/external/widget.css';document.head.appendChild(l);`,
+          }}
+        />
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="lazyOnload"
