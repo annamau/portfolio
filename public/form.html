@@ -1,7 +1,13 @@
-<!-- This hidden form is only for Netlify's build-time form detection. -->
-<!-- It is never displayed to users. The actual form lives in Contact.tsx -->
-<form name="contact" netlify hidden>
-  <input type="text" name="name" />
-  <input type="email" name="email" />
-  <textarea name="message"></textarea>
-</form>
+<html>
+<head></head>
+<body>
+  <!-- This hidden form is only for Netlify's build-time form detection. -->
+  <!-- It is never displayed to users. The actual form lives in Contact.tsx -->
+  <form name="contact" data-netlify="true" hidden>
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>
