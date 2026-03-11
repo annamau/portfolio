@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 
 const DEFAULT_HEADERS = {
   "User-Agent":
@@ -84,7 +87,7 @@ function normalizeDescription(text: string) {
 }
 
 async function fetchReaderText(url: string) {
-  const readerUrl = `https://r.jina.ai/http://${url}`;
+  const readerUrl = `https://r.jina.ai/${url}`;
   const response = await fetch(readerUrl, {
     headers: DEFAULT_HEADERS,
     cache: "no-store",
@@ -144,40 +147,73 @@ function extractFromHtml(html: string, sourceUrl: string, sourceType: "linkedin"
   };
 }
 
+const EXTRACTION_PROMPT = `You are a job-posting parser. You receive raw text scraped from a job listing page.
+Extract exactly these fields and return ONLY valid JSON with no markdown fencing:
+{
+  "jobTitle": "exact job title (e.g. 'Senior Software Engineer')",
+  "companyName": "company name",
+  "description": "the full job description including responsibilities, requirements, qualifications, benefits, etc. Keep the original structure with line breaks. Remove navigation text, cookie banners, footers, ads, and unrelated content. Do NOT include metadata like 'Seniority level', 'Employment type', 'Job function', 'Industries' unless they are part of the description body."
+}
+If you cannot find a field, set it to null. For description, include as much relevant detail as possible.`;
+
+async function extractWithGemini(rawText: string): Promise<{ jobTitle?: string; companyName?: string; description: string }> {
+  const truncated = rawText.slice(0, 30000);
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: [{ role: "user", parts: [{ text: `${EXTRACTION_PROMPT}\n\n---RAW TEXT---\n${truncated}` }] }],
+  });
+  const text = response.text?.trim() || "";
+  const jsonStr = text.replace(/^```json\s*/i, "").replace(/```\s*$/, "").trim();
+  const parsed = JSON.parse(jsonStr);
+  return {
+    jobTitle: parsed.jobTitle || undefined,
+    companyName: parsed.companyName || undefined,
+    description: typeof parsed.description === "string" ? parsed.description : "",
+  };
+}
+
 async function extractJobSource(url: string): Promise<ExtractedJobSource> {
   const parsedUrl = new URL(url);
   const isLinkedIn = parsedUrl.hostname.includes("linkedin.com") && parsedUrl.pathname.includes("/jobs/");
+  const sourceType = isLinkedIn ? "linkedin" : "web" as const;
 
+  let rawText = "";
+
+  // Try Jina Reader first for LinkedIn, fall back to direct fetch
   if (isLinkedIn) {
     try {
-      const readerText = await fetchReaderText(url);
-      const extracted = extractFromLinkedInReader(readerText, url);
-      if (extracted.description.length >= 200) {
-        return extracted;
-      }
+      rawText = await fetchReaderText(url);
     } catch {
       // Fall back to direct fetch below.
     }
   }
 
-  const response = await fetch(url, {
-    headers: DEFAULT_HEADERS,
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch page (${response.status})`);
+  if (!rawText) {
+    const response = await fetch(url, {
+      headers: DEFAULT_HEADERS,
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch page (${response.status})`);
+    }
+    const html = await response.text();
+    rawText = stripHtmlToText(html);
   }
 
-  const html = await response.text();
-  const extracted = extractFromHtml(html, url, isLinkedIn ? "linkedin" : "web");
-
-  if (isLinkedIn && extracted.description.length < 200) {
-    const readerText = await fetchReaderText(url);
-    return extractFromLinkedInReader(readerText, url);
+  if (rawText.length < 50) {
+    throw new Error("Page content too short to extract job details");
   }
 
-  return extracted;
+  // Use Gemini to intelligently extract structured job data
+  const extracted = await extractWithGemini(rawText);
+
+  return {
+    sourceUrl: url,
+    sourceType,
+    jobTitle: extracted.jobTitle,
+    companyName: extracted.companyName,
+    description: extracted.description,
+  };
 }
 
 export async function POST(request: Request) {

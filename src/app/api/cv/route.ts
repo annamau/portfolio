@@ -13,6 +13,11 @@ const CONTACT = {
   linkedin: "linkedin.com/in/andresnaves",
   github: "github.com/annamau",
   photoUrl: "/profile.jpg",
+  languages: [
+    { language: "Spanish", level: "Native" },
+    { language: "English", level: "C2" },
+    { language: "German", level: "A2" },
+  ],
 };
 
 type CVExperience = {
@@ -42,6 +47,7 @@ type CVData = {
   skills: Record<string, string[]>;
   education: CVEducation[];
   projects: CVProject[];
+  languages: { language: string; level: string }[];
 };
 
 type CoverLetterData = {
@@ -66,6 +72,19 @@ type ReviewData = {
   strengths: string[];
   improvements: string[];
   mustFixes: string[];
+};
+
+type CoverLetterReviewData = {
+  overallScore: number;
+  relevanceScore: number;
+  storytellingScore: number;
+  evidenceScore: number;
+  toneScore: number;
+  ctaScore: number;
+  alignmentScore: number;
+  summary: string;
+  strengths: string[];
+  improvements: string[];
 };
 
 function buildProfile() {
@@ -170,7 +189,7 @@ const CV_SYSTEM_PROMPT = `You are an elite resume writer for modern technical ro
 Your job is to produce a sharp, highly tailored, one-page CV that feels professional, approachable, and specific to the target role.
 
 Rules:
-- Use standard section headers: Professional Summary, Experience, Skills, Education, Projects.
+- Use standard section headers: Professional Summary, Experience, Skills, Education, Projects, Languages.
 - Keep it ATS friendly. No tables. No multi-column text structures in the wording. No decorative characters that could confuse parsers.
 - Use reverse chronological order.
 - Use concise, high-impact bullets with strong action verbs.
@@ -182,6 +201,13 @@ Rules:
 - Prefer short, scannable sentences.
 - Keep the content credible. Do not invent experience.
 - Always include "Entrena con Inteligencia" in the projects list. It is the candidate's flagship SaaS product (AI personal trainer platform for 8+ sports, with real users, Stripe billing, multi-language support). It demonstrates end-to-end product ownership and is relevant to nearly any technical role.
+- Projects are tagged with importance tiers. Prioritize selection in this order:
+  1. "heavy-ai" (highest priority): Multi-agent AI systems, SaaS with real users, production ML pipelines. Always select from these first.
+  2. "medium-ai": AI-assisted tools with practical applications.
+  3. "devops": Infrastructure and deployment projects.
+  4. "web" (lowest priority): Simple websites and landing pages with no advanced engineering.
+  Select 2 to 4 projects from the highest tiers that best demonstrate skills relevant to the target role. Exclude simple websites, basic landing pages, or trivial web projects (e.g. "Bichis") that do not showcase advanced engineering skills.
+- Include the Languages section with the candidate's language proficiencies.
 
 Return only valid JSON with this exact shape:
 {
@@ -212,6 +238,9 @@ Return only valid JSON with this exact shape:
       "description": "One-line impact-focused description",
       "tech": "Relevant stack"
     }
+  ],
+  "languages": [
+    { "language": "Spanish", "level": "Native" }
   ]
 }`;
 
@@ -273,6 +302,39 @@ Return only valid JSON with this exact shape:
   "signOff": "Best regards,",
   "signature": "Andres Naves Mauri",
   "fullText": "complete letter with paragraph breaks"
+}`;
+
+const COVER_LETTER_REVIEW_SYSTEM_PROMPT = `You are a strict but fair recruiter and cover letter reviewer.
+
+Score the cover letter against the target job and companion CV.
+
+Scoring rubric:
+- Relevance to target role and company: 0 to 25
+- Storytelling and engagement: 0 to 20
+- Evidence of impact and achievements: 0 to 20
+- Tone, warmth, and professionalism: 0 to 15
+- Call to action and closing strength: 0 to 10
+- Alignment with the companion CV: 0 to 10
+
+Use the total for overallScore out of 100.
+
+Important:
+- A score of 95 or above should only be given to an outstanding, differentiated letter.
+- If something is generic or weak, say it clearly.
+- Never use em dashes. Never use double hyphens as punctuation.
+
+Return only valid JSON with this exact shape:
+{
+  "overallScore": 0,
+  "relevanceScore": 0,
+  "storytellingScore": 0,
+  "evidenceScore": 0,
+  "toneScore": 0,
+  "ctaScore": 0,
+  "alignmentScore": 0,
+  "summary": "short review summary",
+  "strengths": ["..."],
+  "improvements": ["..."]
 }`;
 
 async function generateCvDraft(
@@ -402,6 +464,100 @@ The letter should align with the same positioning as the CV.`;
   return generateStructuredJson<CoverLetterData>(ai, COVER_LETTER_SYSTEM_PROMPT, prompt, 0.6);
 }
 
+async function reviewCoverLetter(
+  ai: GoogleGenAI,
+  coverLetter: CoverLetterData,
+  cv: CVData,
+  jobDescription: string,
+  jobTitle?: string,
+  companyName?: string
+) {
+  const prompt = `Review this cover letter against the job and companion CV.
+
+ROLE:
+${jobTitle ? `Job Title: ${jobTitle}` : ""}
+${companyName ? `Company: ${companyName}` : ""}
+
+JOB DESCRIPTION:
+${jobDescription}
+
+COVER LETTER:
+${JSON.stringify(coverLetter, null, 2)}
+
+COMPANION CV:
+${JSON.stringify(cv, null, 2)}`;
+
+  return generateStructuredJson<CoverLetterReviewData>(ai, COVER_LETTER_REVIEW_SYSTEM_PROMPT, prompt, 0.2);
+}
+
+async function redraftCv(
+  ai: GoogleGenAI,
+  currentCv: CVData,
+  profile: ReturnType<typeof buildProfile>,
+  jobDescription: string,
+  comments: string,
+  jobTitle?: string,
+  companyName?: string
+) {
+  const prompt = `Re-draft this CV based on the user's feedback comments.
+
+TARGET ROLE:
+${jobTitle ? `Job Title: ${jobTitle}` : ""}
+${companyName ? `Company: ${companyName}` : ""}
+
+JOB DESCRIPTION:
+${jobDescription}
+
+SOURCE PROFILE:
+${JSON.stringify(profile, null, 2)}
+
+CURRENT CV:
+${JSON.stringify(currentCv, null, 2)}
+
+USER FEEDBACK:
+${comments}
+
+Apply the user's feedback while keeping the CV strong, ATS-friendly, and one-page friendly.`;
+
+  return generateStructuredJson<CVData>(ai, CV_SYSTEM_PROMPT, prompt, 0.5);
+}
+
+async function redraftCoverLetter(
+  ai: GoogleGenAI,
+  currentLetter: CoverLetterData,
+  cv: CVData,
+  profile: ReturnType<typeof buildProfile>,
+  jobDescription: string,
+  comments: string,
+  jobTitle?: string,
+  companyName?: string
+) {
+  const prompt = `Re-draft this cover letter based on the user's feedback comments.
+
+CONTACT:
+${JSON.stringify(profile.contact, null, 2)}
+
+TARGET ROLE:
+${jobTitle ? `Job Title: ${jobTitle}` : ""}
+${companyName ? `Company: ${companyName}` : ""}
+
+JOB DESCRIPTION:
+${jobDescription}
+
+CURRENT COVER LETTER:
+${JSON.stringify(currentLetter, null, 2)}
+
+COMPANION CV:
+${JSON.stringify(cv, null, 2)}
+
+USER FEEDBACK:
+${comments}
+
+Apply the user's feedback while keeping the letter compelling and aligned with the CV.`;
+
+  return generateStructuredJson<CoverLetterData>(ai, COVER_LETTER_SYSTEM_PROMPT, prompt, 0.55);
+}
+
 export async function POST(request: Request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -410,10 +566,14 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { jobDescription, jobTitle, companyName } = body as {
+    const { jobDescription, jobTitle, companyName, mode, comments, currentCv, currentCoverLetter } = body as {
       jobDescription?: string;
       jobTitle?: string;
       companyName?: string;
+      mode?: "generate" | "redraft-cv" | "redraft-cover-letter";
+      comments?: string;
+      currentCv?: CVData;
+      currentCoverLetter?: CoverLetterData;
     };
 
     if (!jobDescription || typeof jobDescription !== "string" || jobDescription.length < 20) {
@@ -433,6 +593,21 @@ export async function POST(request: Request) {
     const ai = new GoogleGenAI({ apiKey });
     const profile = buildProfile();
 
+    // Re-draft CV mode
+    if (mode === "redraft-cv" && currentCv && comments) {
+      const cv = await redraftCv(ai, currentCv, profile, jobDescription, comments, jobTitle, companyName);
+      const review = await reviewCvDraft(ai, cv, jobDescription, jobTitle, companyName);
+      return NextResponse.json({ cv, review });
+    }
+
+    // Re-draft cover letter mode
+    if (mode === "redraft-cover-letter" && currentCoverLetter && currentCv && comments) {
+      const letter = await redraftCoverLetter(ai, currentCoverLetter, currentCv, profile, jobDescription, comments, jobTitle, companyName);
+      const letterReview = await reviewCoverLetter(ai, letter, currentCv, jobDescription, jobTitle, companyName);
+      return NextResponse.json({ coverLetter: letter, coverLetterReview: letterReview });
+    }
+
+    // Full generation mode
     let cv = await generateCvDraft(ai, profile, jobDescription, jobTitle, companyName);
     let review = await reviewCvDraft(ai, cv, jobDescription, jobTitle, companyName);
     let bestCv = cv;
@@ -457,10 +632,20 @@ export async function POST(request: Request) {
       companyName
     );
 
+    const coverLetterReview = await reviewCoverLetter(
+      ai,
+      coverLetter,
+      bestCv,
+      jobDescription,
+      jobTitle,
+      companyName
+    );
+
     return NextResponse.json({
       cv: bestCv,
       review: bestReview,
       coverLetter,
+      coverLetterReview,
       profile: {
         name: profile.contact.name,
         title: profile.contact.title,
@@ -470,6 +655,7 @@ export async function POST(request: Request) {
         linkedin: profile.contact.linkedin,
         github: profile.contact.github,
         photoUrl: profile.contact.photoUrl,
+        languages: profile.contact.languages,
       },
     });
   } catch (error) {
