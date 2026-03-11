@@ -21,37 +21,31 @@ export default function Hero() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-16 w-full">
         <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
-          {/* Left content */}
+          {/* Left content — CSS animations for instant LCP */}
           <div className="space-y-8">
             {/* Mobile profile photo */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+            <div
               className="lg:hidden"
+              style={{ animation: "hero-fade-in 0.5s 0.3s both" }}
             >
               <div className="relative w-20 h-20 rounded-full overflow-hidden ring-2 ring-accent/30">
                 <Image src="/profile.png" alt="Andrés Naves Mauri" fill sizes="80px" className="object-cover" priority />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm"
+              style={{ animation: "hero-fade-up 0.6s both" }}
             >
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm text-accent font-medium">
                 {t.hero.available}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <h1
               className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight"
+              style={{ animation: "hero-fade-up 0.6s 0.1s both" }}
             >
               {t.hero.greeting}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
@@ -61,22 +55,18 @@ export default function Hero() {
               <span className="text-3xl sm:text-4xl lg:text-5xl text-muted font-normal">
                 {t.hero.role}
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <p
               className="text-lg text-muted max-w-xl leading-relaxed"
+              style={{ animation: "hero-fade-up 0.6s 0.2s both" }}
             >
               {t.hero.bio}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+            <div
               className="flex items-center gap-4"
+              style={{ animation: "hero-fade-up 0.6s 0.3s both" }}
             >
               <WaveButton asChild size="lg" className="rounded-full text-accent font-semibold">
                 <a href="#projects" className="flex items-center gap-2">
@@ -89,15 +79,13 @@ export default function Hero() {
                   {t.hero.cta_contact}
                 </a>
               </LiquidButton>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right side — floating profile photo + stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+          <div
             className="hidden lg:flex flex-col items-center gap-8"
+            style={{ animation: "hero-fade-right 0.8s 0.4s both" }}
           >
             {/* Profile photo — transparent bg, floating */}
             <motion.div
@@ -121,29 +109,25 @@ export default function Hero() {
             {/* Stats — glass cards */}
             <div className="grid grid-cols-2 gap-3">
               {stats.map((stat, i) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
                   className="px-5 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 text-center"
+                  style={{ animation: `hero-fade-up 0.5s ${0.5 + i * 0.1}s both` }}
                 >
                   <div className="text-2xl font-bold text-accent">
                     {stat.value}
                   </div>
                   <div className="text-[11px] text-muted">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Mobile stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+        <div
           className="lg:hidden grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12"
+          style={{ animation: "hero-fade-up 0.6s 0.5s both" }}
         >
           {stats.map((stat) => (
             <div
@@ -154,16 +138,14 @@ export default function Hero() {
               <div className="text-[11px] text-muted mt-1">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+      <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
+        style={{ animation: "hero-fade-in 0.5s 1.2s both" }}
       >
         <span className="text-xs text-muted">{t.hero.scroll}</span>
         <motion.div
@@ -172,7 +154,7 @@ export default function Hero() {
         >
           <ArrowDown size={16} className="text-muted" />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
