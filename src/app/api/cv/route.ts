@@ -10,7 +10,7 @@ const CONTACT = {
   location: "Valencia, Spain",
   email: "a.naves.mauri@gmail.com",
   website: "https://andresnavesmauri.netlify.app/",
-  linkedin: "linkedin.com/in/andresnaves",
+  linkedin: "https://www.linkedin.com/in/andres-naves/",
   github: "github.com/annamau",
   photoUrl: "/profile.jpg",
   languages: [

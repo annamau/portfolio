@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://andresnaves.com/sitemap.xml",
+    sitemap: "https://andresnavesmauri.com/sitemap.xml",
   };
 }
