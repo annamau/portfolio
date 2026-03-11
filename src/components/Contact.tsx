@@ -1,20 +1,51 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Envelope,
   LinkedinLogo,
   GithubLogo,
   PaperPlaneTilt,
   CalendarBlank,
+  Rocket,
 } from "@phosphor-icons/react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+/* ── Glass shard data for rocket animation ── */
+const SHARDS = Array.from({ length: 12 }, (_, i) => {
+  const angle = (i / 12) * Math.PI * 2;
+  const r = ((i * 7 + 3) % 12) / 12;
+  return {
+    id: i,
+    flyX: Math.cos(angle) * (80 + r * 80),
+    flyY: Math.sin(angle) * (40 + r * 50),
+    flyR: (i % 2 === 0 ? 1 : -1) * (140 + r * 220),
+    w: 14 + r * 16,
+    h: 8 + r * 10,
+    delay: r * 0.1,
+  };
+});
+
 export default function Contact() {
   const { t } = useLanguage();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [animPhase, setAnimPhase] = useState<"idle" | "shatter" | "reform">("idle");
+
+  useEffect(() => {
+    if (status !== "sent") return;
+    setAnimPhase("shatter");
+    const reformTimer = setTimeout(() => setAnimPhase("reform"), 2000);
+    const resetTimer = setTimeout(() => {
+      setAnimPhase("idle");
+      setStatus("idle");
+    }, 3400);
+    return () => {
+      clearTimeout(reformTimer);
+      clearTimeout(resetTimer);
+    };
+  }, [status]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -122,25 +153,150 @@ export default function Contact() {
                 placeholder={t.contact.message_placeholder}
               />
             </div>
-            <LiquidButton
-              type="submit"
-              disabled={status === "sending"}
-              size="lg"
-              className="text-accent font-semibold rounded-full"
-            >
-              <span className="flex items-center gap-2">
-                {status === "sending" ? (
-                  t.contact.sending
-                ) : status === "sent" ? (
-                  t.contact.sent
-                ) : (
-                  <>
-                    {t.contact.send}
-                    <PaperPlaneTilt size={18} />
-                  </>
+            {/* Submit button with rocket animation */}
+            <div className="relative inline-flex">
+              {/* Real button */}
+              <motion.div
+                animate={{
+                  opacity: animPhase === "idle" ? 1 : 0,
+                  scale: animPhase === "shatter" ? 0.95 : 1,
+                }}
+                transition={{
+                  opacity: {
+                    duration: animPhase === "idle" ? 0.5 : 0.15,
+                    delay: animPhase === "idle" ? 0.4 : 0,
+                  },
+                  scale: { duration: 0.15 },
+                }}
+                style={{ pointerEvents: animPhase !== "idle" ? "none" : "auto" }}
+              >
+                <LiquidButton
+                  type="submit"
+                  disabled={status === "sending"}
+                  size="lg"
+                  className="text-accent font-semibold rounded-full"
+                >
+                  <span className="flex items-center gap-2">
+                    {status === "sending" ? (
+                      t.contact.sending
+                    ) : (
+                      <>
+                        {t.contact.send}
+                        <PaperPlaneTilt size={18} />
+                      </>
+                    )}
+                  </span>
+                </LiquidButton>
+              </motion.div>
+
+              {/* Rocket + glass shatter animation */}
+              <AnimatePresence>
+                {animPhase !== "idle" && (
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center overflow-visible"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                  >
+                    {/* Glass shards */}
+                    {SHARDS.map((s) => (
+                      <motion.div
+                        key={s.id}
+                        className="absolute rounded-sm"
+                        style={{
+                          width: s.w,
+                          height: s.h,
+                          background:
+                            "linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05))",
+                          border: "1px solid rgba(255,255,255,0.2)",
+                          backdropFilter: "blur(4px)",
+                          boxShadow: "0 0 8px rgba(245,158,11,0.15)",
+                        }}
+                        initial={{ x: 0, y: 0, rotate: 0, opacity: 0.9, scale: 1 }}
+                        animate={
+                          animPhase === "shatter"
+                            ? {
+                                x: s.flyX,
+                                y: s.flyY,
+                                rotate: s.flyR,
+                                opacity: 0,
+                                scale: 0.3,
+                              }
+                            : {
+                                x: 0,
+                                y: 0,
+                                rotate: 0,
+                                opacity: [0, 0.8, 0],
+                                scale: [0.3, 1, 0.8],
+                              }
+                        }
+                        transition={
+                          animPhase === "shatter"
+                            ? {
+                                duration: 0.7,
+                                delay: 0.2 + s.delay,
+                                ease: "easeOut",
+                              }
+                            : {
+                                duration: 0.8,
+                                delay: s.delay,
+                                ease: [0.16, 1, 0.3, 1],
+                              }
+                        }
+                      />
+                    ))}
+
+                    {/* Rocket flying left → right */}
+                    {animPhase === "shatter" && (
+                      <motion.div
+                        className="absolute z-10 flex items-center"
+                        style={{ top: "50%", left: 0, translateY: "-50%" }}
+                        initial={{ x: -60, opacity: 0 }}
+                        animate={{ x: [null, 20, 280], opacity: [0, 1, 0] }}
+                        transition={{
+                          duration: 1.2,
+                          ease: [0.22, 1, 0.36, 1],
+                          times: [0, 0.25, 1],
+                        }}
+                      >
+                        <Rocket
+                          size={26}
+                          weight="fill"
+                          className="text-accent drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]"
+                          style={{ transform: "rotate(90deg)" }}
+                        />
+                        {/* Flame trail */}
+                        <div
+                          className="absolute right-full top-1/2 -translate-y-1/2 h-[3px] rounded-full"
+                          style={{
+                            width: 40,
+                            background:
+                              "linear-gradient(to left, rgba(245,158,11,0.7), rgba(245,158,11,0.2), transparent)",
+                          }}
+                        />
+                      </motion.div>
+                    )}
+
+                    {/* "Sent!" label */}
+                    <motion.span
+                      className="relative z-20 font-bold text-lg text-accent drop-shadow-[0_0_16px_rgba(245,158,11,0.4)]"
+                      initial={{ opacity: 0, scale: 0.3 }}
+                      animate={
+                        animPhase === "shatter"
+                          ? { opacity: 1, scale: 1 }
+                          : { opacity: 0, scale: 0.8 }
+                      }
+                      transition={{
+                        delay: animPhase === "shatter" ? 0.5 : 0,
+                        duration: 0.4,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    >
+                      ✓ {t.contact.sent}
+                    </motion.span>
+                  </motion.div>
                 )}
-              </span>
-            </LiquidButton>
+              </AnimatePresence>
+            </div>
             {status === "error" && (
               <p className="text-red-400 text-sm">
                 {t.contact.error}

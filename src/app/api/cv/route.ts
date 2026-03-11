@@ -168,7 +168,7 @@ async function generateStructuredJson<T>(
   temperature = 0.5
 ) {
   const response = await ai.models.generateContent({
-    model: "gemini-3.1-pro-preview",
+    model: "gemini-3.1-flash-lite-preview",
     contents: userPrompt,
     config: {
       systemInstruction,

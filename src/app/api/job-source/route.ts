@@ -159,7 +159,7 @@ If you cannot find a field, set it to null. For description, include as much rel
 async function extractWithGemini(rawText: string): Promise<{ jobTitle?: string; companyName?: string; description: string }> {
   const truncated = rawText.slice(0, 30000);
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: "gemini-3.1-flash-lite-preview",
     contents: [{ role: "user", parts: [{ text: `${EXTRACTION_PROMPT}\n\n---RAW TEXT---\n${truncated}` }] }],
   });
   const text = response.text?.trim() || "";
