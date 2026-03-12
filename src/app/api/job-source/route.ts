@@ -172,6 +172,24 @@ async function extractWithGemini(rawText: string): Promise<{ jobTitle?: string; 
   };
 }
 
+function extractLdJson(html: string): { jobTitle?: string; companyName?: string; description: string } | null {
+  const match = html.match(/<script\s+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i);
+  if (!match) return null;
+  try {
+    const data = JSON.parse(match[1]);
+    if (data["@type"] !== "JobPosting" || !data.description) return null;
+    const description = stripHtmlToText(data.description);
+    if (description.length < 50) return null;
+    return {
+      jobTitle: data.title || undefined,
+      companyName: data.hiringOrganization?.name || undefined,
+      description,
+    };
+  } catch {
+    return null;
+  }
+}
+
 async function extractJobSource(url: string): Promise<ExtractedJobSource> {
   const parsedUrl = new URL(url);
   const isLinkedIn = parsedUrl.hostname.includes("linkedin.com") && parsedUrl.pathname.includes("/jobs/");
@@ -179,16 +197,14 @@ async function extractJobSource(url: string): Promise<ExtractedJobSource> {
 
   let rawText = "";
 
-  // Try Jina Reader first for LinkedIn, fall back to direct fetch
-  if (isLinkedIn) {
-    try {
-      rawText = await fetchReaderText(url);
-    } catch {
-      // Fall back to direct fetch below.
-    }
+  // Try Jina Reader first for all URLs
+  try {
+    rawText = await fetchReaderText(url);
+  } catch {
+    // Fall back to direct fetch below.
   }
 
-  if (!rawText) {
+  if (!rawText || rawText.length < 50) {
     const response = await fetch(url, {
       headers: DEFAULT_HEADERS,
       cache: "no-store",
@@ -197,6 +213,19 @@ async function extractJobSource(url: string): Promise<ExtractedJobSource> {
       throw new Error(`Failed to fetch page (${response.status})`);
     }
     const html = await response.text();
+
+    // Try ld+json structured data first (works for SPAs like Ashby)
+    const ldJson = extractLdJson(html);
+    if (ldJson) {
+      return {
+        sourceUrl: url,
+        sourceType,
+        jobTitle: ldJson.jobTitle,
+        companyName: ldJson.companyName,
+        description: ldJson.description,
+      };
+    }
+
     rawText = stripHtmlToText(html);
   }
 
