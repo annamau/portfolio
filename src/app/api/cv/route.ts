@@ -161,27 +161,48 @@ function extractJson(text: string) {
   return JSON.parse(jsonText);
 }
 
+const MODELS = ["gemini-3.1-flash-lite-preview", "gemini-2.5-flash"] as const;
+
+function isRateLimitError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  const msg = err.message;
+  return msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("quota");
+}
+
 async function generateStructuredJson<T>(
   ai: GoogleGenAI,
   systemInstruction: string,
   userPrompt: string,
   temperature = 0.5
 ) {
-  const response = await ai.models.generateContent({
-    model: "gemini-3.1-flash-lite-preview",
-    contents: userPrompt,
-    config: {
-      systemInstruction,
-      temperature,
-    },
-  });
+  let lastError: unknown;
+  for (const model of MODELS) {
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents: userPrompt,
+        config: {
+          systemInstruction,
+          temperature,
+        },
+      });
 
-  const text = response.text;
-  if (!text) {
-    throw new Error("No response from AI model");
+      const text = response.text;
+      if (!text) {
+        throw new Error("No response from AI model");
+      }
+
+      return extractJson(text) as T;
+    } catch (err) {
+      lastError = err;
+      if (isRateLimitError(err)) {
+        console.warn(`Model ${model} rate-limited, trying fallback...`);
+        continue;
+      }
+      throw err;
+    }
   }
-
-  return extractJson(text) as T;
+  throw lastError;
 }
 
 const CV_SYSTEM_PROMPT = `You are an elite resume writer for modern technical roles.
@@ -660,9 +681,15 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("CV generation error:", error);
+    // Detect Gemini rate-limit errors and surface a clearer message
+    const isRateLimit = isRateLimitError(error);
     return NextResponse.json(
-      { error: "Failed to generate the application pack. Please try again." },
-      { status: 500 }
+      {
+        error: isRateLimit
+          ? "AI model rate limit reached. Please wait a minute and try again."
+          : "Failed to generate the application pack. Please try again.",
+      },
+      { status: isRateLimit ? 429 : 500 }
     );
   }
 }

@@ -47,45 +47,6 @@ function stripHtmlToText(html: string) {
   );
 }
 
-function normalizeDescription(text: string) {
-  return text
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
-    .replace(/\*\*/g, "")
-    .replace(/(Description\s*&\s*Requirements)(?=[A-Z])/g, "$1\n")
-    .replace(/(Qualifications)(?=\s*\*)/g, "$1\n")
-    .replace(/(Nice To Have)(?=\s*\*)/g, "$1\n")
-    .replace(/(About [A-Z][A-Za-z &()'.-]+)(?=[A-Z])/g, "$1\n")
-    .replace(/^#{1,6}\s*/gm, "")
-    .replace(/^=+$/gm, "")
-    .replace(/^-{2,}$/gm, "")
-    .replace(/\r/g, "")
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line, index, list) => {
-      if (!line) return false;
-      if (line.length < 2) return false;
-      if (/^Title:|^URL Source:|^Markdown Content:/i.test(line)) return false;
-      if (/^Skip to main content$/i.test(line)) return false;
-      if (/^(LinkedIn|Jobs|People|Learning|Apply|Save|Show|or)$/i.test(line)) return false;
-      if (/^(Sign in|Join now|Email or phone|Password)$/i.test(line)) return false;
-      if (/^By clicking Continue/i.test(line)) return false;
-      if (/^(Similar jobs|People also viewed|Similar Searches|Explore top content on LinkedIn)$/i.test(line)) return false;
-      if (/^(Referrals increase your chances|Get notified about new .* jobs)/i.test(line)) return false;
-      if (/^(Show more|Show less|Show more jobs like this|Show fewer jobs like this)$/i.test(line)) return false;
-      if (/^(Seniority level|Employment type|Job function|Industries)$/i.test(line)) return false;
-      if (/^LinkedIn©\s*\d{4}/i.test(line)) return false;
-      if (/^\[.*\]\(.*\)$/i.test(line)) return false;
-      if (/^!\[.*\]\(.*\)$/i.test(line)) return false;
-      if (/^\*\s*###/i.test(line)) return false;
-      if (index > 0 && list[index - 1] === line) return false;
-      return true;
-    })
-    .join("\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}
-
 async function fetchReaderText(url: string) {
   const readerUrl = `https://r.jina.ai/${url}`;
   const response = await fetch(readerUrl, {
@@ -100,76 +61,71 @@ async function fetchReaderText(url: string) {
   return response.text();
 }
 
-function extractFromLinkedInReader(rawText: string, sourceUrl: string): ExtractedJobSource {
-  const pageTitle = rawText.match(/^Title:\s*(.+?)\s*\|\s*LinkedIn$/m)?.[1]?.trim();
-  const parsedFromTitle = pageTitle?.match(/^(.*?) hiring (.*?) in /);
-  const headingTitle = rawText.match(/^###\s+(.+)$/m)?.[1]?.trim();
-  const companyHeading = rawText.match(/^####\s+\[(.*?)\]/m)?.[1]?.trim();
+const EXTRACTION_PROMPT = `You are a multilingual job-posting parser. You receive raw text scraped from a job listing page.
+The text may be in ANY language (English, Spanish, German, French, Portuguese, etc.).
+Preserve the original language of the job posting — do NOT translate.
 
-  let contentStart = rawText.indexOf("Markdown Content:");
-  if (contentStart >= 0) {
-    contentStart += "Markdown Content:".length;
-  } else {
-    contentStart = 0;
-  }
-
-  const content = rawText.slice(contentStart);
-  const focusedBlock =
-    content.match(
-      /(\*\*Description\s*&\s*Requirements\*\*[\s\S]*?)(?=Similar jobs|People also viewed|Similar Searches|Explore top content on LinkedIn|LinkedIn©\s*\d{4}|$)/i
-    )?.[1] || content;
-
-  const cleaned = normalizeDescription(focusedBlock);
-
-  return {
-    sourceUrl,
-    sourceType: "linkedin",
-    companyName: parsedFromTitle?.[1]?.trim() || companyHeading,
-    jobTitle: parsedFromTitle?.[2]?.trim() || headingTitle,
-    description: cleaned,
-  };
-}
-
-function extractFromHtml(html: string, sourceUrl: string, sourceType: "linkedin" | "web"): ExtractedJobSource {
-  const title =
-    html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)?.[1] ||
-    html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim();
-
-  const description =
-    html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)?.[1] ||
-    stripHtmlToText(html).slice(0, 12000);
-
-  return {
-    sourceUrl,
-    sourceType,
-    jobTitle: title ? decodeHtmlEntities(title).replace(/\s*\|.*$/, "").trim() : undefined,
-    description: normalizeDescription(decodeHtmlEntities(description)),
-  };
-}
-
-const EXTRACTION_PROMPT = `You are a job-posting parser. You receive raw text scraped from a job listing page.
 Extract exactly these fields and return ONLY valid JSON with no markdown fencing:
 {
-  "jobTitle": "exact job title (e.g. 'Senior Software Engineer')",
-  "companyName": "company name",
-  "description": "the full job description including responsibilities, requirements, qualifications, benefits, etc. Keep the original structure with line breaks. Remove navigation text, cookie banners, footers, ads, and unrelated content. Do NOT include metadata like 'Seniority level', 'Employment type', 'Job function', 'Industries' unless they are part of the description body."
+  "jobTitle": "exact job title as written in the posting",
+  "companyName": "company or organization name",
+  "description": "the full job description including responsibilities, requirements, qualifications, and benefits. Keep the original structure with line breaks. Preserve the original language."
 }
-If you cannot find a field, set it to null. For description, include as much relevant detail as possible.`;
+
+REMOVE all of the following noise (regardless of language or platform):
+- Navigation menus, headers, footers, breadcrumbs, sidebar widgets
+- Login/signup forms, cookie consent banners, GDPR/privacy notices
+- "Similar jobs", "People also viewed", "Recommended for you" sections
+- Social sharing buttons, "Apply now" / "Save" / "Report" button labels
+- Ads, promotional banners, newsletter signup prompts
+- Platform metadata labels like "Seniority level", "Employment type", "Job function", "Industries"
+- Platform boilerplate from LinkedIn, Indeed, Glassdoor, InfoJobs, StepStone, Xing, etc.
+- Applicant counts, posting dates, view counts, language selectors
+
+If you cannot determine a field, set it to null. For description, include as much relevant job content as possible.`;
+
+const MODELS = ["gemini-3.1-flash-lite-preview", "gemini-2.5-flash"] as const;
 
 async function extractWithGemini(rawText: string): Promise<{ jobTitle?: string; companyName?: string; description: string }> {
   const truncated = rawText.slice(0, 30000);
-  const response = await ai.models.generateContent({
-    model: "gemini-3.1-flash-lite-preview",
-    contents: [{ role: "user", parts: [{ text: `${EXTRACTION_PROMPT}\n\n---RAW TEXT---\n${truncated}` }] }],
-  });
-  const text = response.text?.trim() || "";
-  const jsonStr = text.replace(/^```json\s*/i, "").replace(/```\s*$/, "").trim();
-  const parsed = JSON.parse(jsonStr);
-  return {
-    jobTitle: parsed.jobTitle || undefined,
-    companyName: parsed.companyName || undefined,
-    description: typeof parsed.description === "string" ? parsed.description : "",
-  };
+  let lastError: unknown;
+  for (const model of MODELS) {
+    let response;
+    try {
+      response = await ai.models.generateContent({
+        model,
+        contents: [{ role: "user", parts: [{ text: `${EXTRACTION_PROMPT}\n\n---RAW TEXT---\n${truncated}` }] }],
+      });
+    } catch (err) {
+      lastError = err;
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED") || msg.includes("quota")) {
+        console.warn(`Model ${model} rate-limited, trying fallback...`);
+        continue;
+      }
+      throw err;
+    }
+
+    const text = response.text?.trim() || "";
+    const jsonStr = text
+      .replace(/^```(?:json)?\s*/i, "")
+      .replace(/```\s*$/, "")
+      .trim();
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(jsonStr);
+    } catch {
+      const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error("Gemini response did not contain valid JSON");
+      parsed = JSON.parse(jsonMatch[0]);
+    }
+    return {
+      jobTitle: parsed.jobTitle ? String(parsed.jobTitle) : undefined,
+      companyName: parsed.companyName ? String(parsed.companyName) : undefined,
+      description: typeof parsed.description === "string" ? parsed.description : "",
+    };
+  }
+  throw lastError ?? new Error("All Gemini models exhausted");
 }
 
 function extractLdJson(html: string): { jobTitle?: string; companyName?: string; description: string } | null {
@@ -194,29 +150,51 @@ async function extractJobSource(url: string): Promise<ExtractedJobSource> {
   const parsedUrl = new URL(url);
   const isLinkedIn = parsedUrl.hostname.includes("linkedin.com") && parsedUrl.pathname.includes("/jobs/");
   const sourceType = isLinkedIn ? "linkedin" : "web" as const;
+  const errors: string[] = [];
 
-  let rawText = "";
-
-  // Try Jina Reader first for all URLs
+  // ── Strategy 1: Jina Reader → Gemini AI extraction ───────────────────
   try {
-    rawText = await fetchReaderText(url);
-  } catch {
-    // Fall back to direct fetch below.
+    const readerText = await fetchReaderText(url);
+    if (readerText && readerText.length >= 50) {
+      try {
+        const extracted = await extractWithGemini(readerText);
+        if (extracted.description && extracted.description.length >= 80) {
+          return {
+            sourceUrl: url,
+            sourceType,
+            jobTitle: extracted.jobTitle,
+            companyName: extracted.companyName,
+            description: extracted.description,
+          };
+        }
+      } catch (err) {
+        errors.push(`Gemini (reader): ${err instanceof Error ? err.message : "failed"}`);
+      }
+    }
+  } catch (err) {
+    errors.push(`Jina Reader: ${err instanceof Error ? err.message : "failed"}`);
   }
 
-  if (!rawText || rawText.length < 50) {
+  // ── Strategy 2: Direct HTML fetch ────────────────────────────────────
+  let html = "";
+  try {
     const response = await fetch(url, {
       headers: DEFAULT_HEADERS,
       cache: "no-store",
     });
-    if (!response.ok) {
-      throw new Error(`Failed to fetch page (${response.status})`);
+    if (response.ok) {
+      html = await response.text();
+    } else {
+      errors.push(`Direct fetch: HTTP ${response.status}`);
     }
-    const html = await response.text();
+  } catch (err) {
+    errors.push(`Direct fetch: ${err instanceof Error ? err.message : "failed"}`);
+  }
 
-    // Try ld+json structured data first (works for SPAs like Ashby)
+  if (html) {
+    // 2a: LD+JSON structured data (works for Ashby, Lever, Greenhouse, etc.)
     const ldJson = extractLdJson(html);
-    if (ldJson) {
+    if (ldJson && ldJson.description.length >= 80) {
       return {
         sourceUrl: url,
         sourceType,
@@ -226,23 +204,53 @@ async function extractJobSource(url: string): Promise<ExtractedJobSource> {
       };
     }
 
-    rawText = stripHtmlToText(html);
+    // 2b: Strip HTML → Gemini AI extraction
+    const strippedText = stripHtmlToText(html);
+    if (strippedText.length >= 50) {
+      try {
+        const extracted = await extractWithGemini(strippedText);
+        if (extracted.description && extracted.description.length >= 80) {
+          return {
+            sourceUrl: url,
+            sourceType,
+            jobTitle: extracted.jobTitle,
+            companyName: extracted.companyName,
+            description: extracted.description,
+          };
+        }
+      } catch (err) {
+        errors.push(`Gemini (html): ${err instanceof Error ? err.message : "failed"}`);
+      }
+    }
   }
 
-  if (rawText.length < 50) {
-    throw new Error("Page content too short to extract job details");
+  // ── Strategy 3: Clean URL and retry (strips tracking params) ─────────
+  if (isLinkedIn) {
+    const cleanUrl = `https://www.linkedin.com${parsedUrl.pathname}`;
+    if (cleanUrl !== url) {
+      try {
+        const cleanReader = await fetchReaderText(cleanUrl);
+        if (cleanReader && cleanReader.length >= 50) {
+          const extracted = await extractWithGemini(cleanReader);
+          if (extracted.description && extracted.description.length >= 80) {
+            return {
+              sourceUrl: url,
+              sourceType,
+              jobTitle: extracted.jobTitle,
+              companyName: extracted.companyName,
+              description: extracted.description,
+            };
+          }
+        }
+      } catch {
+        // Final fallback failed
+      }
+    }
   }
 
-  // Use Gemini to intelligently extract structured job data
-  const extracted = await extractWithGemini(rawText);
-
-  return {
-    sourceUrl: url,
-    sourceType,
-    jobTitle: extracted.jobTitle,
-    companyName: extracted.companyName,
-    description: extracted.description,
-  };
+  throw new Error(
+    `Could not extract job details from this page. Strategies tried: ${errors.join("; ") || "all returned insufficient content"}`
+  );
 }
 
 export async function POST(request: Request) {
