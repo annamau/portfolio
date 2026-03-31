@@ -153,12 +153,28 @@ function buildProfile() {
 }
 
 function extractJson(text: string) {
-  let jsonText = text.trim();
-  const fenced = jsonText.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const rawText = (text || "").trim();
+  let jsonText = rawText;
+  const fenced = rawText.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (fenced) {
     jsonText = fenced[1].trim();
   }
-  return JSON.parse(jsonText);
+
+  try {
+    return JSON.parse(jsonText);
+  } catch (firstErr) {
+    const firstBraceMatch = jsonText.match(/\{[\s\S]*\}/);
+    if (firstBraceMatch) {
+      try {
+        return JSON.parse(firstBraceMatch[0]);
+      } catch {
+        // continue to final error
+      }
+    }
+
+    const trimmedSnippet = jsonText.slice(0, 140).replace(/\s+/g, " ");
+    throw new Error(`Invalid JSON from AI output. rawSnippet: ${trimmedSnippet}. origError: ${(firstErr as Error).message}`);
+  }
 }
 
 const MODELS = ["gemini-3.1-flash-lite-preview", "gemini-2.5-flash"] as const;
@@ -187,12 +203,27 @@ async function generateStructuredJson<T>(
         },
       });
 
-      const text = response.text;
+      const text = (response as any).text || (response as any).outputText || "";
+      const debugTrace = {
+        model,
+        responseKeys: Object.keys(response || {}),
+        textPreview: String(text).slice(0, 240),
+      };
+
       if (!text) {
+        console.error("CV API: empty response text for model", debugTrace);
         throw new Error("No response from AI model");
       }
 
-      return extractJson(text) as T;
+      try {
+        return extractJson(text) as T;
+      } catch (parseErr) {
+        console.error("CV API: failed to parse AI JSON", {
+          ...debugTrace,
+          parseError: (parseErr as Error).message,
+        });
+        throw parseErr;
+      }
     } catch (err) {
       lastError = err;
       if (isRateLimitError(err)) {
@@ -582,7 +613,10 @@ Apply the user's feedback while keeping the letter compelling and aligned with t
 export async function POST(request: Request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    const hasApiKey = typeof apiKey === "string" && apiKey.trim().length > 0;
+    console.debug("CV API POST start", { hasApiKey });
+
+    if (!hasApiKey) {
       return NextResponse.json({ error: "Gemini API key not configured" }, { status: 500 });
     }
 
@@ -596,6 +630,15 @@ export async function POST(request: Request) {
       currentCv?: CVData;
       currentCoverLetter?: CoverLetterData;
     };
+
+    console.debug("CV API POST payload", {
+      jobDescriptionLength: typeof jobDescription === "string" ? jobDescription.length : 0,
+      jobTitle: jobTitle || null,
+      companyName: companyName || null,
+      mode: mode || "generate",
+      hasCurrentCv: Boolean(currentCv),
+      hasCurrentCoverLetter: Boolean(currentCoverLetter),
+    });
 
     if (!jobDescription || typeof jobDescription !== "string" || jobDescription.length < 20) {
       return NextResponse.json(
@@ -683,6 +726,20 @@ export async function POST(request: Request) {
     console.error("CV generation error:", error);
     // Detect Gemini rate-limit errors and surface a clearer message
     const isRateLimit = isRateLimitError(error);
+    const isParseFailure =
+      error instanceof Error &&
+      /Invalid JSON from AI output|No response from AI model/.test(error.message);
+
+    if (isParseFailure) {
+      return NextResponse.json(
+        {
+          error: "AI output parse failed. Please try again.",
+          details: process.env.NODE_ENV === "development" ? (error as Error).message : undefined,
+        },
+        { status: 502 }
+      );
+    }
+
     return NextResponse.json(
       {
         error: isRateLimit
