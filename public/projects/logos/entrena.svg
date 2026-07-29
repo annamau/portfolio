@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Pure black background -->
+  <rect width="512" height="512" rx="76" ry="76" fill="#000000"/>
+
+  <!-- Bold Athletic "E" centered -->
+  <g transform="translate(256, 256)">
+    <path d="
+      M -130 -156
+      L 150 -156
+      L 138 -96
+      L -40 -96
+      L -55 -36
+      L 100 -36
+      L 88 24
+      L -67 24
+      L -85 96
+      L 150 96
+      L 138 156
+      L -145 156
+      Z
+    " fill="#FFFFFF" transform="skewX(-8)"/>
+
+    <!-- Green accent bar -->
+    <rect x="-80" y="-8" width="185" height="16" rx="3" fill="#22C55E" transform="skewX(-12)"/>
+  </g>
+</svg>

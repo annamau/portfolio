@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Bodoni_Moda, Manrope } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -27,11 +28,11 @@ const BASE_URL = "https://andresnavesmauri.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Andrés Naves Mauri — AI Developer & Automation Engineer",
+    default: "Andrés Naves Mauri — AI Product Engineer",
     template: "%s | Andrés Naves Mauri",
   },
   description:
-    "Portfolio of Andrés Naves Mauri. AI Engineer specializing in multi-agent systems, LangGraph orchestration, and intelligent automation. Based in Valencia, Spain.",
+    "Selected AI products, agent systems, automation infrastructure and digital experiences by Andrés Naves Mauri, based in Valencia.",
   keywords: [
     "AI Engineer",
     "AI Developer",
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Andrés Naves Mauri", url: BASE_URL }],
   creator: "Andrés Naves Mauri",
   openGraph: {
-    title: "Andrés Naves Mauri — AI Developer & Automation Engineer",
+    title: "Andrés Naves Mauri — AI Product Engineer",
     description:
-      "AI Engineer specializing in multi-agent systems, LangGraph orchestration, and intelligent automation.",
+      "AI products, agent systems, automation infrastructure and digital experiences—designed and built end to end.",
     url: BASE_URL,
     siteName: "Andrés Naves Mauri",
     locale: "en_US",
@@ -67,9 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Andrés Naves Mauri — AI Developer & Automation Engineer",
+    title: "Andrés Naves Mauri — AI Product Engineer",
     description:
-      "AI Engineer specializing in multi-agent systems, LangGraph orchestration, and intelligent automation.",
+      "AI products, agent systems, automation infrastructure and digital experiences—designed and built end to end.",
     images: ["/profile.jpg"],
   },
   alternates: {
@@ -85,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${bodoni.variable} ${manrope.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         <script
           type="application/ld+json"
@@ -102,7 +103,7 @@ export default function RootLayout({
                 "@type": "Person",
                 name: "Andrés Naves Mauri",
                 url: BASE_URL,
-                jobTitle: "AI Developer & Automation Engineer",
+                jobTitle: "AI Product Engineer",
                 description:
                   "AI Engineer specializing in multi-agent systems, LangGraph orchestration, and intelligent automation.",
                 address: {

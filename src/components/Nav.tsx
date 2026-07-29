@@ -1,342 +1,78 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { List, X, LinkedinLogo, CalendarBlank } from "@phosphor-icons/react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { CalendarBlank, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Sections the island checks for "collision" (proximity to their headers)
-const collisionSections = ["projects", "about", "experience", "contact"];
-
 export default function Nav() {
-  const { locale, setLocale, t } = useLanguage();
-  const navLinks = [
-    { label: t.nav.home, href: "#hero" },
-    { label: t.nav.projects, href: "#projects" },
-    { label: t.nav.about, href: "#about" },
-    { label: t.nav.experience, href: "#experience" },
-    { label: t.nav.contact, href: "#contact" },
-  ];
-
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
-  const [isCompact, setIsCompact] = useState(false);
-  const [nudgeDir, setNudgeDir] = useState<"none" | "left" | "right">("none");
-  const navRef = useRef<HTMLElement>(null);
-  const rafRef = useRef<number>(0);
-
-  // Spring-driven horizontal offset for collision avoidance
-  const rawX = useMotionValue(0);
-  const springX = useSpring(rawX, { stiffness: 180, damping: 28, mass: 0.8 });
-
-  // Scale pulse on collision
-  const rawScale = useMotionValue(1);
-  const springScale = useSpring(rawScale, { stiffness: 300, damping: 20 });
-
-
-
-  // Glow intensity tied to scroll
-  const glowOpacity = useMotionValue(0);
-  const springGlow = useSpring(glowOpacity, { stiffness: 120, damping: 20 });
-
-  const handleScroll = useCallback(() => {
-    const scrollY = window.scrollY;
-    const compact = scrollY > 80;
-    setIsCompact(compact);
-
-    glowOpacity.set(compact ? 0.6 : 0);
-
-    // Detect active section
-    const sections = navLinks.map((l) => l.href.slice(1));
-    for (const id of [...sections].reverse()) {
-      const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= 120) {
-        setActiveSection(id);
-        break;
-      }
-    }
-
-    // Collision detection — check if a section heading is near the nav bar
-    if (!navRef.current) return;
-    const navRect = navRef.current.getBoundingClientRect();
-    const navCenter = navRect.left + navRect.width / 2;
-    const viewportCenter = window.innerWidth / 2;
-    let newNudge: "none" | "left" | "right" = "none";
-
-    for (const sectionId of collisionSections) {
-      const el = document.getElementById(sectionId);
-      if (!el) continue;
-      // Get the section heading (first h2)
-      const heading = el.querySelector("h2, h1");
-      if (!heading) continue;
-      const headingRect = heading.getBoundingClientRect();
-      // Check if the heading vertically overlaps with the nav island
-      const verticalOverlap =
-        headingRect.top < navRect.bottom + 20 &&
-        headingRect.bottom > navRect.top - 20;
-      if (verticalOverlap) {
-        // Determine nudge direction based on heading position
-        const headingCenter = headingRect.left + headingRect.width / 2;
-        if (headingCenter < viewportCenter) {
-          newNudge = "right";
-        } else {
-          newNudge = "left";
-        }
-        break;
-      }
-    }
-
-    setNudgeDir(newNudge);
-    // Disable collision nudge on mobile to prevent the nav from shifting off-screen
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      rawX.set(0);
-      rawScale.set(1);
-    } else if (newNudge === "left") {
-      rawX.set(-120);
-      rawScale.set(0.95);
-    } else if (newNudge === "right") {
-      rawX.set(120);
-      rawScale.set(0.95);
-    } else {
-      rawX.set(0);
-      rawScale.set(1);
-    }
-  }, [glowOpacity, rawX, rawScale]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(handleScroll);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    handleScroll();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [handleScroll]);
-
-  // Border gradient rotation — pure CSS animation (off main thread)
+  const { locale, setLocale } = useLanguage();
 
   return (
-    <>
-      <motion.nav
-        ref={navRef}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          x: springX,
-          scale: springScale,
-          maxWidth: "calc(100vw - 32px)",
-        }}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-[width] duration-300 ease-out ${isCompact ? "w-[600px]" : "w-[720px]"}`}
-      >
-        {/* Liquid glass island */}
-        <motion.div
-          className="relative rounded-[28px] overflow-hidden"
-          style={{}}
+    <motion.nav
+      className="dynamic-island"
+      aria-label="Primary navigation"
+      initial={{ opacity: 0, y: -50, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <span className="island-animated-border" aria-hidden="true" />
+      <span className="island-glass-highlight" aria-hidden="true" />
+
+      <Link href="/" className="island-brand" aria-label="Andrés Naves, home">
+        <span className="island-logo">
+          <Image src="/logo-anm.svg" alt="" width={36} height={36} priority />
+        </span>
+        <span className="island-name">
+          Andrés<span className="island-period">.</span>
+        </span>
+      </Link>
+
+      <span className="island-divider" aria-hidden="true" />
+
+      <div className="island-status">
+        <span />
+        {locale === "es" ? "Disponible para proyectos" : "Available for projects"}
+      </div>
+
+      <span className="island-divider island-divider--right" aria-hidden="true" />
+
+      <div className="island-actions">
+        <a
+          href={process.env.NEXT_PUBLIC_GITHUB || "https://github.com/annamau"}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
         >
-          {/* Animated gradient border — CSS animation on compositor thread */}
-          <div
-            className="absolute -inset-[1px] rounded-[28px] pointer-events-none"
-            style={{
-              background: `conic-gradient(from var(--border-angle, 0deg), transparent 40%, rgba(245,158,11,0.4) 50%, transparent 60%)`,
-              mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-              maskComposite: "exclude",
-              WebkitMaskComposite: "xor",
-              padding: "1px",
-              animation: "nav-border-spin 2.5s linear infinite",
-            }}
-          />
-
-          {/* Glass layers */}
-          <div className="absolute inset-0 rounded-[28px] bg-[#0a0a0f]/60 backdrop-blur-2xl" />
-          <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/[0.08] to-transparent" />
-          <div className="absolute inset-0 rounded-[28px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.3)]" />
-
-          {/* Glow on scroll */}
-          <motion.div
-            className="absolute inset-0 rounded-[28px] pointer-events-none"
-            style={{
-              opacity: springGlow,
-              background: "radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.12) 0%, transparent 70%)",
-            }}
-          />
-
-          {/* Content */}
-          <div className="relative z-10 flex items-center h-14 px-5 gap-1">
-            {/* Logo — always visible, morphs with compact state */}
-            <a
-              href="#hero"
-              className="flex items-center gap-2 shrink-0 group mr-2"
-            >
-              <motion.div
-                className="relative flex items-center justify-center"
-                animate={{
-                  width: isCompact ? 32 : 36,
-                  height: isCompact ? 32 : 36,
-                }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              >
-                  <Image
-                  src="/logo.svg"
-                  alt="AN"
-                  width={36}
-                  height={36}
-                  priority
-                  className="w-full h-full invert drop-shadow-[0_0_8px_rgba(245,158,11,0.3)]"
-                />
-              </motion.div>
-              <AnimatePresence>
-                {!isCompact && (
-                  <motion.span
-                    initial={{ opacity: 0, scaleX: 0 }}
-                    animate={{ opacity: 1, scaleX: 1 }}
-                    exit={{ opacity: 0, scaleX: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="font-semibold text-foreground whitespace-nowrap overflow-hidden origin-left"
-                  >
-                    Andrés<span className="text-accent">.</span>
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </a>
-
-            {/* Divider */}
-            <div className="hidden md:block w-px h-5 bg-white/10 mx-2 shrink-0" />
-
-            {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center min-w-0">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1);
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="relative px-2.5 py-1.5 text-sm rounded-full transition-colors duration-200 whitespace-nowrap shrink-0"
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active-pill"
-                        className="absolute inset-0 rounded-full bg-white/[0.08]"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    <span
-                      className={`relative z-10 ${
-                        isActive
-                          ? "text-accent font-medium"
-                          : "text-white/60 hover:text-white/90"
-                      }`}
-                    >
-                      {link.label}
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-
-            {/* Divider */}
-            <div className="hidden lg:block w-px h-5 bg-white/10 mx-2 shrink-0" />
-
-            {/* LinkedIn */}
-            <a
-              href={process.env.NEXT_PUBLIC_LINKEDIN || "https://www.linkedin.com/in/andres-naves/"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex items-center justify-center w-8 h-8 rounded-full text-white/50 hover:text-white/90 hover:bg-white/[0.06] transition-all duration-200 shrink-0"
-              aria-label="LinkedIn"
-            >
-              <LinkedinLogo size={18} weight="bold" />
-            </a>
-
-            {/* Calendly */}
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined" && (window as any).Calendly) {
-                  (window as any).Calendly.initPopupWidget({ url: "https://calendly.com/a-naves-mauri" });
-                }
-              }}
-              className="hidden md:flex items-center justify-center w-8 h-8 rounded-full text-white/50 hover:text-accent hover:bg-white/[0.06] transition-all duration-200 shrink-0"
-              aria-label="Schedule with me"
-            >
-              <CalendarBlank size={18} weight="bold" />
-            </button>
-
-            {/* Language toggle */}
-            <button
-              onClick={() => setLocale(locale === "en" ? "es" : "en")}
-              className="hidden md:flex items-center justify-center h-7 px-2.5 rounded-full text-[11px] font-bold border border-white/10 text-white/50 hover:text-accent hover:border-accent/30 transition-all duration-200 shrink-0"
-              aria-label="Switch language"
-            >
-              {locale === "en" ? "ES" : "EN"}
-            </button>
-
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden text-foreground p-2 ml-auto"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={22} /> : <List size={22} />}
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10, scaleY: 0.9  }}
-              animate={{ opacity: 1, y: 0, scaleY: 1 }}
-              exit={{ opacity: 0, y: -10, scaleY: 0.9 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-2 rounded-2xl overflow-hidden origin-top"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 rounded-2xl bg-[#0a0a0f]/70 backdrop-blur-2xl" />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/[0.06] to-transparent" />
-                <div className="absolute inset-0 rounded-2xl border border-white/[0.06]" />
-                <div className="relative z-10 px-5 py-4 flex flex-col gap-3">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`text-sm transition-colors px-3 py-1.5 rounded-xl ${
-                        activeSection === link.href.slice(1)
-                          ? "text-accent font-medium bg-white/[0.05]"
-                          : "text-white/60 hover:text-white/90"
-                      }`}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                  <a
-                    href={process.env.NEXT_PUBLIC_LINKEDIN || "https://www.linkedin.com/in/andres-naves/"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-white/60 hover:text-white/90 transition-colors px-3 py-1.5 rounded-xl flex items-center gap-2"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <LinkedinLogo size={18} weight="bold" />
-                    LinkedIn
-                  </a>
-                  <button
-                    onClick={() => { setLocale(locale === "en" ? "es" : "en"); setMobileOpen(false); }}
-                    className="text-sm text-white/60 hover:text-accent transition-colors px-3 py-1.5 rounded-xl text-left font-medium"
-                  >
-                    {locale === "en" ? "🇪🇸 Español" : "🇬🇧 English"}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
-    </>
+          <GithubLogo size={17} weight="bold" />
+        </a>
+        <a
+          href={process.env.NEXT_PUBLIC_LINKEDIN || "https://www.linkedin.com/in/andres-naves/"}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <LinkedinLogo size={17} weight="bold" />
+        </a>
+        <button
+          type="button"
+          className="language-switch"
+          onClick={() => setLocale(locale === "en" ? "es" : "en")}
+          aria-label={locale === "en" ? "Cambiar a español" : "Switch to English"}
+        >
+          {locale === "en" ? "ES" : "EN"}
+        </button>
+        <a
+          href="https://calendly.com/a-naves-mauri"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="island-contact"
+          aria-label={locale === "es" ? "Agendar una conversación" : "Schedule a conversation"}
+        >
+          <CalendarBlank size={18} weight="bold" />
+        </a>
+      </div>
+    </motion.nav>
   );
 }

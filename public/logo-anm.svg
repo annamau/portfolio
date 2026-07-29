@@ -1,0 +1,35 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="256"
+  height="256"
+  viewBox="0 0 256 256"
+  fill="none"
+  role="img"
+  aria-labelledby="logo-title logo-description"
+>
+  <title id="logo-title">Andrés Naves Mauri spacecraft monogram</title>
+  <desc id="logo-description">
+    A connected A, N and M line network forming a front-facing spacecraft.
+  </desc>
+  <path
+    d="M28 220L128 22L228 220"
+    stroke="#F7F0E4"
+    stroke-width="16"
+    stroke-linecap="butt"
+    stroke-linejoin="miter"
+  />
+  <path
+    d="M46 184L70 138L210 184L186 138"
+    stroke="#DF4F2F"
+    stroke-width="16"
+    stroke-linecap="butt"
+    stroke-linejoin="miter"
+  />
+  <path
+    d="M46 220V184L128 220L210 184V220"
+    stroke="#F7F0E4"
+    stroke-width="16"
+    stroke-linecap="butt"
+    stroke-linejoin="miter"
+  />
+</svg>

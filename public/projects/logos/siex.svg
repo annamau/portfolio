@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" role="img" aria-labelledby="title">
+  <title id="title">SIEX</title>
+  <path fill="#e31e24" d="M8 12h43v12H22c-5 0-8 2-8 5.6 0 3.2 3 5 8.8 5.8l13 1.8c13 1.8 19 8.1 19 17.2C54.8 65 47 70 33.5 70H7V58h28c5.2 0 8-2 8-5.6 0-3.3-2.8-5.1-8.5-5.9l-13-1.8C8.6 43 2.5 36.8 2.5 27.8 2.5 18 9.8 12 22 12Z"/>
+  <path fill="#29282e" d="M62 12h14v58H62zM84 12h45v12H98v10h27v11H98v13h31v12H84zM132 12h16l13 18 13-18h16l-21 28 23 30h-17l-14-20-14 20h-17l23-30z"/>
+</svg>
