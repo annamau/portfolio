@@ -21,13 +21,13 @@ const AUTOPLAY_MS = 8000;
 
 const copy = {
   en: {
-    eyebrow: "AI PRODUCT ENGINEER · VALENCIA",
-    titleA: "I turn ambitious",
-    titleB: "ideas",
-    titleC: "into systems that ship.",
+    eyebrow: "SELECTED WORK · VALENCIA",
+    titleA: "Things I’ve designed,",
+    titleB: "built",
+    titleC: "and learned from.",
     intro:
-      "I design and build AI products end to end—from the first business question to the agents, interfaces and infrastructure running in production.",
-    cta: "Start a project",
+      "A personal collection of products, experiments and digital systems—across AI, healthcare, hospitality, insurance and the spaces in between.",
+    cta: "Browse the collection",
     player: "PROJECT JUKEBOX",
     nowPlaying: "NOW PLAYING",
     open: "Open project",
@@ -52,13 +52,13 @@ const copy = {
     next: "Next project",
   },
   es: {
-    eyebrow: "INGENIERO DE PRODUCTO IA · VALENCIA",
-    titleA: "Convierto",
-    titleB: "ideas ambiciosas",
-    titleC: "en sistemas que funcionan.",
+    eyebrow: "TRABAJO SELECCIONADO · VALENCIA",
+    titleA: "Proyectos que he",
+    titleB: "diseñado",
+    titleC: "y construido.",
     intro:
-      "Diseño y construyo productos con IA de principio a fin: desde la primera pregunta de negocio hasta los agentes, interfaces e infraestructura en producción.",
-    cta: "Empezar un proyecto",
+      "Una colección personal de productos, experimentos y sistemas digitales en IA, salud, hostelería, seguros y los espacios intermedios.",
+    cta: "Ver la colección",
     player: "JUKEBOX DE PROYECTOS",
     nowPlaying: "REPRODUCIENDO",
     open: "Abrir proyecto",
@@ -219,15 +219,17 @@ export default function PortfolioHero() {
           <p className="intro-copy">{text.intro}</p>
 
           <div className="intro-actions">
-            <a
-              href="https://calendly.com/a-naves-mauri"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               className="primary-cta"
+              onClick={() => {
+                setLibraryOpen(true);
+                setSleeveOpen(false);
+              }}
             >
               {text.cta}
-              <ArrowUpRight size={17} weight="bold" />
-            </a>
+              <ListDashes size={17} weight="bold" />
+            </button>
           </div>
         </motion.article>
 
@@ -467,7 +469,7 @@ export default function PortfolioHero() {
 
                   <button
                     type="button"
-                    className="album-sleeve"
+                    className={`album-sleeve ${sleeveFlipped ? "album-sleeve--flipped" : ""}`}
                     onClick={() => setSleeveFlipped((flipped) => !flipped)}
                     aria-label={text.flip}
                   >
