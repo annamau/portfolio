@@ -166,7 +166,7 @@ export const projects: Project[] = [
   },
   {
     id: "herobytes",
-    title: "HeroBytes",
+    title: "HeroBites",
     tagline: "A playful Shopify storefront built around an animated, character-led world.",
     taglineEs: "Una tienda Shopify construida alrededor de un mundo animado y lleno de personajes.",
     description:
