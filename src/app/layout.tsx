@@ -122,6 +122,12 @@ export default function RootLayout({
         <LanguageProvider>
           {children}
         </LanguageProvider>
+        {/* Simple Analytics: cookie-free and sets no persistent identifiers,
+            so it needs no consent banner. */}
+        <Script
+          src="https://scripts.simpleanalyticscdn.com/latest.js"
+          strategy="afterInteractive"
+        />
         <Script
           id="calendly-css"
           strategy="lazyOnload"
