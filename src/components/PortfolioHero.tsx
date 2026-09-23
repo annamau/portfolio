@@ -119,22 +119,6 @@ function ProjectMark({
   );
 }
 
-function ProjectName({ project }: { project: Project }) {
-  if (project.id === "rebeam" && project.logo) {
-    return (
-      <Image
-        src={project.logo}
-        alt=""
-        width={132}
-        height={40}
-        className="project-name-logo"
-      />
-    );
-  }
-
-  return project.title;
-}
-
 export default function PortfolioHero() {
   const { locale } = useLanguage();
   const text = copy[locale];
@@ -308,9 +292,7 @@ export default function PortfolioHero() {
                     {locale === "es" ? activeProject.statusEs : activeProject.status}
                   </span>
                 </div>
-                <h2 aria-label={activeProject.title}>
-                  <ProjectName project={activeProject} />
-                </h2>
+                <h2>{activeProject.title}</h2>
                 <p className="project-tagline">
                   {locale === "es" && activeProject.taglineEs
                     ? activeProject.taglineEs
@@ -367,7 +349,7 @@ export default function PortfolioHero() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeProject.id}
-                    className="record-label"
+                    className={`record-label ${activeProject.id === "rebeam" ? "record-label--rebeam" : ""}`}
                     initial={{ opacity: 0, scale: 0.82, rotate: -10 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     exit={{ opacity: 0, scale: 0.82, rotate: 10 }}
@@ -378,9 +360,10 @@ export default function PortfolioHero() {
                       project={activeProject}
                       size={76}
                       className="record-project-mark"
-                      useFavicon
                     />
-                    <span className="label-title">{activeProject.title}</span>
+                    {activeProject.id !== "rebeam" && (
+                      <span className="label-title">{activeProject.title}</span>
+                    )}
                     <span className="label-speed">33⅓</span>
                   </motion.div>
                 </AnimatePresence>
@@ -515,9 +498,7 @@ export default function PortfolioHero() {
                         )}
                         <span className="album-front-copy">
                           <small>{activeProject.tags[0]}</small>
-                          <strong aria-label={activeProject.title}>
-                            <ProjectName project={activeProject} />
-                          </strong>
+                          <strong>{activeProject.title}</strong>
                           <em>{activeProject.year}</em>
                         </span>
                       </span>
@@ -525,9 +506,7 @@ export default function PortfolioHero() {
                       <span className="album-face album-back">
                         <span className="album-back-heading">
                           <small>{text.back}</small>
-                          <strong aria-label={activeProject.title}>
-                            <ProjectName project={activeProject} />
-                          </strong>
+                          <strong>{activeProject.title}</strong>
                         </span>
                         <span className="sleeve-tracks">
                           <span className="sleeve-track">
