@@ -42,6 +42,7 @@ const copy = {
     trackUses: "IN USE",
     trackStatus: "CURRENT STATUS",
     trackRole: "MY ROLE",
+    trackGoal: "THE GOAL",
     trackGenre: "GENRE",
     sleeveHint: "Click the sleeve to turn it over",
     collectionLabel: "THE COLLECTION",
@@ -73,6 +74,7 @@ const copy = {
     trackUses: "USOS",
     trackStatus: "ESTADO ACTUAL",
     trackRole: "MI PAPEL",
+    trackGoal: "EL OBJETIVO",
     trackGenre: "GÉNERO",
     sleeveHint: "Pulsa la carpeta para darle la vuelta",
     collectionLabel: "LA COLECCIÓN",
@@ -88,19 +90,24 @@ function ProjectMark({
   project,
   size,
   className = "",
+  useFavicon = false,
 }: {
   project: Project;
   size: number;
   className?: string;
+  useFavicon?: boolean;
 }) {
-  if (project.logo) {
+  const showFavicon = useFavicon && !!project.favicon;
+  const logo = showFavicon ? project.favicon : project.logo;
+
+  if (logo) {
     return (
       <Image
-        src={project.logo}
-        alt={`${project.title} logo`}
+        src={logo}
+        alt={showFavicon ? `${project.title} icon` : `${project.title} logo`}
         width={size}
         height={size}
-        className={`${className} project-mark project-mark--${project.logoStyle || "mark"}`}
+        className={`${className} project-mark project-mark--${showFavicon ? "favicon" : project.logoStyle || "mark"}`}
       />
     );
   }
@@ -110,6 +117,22 @@ function ProjectMark({
       {project.monogram}
     </strong>
   );
+}
+
+function ProjectName({ project }: { project: Project }) {
+  if (project.id === "rebeam" && project.logo) {
+    return (
+      <Image
+        src={project.logo}
+        alt=""
+        width={132}
+        height={40}
+        className="project-name-logo"
+      />
+    );
+  }
+
+  return project.title;
 }
 
 export default function PortfolioHero() {
@@ -285,7 +308,9 @@ export default function PortfolioHero() {
                     {locale === "es" ? activeProject.statusEs : activeProject.status}
                   </span>
                 </div>
-                <h2>{activeProject.title}</h2>
+                <h2 aria-label={activeProject.title}>
+                  <ProjectName project={activeProject} />
+                </h2>
                 <p className="project-tagline">
                   {locale === "es" && activeProject.taglineEs
                     ? activeProject.taglineEs
@@ -353,6 +378,7 @@ export default function PortfolioHero() {
                       project={activeProject}
                       size={76}
                       className="record-project-mark"
+                      useFavicon
                     />
                     <span className="label-title">{activeProject.title}</span>
                     <span className="label-speed">33⅓</span>
@@ -463,7 +489,7 @@ export default function PortfolioHero() {
                     aria-hidden="true"
                   >
                     <span>
-                      <ProjectMark project={activeProject} size={46} />
+                      <ProjectMark project={activeProject} size={46} useFavicon />
                     </span>
                   </motion.div>
 
@@ -482,12 +508,16 @@ export default function PortfolioHero() {
                         <span className="album-catalog">
                           {String(activeIndex + 1).padStart(2, "0")} · {text.front}
                         </span>
-                        <span className="album-front-mark">
-                          <ProjectMark project={activeProject} size={104} />
-                        </span>
+                        {activeProject.id !== "rebeam" && (
+                          <span className="album-front-mark">
+                            <ProjectMark project={activeProject} size={104} />
+                          </span>
+                        )}
                         <span className="album-front-copy">
                           <small>{activeProject.tags[0]}</small>
-                          <strong>{activeProject.title}</strong>
+                          <strong aria-label={activeProject.title}>
+                            <ProjectName project={activeProject} />
+                          </strong>
                           <em>{activeProject.year}</em>
                         </span>
                       </span>
@@ -495,7 +525,9 @@ export default function PortfolioHero() {
                       <span className="album-face album-back">
                         <span className="album-back-heading">
                           <small>{text.back}</small>
-                          <strong>{activeProject.title}</strong>
+                          <strong aria-label={activeProject.title}>
+                            <ProjectName project={activeProject} />
+                          </strong>
                         </span>
                         <span className="sleeve-tracks">
                           <span className="sleeve-track">
@@ -512,15 +544,28 @@ export default function PortfolioHero() {
                               <em>{activeProject.techStack.join(" · ")}</em>
                             </span>
                           </span>
+                          {activeProject.goal && (
+                            <span className="sleeve-track">
+                              <b>03</b>
+                              <span>
+                                <small>{text.trackGoal}</small>
+                                <em>
+                                  {locale === "es"
+                                    ? activeProject.goalEs || activeProject.goal
+                                    : activeProject.goal}
+                                </em>
+                              </span>
+                            </span>
+                          )}
                           <span className="sleeve-track">
-                            <b>03</b>
+                            <b>{activeProject.goal ? "04" : "03"}</b>
                             <span>
                               <small>{text.trackUses}</small>
                               <em>{activeProject.uses.join(" · ")}</em>
                             </span>
                           </span>
                           <span className="sleeve-track">
-                            <b>04</b>
+                            <b>{activeProject.goal ? "05" : "04"}</b>
                             <span>
                               <small>{text.trackStatus}</small>
                               <em>
@@ -531,7 +576,7 @@ export default function PortfolioHero() {
                             </span>
                           </span>
                           <span className="sleeve-track">
-                            <b>05</b>
+                            <b>{activeProject.goal ? "06" : "05"}</b>
                             <span>
                               <small>{text.trackRole}</small>
                               <em>

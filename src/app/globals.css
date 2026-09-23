@@ -663,6 +663,14 @@ h6 {
   line-height: 0.94;
 }
 
+.project-name-logo {
+  display: block;
+  width: auto;
+  height: 1em;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .project-tagline {
   display: -webkit-box;
   max-width: 360px;
@@ -895,6 +903,11 @@ h6 {
 .record-project-mark.project-mark--wordmark {
   width: 72%;
   height: 32%;
+}
+
+.record-project-mark.project-mark--favicon {
+  width: 44%;
+  height: 44%;
 }
 
 .project-mark--monogram {

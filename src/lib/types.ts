@@ -4,6 +4,8 @@ export interface Project {
   tagline: string;
   taglineEs?: string;
   description: string;
+  goal?: string;
+  goalEs?: string;
   tags: string[];
   techStack: string[];
   uses: string[];
@@ -16,6 +18,7 @@ export interface Project {
   image: string;
   logo?: string;
   logoStyle?: "mark" | "wordmark";
+  favicon?: string;
   tier: "heavy-ai" | "medium-ai" | "web" | "devops";
   gradient: string;
   icon: string;
