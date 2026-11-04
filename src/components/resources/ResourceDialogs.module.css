@@ -1,0 +1,35 @@
+.dialog { width: min(650px, calc(100vw - 28px)); max-height: calc(100dvh - 36px); margin: auto; padding: 25px 28px; overflow-y: auto; border: 1px solid #bfa98a; border-radius: 12px; color: #392c21; background: #f7f0e2; box-shadow: 0 24px 100px #281c1450; font-family: var(--font-manrope), sans-serif; }
+.dialog::backdrop { background: #2d241d77; backdrop-filter: blur(6px); }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.heading h2 { min-width: 0; margin: 0; font-size: 29px; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; }
+.heading > button { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; border: 1px solid #cfbfa7; border-radius: 50%; color: #6b533e; background: transparent; cursor: pointer; }
+.intro { margin: 13px 0 21px; color: #8a735a; font-size: 12px; line-height: 1.8; }
+.form { display: flex; flex-direction: column; gap: 17px; }
+.form label { display: flex; flex-direction: column; gap: 7px; min-width: 0; color: #6d553e; font-size: 11px; font-weight: 650; }
+.form :is(input,textarea,select) { width: 100%; min-width: 0; min-height: 42px; padding: 10px 11px; border: 1px solid #cebaa0; border-radius: 5px; outline-color: #b83c25; color: #493524; background: #fffaf1; font: inherit; font-size: 12px; font-weight: 400; }
+.form textarea { resize: vertical; line-height: 1.65; }
+.form small { color: #9a8062; font-size: 10px; font-weight: 400; line-height: 1.6; }
+.twoColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tabs { display: flex; gap: 7px; margin-bottom: 23px; }
+.tabs button { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 0 14px; border: 1px solid #cebaa0; border-radius: 5px; color: #84694e; background: transparent; font: inherit; font-size: 11px; cursor: pointer; }
+.tabs button[aria-pressed=true] { border-color: #493323; color: #fff5e3; background: #493323; }
+.upload { align-items: center; justify-content: center; min-height: 140px; padding: 18px; border: 1px dashed #c2a886; border-radius: 7px; background: #eee3cf55; text-align: center; }
+.upload > input { padding: 8px; background: transparent; border: 0; font-size: 11px; }
+.optionalCover { padding-top: 8px; }
+.optionalCover input { font-size: 10px; }
+.primary,.secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 41px; padding: 9px 14px; border: 1px solid #3e2c1f; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 650; cursor: pointer; }
+.primary { color: #fff5e3; background: #3e2c1f; }
+.secondary { align-self: flex-start; color: #80664b; border-color: #ccb697; background: transparent; }
+.primary:disabled,.secondary:disabled { opacity: .5; cursor: progress; }
+.actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 6px; padding-top: 17px; border-top: 1px solid #d8c6ac; }
+.error { padding: 12px 14px; border: 1px solid #c77d6566; border-radius: 5px; color: #a13a23; background: #c66c4210; font-size: 12px; line-height: 1.7; }
+.media { width: 100%; max-height: 60dvh; height: auto; object-fit: contain; border-radius: 6px; background: #e9ddc8; }
+.audio { width: 100%; margin-block: 20px; }
+.xPanel { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 130px; margin-block: 15px; padding: 20px 8px; border: 1px solid #d1bea3; border-radius: 7px; background: #fbf7ef; }
+.xPanel > div { width: 100%; }
+.xPanel p { color: #8b7154; font-size: 12px; line-height: 1.7; text-align: center; }
+.viewerTags { display: flex; flex-wrap: wrap; gap: 6px; margin-block: 20px; }
+.viewerTags span { padding: 5px 8px; border: 1px solid #d0bda3; border-radius: 4px; color: #8b7052; font-family: var(--font-geist-mono), monospace; font-size: 9px; }
+.openOriginal { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-block: 13px 4px; border-top: 1px solid #d0bda3; color: #9c3d24; font-size: 12px; font-weight: 700; text-decoration: none; }
+.dialog :is(button,a,input,textarea,select):focus-visible { outline: 2px solid #b83c25; outline-offset: 3px; }
+@media (max-width: 520px) { .dialog { padding: 20px 18px; } .heading h2 { font-size: 25px; } .form { gap: 14px; } .twoColumns { gap: 10px; } .actions { justify-content: space-between; } .actions :is(button) { padding-inline: 10px; } }

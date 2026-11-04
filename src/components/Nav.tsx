@@ -2,16 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { CalendarBlank, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import styles from "./Nav.module.css";
 
 export default function Nav() {
   const { locale, setLocale } = useLanguage();
+  const pathname = usePathname();
 
   return (
     <motion.nav
-      className="dynamic-island"
+      className={`dynamic-island ${styles.nav}`}
       aria-label="Primary navigation"
       initial={{ opacity: 0, y: -50, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -37,6 +40,15 @@ export default function Nav() {
       </div>
 
       <span className="island-divider island-divider--right" aria-hidden="true" />
+
+      <div className={styles.sections}>
+        <Link href="/" aria-current={pathname === "/" ? "page" : undefined}>
+          {locale === "es" ? "Trabajo" : "Work"}
+        </Link>
+        <Link href="/resources" aria-current={pathname.startsWith("/resources") ? "page" : undefined}>
+          {locale === "es" ? "Recursos" : "Resources"}
+        </Link>
+      </div>
 
       <div className="island-actions">
         <a

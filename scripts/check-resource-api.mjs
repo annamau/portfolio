@@ -1,0 +1,76 @@
+import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { mkdtemp, rm } from "node:fs/promises";
+import { createServer } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import sharp from "sharp";
+
+const socket=createServer();socket.listen(0,"127.0.0.1");await once(socket,"listening");const port=socket.address().port;await new Promise(resolve=>socket.close(resolve));
+const directory=await mkdtemp(join(tmpdir(),"portfolio-api-gate-"));
+const env={...process.env,RESOURCE_STORAGE:"local",RESOURCE_LOCAL_OWNER:"0",RESOURCE_DATA_DIR:directory,RESOURCE_ADMIN_PASSWORD:"resource-api-test-only-password-1234",NODE_ENV:"production"};
+for(const key of ["NETLIFY","NETLIFY_BLOBS_CONTEXT","VERCEL"])delete env[key];
+const server=spawn(process.execPath,["node_modules/next/dist/bin/next","start","--hostname","127.0.0.1","--port",String(port)],{env,stdio:["ignore","pipe","pipe"]});
+let output="";server.stdout.on("data",data=>{output+=data;});server.stderr.on("data",data=>{output+=data;});
+const base=`http://127.0.0.1:${port}`;
+let checks=0;
+let cookie="";
+const verify=(condition,message)=>{assert.ok(condition,message);checks++;};
+async function call(path,{method="GET",data,authenticated=false,origin=base,headers={},form}={}){
+ const response=await fetch(base+path,{method,headers:{...(method!=="GET"?{Origin:origin}:{}),...(data?{"Content-Type":"application/json"}:{}),...(authenticated?{Cookie:cookie}:{}),...headers},body:form||(data?JSON.stringify(data):undefined)});
+ let body=null;if(response.headers.get("content-type")?.includes("application/json"))body=await response.json();
+ return {response,body};
+}
+try{
+ await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error("Test server did not start.")),20000);const read=data=>{if(String(data).includes("Ready")){clearTimeout(timer);resolve();}};server.stdout.on("data",read);server.once("exit",code=>{clearTimeout(timer);reject(new Error(`Test server exited (${code}): ${output.slice(-1500)}`));});});
+ let result=await call("/api/resources/session");verify(result.body.authenticated===false,"Public visitors must not have owner access.");
+ result=await call("/api/resources?scope=inbox");verify(result.response.status===401,"Private inbox must reject anonymous readers.");
+ const draft={url:"https://example.org/portfolio-private-fixture",name:"Private API fixture",category:"ideas",kind:"article",tags:["Testing"],description:"A private test source",privateNotes:"PRIVATE-API-SENTINEL",status:"published"};
+ result=await call("/api/resources",{method:"POST",data:draft});verify(result.response.status===401,"Anonymous visitors cannot save or publish sources.");
+ result=await call("/api/resources/preview",{method:"POST",data:{url:draft.url}});verify(result.response.status===401,"Metadata capture is owner-only.");
+ result=await call("/api/resources/session",{method:"POST",data:{password:env.RESOURCE_ADMIN_PASSWORD},origin:"https://attacker.example"});verify(result.response.status===403,"Cross-origin sign-in is rejected.");
+ result=await call("/api/resources/session",{method:"POST",data:{password:env.RESOURCE_ADMIN_PASSWORD}});verify(result.response.status===200,`Owner can sign in (HTTP ${result.response.status}: ${JSON.stringify(result.body)}).`);
+ cookie=result.response.headers.get("set-cookie").split(";")[0];verify(/HttpOnly/.test(result.response.headers.get("set-cookie")),"Session cookies must be HTTP-only.");
+ result=await call("/api/resources",{method:"POST",data:draft,authenticated:true,origin:"https://attacker.example"});verify(result.response.status===403,"Cross-origin writes are rejected even with a valid session.");
+ result=await call("/api/resources",{method:"POST",data:draft,authenticated:true});verify(result.response.status===201,"Owner can save a source.");const entry=result.body.resources[0];verify(entry.status==="draft","New sources remain private despite an injected published status.");
+ result=await call("/api/resources");verify(result.body.resources.length===0&&!JSON.stringify(result.body).includes("PRIVATE-API-SENTINEL"),"Draft data and notes are absent from public responses.");
+ result=await call("/api/resources?scope=inbox",{authenticated:true});verify(result.body.resources.length===1&&result.body.resources[0].privateNotes===draft.privateNotes,"Owner can retrieve the private draft and notes.");
+ result=await call("/api/resources",{method:"POST",data:draft,authenticated:true});verify(result.body.duplicates===1&&result.body.resources.length===0,"Repeated links are deduplicated.");
+ result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"publish",version:entry.version}});verify(result.response.status===401,"Anonymous visitors cannot publish a known draft ID.");
+ result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"publish",version:entry.version},authenticated:true});verify(result.response.status===200&&result.body.resource.status==="published","Owner can publish a reviewed resource.");
+ result=await call("/api/resources");verify(result.body.resources.length===1&&!JSON.stringify(result.body).includes("PRIVATE-API-SENTINEL"),"Published metadata is public but private notes remain private.");
+ result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"unpublish",version:1},authenticated:true});verify(result.response.status===409,"Stale writes are rejected.");
+ result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"unpublish",version:2},authenticated:true});verify(result.response.status===200,"Owner can return a resource to the inbox.");
+ result=await call("/api/resources");verify(result.body.resources.length===0,"Unpublished resources immediately disappear from the public feed.");
+ const png=await sharp({create:{width:3,height:3,channels:3,background:"#df4f2f"}}).png().toBuffer();
+ const upload=new FormData();upload.set("data",JSON.stringify({name:"Private image",category:"design",privateNotes:"PRIVATE-UPLOAD-SENTINEL"}));upload.set("file",new File([png],"cover.png",{type:"image/png"}));
+ result=await call("/api/resources",{method:"POST",form:upload,authenticated:true});verify(result.response.status===201,"Owner can upload an image.");const image=result.body.resources[0];verify(image.status==="draft"&&image.kind==="image","Uploads start in the private inbox.");
+ result=await call(image.url);verify(result.response.status===404,"Private upload URLs reject anonymous requests.");
+ result=await call(image.url,{authenticated:true});verify(result.response.status===200&&result.response.headers.get("content-type")==="image/webp","Owner can view a validated image.");
+ result=await call(`/api/resources/${image.id}`,{method:"PUT",data:{action:"publish",version:1},authenticated:true});verify(result.response.status===200,"Owner can publish an uploaded image.");
+ result=await call(image.url);verify(result.response.status===200&&result.response.headers.get("x-content-type-options")==="nosniff","Published media is readable with content-type protection.");
+ result=await call(`/api/resources/${image.id}`,{method:"PUT",data:{action:"unpublish",version:2},authenticated:true});verify(result.response.status===200,"Owner can make a published image private again.");
+ result=await call(image.url);verify(result.response.status===404,"Unpublished media is no longer publicly readable.");
+ const badUpload=new FormData();badUpload.set("data",JSON.stringify({name:"Unsafe",category:"design"}));badUpload.set("file",new File(["<svg onload='alert(1)'/>"],"unsafe.svg",{type:"image/svg+xml"}));
+ result=await call("/api/resources",{method:"POST",form:badUpload,authenticated:true});verify(result.response.status===400,"Active SVG uploads are rejected.");
+ const before=(await call("/api/resources?scope=inbox",{authenticated:true})).body.resources.length;
+ result=await call("/api/resources",{method:"POST",authenticated:true,data:{items:[{url:"https://example.org/valid-import"},{url:"javascript:alert(1)"}]}});verify(result.response.status===400,"Invalid imports are rejected.");
+ result=await call("/api/resources?scope=inbox",{authenticated:true});verify(result.body.resources.length===before,"Invalid batches do not partially save links.");
+ result=await call("/api/resources",{method:"POST",authenticated:true,data:{items:[{url:"https://x.com/Example/status/2117671104852754456?s=46&a=tracking",kind:"post",category:"marketing"}]}});const x=result.body.resources[0];verify(x.url==="https://x.com/example/status/2117671104852754456"&&x.source.postId==="2117671104852754456","X links preserve their source ID and remove tracking parameters.");
+ const renamed=await call(`/api/resources/${entry.id}`,{method:"PUT",authenticated:true,data:{action:"save",version:3,url:"https://example.org/updated-fixture"}});
+ verify(renamed.response.status===200,"A draft link can be corrected.");
+ const repeated=await call("/api/resources",{method:"POST",authenticated:true,data:{url:"https://example.org/updated-fixture"}});
+ verify(repeated.body.duplicates===1,"Corrected links must still be deduplicated on capture.");
+ const safetyFindings=[];
+ result=await call(`/api/resources/${entry.id}`,{method:"PUT",authenticated:true,data:{action:"save",version:4,url:x.url}});
+ if(result.response.status!==409)safetyFindings.push("Editing a draft must not duplicate an already saved URL.");checks++;
+ result=await call(`/api/resources/${image.id}`,{method:"PUT",authenticated:true,data:{action:"save",version:3,kind:"video"}});
+ if(result.response.status!==400)safetyFindings.push("An uploaded image must not be relabeled as a video.");checks++;
+ for(let index=0;index<6;index++)result=await call("/api/resources/session",{method:"POST",data:{password:"incorrect-password"},headers:{"x-nf-client-connection-ip":`203.0.113.${index}`}});
+ if(result.response.status!==429)safetyFindings.push("Changing a caller-supplied IP header must not bypass the owner login attempt limit.");checks++;
+ assert.deepEqual(safetyFindings,[],"Resource safety probes failed");
+ console.log(`Resource API gate: ${checks} checks passed.`);
+}catch(error){console.error(output);throw error;}finally{
+ server.kill("SIGTERM");await Promise.race([once(server,"exit"),new Promise(resolve=>setTimeout(resolve,3000))]);if(server.exitCode===null)server.kill("SIGKILL");await rm(directory,{recursive:true,force:true});
+}

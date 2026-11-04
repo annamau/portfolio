@@ -1,0 +1,238 @@
+{
+  "date": "2026-11-04",
+  "project": "portfolio",
+  "status": "Implemented and verified locally; not committed or deployed.",
+  "changes": [
+    "Added COMETA and Receticas de la Casa (Recetanas) to the 21-project jukebox with existing brand assets.",
+    "Corrected Pediatría al Día to https://drdariovaldes.com; updated its stack from the current Astro repository.",
+    "Normalized Rebeam and Newssies to their verified redirected domains, and Entrena con Inteligencia to its live custom domain.",
+    "Curated 63 public resources from 135 synced Chrome bookmarks into six category pages plus an index.",
+    "Added bilingual descriptions, accent-insensitive search, topic filtering, alphabetical sorting, empty/reset states and navigation.",
+    "Used WhatShips as a catalogue reference with original paper, vermilion, serif and bookmark artwork matching the portfolio.",
+    "Added canonical metadata and sitemap entries for the resource pages."
+  ],
+  "resource_storage": {
+    "file": "src/data/resources.ts",
+    "model": "Typed file-backed catalogue; edits ship with the website.",
+    "remote_database": false,
+    "live_editor": false
+  },
+  "files_changed": [
+    "package.json",
+    "src/app/sitemap.ts",
+    "src/app/resources/layout.tsx",
+    "src/app/resources/page.tsx",
+    "src/app/resources/[category]/page.tsx",
+    "src/components/Nav.tsx",
+    "src/components/Nav.module.css",
+    "src/components/resources/ResourceLibrary.tsx",
+    "src/components/resources/ResourceLibrary.module.css",
+    "src/data/projects.ts",
+    "src/data/resources.ts",
+    "src/lib/resource-search.ts",
+    "tests/projects.test.mjs",
+    "tests/resources.test.mjs",
+    "public/projects/logos/cometa.svg",
+    "public/projects/logos/cometa-icon.svg",
+    "public/projects/logos/recetanas.png",
+    "public/projects/recetanas.jpg",
+    "docs/portfolio-resource-update.json"
+  ],
+  "acceptance_checks": [
+    {
+      "command": "npm test",
+      "predicted": "All seven tests pass after the fixes.",
+      "exit_code": 0,
+      "actual": "7 passed, 0 failed.",
+      "failing_lines": []
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "predicted": "No TypeScript errors.",
+      "exit_code": 0,
+      "actual": "No errors.",
+      "failing_lines": []
+    },
+    {
+      "command": "npx eslint src/data/projects.ts src/data/resources.ts src/lib/resource-search.ts src/components/Nav.tsx src/components/resources/ResourceLibrary.tsx src/app/resources src/app/sitemap.ts tests/*.test.mjs",
+      "predicted": "No lint findings in changed source.",
+      "exit_code": 0,
+      "actual": "No findings.",
+      "failing_lines": []
+    },
+    {
+      "command": "npm run build",
+      "predicted": "Production build succeeds with the index and six static resource categories.",
+      "exit_code": 0,
+      "actual": "Compiled successfully; 18 static pages generated.",
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "predicted": "No whitespace errors.",
+      "exit_code": 0,
+      "actual": "No errors.",
+      "failing_lines": []
+    },
+    {
+      "command": "python3 /tmp/portfolio-final-http-check.py",
+      "predicted": "Home, resource index, six categories, sitemap and four new assets return 200; unknown category returns 404.",
+      "exit_code": 0,
+      "actual": "14 HTTP checks passed.",
+      "failing_lines": []
+    }
+  ],
+  "reproductions": [
+    {
+      "command": "node --test tests/projects.test.mjs",
+      "before_exit_code": 1,
+      "before_failing_lines": [
+        "AssertionError: pediatria: actual https://pediatriaaldia.es; expected https://drdariovaldes.com"
+      ],
+      "after": "npm test passes."
+    },
+    {
+      "command": "node --test --test-name-pattern='Evolution API' tests/resources.test.mjs",
+      "before_exit_code": 1,
+      "before_failing_lines": [
+        "Expected current Evolution documentation URL; actual retired URL."
+      ],
+      "after": "npm test passes; current documentation visibly renders in Chrome."
+    },
+    {
+      "check": "Read h1.scrollWidth and h1.clientWidth on /resources/infrastructure in Spanish at 320 CSS pixels.",
+      "before": {
+        "scrollWidth": 294,
+        "clientWidth": 280,
+        "pass": false
+      },
+      "after": {
+        "scrollWidth": 280,
+        "clientWidth": 280,
+        "pass": true
+      },
+      "cause": "The generic mobile hero font size was too large for an unbroken category name.",
+      "fix": "Scoped smaller mobile category heading; global portfolio stylesheet untouched."
+    }
+  ],
+  "browser_checks": {
+    "tool": "Chrome via CUA",
+    "desktop_css_width": 1745,
+    "mobile_css_widths": [
+      354,
+      320
+    ],
+    "search": "phosphor produces 1 resource; an unknown query produces 0 and an empty state; reset restores 63.",
+    "filters": "Marketing + Email returns 2 resources; A-Z orders EmailOctopus before Mail-tester.",
+    "translation": "Spanish headings, descriptions, controls and result counts render; original English preference restored.",
+    "layout": "Document width equals viewport width at 320 CSS pixels; all cards fit. Infrastructure heading regression passes.",
+    "projects": "COMETA opens https://cometa.cards; Receticas de la Casa opens https://www.recetanas.es; branding and detail sleeve render at 320 CSS pixels.",
+    "console_errors": [],
+    "viewport_teardown": "Temporary responsive preview tab closed; normal desktop preview opened."
+  },
+  "link_audit": {
+    "checked": 63,
+    "initial_http_200": 52,
+    "fixed": "Old Evolution API path returned 404; replaced with https://docs.evolutionfoundation.com.br/ and verified visually in Chrome.",
+    "inconclusive_automated_checks": [
+      {
+        "name": "Uiverse",
+        "status": 403
+      },
+      {
+        "name": "Unsplash",
+        "status": 401
+      },
+      {
+        "name": "Freepik",
+        "status": 403
+      },
+      {
+        "name": "Midjourney",
+        "status": 403
+      },
+      {
+        "name": "OpenGraph",
+        "status": 429
+      },
+      {
+        "name": "Landing Love",
+        "status": 403
+      },
+      {
+        "name": "Dribbble",
+        "status": 202
+      },
+      {
+        "name": "Behance",
+        "status": 403
+      },
+      {
+        "name": "CodePen",
+        "status": 403
+      },
+      {
+        "name": "Devpost",
+        "status": 403
+      }
+    ],
+    "additional_restriction": "Corrected Evolution documentation returns 403 to a plain Python request, but successfully renders its official content in Chrome.",
+    "sources": [
+      "https://whatships.com/",
+      "https://docs.evolutionfoundation.com.br/",
+      "https://drdariovaldes.com/",
+      "https://cometa.cards/",
+      "https://www.recetanas.es/"
+    ]
+  },
+  "caveats": [
+    "Local implementation only; no production deploy or commit was performed.",
+    "Ten resource destinations returned access restrictions or challenge responses in the automated audit; no full accessibility claim is made for them.",
+    "The catalogue is maintained in code, with no remote database or admin editor.",
+    "Responsive QA used Chrome viewport emulation, not a physical phone.",
+    "Native TypeScript test execution used Node 26; older Node versions without type stripping were not tested.",
+    "Existing untracked logo files and existing tmp contents were left untouched."
+  ],
+  "calibration": [
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "Existing project data can add Cometa and Recetanas without changing the jukebox UI.",
+      "score": 8,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "A typed file-backed catalogue supports the requested searchable category library.",
+      "score": 7,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "Pediatria points to an unresolving planned domain and should use drdariovaldes.com.",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "The retired Evolution API documentation path should use the current official documentation root.",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "Reducing the category heading size fixes its measured overflow at 320 CSS pixels.",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}

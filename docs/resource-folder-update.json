@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-04",
+  "project": "portfolio",
+  "status": "Implemented, verified and running on localhost. Not committed or deployed.",
+  "preview": "http://127.0.0.1:3091/resources",
+  "changes": [
+    "Removed the floating site navigation and large introductory banner from all resource pages.",
+    "Replaced the featured section and repeated catalogue with a single folder view: sidebar categories, search and clickable cards.",
+    "Added 42 optimized public website previews, stored locally, totaling approximately 643 KB.",
+    "Retained category artwork for 21 resources without usable previews, including an image-error fallback.",
+    "Retained English/Spanish controls, six category routes, topic filters, alphabetical order and empty/reset states.",
+    "Kept the portfolio homepage navigation and earlier project additions intact."
+  ],
+  "files_changed": [
+    "src/app/resources/layout.tsx",
+    "src/components/resources/ResourceLibrary.tsx",
+    "src/components/resources/ResourceLibrary.module.css",
+    "src/data/resource-media.ts",
+    "tests/resources.test.mjs",
+    "docs/resource-folder-update.json",
+    "public/resources/previews/aceternity.webp",
+    "public/resources/previews/21st.webp",
+    "public/resources/previews/magicui.webp",
+    "public/resources/previews/heroui.webp",
+    "public/resources/previews/tremor.webp",
+    "public/resources/previews/phosphor.webp",
+    "public/resources/previews/gsap.webp",
+    "public/resources/previews/remotion.webp",
+    "public/resources/previews/feralui.webp",
+    "public/resources/previews/mastra.webp",
+    "public/resources/previews/llamaindex.webp",
+    "public/resources/previews/pinecone.webp",
+    "public/resources/previews/smithery.webp",
+    "public/resources/previews/exa.webp",
+    "public/resources/previews/ollama.webp",
+    "public/resources/previews/ai-studio.webp",
+    "public/resources/previews/rive.webp",
+    "public/resources/previews/spline.webp",
+    "public/resources/previews/meshy.webp",
+    "public/resources/previews/picoberry.webp",
+    "public/resources/previews/quiver.webp",
+    "public/resources/previews/apollo.webp",
+    "public/resources/previews/semrush.webp",
+    "public/resources/previews/emailoctopus.webp",
+    "public/resources/previews/postiz.webp",
+    "public/resources/previews/capcut.webp",
+    "public/resources/previews/napkin.webp",
+    "public/resources/previews/whatships.webp",
+    "public/resources/previews/motioninspo.webp",
+    "public/resources/previews/recent.webp",
+    "public/resources/previews/awwwards.webp",
+    "public/resources/previews/railway.webp",
+    "public/resources/previews/caddy.webp",
+    "public/resources/previews/improvmx.webp",
+    "public/resources/previews/sanity.webp",
+    "public/resources/previews/supabase.webp",
+    "public/resources/previews/netlify.webp",
+    "public/resources/previews/upstash.webp",
+    "public/resources/previews/neo4j.webp",
+    "public/resources/previews/coolify.webp",
+    "public/resources/previews/evolution.webp",
+    "public/resources/previews/n8n.webp"
+  ],
+  "checks": [
+    {
+      "command": "npm test",
+      "predicted": "Eight tests pass, including a guard for local preview publishing.",
+      "exit_code": 0,
+      "actual": "8 passed, 0 failed.",
+      "failing_lines": []
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "predicted": "No TypeScript errors.",
+      "exit_code": 0,
+      "actual": "No errors.",
+      "failing_lines": []
+    },
+    {
+      "command": "npx eslint src/app/resources/layout.tsx src/components/resources/ResourceLibrary.tsx src/data/resource-media.ts tests/resources.test.mjs",
+      "predicted": "No lint errors in changed source.",
+      "exit_code": 0,
+      "actual": "No errors.",
+      "failing_lines": []
+    },
+    {
+      "command": "npm run build",
+      "predicted": "Production build succeeds.",
+      "exit_code": 0,
+      "actual": "Normal Turbopack build passed after isolating existing generated output; 18 static pages generated.",
+      "failing_lines": []
+    },
+    {
+      "command": "python3 /tmp/portfolio-resource-folder-check.py",
+      "predicted": "All category routes and 42 previews return 200; no resource header or duplicate cards; unknown category 404.",
+      "exit_code": 0,
+      "actual": "51 HTTP checks passed; 63 unique cards; 42 valid preview responses; resource header absent; portfolio navigation retained.",
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "predicted": "No whitespace errors.",
+      "exit_code": 0,
+      "actual": "No errors.",
+      "failing_lines": []
+    }
+  ],
+  "build_investigation": {
+    "initial_command": "npm run build",
+    "initial_exit_code": 1,
+    "initial_failing_lines": [
+      "Module not found: Can't resolve '@vercel/turbopack-next/internal/font/google/font'"
+    ],
+    "class": "Generated build state / infrastructure",
+    "experiment": "Preserved .next under /tmp/portfolio-next-before-clean-fjsq1wmh/next and ran the unchanged normal build with fresh output.",
+    "predicted": "A fresh-output build succeeds if stale generated state explains the failure.",
+    "actual": "Build succeeded without application, dependency, bundler or configuration changes.",
+    "limitation": "The experiment supports a generated-state issue; the exact offending cache entry was not pinpointed."
+  },
+  "browser_checks": {
+    "browser": "In-app browser via CUA",
+    "sample": "One author QA session; no traffic or conversion experiment.",
+    "widths_css_pixels": [
+      320,
+      407,
+      1440
+    ],
+    "first_card_top_css_pixels": {
+      "mobile": 354.046875,
+      "desktop": 182
+    },
+    "horizontal_overflow": false,
+    "site_header_count_on_resources": 0,
+    "resource_card_count": 63,
+    "preview_image_count": 42,
+    "visible_preview_images_loaded": true,
+    "search": "phosphor -> 1 resource; an unknown query -> 0 and the empty state; reset restores the catalogue.",
+    "folders": "Marketing route shows 11 resources; Infrastructure shows 12.",
+    "filters": "Marketing + Email -> 2 resources; alphabetical order is EmailOctopus then Mail-tester.",
+    "translation": "Spanish controls and Infrastructure title fit at 320px; English restored.",
+    "console_errors": [],
+    "teardown": "Viewport override reset, current resource tab retained, localhost server left running as requested."
+  },
+  "caveats": [
+    "21 resources have category artwork because a usable public preview was not available.",
+    "Changes are local; no production deployment performed."
+  ],
+  "calibration": [
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "Removing the banners and duplicate featured section puts resource cards above the fold while keeping filters usable.",
+      "score": 8,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-04",
+      "project": "portfolio",
+      "claim": "Stale generated output may explain the font module build failure.",
+      "score": 4,
+      "checked": true,
+      "held": true
+    }
+  ]
+}
