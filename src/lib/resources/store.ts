@@ -13,7 +13,12 @@ export function storageMode(env: Record<string, string | undefined> = process.en
   throw new ResourceError("Persistent resource storage is not configured on this host.", 503);
 }
 const cloud = () => storageMode() === "netlify";
-const blobs = () => getStore({ name: "portfolio-resource-library", consistency: "strong" });
+const blobs = () => getStore({
+  name: "portfolio-resource-library", consistency: "strong",
+  // A signal opts out of Next's cloned fetch responses. SDK cancellation of a
+  // missing blob otherwise waits forever on the unread clone's stream branch.
+  fetch: (url, options) => fetch(url, { ...options, cache: "no-store", signal: options?.signal ?? AbortSignal.timeout(5000) }),
+});
 let queue = Promise.resolve();
 
 async function locallySerialized<T>(work: () => Promise<T>): Promise<T> {

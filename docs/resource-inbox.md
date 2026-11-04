@@ -33,3 +33,7 @@ The font regression gate requests every font preloaded by the built homepage and
 ## Native upload packaging
 
 The first live inbox request failed before storage access: Next’s deployment trace omitted Sharp 0.35’s `libvips` shared library. A bundle probe reproduced the missing native library and found local-only files in a local build trace. Explicit tracing includes the installed native library and excludes `.resource-data`, `.env*`, `.git` and `tmp` on every server route. The release gate validates the trace before running the HTTP assertions. This avoids downgrading the image validator or weakening upload checks. Source: https://github.com/vercel/next.js/issues/97973.
+
+## Missing-object cloud regression
+
+Production saves stalled on the first missing-record lookup. A nonexistent media read also timed out. Stage logs located the wait at `getEntry`; SDK source showed it awaited cancellation of a 404 body while Next’s deduplicating fetch retained an unread clone. A real Next server against a local mock Blobs 404 reproduced the timeout before the fix. Blobs fetches now use `no-store` and a bounded abort signal, which opts out of Next’s response cloning. The cloud gate checks prompt missing-media and owner-edit responses. Temporary stage diagnostics were removed after identifying the cause.
