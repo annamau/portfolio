@@ -4,3 +4,4 @@
 {"date": "2026-11-04", "project": "portfolio", "claim": "Netlify Blobs provides persistent storage on the existing production host", "score": 8, "checked": false, "held": null}
 {"date": "2026-11-04", "project": "portfolio", "claim": "Local persistence test must isolate and restore hosted storage flags", "score": 9, "checked": true, "held": true}
 {"date": "2026-11-04", "project": "portfolio", "claim": "Bundled original variable fonts avoid Google extensionless font URL compiler failures", "score": 9, "checked": true, "held": true}
+{"date": "2026-11-04", "project": "portfolio", "claim": "Native image library must be explicitly traced and private local data excluded from server bundles", "score": 9, "checked": true, "held": true}

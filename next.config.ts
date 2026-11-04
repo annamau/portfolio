@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  outputFileTracingIncludes: {
+    "/*": ["./node_modules/@img/sharp-libvips-*/lib/*"],
+  },
+  outputFileTracingExcludes: {
+    "/*": ["./.resource-data/**/*", "./.env*", "./tmp/**/*", "./.git/**/*"],
+  },
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react", "framer-motion"],
   },

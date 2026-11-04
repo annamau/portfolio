@@ -29,3 +29,7 @@ The first hosted build exposed a local-store test inheriting Netlify environment
 A clean hosted build reproduced Next/Turbopack’s `next/font/google queries have exactly one entry` error on Bodoni Moda’s extensionless Google font URL. Clearing the cache was insufficient: Google can vary that response. The same Bodoni Moda, Manrope and Geist Mono variable fonts are bundled as WOFF2 with their OFL licenses, including Spanish glyphs. `next/font/local` preserves the CSS variables and avoids build-time font downloads. Sources: https://github.com/vercel/next.js/issues/99114 and https://github.com/google/fonts/tree/main/ofl.
 
 The font regression gate requests every font preloaded by the built homepage and validates its WOFF2 signature. Four bundled fonts passed, including both Bodoni styles. Browser inspection confirmed the same font families and no horizontal overflow.
+
+## Native upload packaging
+
+The first live inbox request failed before storage access: Next’s deployment trace omitted Sharp 0.35’s `libvips` shared library. A bundle probe reproduced the missing native library and found local-only files in a local build trace. Explicit tracing includes the installed native library and excludes `.resource-data`, `.env*`, `.git` and `tmp` on every server route. The release gate validates the trace before running the HTTP assertions. This avoids downgrading the image validator or weakening upload checks. Source: https://github.com/vercel/next.js/issues/97973.

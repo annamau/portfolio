@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFile,readdir} from 'node:fs/promises';
+import {join,resolve,dirname} from 'node:path';
+const tracePath=resolve('.next/server/app/api/resources/route.js.nft.json');
+const trace=JSON.parse(await readFile(tracePath,'utf8'));
+const files=new Set(trace.files.map(file=>resolve(dirname(tracePath),file)));
+const linuxFlavor=process.platform==='linux'&&!process.report.getReport().header.glibcVersionRuntime?'linuxmusl':process.platform;
+const libraryDirectory=resolve('node_modules', '@img',`sharp-libvips-${linuxFlavor}-${process.arch}`,'lib');
+const libraries=(await readdir(libraryDirectory)).filter(name=>/\.(so(?:\.[\d.]+)?|dylib)$/.test(name));
+assert.ok(libraries.length,'The image processor must have a native libvips library installed.');
+const missing=libraries.filter(name=>!files.has(join(libraryDirectory,name)));
+const forbidden=[...files].filter(file=>file.startsWith(resolve('.resource-data')+'/')||file.startsWith(resolve('tmp')+'/')||file.startsWith(resolve('.git')+'/')||file.startsWith(resolve('.')+'/.env'));
+assert.deepEqual({missing,privateFilesBundled:forbidden.length},{missing:[],privateFilesBundled:0},'Resource deployment must include native image libraries and exclude local private data.');
+console.log(`Resource bundle gate: ${libraries.length} native libraries traced; local private files excluded.`);
