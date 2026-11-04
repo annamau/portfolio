@@ -20,6 +20,12 @@ Export links downloads private JSON including notes, suitable for re-import as d
 
 `npm run build` runs unit tests, a production Next build, then an isolated HTTP gate covering login, cross-origin writes, private/public serialization, publishing, unpublishing, upload validation, media authorization, stale updates, URL corrections, duplicate capture and throttling. Node 24 is selected in `netlify.toml`.
 
-Observed locally: 18 unit tests and 36 API assertions passed. Typecheck, targeted ESLint and whitespace checks passed. A same-origin request failed first because Next normalized the loopback URL to localhost; the fix compares the browser-facing Host authority. Probe tests also failed first for duplicate URL edits/capture, attachment type changes and caller-controlled throttle headers, then passed after validation fixes. Browser checks covered link capture, X embed, logo navigation and 320/1440px layouts. External X embed availability remains controlled by X.
+Observed locally: 18 unit tests and 41 API assertions passed. Typecheck, targeted ESLint and whitespace checks passed. A same-origin request failed first because Next normalized the loopback URL to localhost; the fix compares the browser-facing Host authority. Probe tests also failed first for duplicate URL edits/capture, attachment type changes and caller-controlled throttle headers, then passed after validation fixes. Browser checks covered link capture, X embed, logo navigation and 320/1440px layouts. External X embed availability remains controlled by X.
 
 The first hosted build exposed a local-store test inheriting Netlify environment flags. The exact hosted environment reproduced `MissingBlobsEnvironmentError`; the fixture now selects and restores its isolated local-store environment. Production storage selection is unchanged, and the hosted-fallback rejection assertions remain enabled.
+
+## Font build reliability
+
+A clean hosted build reproduced Next/Turbopack’s `next/font/google queries have exactly one entry` error on Bodoni Moda’s extensionless Google font URL. Clearing the cache was insufficient: Google can vary that response. The same Bodoni Moda, Manrope and Geist Mono variable fonts are bundled as WOFF2 with their OFL licenses, including Spanish glyphs. `next/font/local` preserves the CSS variables and avoids build-time font downloads. Sources: https://github.com/vercel/next.js/issues/99114 and https://github.com/google/fonts/tree/main/ofl.
+
+The font regression gate requests every font preloaded by the built homepage and validates its WOFF2 signature. Four bundled fonts passed, including both Bodoni styles. Browser inspection confirmed the same font families and no horizontal overflow.

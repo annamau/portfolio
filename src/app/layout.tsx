@@ -1,26 +1,31 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
-const bodoni = Bodoni_Moda({
+const bodoni = localFont({
   variable: "--font-bodoni",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  src: [
+    { path: "./fonts/bodoni-moda-normal.woff2", weight: "400 900", style: "normal" },
+    { path: "./fonts/bodoni-moda-italic.woff2", weight: "400 900", style: "italic" },
+  ],
+  display: "swap",
+  fallback: ["Georgia", "serif"],
 });
 
-const manrope = Manrope({
+const manrope = localFont({
   variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  src: "./fonts/manrope.woff2",
+  weight: "200 800",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  src: "./fonts/geist-mono.woff2",
+  weight: "100 900",
+  display: "swap",
 });
 
 const BASE_URL = "https://andresnavesmauri.com";

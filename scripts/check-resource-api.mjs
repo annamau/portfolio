@@ -24,6 +24,10 @@ async function call(path,{method="GET",data,authenticated=false,origin=base,head
 }
 try{
  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error("Test server did not start.")),20000);const read=data=>{if(String(data).includes("Ready")){clearTimeout(timer);resolve();}};server.stdout.on("data",read);server.once("exit",code=>{clearTimeout(timer);reject(new Error(`Test server exited (${code}): ${output.slice(-1500)}`));});});
+ const homepage=await fetch(base+"/");const markup=await homepage.text();
+ const fonts=[...new Set([...markup.matchAll(/href="([^"\s]+\.woff2)"/g)].map(match=>match[1]))];
+ verify(fonts.length>0,"The built homepage preloads its fonts.");
+ for(const path of fonts){const response=await fetch(new URL(path,base));const bytes=Buffer.from(await response.arrayBuffer());verify(response.ok&&bytes.subarray(0,4).toString()==="wOF2","Preloaded font files are served as valid WOFF2 data.");}
  let result=await call("/api/resources/session");verify(result.body.authenticated===false,"Public visitors must not have owner access.");
  result=await call("/api/resources?scope=inbox");verify(result.response.status===401,"Private inbox must reject anonymous readers.");
  const draft={url:"https://example.org/portfolio-private-fixture",name:"Private API fixture",category:"ideas",kind:"article",tags:["Testing"],description:"A private test source",privateNotes:"PRIVATE-API-SENTINEL",status:"published"};
