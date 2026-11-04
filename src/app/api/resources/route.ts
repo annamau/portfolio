@@ -25,7 +25,9 @@ async function createDraft(input: unknown, upload?: File, role: "cover" | "attac
   let baseInput = input;
   let id: string;
   if (upload) {
+    console.info("[resources] save: validating upload");
     fileData = await validateUpload(upload);
+    console.info("[resources] save: upload validated");
     if (role === "cover" && fileData.kind !== "image") throw new ResourceError("A cover must be an image.");
   }
   if (fileData && role === "attachment") {
@@ -36,7 +38,9 @@ async function createDraft(input: unknown, upload?: File, role: "cover" | "attac
     if (seedResources.some((entry) => normalizeResourceUrl(entry.url) === parsed.url) || (await listEntries()).some((entry) => entry.url === parsed.url)) throw new ResourceError("This link is already in the directory.", 409);
     id = savedId(parsed.url);
   }
+  console.info("[resources] save: checking existing entry");
   if (await getEntry(id)) throw new ResourceError("This link is already saved in your inbox or directory.", 409);
+  console.info("[resources] save: existing entry checked");
   const entry: SavedResource = { ...parseDraft(baseInput), id, status: "draft", createdAt: now, updatedAt: now, version: 1 };
   if (fileData) {
     const asset = randomUUID();
@@ -44,19 +48,26 @@ async function createDraft(input: unknown, upload?: File, role: "cover" | "attac
     entry.media = { id: asset, name: fileData.name, contentType: fileData.contentType, size: fileData.bytes.byteLength, role };
     if (role === "attachment") { entry.url = mediaUrl; entry.file = { name: fileData.name, contentType: fileData.contentType, size: fileData.bytes.byteLength }; }
     if (fileData.kind === "image") entry.preview = mediaUrl;
+    console.info("[resources] save: writing media");
     await writeMedia(id, asset, fileData.bytes);
+    console.info("[resources] save: media written");
   }
+  console.info("[resources] save: writing entry");
   await writeEntry(entry, 0);
+  console.info("[resources] save: entry written");
   return entry;
 }
 
 export async function POST(request: Request) {
   try {
+    console.info("[resources] capture: received");
     ownerWrite(request);
     if (request.headers.get("content-type")?.startsWith("multipart/form-data")) {
+      console.info("[resources] capture: reading multipart body");
       const bytes = await limitedBody(request, MAX_UPLOAD_BYTES + 100_000);
       const multipart = new Request(request.url, { method: "POST", headers: { "content-type": request.headers.get("content-type")! }, body: Buffer.from(bytes) });
       const form = await multipart.formData();
+      console.info("[resources] capture: multipart parsed");
       const upload = form.get("file");
       if (!(upload instanceof File)) throw new ResourceError("Choose a file to upload.");
       let data: unknown;
@@ -65,6 +76,7 @@ export async function POST(request: Request) {
       return json({ resources: [resource], duplicates: 0 }, 201);
     }
     const body = await jsonBody(request);
+    console.info("[resources] capture: JSON parsed");
     const items = Array.isArray(body.items) ? body.items : [body];
     if (!items.length || items.length > 50) throw new ResourceError("Add between 1 and 50 links at a time.");
     // Validate the entire batch before writing any part of an import.
