@@ -79,7 +79,10 @@ test("uploads validate file bytes and reject active content, spoofed types and o
 });
 
 test("saved resources survive reads and stale updates cannot overwrite newer data", async () => {
-  const previous=process.env.RESOURCE_DATA_DIR;
+  const environmentKeys=["RESOURCE_DATA_DIR","RESOURCE_STORAGE","NETLIFY","NETLIFY_BLOBS_CONTEXT","VERCEL"];
+  const previous=Object.fromEntries(environmentKeys.map(key=>[key,process.env[key]]));
+  for(const key of environmentKeys)delete process.env[key];
+  process.env.RESOURCE_STORAGE="local";
   const directory=await mkdtemp(join(tmpdir(),"portfolio-resource-store-test-"));
   process.env.RESOURCE_DATA_DIR=directory;
   try {
@@ -93,7 +96,9 @@ test("saved resources survive reads and stale updates cannot overwrite newer dat
     await writeEntry({...entry,name:"Updated",version:2},1);
     assert.equal((await getEntry(id)).name,"Updated");
   } finally {
-    if(previous===undefined)delete process.env.RESOURCE_DATA_DIR;else process.env.RESOURCE_DATA_DIR=previous;
+    for(const [key,value]of Object.entries(previous)){
+      if(value===undefined)delete process.env[key];else process.env[key]=value;
+    }
     await rm(directory,{recursive:true,force:true});
   }
 });

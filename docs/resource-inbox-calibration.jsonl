@@ -2,3 +2,4 @@
 {"date": "2026-11-04", "project": "portfolio", "claim": "Drafts, notes and unpublished media stay private across publication transitions", "score": 9, "checked": true, "held": true}
 {"date": "2026-11-04", "project": "portfolio", "claim": "Corrected URLs remain deduplicated across edits and capture", "score": 9, "checked": true, "held": true}
 {"date": "2026-11-04", "project": "portfolio", "claim": "Netlify Blobs provides persistent storage on the existing production host", "score": 8, "checked": false, "held": null}
+{"date": "2026-11-04", "project": "portfolio", "claim": "Local persistence test must isolate and restore hosted storage flags", "score": 9, "checked": true, "held": true}
