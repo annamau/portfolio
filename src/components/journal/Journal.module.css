@@ -51,16 +51,16 @@
 .writingArea { min-height:380px; font-size:14px!important; line-height:1.9!important; }
 .postList button[aria-pressed=true] { border-color:#b83c25; color:#9a3a26; }
 .prose a { color:#9a3a26; text-decoration:underline; text-underline-offset:4px; text-decoration-color:#b83c2560; }
-.spoiler { display:inline; max-width:100%; padding:3px 8px; border:0; border-radius:3px; background:#30261e; color:#f0e9dc; font:inherit; line-height:inherit; text-align:left; cursor:pointer; white-space:pre-wrap; }
-.spoiler>span { font-size:12px; letter-spacing:.03em; }
-.spoiler[data-revealed=true] { padding:0 3px; background:#30261e0a; color:inherit; box-decoration-break:clone; }
 .figure { margin:44px 0; }
 .figure>img { display:block; width:100%; height:auto; max-height:540px; object-fit:contain; border-radius:5px; background:#e7dece; }
 .figure figcaption { margin-top:16px; color:#80694f; font-size:11px; line-height:1.8; }
-.chartFrame { display:block; width:100%; height:640px; border:1px solid #cbbb9f; border-radius:5px; background:#f0e9dc; }
-.figureLink { display:inline-block; margin-top:12px; font-size:11px; }
 .draftBanner { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px; margin:32px auto 0; max-width:720px; border:1px dashed #b83c2566; color:#9a3a26; font-size:12px; }
-@media(max-width:600px) { .chartFrame { height:600px; } .figure { margin-block:32px; } }
+@media(max-width:600px) { .figure { margin-block:32px; } }
 
-.spoiler { font-size:12px; }
-.spoilerRevealed { margin-left:8px; background:#30261e08; box-decoration-break:clone; }
+
+.spoiler { display:inline; border-radius:2px; background:#b7b7b7; color:transparent; cursor:pointer; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.spoiler[data-revealed=false] * { color:transparent!important; text-decoration-color:transparent!important; }
+.spoiler[data-revealed=false]:hover { background:#aaa; }
+.spoiler[data-revealed=true] { background:transparent; color:inherit; cursor:inherit; }
+.spoiler:focus-visible { outline:2px solid #b83c25; outline-offset:3px; }
+.chartFrame { display:block; width:100%; border:0; background:transparent; }

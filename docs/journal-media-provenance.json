@@ -7,7 +7,9 @@
       "bytes": 504464,
       "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
       "historicalArtifact": false,
-      "officialGameArt": false
+      "officialGameArt": false,
+      "usedInCurrentDraft": false,
+      "status": "Superseded after author requested actual game imagery"
     },
     {
       "file": "public/journal/hades-ii/night-jar.webp",
@@ -15,7 +17,9 @@
       "bytes": 300432,
       "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
       "historicalArtifact": false,
-      "officialGameArt": false
+      "officialGameArt": false,
+      "usedInCurrentDraft": false,
+      "status": "Superseded after author requested actual game imagery"
     },
     {
       "file": "public/journal/hades-ii/night-family-seal.webp",
@@ -23,7 +27,9 @@
       "bytes": 300828,
       "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
       "historicalArtifact": false,
-      "officialGameArt": false
+      "officialGameArt": false,
+      "usedInCurrentDraft": false,
+      "status": "Superseded after author requested actual game imagery"
     },
     {
       "file": "public/journal/hades-ii/met-siren-earring.jpg",
@@ -32,8 +38,46 @@
       "creator": "Greek, mid-4th century BCE; photograph from The Metropolitan Museum of Art",
       "object": "08.258.49",
       "source": "https://www.metmuseum.org/art/collection/search/248121",
-      "rights": "Public Domain, as marked by the museum"
+      "rights": "Public Domain, as marked by the museum",
+      "usedInCurrentDraft": false,
+      "status": "Superseded after author requested actual game imagery"
+    },
+    {
+      "file": "public/journal/hades-ii/game-cast.avif",
+      "sha256": "769eb8c7dd2cef07533c0e017488de2aec15b4893cad53bd5743debdb658d114",
+      "bytes": 63459,
+      "creator": "Supergiant Games",
+      "officialGameArt": true,
+      "usedInCurrentDraft": true,
+      "description": "Official promotional character lineup",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145350/extras/47ef79096a49518c61cc4a7e6aaae855.avif?t=1779901265",
+      "listing": "https://store.steampowered.com/app/1145350/Hades_II/",
+      "rights": "Hades II © Supergiant Games. Official promotional media used with credit in a personal editorial review; not public domain."
+    },
+    {
+      "file": "public/journal/hades-ii/game-conversation.jpg",
+      "sha256": "566a78ffa9706838e77a75698ad480f811c1d2bfba31b999e8dc9834ee693fd0",
+      "bytes": 499838,
+      "creator": "Supergiant Games",
+      "officialGameArt": true,
+      "usedInCurrentDraft": true,
+      "description": "Melinoë in a woodland conversation",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145350/ss_f28befd916e59b8bf0a8a801b8a498b8adaa01eb.1920x1080.jpg?t=1779901265",
+      "listing": "https://store.steampowered.com/app/1145350/Hades_II/",
+      "rights": "Hades II © Supergiant Games. Official promotional media used with credit in a personal editorial review; not public domain."
+    },
+    {
+      "file": "public/journal/hades-ii/game-nemesis.jpg",
+      "sha256": "50ecd22aee5319d239edbcce4681483c9d300981137a6754bb4857372edc1f58",
+      "bytes": 413999,
+      "creator": "Supergiant Games",
+      "officialGameArt": true,
+      "usedInCurrentDraft": true,
+      "description": "Nemesis dialogue portrait",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1145350/ss_295de30c8ec9fc82b73f226e68dd8b7fa8b07a62.1920x1080.jpg?t=1779901265",
+      "listing": "https://store.steampowered.com/app/1145350/Hades_II/",
+      "rights": "Hades II © Supergiant Games. Official promotional media used with credit in a personal editorial review; not public domain."
     }
   ],
-  "charts": "Generated personal-use TinyCharts sheets are stored with the private journal entry, not vendored into this repository."
+  "charts": "Personal-use TinyCharts diagrams are stored with the private journal entry. Visible product branding is removed; the supplied license and MIT notice are retained in HTML comments."
 }

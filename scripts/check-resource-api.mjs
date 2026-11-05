@@ -88,7 +88,10 @@ try{
  result=await call("/api/resources/journal",{method:"PUT",authenticated:true,data:{...article,id:post.id,version:1,action:"publish"}});verify(result.response.ok&&result.body.post.status==="published","Owner can publish an entry.");
  result=await call("/api/resources/journal");verify(result.body.posts.length===1&&!('version' in result.body.posts[0]),"Published entries expose content without owner edit fields.");
  page=await fetch(base+`/blog/${post.slug}`);let html=await page.text();verify(page.status===200&&html.includes(article.title)&&html.includes('JOURNAL-PRIVATE-SENTINEL')&&!html.includes('<script>JOURNAL-ACTIVE-CONTENT</script>'),"Published entry pages render text safely.");
- verify(!html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,"").includes("SPOILER-SECRET-SENTINEL"),"Spoiler content is absent from initially rendered reading text.");
+ const readingHtml=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,"");
+ const covered=readingHtml.match(/<span(?=[^>]*data-spoiler-content="")(?=[^>]*inert="")(?=[^>]*aria-hidden="true")[^>]*>([\s\S]*?)<\/span>/)?.[1]||"";
+ verify(covered.includes("SPOILER-SECRET-SENTINEL"),"Spoiler words retain their place inside an inert, accessibility-hidden cover before reveal.");
+ verify(!readingHtml.includes('>Reveal spoiler</button>'),"Spoilers do not add visible reveal-button copy.");
  const publicFigure=await fetch(base+figurePath);verify(publicFigure.ok&&(await publicFigure.text()).includes("PRIVATE-FIGURE-SENTINEL"),"Publication makes the entry's figure public too.");
  page=await fetch(base+"/blog");verify((await page.text()).includes(article.title),"Published entries appear in the blog index.");
  page=await fetch(base+"/sitemap.xml");verify((await page.text()).includes(post.slug),"Published entry URLs appear in the sitemap.");
