@@ -1,0 +1,407 @@
+{
+  "date": "2026-11-05",
+  "scope": "Resource thumbnails and Chrome mobile scrolling",
+  "previewCoverage": {
+    "before": 42,
+    "after": 63,
+    "newOfficialOrPageCaptures": 19,
+    "localIdentityThumbnails": [
+      "bing-webmaster",
+      "midjourney"
+    ],
+    "futureLinks": "Local SVG image fallback; no external screenshot requests"
+  },
+  "reproductions": {
+    "globalMobileScrollLock": {
+      "beforeScrollY": 0,
+      "beforePageHeight": 844,
+      "contentHeight": 24384,
+      "cause": "src/app/globals.css mobile html/body selector included resource routes"
+    },
+    "narrowDialogTabs": {
+      "beforeOverflowEn": 10,
+      "beforeOverflowEs": 35,
+      "cause": "Fixed tab padding/minimum content widths exceeded the narrow dialog"
+    }
+  },
+  "browser": {
+    "date": "2026-11-05",
+    "browser": "Chrome connector",
+    "before": {
+      "requestedCssWidth": 390,
+      "scrollYAfterPageDown": 0,
+      "documentHeight": 844,
+      "contentHeight": 24384,
+      "overflow": "hidden"
+    },
+    "cases": [
+      {
+        "atBottom": true,
+        "cards": 63,
+        "height": 844,
+        "images": 63,
+        "pageHeight": 23925,
+        "path": "/resources",
+        "scrollWidth": 376,
+        "scrollY": 23081.818359375,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": true,
+        "cards": 10,
+        "height": 843,
+        "images": 10,
+        "pageHeight": 4153,
+        "path": "/resources/development",
+        "scrollWidth": 376,
+        "scrollY": 3309.54541015625,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": false,
+        "cards": 10,
+        "height": 843,
+        "images": 10,
+        "pageHeight": 4153,
+        "path": "/resources/ai",
+        "scrollWidth": 376,
+        "scrollY": 295,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": false,
+        "cards": 8,
+        "height": 843,
+        "images": 8,
+        "pageHeight": 3407,
+        "path": "/resources/design",
+        "scrollWidth": 376,
+        "scrollY": 1958.6363525390625,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": false,
+        "cards": 11,
+        "height": 843,
+        "images": 11,
+        "pageHeight": 4526,
+        "path": "/resources/marketing",
+        "scrollWidth": 376,
+        "scrollY": 2062.727294921875,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": false,
+        "cards": 12,
+        "height": 843,
+        "images": 12,
+        "pageHeight": 4899,
+        "path": "/resources/ideas",
+        "scrollWidth": 376,
+        "scrollY": 765,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": false,
+        "cards": 12,
+        "height": 843,
+        "images": 12,
+        "pageHeight": 4899,
+        "path": "/resources/infrastructure",
+        "scrollWidth": 376,
+        "scrollY": 2557.272705078125,
+        "width": 390,
+        "passed": true
+      },
+      {
+        "atBottom": true,
+        "cards": 63,
+        "height": 740,
+        "images": 63,
+        "lastCard": {
+          "bottom": 707.5710144042969,
+          "height": 346.4772644042969,
+          "left": 20,
+          "right": 286.3636169433594,
+          "top": 361.09375,
+          "width": 266.3636169433594,
+          "x": 20,
+          "y": 361.09375
+        },
+        "pageHeight": 22518,
+        "path": "/resources",
+        "scrollWidth": 306,
+        "scrollY": 21778.181640625,
+        "width": 320,
+        "passed": true
+      }
+    ],
+    "dialogBefore": {
+      "enOverflow": 10,
+      "esOverflow": 35
+    },
+    "dialogEs": {
+      "clientHeight": 702,
+      "clientWidth": 267,
+      "locale": "es",
+      "scrollHeight": 932,
+      "scrollTop": 0,
+      "scrollWidth": 267,
+      "width": 320,
+      "afterScroll": {
+        "atBottom": true,
+        "scrollTop": 229.5454559326172
+      }
+    },
+    "dialogEn": {
+      "clientHeight": 702,
+      "clientWidth": 267,
+      "locale": "en",
+      "scrollHeight": 896,
+      "scrollWidth": 267,
+      "width": 320,
+      "afterScroll": {
+        "atBottom": true,
+        "scrollTop": 193.6363525390625
+      }
+    },
+    "afterDialogClose": {
+      "bodyOverflow": "visible",
+      "fallbackImages": [
+        {
+          "loaded": true
+        }
+      ],
+      "htmlOverflow": "visible",
+      "openDialogs": 0,
+      "scrollY": 874.0908813476562
+    },
+    "home": {
+      "bodyOverflow": "hidden",
+      "portfolio": true,
+      "scrollWidth": 320,
+      "width": 320
+    },
+    "navigationBackToResources": {
+      "bodyOverflow": "visible",
+      "images": 63,
+      "pageHeight": 22522,
+      "width": 320
+    },
+    "scrollAcceptance": "Every folder must move vertically and avoid horizontal document overflow; both full-directory cases separately verify reaching the last card. Intermediate folder End samples may be captured during smooth-scroll animation."
+  },
+  "thumbnailSources": [
+    {
+      "id": "crawl4ai",
+      "output": "public/resources/previews/crawl4ai.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://docs.crawl4ai.com/",
+      "bytes": 27574
+    },
+    {
+      "id": "searxng",
+      "output": "public/resources/previews/searxng.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://docs.searxng.org/",
+      "bytes": 26880
+    },
+    {
+      "id": "uiverse",
+      "output": "public/resources/previews/uiverse.webp",
+      "source": "official share image",
+      "sourceUrl": "https://imagedelivery.net/KMb5EadhEKC1gAE0LkjL1g/c802e23e-4d13-44ef-a2fe-46c467571900/public",
+      "bytes": 14846
+    },
+    {
+      "id": "notebooklm",
+      "output": "public/resources/previews/notebooklm.webp",
+      "source": "official share image",
+      "sourceUrl": "https://notebooklm.google.com/_/static/branding/v6/og/notebook_lm_share.png",
+      "bytes": 12536
+    },
+    {
+      "id": "midjourney",
+      "output": "public/resources/previews/midjourney.webp",
+      "source": "local identity artwork",
+      "sourceUrl": "https://www.midjourney.com/explore",
+      "bytes": 6074
+    },
+    {
+      "id": "freepik",
+      "output": "public/resources/previews/freepik.webp",
+      "source": "official share image",
+      "sourceUrl": "https://media.magnific.com/meta-tags-social/mg-home-og.jpg?w=1200&h=675",
+      "bytes": 20806
+    },
+    {
+      "id": "unsplash",
+      "output": "public/resources/previews/unsplash.webp",
+      "source": "official share image",
+      "sourceUrl": "https://images.unsplash.com/opengraph/1x1.png?mark=https%3A%2F%2Fimages.unsplash.com%2Fopengraph%2Flogo.png&mark-w=64&mark-align=top%2Cleft&mark-pad=50&h=630&w=1200&blend=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1791395777778-bf511ee0cc94%3Fcrop%3Dfaces%252Cedges%26h%3D630%26w%3D1200%26blend%3D000000%26blend-mode%3Dnormal%26blend-alpha%3D10%26mark-w%3D424%26mark-align%3Dmiddle%252Ccenter%26mark%3Dhttps%253A%252F%252Fimages.unsplash.com%252Fopengraph%252Fwordmark.png%26auto%3Dformat%26fit%3Dcrop%26q%3D60%26ixid%3DNHwxMjA3fDE%26ixlib%3Drb-4.1.0&blend-w=1&auto=format&fit=crop&q=60",
+      "bytes": 75374
+    },
+    {
+      "id": "opengraph",
+      "output": "public/resources/previews/opengraph.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://www.opengraph.xyz/",
+      "bytes": 16708
+    },
+    {
+      "id": "bing-webmaster",
+      "output": "public/resources/previews/bing-webmaster.webp",
+      "source": "local identity artwork",
+      "sourceUrl": "https://www.bing.com/webmasters/about",
+      "bytes": 8524,
+      "reason": "The public landing URL redirects to an authenticated account in this browser; account captures are excluded."
+    },
+    {
+      "id": "pomelli",
+      "output": "public/resources/previews/pomelli.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://labs.google.com/pomelli/about/",
+      "bytes": 17822
+    },
+    {
+      "id": "search-console",
+      "output": "public/resources/previews/search-console.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://search.google.com/search-console/about",
+      "bytes": 17458
+    },
+    {
+      "id": "mail-tester",
+      "output": "public/resources/previews/mail-tester.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://www.mail-tester.com/",
+      "bytes": 27356
+    },
+    {
+      "id": "dribbble",
+      "output": "public/resources/previews/dribbble.webp",
+      "source": "official share image",
+      "sourceUrl": "https://cdn.dribbble.com/uploads/68059/original/f95c1a744395b01385a3685ba20daac0.png?1770659618",
+      "bytes": 4920
+    },
+    {
+      "id": "behance",
+      "output": "public/resources/previews/behance.webp",
+      "source": "official share image",
+      "sourceUrl": "https://a5.behance.net/6b80cc686c8a46cf21637240b3b4841fe202dc99/img/search/homepage-seo-image.webp",
+      "bytes": 26698
+    },
+    {
+      "id": "collectui",
+      "output": "public/resources/previews/collectui.webp",
+      "source": "official share image",
+      "sourceUrl": "https://collectui.com/og-image.jpg",
+      "bytes": 33108
+    },
+    {
+      "id": "landinglove",
+      "output": "public/resources/previews/landinglove.webp",
+      "source": "official share image",
+      "sourceUrl": "https://www.landing.love/img/social.jpg",
+      "bytes": 43010
+    },
+    {
+      "id": "trends",
+      "output": "public/resources/previews/trends.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://trends.google.com/home",
+      "bytes": 8486
+    },
+    {
+      "id": "supahero",
+      "output": "public/resources/previews/supahero.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://www.supahero.io/",
+      "bytes": 23738
+    },
+    {
+      "id": "codepen",
+      "output": "public/resources/previews/codepen.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://codepen.io/trending",
+      "bytes": 28312
+    },
+    {
+      "id": "devpost",
+      "output": "public/resources/previews/devpost.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://devpost.com/hackathons",
+      "bytes": 16186
+    },
+    {
+      "id": "ntfy",
+      "output": "public/resources/previews/ntfy.webp",
+      "source": "Chrome page capture",
+      "sourceUrl": "https://ntfy.sh/",
+      "bytes": 17000
+    }
+  ],
+  "validation": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "result": "21 unit tests; production Next build; private bundle gate; 41 API assertions; cloud regression gate"
+    },
+    {
+      "command": "npm test",
+      "exit": 0,
+      "result": "21 passed after final preview review"
+    },
+    {
+      "command": "npx eslint [changed TypeScript/TSX/test files]",
+      "exit": 0
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exit": 0
+    }
+  ],
+  "review": {
+    "accountCapture": "Bing account redirect caught during preview review; account screenshot replaced and temporary copy removed before staging",
+    "blockedGallery": "Midjourney uses identity artwork instead of a sign-in/gallery screen"
+  },
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Incomplete preview registry caused 21 missing image thumbnails",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Global homepage mobile body lock blocked directory scrolling",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Fixed capture-tab padding overflowed narrow English and Spanish dialogs",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Local image fallbacks safely cover new links and failed previews",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}

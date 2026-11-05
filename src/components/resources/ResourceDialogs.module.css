@@ -32,4 +32,4 @@
 .viewerTags span { padding: 5px 8px; border: 1px solid #d0bda3; border-radius: 4px; color: #8b7052; font-family: var(--font-geist-mono), monospace; font-size: 9px; }
 .openOriginal { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding-block: 13px 4px; border-top: 1px solid #d0bda3; color: #9c3d24; font-size: 12px; font-weight: 700; text-decoration: none; }
 .dialog :is(button,a,input,textarea,select):focus-visible { outline: 2px solid #b83c25; outline-offset: 3px; }
-@media (max-width: 520px) { .dialog { padding: 20px 18px; } .heading h2 { font-size: 25px; } .form { gap: 14px; } .twoColumns { gap: 10px; } .actions { justify-content: space-between; } .actions :is(button) { padding-inline: 10px; } }
+@media (max-width: 520px) { .tabs { gap: 5px; } .tabs button { flex: 1; min-width: 0; gap: 4px; padding-inline: 6px; font-size: 10px; } .dialog { padding: 20px 18px; } .heading h2 { font-size: 25px; } .form { gap: 14px; } .twoColumns { gap: 10px; } .actions { justify-content: space-between; } .actions :is(button) { padding-inline: 10px; } }

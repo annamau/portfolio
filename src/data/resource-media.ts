@@ -1,4 +1,4 @@
-/** Local, optimized public website previews. Resources without a preview use category artwork. */
+/** Local, optimized thumbnails for every curated resource. New links have a local image fallback. */
 export const resourcePreviews: Record<string, string> = {
   "aceternity": "/resources/previews/aceternity.webp",
   "21st": "/resources/previews/21st.webp",
@@ -41,5 +41,26 @@ export const resourcePreviews: Record<string, string> = {
   "neo4j": "/resources/previews/neo4j.webp",
   "coolify": "/resources/previews/coolify.webp",
   "evolution": "/resources/previews/evolution.webp",
-  "n8n": "/resources/previews/n8n.webp"
+  "n8n": "/resources/previews/n8n.webp",
+  "crawl4ai": "/resources/previews/crawl4ai.webp",
+  "searxng": "/resources/previews/searxng.webp",
+  "uiverse": "/resources/previews/uiverse.webp",
+  "notebooklm": "/resources/previews/notebooklm.webp",
+  "midjourney": "/resources/previews/midjourney.webp",
+  "freepik": "/resources/previews/freepik.webp",
+  "unsplash": "/resources/previews/unsplash.webp",
+  "opengraph": "/resources/previews/opengraph.webp",
+  "bing-webmaster": "/resources/previews/bing-webmaster.webp",
+  "pomelli": "/resources/previews/pomelli.webp",
+  "search-console": "/resources/previews/search-console.webp",
+  "mail-tester": "/resources/previews/mail-tester.webp",
+  "dribbble": "/resources/previews/dribbble.webp",
+  "behance": "/resources/previews/behance.webp",
+  "collectui": "/resources/previews/collectui.webp",
+  "landinglove": "/resources/previews/landinglove.webp",
+  "trends": "/resources/previews/trends.webp",
+  "supahero": "/resources/previews/supahero.webp",
+  "codepen": "/resources/previews/codepen.webp",
+  "devpost": "/resources/previews/devpost.webp",
+  "ntfy": "/resources/previews/ntfy.webp",
 };

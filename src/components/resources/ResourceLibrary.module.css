@@ -62,11 +62,6 @@
 .preview > img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
 .card:hover .preview > img { transform: scale(1.025); }
 .typeBadge { position: absolute; right: 9px; bottom: 9px; max-width: calc(100% - 18px); overflow: hidden; padding: 5px 7px; border: 1px solid #ffffff55; border-radius: 3px; color: #4b3929; background: #fff8e9e8; font-family: var(--font-geist-mono), monospace; font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
-.previewFallback { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 22px; overflow: hidden; color: #fff3df; background: var(--resource-color); }
-.previewFallback::before { content: ""; position: absolute; width: 190px; height: 190px; right: -50px; top: -75px; border: 1px solid #fff3df33; border-radius: 50%; box-shadow: 0 0 0 24px #fff3df09, 0 0 0 48px #fff3df07; }
-.previewFallback > span { position: absolute; right: 25px; top: 19px; opacity: .5; font-family: var(--font-bodoni), serif; font-size: 37px; }
-.previewFallback strong { z-index: 1; max-width: 80%; margin-top: 8px; font-family: var(--font-bodoni), serif; font-size: clamp(23px, 2.5vw, 34px); font-weight: 400; letter-spacing: -.035em; line-height: 1.1; }
-.previewFallback small { margin-top: 9px; opacity: .7; font-family: var(--font-geist-mono), monospace; font-size: 7px; }
 .cardBody { display: flex; flex: 1; flex-direction: column; padding: 17px 18px 13px; }
 .cardBody h2 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 9px; font-size: 24px; font-weight: 500; letter-spacing: -.035em; line-height: 1.2; }
 .cardBody h2 > svg { flex: 0 0 auto; color: var(--resource-color); transition: transform 180ms; }
@@ -162,8 +157,6 @@
 .privateNotes { margin-top: 10px; padding: 9px; border: 1px dashed #cdb89c; border-radius: 4px; color: #927354; font-size: 10px; }
 .privateNotes summary { cursor: pointer; }
 .privateNotes p { white-space: pre-wrap; line-height: 1.7; }
-.xPreview .previewFallback { background: #25201d; }
-.xPreview .previewFallback strong { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; max-width: 87%; font-size: clamp(20px,2vw,28px); }
 .playBadge { position: absolute; inset: 0; display: grid; place-items: center; color: #fff9ef; filter: drop-shadow(0 2px 5px #0008); }
 @media (max-width: 760px) {
   .ownerBrand { margin-bottom: 0; padding-right: 50px; }
