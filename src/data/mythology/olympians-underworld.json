@@ -1,5 +1,7 @@
 {
   "entities": [
+    {"id":"polyphemus-cyclops","name":"Polyphemus","aliases":[],"kind":"individual","categories":["cyclops"],"domains":["Cyclops of the Odyssey"],"summary":"Odysseus blinds Polyphemus, a Cyclops and son of Poseidon and Thoosa in Homer.","originStatus":"attested","sourceRefs":[{"sourceId":"homer-odyssey-1","passage":"1.68–73"}]},
+    {"id":"thoosa","name":"Thoosa","aliases":[],"kind":"individual","categories":["nymph"],"domains":["Sea nymph"],"summary":"Homer names Thoosa as the daughter of Phorcys and the mother of Polyphemus.","originStatus":"attested","sourceRefs":[{"sourceId":"homer-odyssey-1","passage":"1.68–73"}]},
     {"id":"zeus","name":"Zeus","aliases":[],"kind":"individual","categories":["god"],"domains":["sky","thunder"],"summary":"Zeus appears in the cited tradition.","originStatus":"attested","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}]},
     {"id":"hera","name":"Hera","aliases":[],"kind":"individual","categories":["god"],"domains":["marriage"],"summary":"Hera appears in the cited tradition.","originStatus":"attested","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}]},
     {"id":"poseidon","name":"Poseidon","aliases":[],"kind":"individual","categories":["god"],"domains":["sea"],"summary":"Poseidon appears in the cited tradition.","originStatus":"attested","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}]},
@@ -65,6 +67,10 @@
     {"id":"erinyes","name":"Erinyes","aliases":["Furies"],"kind":"collective","categories":["goddesses"],"domains":["vengeance"],"summary":"A collective of avenging goddesses.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-1","passage":"1.1.4"},{"sourceId":"hesiod-theogony","passage":"176-187"}]}
   ],
   "lineages": [
+    {"id":"zagreus-nonnus","child":"zagreus","parents":["zeus","persephone"],"mode":"birth","tradition":"Nonnus, Dionysiaca","variantGroup":"zagreus-origin","sourceRefs":[{"sourceId":"nonnus-dionysiaca-6","passage":"6.155–168"}],"notes":"Zeus approaches Persephone in serpent form. Nonnus names their child Zagreus, the earlier Dionysus in his epic.","spoiler":false},
+    {"id":"polyphemus-odyssey","child":"polyphemus-cyclops","parents":["poseidon","thoosa"],"mode":"birth","tradition":"Homer, Odyssey","variantGroup":"polyphemus-cyclops-origin","sourceRefs":[{"sourceId":"homer-odyssey-1","passage":"1.68–73"}],"notes":"","spoiler":false},
+    {"id":"thoosa-odyssey","child":"thoosa","parents":["phorcys"],"mode":"birth","tradition":"Homer, Odyssey","variantGroup":"thoosa-origin","sourceRefs":[{"sourceId":"homer-odyssey-1","passage":"1.68–73"}],"notes":"","spoiler":false},
+    {"id":"persephone-homeric-hymn","child":"persephone","parents":["zeus","demeter"],"mode":"birth","tradition":"Homeric Hymn to Demeter","variantGroup":"persephone-origin","sourceRefs":[{"sourceId":"hymn-demeter","passage":"2.1–3, 19–32, 405–409"}],"notes":"","spoiler":false},
     {"id":"zeus-hesiod","child":"zeus","parents":["kronos","rhea"],"mode":"birth","tradition":"Hesiod","variantGroup":"zeus-origin","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}],"notes":"","spoiler":false},
     {"id":"hera-hesiod","child":"hera","parents":["kronos","rhea"],"mode":"birth","tradition":"Hesiod","variantGroup":"hera-origin","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}],"notes":"","spoiler":false},
     {"id":"poseidon-hesiod","child":"poseidon","parents":["kronos","rhea"],"mode":"birth","tradition":"Hesiod","variantGroup":"poseidon-origin","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"453-458"}],"notes":"","spoiler":false},
@@ -116,12 +122,13 @@
     {"id":"tisiphone-apollodorus","child":"tisiphone","parents":["uranus"],"mode":"emergence","tradition":"Apollodorus","variantGroup":"tisiphone-origin","sourceRefs":[{"sourceId":"apollodorus-1","passage":"1.1.4"},{"sourceId":"hesiod-theogony","passage":"176-187"}],"notes":"Apollodorus names these Furies as arising from Uranus’s blood; Hesiod says Earth receives that blood and bears the Erinyes collectively.","spoiler":false}
   ],
   "relationships": [
+    {"id":"hecate-persephone-companion","from":"hecate","to":"persephone","type":"companion_of","tradition":"Homeric Hymn to Demeter","sourceRefs":[{"sourceId":"hymn-demeter","passage":"2.438–440"}],"notes":"Hecate embraces Persephone and becomes her companion.","spoiler":false},
     {"id":"charon-ferries-dionysus","from":"charon","to":"dionysus","type":"ferries","tradition":"Aristophanes, Frogs","sourceRefs":[{"sourceId":"frogs","passage":"lines 180–270"}],"notes":"Charon carries Dionysus across the lake. The play does not make them relatives.","spoiler":false},
     {"id":"zeus-metis-spouse-of","from":"zeus","to":"metis","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"886-900"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
     {"id":"zeus-themis-spouse-of","from":"zeus","to":"themis","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"901-906"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
     {"id":"zeus-hera-spouse-of","from":"zeus","to":"hera","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"921-923"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
     {"id":"poseidon-amphitrite-spouse-of","from":"poseidon","to":"amphitrite","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"930-933"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
-    {"id":"hades-persephone-spouse-of","from":"hades","to":"persephone","type":"spouse_of","tradition":"Homeric Hymn to Demeter","sourceRefs":[{"sourceId":"hymn-demeter","passage":"lines 1-3, 342-344"}],"notes":"","spoiler":false},
+    {"id":"hades-persephone-spouse-of","from":"hades","to":"persephone","type":"spouse_of","tradition":"Homeric Hymn to Demeter","sourceRefs":[{"sourceId":"hymn-demeter","passage":"2.357–369"}],"notes":"","spoiler":false},
     {"id":"zagreus-dionysus-identified-with","from":"zagreus","to":"dionysus","type":"identified_with","tradition":"Ancient lexicographical tradition","sourceRefs":[{"sourceId":"zag-oxford","passage":"Zagreus entry, ancient lexica"}],"notes":"Not an unconditional identity: fragmentary ancient evidence varies.","spoiler":false},
     {"id":"dora-game-pandora-identified-with","from":"dora-game","to":"pandora","type":"identified_with","tradition":"Hades II","sourceRefs":[{"sourceId":"dora-footage","passage":"5:28-10:41, recovered memory dialogue"}],"notes":"Major Hades II character spoiler; media-recorded game dialogue.","spoiler":true},
     {"id":"orpheus-eurydice-orpheus-spouse-of","from":"orpheus","to":"eurydice-orpheus","type":"spouse_of","tradition":"Apollodorus","sourceRefs":[{"sourceId":"apollodorus-1","passage":"1.3.2"}],"notes":"","spoiler":false},
@@ -132,6 +139,7 @@
     {"id":"tisiphone-erinyes-member-of","from":"tisiphone","to":"erinyes","type":"member_of","tradition":"Apollodorus","sourceRefs":[{"sourceId":"apollodorus-1","passage":"1.1.4"}],"notes":"","spoiler":false}
   ],
   "sources": [
+    {"id":"nonnus-dionysiaca-6","author":"Nonnus of Panopolis","title":"Dionysiaca, book 6","url":"https://www.theoi.com/Text/NonnusDionysiaca6.html","type":"ancient_text"},
     {"id":"hesiod-theogony","author":"Hesiod","title":"Theogony","url":"https://www.theoi.com/Text/HesiodTheogony.html","type":"ancient_text"},
     {"id":"hesiod-works-days","author":"Hesiod","title":"Works and Days","url":"https://www.theoi.com/Text/HesiodWorksDays.html","type":"ancient_text"},
     {"id":"apollodorus-1","author":"Pseudo-Apollodorus","title":"Library, book 1","url":"https://www.theoi.com/Text/Apollodorus1.html","type":"ancient_text"},
@@ -190,7 +198,7 @@
     {"entityId":"uranus","issue":"external endpoint: verify in other shards or add a sourced support entity during merge."},
     {"entityId":"dusa-game","issue":"Dusa resembles Medusa; identity is not established by the cited game dialogue. Keep separate pending direct evidence."},
     {"entityId":"melinoe","issue":"Orphic Hymn 71 ambiguity: verify Greek and modern scholarly translations before presenting a simplistic Zeus disguised as Hades account."},
-    {"entityId":"zagreus","issue":"Do not infer an ancient mother from the Aeschylus fragment; identifying Zagreus with Dionysus is source-specific."},
+    {"entityId":"zagreus","issue":"Aeschylus does not name a mother. Nonnus names Persephone in a separate telling."},
     {"entityId":"charon","issue":"Ancient parentage not established by the checked passage."},
     {"entityId":"sisyphus","issue":"Ancient parentage not established by the checked passage."}
   ]

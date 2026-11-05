@@ -131,7 +131,7 @@ test('selecting a telling emphasizes its parent sets while preserving the full c
  const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
  assert.deepEqual(parents(game),new Set(['hades','persephone']));
  assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
- for(const traced of [game,orphic]){assert.equal(traced.length,972);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
+ for(const traced of [game,orphic]){assert.equal(traced.length,1009);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
 });
 
 test('tracing one origin overrides competing parents for that figure only',async()=>{
@@ -195,7 +195,7 @@ test('small game and ancient graphs use different sourced parent sets and keep t
  const game=mythologyComparison(catalogue,'game',chosen,'all',false);
  const ancient=mythologyComparison(catalogue,'ancient',chosen,'all',false);
  const parents=(graph,id)=>new Set(graph.edges.filter(edge=>edge.to===id&&edge.kind!=='relationship').map(edge=>edge.from));
- assert.deepEqual(parents(game,'demeter'),new Set(['hyperion']));
+ assert.deepEqual(parents(game,'demeter'),new Set(['hyperion','theia']));
  assert.deepEqual(parents(ancient,'demeter'),new Set(['kronos','rhea']));
  assert.deepEqual(parents(game,'melinoe'),new Set(['hades','persephone']));
  assert.deepEqual(parents(ancient,'melinoe'),new Set(['zeus','persephone']));
@@ -277,4 +277,32 @@ test('choosing Hesiod or the Orphic sources actually changes the origin of Chaos
  assert.ok(origins('orphic').includes('chronos-time'));
  const hesiod=mythologyComparison(catalogue,'ancient',new Set(mainMythologyCast),'hesiod',false);
  assert.equal(connectedMythologyGroups(hesiod.entities.map(entity=>entity.id),hesiod.edges).length,1);
+});
+
+test('the ancient map shows Persephone as Zagreus’s mother in Nonnus while keeping the Aeschylus origin separate',async()=>{
+ const {mythologyComparison}=await import('../src/lib/journal/mythology-comparison.ts');
+ const chosen=new Set(['hades','persephone','zagreus','zeus']);
+ const parents=(originId)=>new Set(mythologyComparison(catalogue,'ancient',chosen,'hesiod',false,originId).edges.filter(edge=>edge.to==='zagreus'&&edge.kind==='birth').map(edge=>edge.from));
+ assert.ok(parents().has('persephone'));
+ assert.deepEqual(parents('zagreus-nonnus'),new Set(['zeus','persephone']));
+ assert.deepEqual(parents('zagreus-aeschylus'),new Set(['hades']));
+ const {mythologyBranches}=await import('../src/lib/journal/mythology-branches.ts');
+ const {edges,layout}=mythologyComparison(catalogue,'ancient',chosen,'hesiod',false);
+ const branches=mythologyBranches(edges,new Map(layout.nodes.map(node=>[node.id,node])));
+ assert.deepEqual([...branches.values()].filter(branch=>branch.children.has('zagreus')).map(branch=>branch.parents).sort(),[['hades'],['persephone','zeus']]);
+});
+
+test('game dialogue connects the Olympian boon cast without importing ancient origins',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const graph=mythologyComparison(catalogue,'game',new Set(mainMythologyCast),'hesiod',false);
+ for(const id of ['athena','artemis','ares','hephaestus','hermes','dionysus','aphrodite']){
+  assert.ok(graph.entities.some(entity=>entity.id===id),id);
+  assert.ok(graph.edges.some(edge=>edge.game&&(edge.from===id||edge.to===id)),id);
+ }
+ const {mythologyBranches}=await import('../src/lib/journal/mythology-branches.ts');
+ const branches=mythologyBranches(graph.edges,new Map(graph.layout.nodes.map(node=>[node.id,node])));
+ assert.ok([...branches.values()].some(branch=>branch.parents.join(',')==='hera,zeus'&&branch.children.has('ares')&&branch.children.has('hephaestus')));
+ const cyclopsParents=(mode)=>mythologyComparison(catalogue,mode,new Set(['polyphemus-cyclops','poseidon']),'homer',false).edges.filter(edge=>edge.to==='polyphemus-cyclops'&&edge.kind==='birth').map(edge=>edge.from);
+ assert.deepEqual(new Set(cyclopsParents('ancient')),new Set(['poseidon','thoosa']));
+ assert.deepEqual(cyclopsParents('game'),[]);
 });

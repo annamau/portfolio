@@ -54,8 +54,9 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
   const bands = new Map<number, string[]>();
   for (const id of order) { const level = rank.get(id)!; bands.set(level, [...(bands.get(level) || []), id]); }
   const points = new Map<string, MythologyLayout["nodes"][number]>();
-  let y = 100;
-  const gapX = 190, gapY = 180, columns = 8;
+  let y = 74;
+  const gapX = 182, gapY = 128;
+  const columns = catalogue.entities.length <= 60 ? Infinity : 8;
   const focal = new Set(edges.filter((edge) => edge.emphasis).flatMap((edge) => [edge.from, edge.to]));
   const center = (id: string) => {
     const lineage = [...parents.get(id)!].map((parent) => points.get(parent)).filter((point) => !!point);
@@ -64,12 +65,13 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
   };
   for (const [, ids] of [...bands].sort(([a], [b]) => a - b)) {
     ids.sort((a, b) => Number(focal.has(b)) - Number(focal.has(a)) || center(a) - center(b) || a.localeCompare(b));
-    const rows = Math.ceil(ids.length / columns);
+    const rowWidth = Math.min(columns, ids.length);
+    const rows = Math.ceil(ids.length / rowWidth);
     ids.forEach((id, index) => {
-      const row = Math.floor(index / columns), inRow = Math.min(columns, ids.length - row * columns);
-      points.set(id, { id, x: (index % columns - (inRow - 1) / 2) * gapX, y: y + row * gapY, radius: entities.get(id)!.kind === "collective" ? 27 : 31 });
+      const row = Math.floor(index / rowWidth), inRow = Math.min(rowWidth, ids.length - row * rowWidth);
+      points.set(id, { id, x: (index % rowWidth - (inRow - 1) / 2) * gapX, y: y + row * gapY, radius: entities.get(id)!.kind === "collective" ? 27 : 31 });
     });
-    y += rows * gapY + 110;
+    y += rows * gapY + 24;
   }
   const nodes = catalogue.entities.map((entity) => points.get(entity.id)!);
   const minX = Math.min(...nodes.map((node) => node.x)) - 120;

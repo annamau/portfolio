@@ -1,6 +1,6 @@
 # Mythology comparison catalogue
 
-Nine curated JSON shards supply 435 figures and collectives, including separately attributed game adaptations. `npm run build:mythology` explicitly generates the sourced catalogue and reviewed full-cast drawings. `npm run check:mythology` is read-only; normal release builds validate rather than redraw those artifacts.
+Nine curated JSON shards supply 437 figures and collectives, including separately attributed game adaptations. `npm run build:mythology` explicitly generates the sourced catalogue and reviewed full-cast drawings. `npm run check:mythology` is read-only; normal release builds validate rather than redraw those artifacts.
 
 The public knowledge file is `public/journal/greek-mythology.json`: canonical IDs, names, aliases, qualifiers, roles, short stories, memorable details, source-specific origins, non-parent relationships, exact source locations, coverage and unresolved questions. It is a growing named catalogue, not every being in every surviving tradition. The full download includes game spoilers.
 
@@ -8,7 +8,7 @@ The public knowledge file is `public/journal/greek-mythology.json`: canonical ID
 
 ## One map, two tellings
 
-The blog starts with 22 chosen figures. Cast controls can select, deselect or clear names and explicitly show the full available catalogue. Direct parents remain as small markers even when their full seals are unselected. Additional shortest-path markers keep the chosen names connected through sourced relationships; no new parent facts are invented.
+The blog starts with 30 chosen figures. Cast controls can select, deselect or clear names and explicitly show the full available catalogue. Every visible figure has an emblem card, including parents and other connecting figures outside the chosen cast. A shared branch groups children from the same attributed parent set. Dashed lines show other relationships.
 
 - Hades uses checked game links only. Chaos comes before Chronos in the layout; their dashed sequence line does not assert kinship. The game Chronos is separate from ancient Kronos and Orphic Time. Figures without checked game connections can still be read through search.
 - Ancient accounts exclude game-only figures and connections. A preferred source supplies its parent set where it gives one. An explicitly parentless beginning also suppresses other origins. Where the selected source is silent, lighter links show other ancient accounts. All accounts keeps competing records available.
