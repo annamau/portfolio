@@ -28,6 +28,7 @@ export const deityEmblems: Record<string, { symbol: string; label: string }> = {
   nemesis: { symbol: "scales", label: "Scales" },
   charon: { symbol: "boat", label: "Boat and oar" },
   eris: { symbol: "apple", label: "Apple of discord" },
+  "chronos-hades": { symbol: "hourglass", label: "Hourglass, for the Titan of Time" },
   "chronos-time": { symbol: "hourglass", label: "Hourglass, for time" },
   kronos: { symbol: "sickle", label: "Sickle" },
   gaia: { symbol: "earth", label: "Earth and growing leaves" },

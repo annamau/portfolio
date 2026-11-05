@@ -13,13 +13,13 @@
       "Research was cross-checked on selected claims. Late, fragmentary and secondary attestations retain their limitations."
     ],
     "counts": {
-      "entities": 434,
-      "individualFigures": 401,
+      "entities": 435,
+      "individualFigures": 402,
       "collectives": 33,
-      "lineageClaims": 413,
-      "otherRelationships": 236,
-      "connections": 969,
-      "sources": 97,
+      "lineageClaims": 418,
+      "otherRelationships": 239,
+      "connections": 977,
+      "sources": 101,
       "connectedGroups": 1
     }
   },
@@ -1670,10 +1670,26 @@
               "sourceId": "hesiod-theogony",
               "passage": "116-122"
             }
+          ],
+          "parentless": true
+        },
+        {
+          "tradition": "Hades II",
+          "summary": "Chaos recalls existence before Time. Chaos is also named as Nyx’s parent, not as the parent of Chronos.",
+          "parentless": true,
+          "sourceRefs": [
+            {
+              "sourceId": "game-chaos-ii-dialogue",
+              "passage": "About Other Characters: Chronos, dialogue 01"
+            },
+            {
+              "sourceId": "game-chaos-dialogue",
+              "passage": "Nyx, dialogue 09"
+            }
           ]
         }
       ],
-      "shortStory": "In Hesiod, the story opens with Chaos: a primordial opening, before the familiar divine family takes shape. Night and Darkness emerge from it.",
+      "shortStory": "In Hesiod, the story opens with Chaos: a primordial opening, before the familiar divine family takes shape. Night and Darkness emerge from it. In Hades, Chaos remembers a world before Time and calls Nyx their child.",
       "rememberThis": "Coming first does not make Chaos everybody’s parent. Other ancient accounts begin differently."
     },
     {
@@ -1769,6 +1785,34 @@
       ],
       "shortStory": "Chimaera appears in the source as a named figure. Chimaera is named as a child of Typhon and Echidna in Hesiod.",
       "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
+    },
+    {
+      "id": "chronos-hades",
+      "name": "Chronos",
+      "qualifier": "Titan of Time in Hades II",
+      "aliases": [],
+      "kind": "individual",
+      "categories": [
+        "titan",
+        "game character"
+      ],
+      "domains": [
+        "Time"
+      ],
+      "summary": "The Titan of Time and the father of Hades and his brothers in the game.",
+      "originStatus": "unknown",
+      "sourceRefs": [
+        {
+          "sourceId": "supergiant-hades-ii-faq",
+          "passage": "What is Hades II about?"
+        },
+        {
+          "sourceId": "game-chronos-profile",
+          "passage": "Relationships: Children"
+        }
+      ],
+      "shortStory": "In Hades II, Chronos is the Titan of Time and father to Hades, Zeus and Poseidon. Melinoë is trying to stop her own grandfather.",
+      "rememberThis": "The game puts Time and the father of the Olympian brothers in one character. In the ancient accounts on this map, Chronos and Kronos have separate entries."
     },
     {
       "id": "chronos-time",
@@ -3307,7 +3351,8 @@
               "sourceId": "hesiod-theogony",
               "passage": "116-122"
             }
-          ]
+          ],
+          "parentless": true
         }
       ],
       "shortStory": "Eros is associated with Primordial desire. This entry follows Hesiod, Theogony.",
@@ -3782,7 +3827,8 @@
               "sourceId": "hesiod-theogony",
               "passage": "116-122"
             }
-          ]
+          ],
+          "parentless": true
         }
       ],
       "shortStory": "Gaia is Earth herself, both the ground beneath the stories and a divine ancestor. She bears Sky and Sea and stands near the beginning of many family lines.",
@@ -8651,7 +8697,8 @@
               "sourceId": "hesiod-theogony",
               "passage": "116-122"
             }
-          ]
+          ],
+          "parentless": true
         }
       ],
       "shortStory": "Tartarus is associated with Deep abyss. Typhon continues this family branch.",
@@ -10032,6 +10079,24 @@
         }
       ],
       "notes": "Dione is explicitly mother and Zeus called father in the poem; Homer does not explicitly identify this Dione with Hesiod’s Oceanid.",
+      "spoiler": false
+    },
+    {
+      "id": "apollo-hades-ii-zeus",
+      "child": "apollo",
+      "parents": [
+        "zeus"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "apollo-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "game-chaos-ii-dialogue",
+          "passage": "About Other Characters: Apollo, dialogue 01"
+        }
+      ],
+      "notes": "Chaos addresses Apollo as the son of Zeus. No mother is asserted in this exchange.",
       "spoiler": false
     },
     {
@@ -12605,6 +12670,28 @@
         }
       ],
       "notes": "",
+      "spoiler": false
+    },
+    {
+      "id": "hades-hades-ii-chronos-hades",
+      "child": "hades",
+      "parents": [
+        "chronos-hades"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "hades-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "supergiant-hades-ii-faq",
+          "passage": "What is Hades II about?"
+        },
+        {
+          "sourceId": "game-chronos-profile",
+          "passage": "Relationships: Children"
+        }
+      ],
+      "notes": "The game names Chronos as father. No mother is asserted by these sources.",
       "spoiler": false
     },
     {
@@ -15271,6 +15358,24 @@
       "notes": "Major Hades I family-story spoiler. Her father is unnamed in this exchange; no occupation or name is asserted."
     },
     {
+      "id": "persephone-hades-ii-demeter",
+      "child": "persephone",
+      "parents": [
+        "demeter"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "persephone-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "game-chaos-ii-dialogue",
+          "passage": "About Other Characters: Demeter, dialogue 01"
+        }
+      ],
+      "notes": "Chaos identifies Demeter as the mother of Melinoë’s mother. This public claim leaves the father unspecified.",
+      "spoiler": false
+    },
+    {
       "id": "persephone-hesiod",
       "child": "persephone",
       "parents": [
@@ -15794,6 +15899,28 @@
         }
       ],
       "notes": "Identified as one of Earth and Sky’s Giants by the narrative. Not attributed by name to Hesiod.",
+      "spoiler": false
+    },
+    {
+      "id": "poseidon-hades-ii-chronos-hades",
+      "child": "poseidon",
+      "parents": [
+        "chronos-hades"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "poseidon-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "supergiant-hades-ii-faq",
+          "passage": "What is Hades II about?"
+        },
+        {
+          "sourceId": "game-chronos-profile",
+          "passage": "Relationships: Children"
+        }
+      ],
+      "notes": "The game names Chronos as father. No mother is asserted by these sources.",
       "spoiler": false
     },
     {
@@ -17084,6 +17211,28 @@
       "spoiler": false
     },
     {
+      "id": "zeus-hades-ii-chronos-hades",
+      "child": "zeus",
+      "parents": [
+        "chronos-hades"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "zeus-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "supergiant-hades-ii-faq",
+          "passage": "What is Hades II about?"
+        },
+        {
+          "sourceId": "game-chronos-profile",
+          "passage": "Relationships: Children"
+        }
+      ],
+      "notes": "The game names Chronos as father. No mother is asserted by these sources.",
+      "spoiler": false
+    },
+    {
       "id": "zeus-hesiod",
       "child": "zeus",
       "parents": [
@@ -17784,6 +17933,21 @@
       "spoiler": false
     },
     {
+      "id": "chaos-before-chronos-hades",
+      "from": "chaos",
+      "to": "chronos-hades",
+      "type": "precedes",
+      "tradition": "Hades II",
+      "sourceRefs": [
+        {
+          "sourceId": "game-chaos-ii-dialogue",
+          "passage": "About Other Characters: Chronos, dialogue 01"
+        }
+      ],
+      "notes": "Chaos remembers when Time did not yet exist. This establishes order, not parentage.",
+      "spoiler": false
+    },
+    {
       "id": "chaos-precedes-eros-primordial",
       "from": "chaos",
       "to": "eros-primordial",
@@ -17826,6 +17990,21 @@
         }
       ],
       "notes": "Cosmogonic order, not parentage; first Chaos came to be, followed by these primordial beings.",
+      "spoiler": false
+    },
+    {
+      "id": "charon-ferries-dionysus",
+      "from": "charon",
+      "to": "dionysus",
+      "type": "ferries",
+      "tradition": "Aristophanes, Frogs",
+      "sourceRefs": [
+        {
+          "sourceId": "frogs",
+          "passage": "lines 180–270"
+        }
+      ],
+      "notes": "Charon carries Dionysus across the lake. The play does not make them relatives.",
       "spoiler": false
     },
     {
@@ -18066,6 +18245,21 @@
         }
       ],
       "notes": "",
+      "spoiler": false
+    },
+    {
+      "id": "demeter-poseidon-foster-siblings",
+      "from": "demeter",
+      "to": "poseidon",
+      "type": "foster_sibling_of",
+      "tradition": "Hades II",
+      "sourceRefs": [
+        {
+          "sourceId": "game-poseidon-ii-dialogue",
+          "passage": "Demeter duo dialogue 01"
+        }
+      ],
+      "notes": "Demeter and Poseidon call one another foster siblings. This is not biological parentage.",
       "spoiler": false
     },
     {
@@ -20894,10 +21088,24 @@
       "type": "game_reference"
     },
     {
+      "id": "game-chaos-ii-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Chaos dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Chaos/Quotes_(Hades_II)",
+      "type": "game_reference"
+    },
+    {
       "id": "game-charon-dialogue",
       "author": "Hades Wiki contributors",
       "title": "Charon dialogue transcription, Hades II",
       "url": "https://hades.fandom.com/wiki/Charon/Quotes_%28Hades_II%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-chronos-profile",
+      "author": "Hades Wiki contributors",
+      "title": "Chronos, Hades II",
+      "url": "https://hades.fandom.com/wiki/Chronos",
       "type": "game_reference"
     },
     {
@@ -20954,6 +21162,13 @@
       "author": "Hades Wiki contributors",
       "title": "Persephone dialogue transcription, Hades",
       "url": "https://hades.fandom.com/wiki/Persephone/Quotes_%28Hades%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-poseidon-ii-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Poseidon dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Poseidon/Quotes_(Hades_II)",
       "type": "game_reference"
     },
     {
@@ -21305,6 +21520,13 @@
       "title": "Library",
       "url": "https://atlas.perseus.tufts.edu/library/passage/urn:cts:greekLit:tlg0548.tlg001.perseus-eng2:1.1.1-1.1.5/",
       "type": "ancient_text"
+    },
+    {
+      "id": "supergiant-hades-ii-faq",
+      "author": "Supergiant Games",
+      "title": "Hades II FAQ",
+      "url": "https://www.supergiantgames.com/blog/hades2-faq/",
+      "type": "game_primary"
     },
     {
       "id": "theoi-dryads",
@@ -22186,10 +22408,6 @@
     {
       "entityId": "pedias-cranaus",
       "issue": "Apollodorus names her father Mynes; the source does not establish his identity beyond this and no parent edge is added."
-    },
-    {
-      "entityId": "demeter",
-      "issue": "Demeter and Poseidon explicitly call one another foster siblings in Hades II duo dialogue. Current schema has no foster_sibling relationship; add a source-labelled relation type instead of inventing foster parents."
     },
     {
       "entityId": "hera",

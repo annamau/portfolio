@@ -131,7 +131,7 @@ test('selecting a telling emphasizes its parent sets while preserving the full c
  const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
  assert.deepEqual(parents(game),new Set(['hades','persephone']));
  assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
- for(const traced of [game,orphic]){assert.equal(traced.length,964);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
+ for(const traced of [game,orphic]){assert.equal(traced.length,972);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
 });
 
 test('tracing one origin overrides competing parents for that figure only',async()=>{
@@ -253,4 +253,28 @@ test('the default game cast stays connected through Zagreus’s public father wi
  assert.ok(graph.edges.some(edge=>edge.from==='hades'&&edge.to==='zagreus'&&edge.game));
  assert.ok(!graph.edges.some(edge=>edge.from==='persephone'&&edge.to==='zagreus'));
  assert.equal(connectedMythologyGroups(graph.entities.map(entity=>entity.id),graph.edges).length,1);
+});
+
+test('Hades starts with Chaos and uses its own attested family and timeline',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const game=mythologyComparison(catalogue,'game',new Set(mainMythologyCast),'hesiod',false);
+ const parents=(id)=>game.edges.filter(edge=>edge.to===id&&edge.kind!=='relationship').map(edge=>edge.from);
+ const y=(id)=>game.layout.nodes.find(node=>node.id===id)?.y;
+ assert.deepEqual(parents('chaos'),[]);
+ assert.deepEqual(parents('hades'),['chronos-hades']);
+ assert.ok(y('chaos')<y('chronos-hades')&&y('chronos-hades')<y('hades'));
+ assert.ok(game.edges.every(edge=>edge.game));
+ assert.ok(game.layout.nodes.every(node=>node.id==='chaos'||node.y>y('chaos')));
+ assert.ok(game.edges.some(edge=>edge.from==='chaos'&&edge.to==='chronos-hades'&&edge.kind==='relationship'));
+ assert.ok(game.edges.some(edge=>edge.from==='demeter'&&edge.to==='poseidon'&&edge.kind==='relationship'));
+});
+
+test('choosing Hesiod or the Orphic sources actually changes the origin of Chaos',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const chosen=new Set(['chaos','nyx']);
+ const origins=(reading)=>mythologyComparison(catalogue,'ancient',chosen,reading,false).edges.filter(edge=>edge.to==='chaos'&&edge.kind!=='relationship').map(edge=>edge.from);
+ assert.deepEqual(origins('hesiod'),[]);
+ assert.ok(origins('orphic').includes('chronos-time'));
+ const hesiod=mythologyComparison(catalogue,'ancient',new Set(mainMythologyCast),'hesiod',false);
+ assert.equal(connectedMythologyGroups(hesiod.entities.map(entity=>entity.id),hesiod.edges).length,1);
 });

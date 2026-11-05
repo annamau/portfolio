@@ -1,6 +1,6 @@
 export interface MythologyReference { sourceId: string; passage: string }
 export interface MythologyEntity {
-  id: string; name: string; spoiler?: boolean; qualifier?: string; originNotes?: { tradition: string; summary: string; sourceRefs: MythologyReference[] }[]; aliases: string[]; kind: "individual" | "collective";
+  id: string; name: string; spoiler?: boolean; qualifier?: string; originNotes?: { tradition: string; summary: string; parentless?: boolean; sourceRefs: MythologyReference[] }[]; aliases: string[]; kind: "individual" | "collective";
   categories: string[]; domains: string[]; summary: string;
   shortStory?: string; rememberThis?: string;
   originStatus: "attested" | "variant" | "unknown" | "primordial";

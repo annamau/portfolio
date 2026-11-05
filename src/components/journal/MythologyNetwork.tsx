@@ -55,7 +55,8 @@ export default function MythologyNetwork({ entities, layout, edges, selected, fo
   const [moving, setMoving] = useState(expanded);
   const [customCamera, setCamera] = useState<(Camera & { key: string }) | null>(null);
   const cameraKey = `${selected}/${focusKey}`;
-  const camera: Camera = customCamera?.key === cameraKey ? { ...customCamera, height: customCamera.width / aspect } : mythologyFocus(layout, edges, selected, aspect);
+  const focus = mythologyFocus(layout, edges, selected, aspect);
+  const camera: Camera = customCamera?.key === cameraKey ? { ...customCamera, height: customCamera.width / aspect } : { ...focus, y: Math.max(layout.bounds.y, focus.y) };
   const gesture = useRef<{ x: number; y: number; camera: Camera; moved: boolean } | null>(null);
   const marker = useId().replaceAll(":", "");
   useEffect(() => {
@@ -96,7 +97,7 @@ export default function MythologyNetwork({ entities, layout, edges, selected, fo
     setCamera({ ...start.camera, key: cameraKey, x: start.camera.x - dx * scale, y: start.camera.y - dy * scale });
   }
   return <div className={styles.network} data-moving={moving}>
-    <svg ref={svg} className={styles.canvas} style={{ "--map-label-size": `${Math.max(14, Math.min(32, camera.width / canvasWidth * 11))}px` } as CSSProperties} viewBox={`${camera.x} ${camera.y} ${camera.width} ${camera.height}`} role="group" aria-label="Mythology network. Search a name, select a circle, or use arrow keys to pan. Focus a circle and use arrow keys to explore names. Plus and minus zoom." tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={() => { gesture.current = null; }} onPointerCancel={() => { gesture.current = null; }} onKeyDown={(event) => {
+    <svg ref={svg} className={styles.canvas} style={{ "--map-label-size": `${Math.max(14, Math.min(38, camera.width / canvasWidth * 13))}px` } as CSSProperties} viewBox={`${camera.x} ${camera.y} ${camera.width} ${camera.height}`} role="group" aria-label="Mythology network. Search a name, select a circle, or use arrow keys to pan. Focus a circle and use arrow keys to explore names. Plus and minus zoom." tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={() => { gesture.current = null; }} onPointerCancel={() => { gesture.current = null; }} onKeyDown={(event) => {
       if (event.target !== event.currentTarget) return;
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
         event.preventDefault();

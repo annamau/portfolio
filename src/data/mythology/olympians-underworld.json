@@ -116,6 +116,7 @@
     {"id":"tisiphone-apollodorus","child":"tisiphone","parents":["uranus"],"mode":"emergence","tradition":"Apollodorus","variantGroup":"tisiphone-origin","sourceRefs":[{"sourceId":"apollodorus-1","passage":"1.1.4"},{"sourceId":"hesiod-theogony","passage":"176-187"}],"notes":"Apollodorus names these Furies as arising from Uranus’s blood; Hesiod says Earth receives that blood and bears the Erinyes collectively.","spoiler":false}
   ],
   "relationships": [
+    {"id":"charon-ferries-dionysus","from":"charon","to":"dionysus","type":"ferries","tradition":"Aristophanes, Frogs","sourceRefs":[{"sourceId":"frogs","passage":"lines 180–270"}],"notes":"Charon carries Dionysus across the lake. The play does not make them relatives.","spoiler":false},
     {"id":"zeus-metis-spouse-of","from":"zeus","to":"metis","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"886-900"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
     {"id":"zeus-themis-spouse-of","from":"zeus","to":"themis","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"901-906"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},
     {"id":"zeus-hera-spouse-of","from":"zeus","to":"hera","type":"spouse_of","tradition":"Hesiod","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"921-923"}],"notes":"Hesiod describes their union; relationship terminology is normalized.","spoiler":false},

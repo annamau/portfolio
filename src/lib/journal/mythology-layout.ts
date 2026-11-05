@@ -2,20 +2,20 @@ import { connectedMythologyGroups, traceMythologyEdges, type MythologyCatalogue,
 
 // Source-specific parent constraints set the vertical order. Story ties only
 // influence proximity; they never become invented parent relationships.
-export function createGenerationalLayout(catalogue: MythologyCatalogue, reading: MythologyReading = "all", revealed = false): MythologyLayout {
+export function createGenerationalLayout(catalogue: MythologyCatalogue, reading: MythologyReading = "all", revealed = false, { first, sequence = false }: { first?: string; sequence?: boolean } = {}): MythologyLayout {
   const edges = traceMythologyEdges(catalogue, reading).filter((edge) => revealed || !edge.spoiler);
   const entities = new Map(catalogue.entities.map((entity) => [entity.id, entity]));
   const parents = new Map(catalogue.entities.map((entity) => [entity.id, new Set<string>()]));
   const children = new Map(catalogue.entities.map((entity) => [entity.id, new Set<string>()]));
   const neighbors = new Map(catalogue.entities.map((entity) => [entity.id, new Set<string>()]));
   for (const edge of edges) { neighbors.get(edge.from)!.add(edge.to); neighbors.get(edge.to)!.add(edge.from); }
-  for (const entity of catalogue.entities) {
-    const origins = edges.filter((edge) => edge.to === entity.id && edge.kind !== "relationship");
-    for (const edge of origins) {
-      parents.get(entity.id)!.add(edge.from); children.get(edge.from)!.add(entity.id);
-    }
+  const precedes = new Set(sequence ? catalogue.relationships.filter((claim) => claim.type === "precedes").map((claim) => claim.id) : []);
+  for (const edge of edges) {
+    if (edge.kind === "relationship" && !precedes.has(edge.claimId)) continue;
+    parents.get(edge.to)!.add(edge.from); children.get(edge.from)!.add(edge.to);
   }
-  const rank = new Map(catalogue.entities.map((entity) => [entity.id, 0]));
+  const floor = (id: string) => first && id !== first ? 1 : 0;
+  const rank = new Map(catalogue.entities.map((entity) => [entity.id, floor(entity.id)]));
   const remaining = new Map([...parents].map(([id, ids]) => [id, ids.size]));
   const queue = catalogue.entities.filter((entity) => !remaining.get(entity.id)).map((entity) => entity.id).sort();
   const order: string[] = [];
@@ -32,7 +32,7 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
   // primordial beings at the beginning rather than padding the first row.
   for (const id of [...order].reverse()) {
     const next = [...children.get(id)!];
-    if (next.length && !entities.get(id)!.categories.includes("primordial")) {
+    if (next.length && id !== first && !entities.get(id)!.categories.includes("primordial")) {
       rank.set(id, Math.min(...next.map((child) => rank.get(child)! - 1)));
     }
   }
@@ -48,7 +48,7 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
     const related = [...neighbors.get(id)!].filter((other) => !floating.includes(other));
     if (related.length) {
       const ranks = related.map((other) => rank.get(other)!).sort((a, b) => a - b);
-      rank.set(id, ranks[Math.floor(ranks.length / 2)]);
+      rank.set(id, Math.max(floor(id), ranks[Math.floor(ranks.length / 2)]));
     }
   }
   const bands = new Map<number, string[]>();

@@ -1,21 +1,30 @@
 import { createGenerationalLayout } from "./mythology-layout.ts";
-import { isGameTradition, traceMythologyEdges, type MythologyCatalogue, type MythologyReading } from "./mythology-map.ts";
+import { isGameTradition, matchesMythologyReading, traceMythologyEdges, type MythologyCatalogue, type MythologyReading } from "./mythology-map.ts";
 
 export const mainMythologyCast = ["chaos", "gaia", "nyx", "zeus", "hera", "poseidon", "hades", "demeter", "hestia", "athena", "apollo", "artemis", "ares", "aphrodite", "hermes", "dionysus", "hephaestus", "persephone", "hecate", "charon", "melinoe", "zagreus"];
 export type MythologyComparisonMode = "game" | "ancient";
 
 export function mythologyComparison(catalogue: MythologyCatalogue, mode: MythologyComparisonMode, requested: Set<string>, reading: MythologyReading, spoilers: boolean, originId?: string) {
-  const allowed = catalogue.entities.filter((entity) => (spoilers || !entity.spoiler) && (mode === "game" || !entity.categories.includes("game character")));
+  const game = mode === "game";
+  const visibleRecord = (record: { spoiler?: boolean }) => spoilers || !record.spoiler;
+  const eligible = catalogue.entities.filter((entity) => visibleRecord(entity) && (game || !entity.categories.includes("game character")));
+  const eligibleIds = new Set(eligible.map((entity) => entity.id));
+  const lineages = catalogue.lineages.filter((claim) => visibleRecord(claim) && isGameTradition(claim.tradition) === game && eligibleIds.has(claim.child) && claim.parents.every((id) => eligibleIds.has(id)));
+  const chosenOrigin = lineages.find((claim) => claim.id === originId);
+  const preferredChildren = new Set(lineages.filter((claim) => matchesMythologyReading(claim.tradition, reading)).map((claim) => claim.child));
+  const parentlessInReading = new Set(eligible.filter((entity) => entity.originNotes?.some((note) => note.parentless && matchesMythologyReading(note.tradition, reading))).map((entity) => entity.id));
+  const activeLineages = lineages.filter((claim) => {
+    if (chosenOrigin?.child === claim.child) return claim.id === chosenOrigin.id;
+    if (game || reading === "all") return true;
+    if (parentlessInReading.has(claim.child)) return false;
+    return !preferredChildren.has(claim.child) || matchesMythologyReading(claim.tradition, reading);
+  });
+  const relationships = catalogue.relationships.filter((claim) => visibleRecord(claim) && isGameTradition(claim.tradition) === game && eligibleIds.has(claim.from) && eligibleIds.has(claim.to)
+    && (game || claim.type !== "precedes" || matchesMythologyReading(claim.tradition, reading)));
+  let edges = traceMythologyEdges({ lineages: activeLineages, relationships }, game ? "hades" : reading, chosenOrigin?.id);
+  const linked = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
+  const allowed = game ? eligible.filter((entity) => linked.has(entity.id)) : eligible;
   const allowedIds = new Set(allowed.map((entity) => entity.id));
-  const chosenOrigin = catalogue.lineages.find((claim) => claim.id === originId);
-  const applicableOrigin = chosenOrigin && isGameTradition(chosenOrigin.tradition) === (mode === "game") ? originId : undefined;
-  let edges = traceMythologyEdges(catalogue, mode === "game" ? "hades" : reading, applicableOrigin).filter((edge) => (spoilers || !edge.spoiler) && allowedIds.has(edge.from) && allowedIds.has(edge.to));
-  if (mode === "ancient") edges = edges.filter((edge) => !edge.game);
-  else {
-    const gameParents = new Set(catalogue.lineages.filter((claim) => isGameTradition(claim.tradition)).map((claim) => claim.child));
-    // Never retain a competing ancient parent set as if it were game continuity.
-    edges = edges.filter((edge) => edge.game || (edge.kind === "relationship" ? catalogue.relationships.find((claim) => claim.id === edge.claimId)?.type !== "identified_with" : !gameParents.has(edge.to)));
-  }
   const picked = [...requested].filter((id) => allowedIds.has(id));
   const directParents = edges.filter((edge) => edge.kind !== "relationship" && requested.has(edge.to)).map((edge) => edge.from);
   const targets = [...new Set([...picked, ...directParents])];
@@ -43,9 +52,10 @@ export function mythologyComparison(catalogue: MythologyCatalogue, mode: Mytholo
   // original parent set, including co-parents outside the chosen cast.
   const drawing: MythologyCatalogue = {
     ...catalogue, entities,
-    lineages: catalogue.lineages.filter((claim) => claimIds.has(claim.id)).map((claim) => ({ ...claim, parents: claim.parents.filter((id) => visible.has(id)) })),
-    relationships: catalogue.relationships.filter((claim) => claimIds.has(claim.id)),
+    lineages: activeLineages.filter((claim) => claimIds.has(claim.id)).map((claim) => ({ ...claim, parents: claim.parents.filter((id) => visible.has(id)) })),
+    relationships: relationships.filter((claim) => claimIds.has(claim.id)),
   };
-  const layout = entities.length ? createGenerationalLayout(drawing, mode === "game" ? "hades" : reading, spoilers) : { nodes: [], bounds: { x: 0, y: 0, width: 950, height: 600 } };
-  return { entities, edges, layout, picked: picked.length, connectors: new Set([...visible].filter((id) => !requested.has(id))) };
+  const chaosFirst = (game || reading === "hesiod") && visible.has("chaos") && !edges.some((edge) => edge.to === "chaos" && edge.kind !== "relationship");
+  const layout = entities.length ? createGenerationalLayout(drawing, game ? "hades" : reading, spoilers, { first: chaosFirst ? "chaos" : undefined, sequence: game }) : { nodes: [], bounds: { x: 0, y: 0, width: 950, height: 600 } };
+  return { entities, edges, layout, picked: picked.length, omitted: [...requested].filter((id) => eligibleIds.has(id) && !allowedIds.has(id)).length, connectors: new Set([...visible].filter((id) => !requested.has(id))) };
 }

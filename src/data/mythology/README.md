@@ -1,21 +1,21 @@
 # Mythology comparison catalogue
 
-Nine curated JSON shards supply 434 figures and collectives, including separately attributed game adaptations. `npm run build:mythology` explicitly generates the sourced catalogue and reviewed full-cast drawings. `npm run check:mythology` is read-only; normal release builds validate rather than redraw those artifacts.
+Nine curated JSON shards supply 435 figures and collectives, including separately attributed game adaptations. `npm run build:mythology` explicitly generates the sourced catalogue and reviewed full-cast drawings. `npm run check:mythology` is read-only; normal release builds validate rather than redraw those artifacts.
 
 The public knowledge file is `public/journal/greek-mythology.json`: canonical IDs, names, aliases, qualifiers, roles, short stories, memorable details, source-specific origins, non-parent relationships, exact source locations, coverage and unresolved questions. It is a growing named catalogue, not every being in every surviving tradition. The full download includes game spoilers.
 
 `public/journal/greek-mythology-layout.json` keeps six top-to-bottom reference layouts, each with an unrevealed and revealed state. A topological parent ordering replaces the old force simulation. Alternate source views reorder names without turning competing origins into one agreed genealogy. Release checks pin the source/generator fingerprints, complete casts, finite positions and non-overlapping circles.
 
-## The two views
+## One map, two tellings
 
 The blog starts with 22 chosen figures. Cast controls can select, deselect or clear names and explicitly show the full available catalogue. Direct parents remain as small markers even when their full seals are unselected. Additional shortest-path markers keep the chosen names connected through sourced relationships; no new parent facts are invented.
 
-- Game view: game-attested links are green. Older mythology is pale background where the game has no checked account. A known game parent set replaces a competing ancient parent set, including when the game account remains covered.
-- Ancient view: excludes game-only people and all game-only edges. The reader can choose a source tradition. Homer and the Homeric Hymns are grouped for reading rather than assigned to one author; Orphic traditions remain plural.
+- Hades uses checked game links only. Chaos comes before Chronos in the layout; their dashed sequence line does not assert kinship. The game Chronos is separate from ancient Kronos and Orphic Time. Figures without checked game connections can still be read through search.
+- Ancient accounts exclude game-only figures and connections. A preferred source supplies its parent set where it gives one. An explicitly parentless beginning also suppresses other origins. Where the selected source is silent, lighter links show other ancient accounts. All accounts keeps competing records available.
 
-The smaller displayed graphs are laid out in the browser from a cropped drawing model. The profile and download retain the original complete parent claims. Cropping does not rewrite the underlying knowledge. Source-specific parent alternatives remain independent records and can be traced individually in their relevant graph.
+A single canvas reorders in place when the telling changes. It lays out a cropped drawing model; the profile and download retain full claims and sources. The selected figure's story and family details appear at right on desktop and immediately below the map on phones.
 
-Native dialogs expand either graph, trap focus, restore focus on close and allow free dragging. The ordinary article keeps vertical page scrolling. There is no iframe or internal graph scrollbar. Phones stack the two views; larger screens place them together.
+Expand opens a native dialog, traps focus and restores it on close. The inline canvas has no scrollbar and lets the article scroll vertically.
 
 Every chosen seal retains its name. Familiar figures have individual vector emblems; lesser-known entries use realm marks and name monograms. These are editorial navigation cues. The Met’s divine-attribute guide and Getty’s Apollo example are linked in the component. No generated game portraits or paid TinyCharts template is distributed.
 
@@ -29,7 +29,7 @@ A lineage’s parents form one attributed account. Unknown parents remain unknow
 
 Major reveals carry `spoiler: true` on edges and, where necessary, the person itself. The cast picker, search, profiles and both graphs omit those people and claims until the gray cover is uncovered. Revealed drawings then include the complete ancestry. A covered game origin never falls back to its known-contradictory ancient parent set.
 
-The essay stays a private draft. Its prose is not application data. The localhost draft’s generic chart caption was updated to describe the two views.
+The essay stays a private draft. Its prose is not application data. The localhost draft’s generic chart caption was updated to describe the switch.
 
 ## Acceptance
 
