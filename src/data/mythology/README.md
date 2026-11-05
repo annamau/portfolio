@@ -19,6 +19,8 @@ Game identity and major parentage reveals carry `spoiler: true`. The blog omits 
 
 Three research agents gathered and sampled each other's records. An independent integration pass checked endpoints, source IDs and selected high-risk variants. This is not an exhaustive scholarly audit of every entry. Review corrected Athenaeus's Hamadryad passage to Deipnosophistae 3.78b (3.14) and separated differently named or identified sources.
 
+The telling selector reorders a precomputed layout around source-specific ties. Nonselected accounts remain faintly connected, preserving the full network. Presets are Hesiod, Homer and the Homeric Hymns, multiple Orphic traditions, Apollodorus, and the Hades games. The hymns are explicitly grouped for reading, not assigned to a single author. A per-origin radio can trace one exact parent set, including alternatives within the same author. It changes that figure's emphasized parents without discarding the other claims. Choosing a new figure or telling clears that override. Game spoilers stay filtered in every view.
+
 The native SVG component takes visual inspiration from the public TinyCharts `#spread` network example. It uses original application code, the portfolio's fonts and colors, and generated coordinates. It does not embed an external product or distribute the paid Network template.
 
 ## Acceptance

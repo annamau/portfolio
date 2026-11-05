@@ -24,11 +24,21 @@ export interface MythologyCatalogue {
 }
 export interface MythologyEdge {
   id: string; from: string; to: string; kind: "birth" | "emergence" | "creation" | "relationship";
-  game: boolean; spoiler: boolean; claimId: string;
+  game: boolean; spoiler: boolean; claimId: string; emphasis?: boolean;
 }
+export type MythologyReading = "all" | "hesiod" | "homer" | "orphic" | "apollodorus" | "hades";
+export const mythologyReadings: { id: MythologyReading; label: string; note: string }[] = [
+  { id: "all", label: "All accounts", note: "Pick a telling to rearrange the family." },
+  { id: "hesiod", label: "Hesiod", note: "Hesiod in focus. Some origins differ even within the Theogony." },
+  { id: "homer", label: "Homer & Homeric hymns", note: "Epic and hymns grouped for reading, not a single author. Other accounts stay pale." },
+  { id: "orphic", label: "Orphic traditions", note: "Several Orphic accounts, kept distinct. Other origins stay in pale ink." },
+  { id: "apollodorus", label: "Apollodorus", note: "The Library and Epitome in focus. Other traditions stay in pale ink." },
+  { id: "hades", label: "Hades games", note: "Game continuity in focus. Ancient accounts stay in pale ink." },
+];
 export interface MythologyLayout {
   nodes: { id: string; x: number; y: number; radius: number }[];
   bounds: { x: number; y: number; width: number; height: number };
+  readings?: Partial<Record<MythologyReading, MythologyLayout>>;
 }
 export function isGameTradition(tradition: string) { return /^hades(?:\s|$)/i.test(tradition); }
 // Each parent gets a real connection. Alternative parent sets stay separate claims.
@@ -43,6 +53,26 @@ export function mythologyEdges(catalogue: Pick<MythologyCatalogue, "lineages" | 
       game: isGameTradition(claim.tradition), spoiler: !!claim.spoiler, claimId: claim.id,
     })),
   ];
+}
+
+export function matchesMythologyReading(tradition: string, reading: MythologyReading) {
+  if (reading === "all") return true;
+  if (reading === "hades") return isGameTradition(tradition);
+  if (reading === "hesiod") return /hesiod/i.test(tradition);
+  if (reading === "homer") return /homer/i.test(tradition);
+  if (reading === "orphic") return /orphic/i.test(tradition);
+  return /apollodorus/i.test(tradition);
+}
+
+export function traceMythologyEdges(catalogue: Pick<MythologyCatalogue, "lineages" | "relationships">, reading: MythologyReading, originId?: string) {
+  const claims = new Map([...catalogue.lineages, ...catalogue.relationships].map((claim) => [claim.id, claim]));
+  const chosen = catalogue.lineages.find((claim) => claim.id === originId);
+  return mythologyEdges(catalogue).map((edge) => ({
+    ...edge,
+    emphasis: chosen && edge.kind !== "relationship" && edge.to === chosen.child
+      ? edge.claimId === chosen.id
+      : matchesMythologyReading(claims.get(edge.claimId)!.tradition, reading),
+  }));
 }
 export function connectedMythologyGroups(ids: string[], edges: Pick<MythologyEdge, "from" | "to">[]) {
   const adjacent = new Map(ids.map((id) => [id, new Set<string>()]));
@@ -75,7 +105,7 @@ export function mythologyNeighbors(edges: MythologyEdge[], selected: string) {
 
 // Keep the selected person and every displayed parent within the same view.
 export function mythologyFocus(layout: MythologyLayout, edges: MythologyEdge[], selected: string, aspect: number) {
-  const ids = new Set([selected, ...edges.filter((edge) => edge.to === selected && edge.kind !== "relationship").map((edge) => edge.from)]);
+  const ids = new Set([selected, ...edges.filter((edge) => edge.emphasis !== false && edge.to === selected && edge.kind !== "relationship").map((edge) => edge.from)]);
   const context = layout.nodes.filter((node) => ids.has(node.id));
   const minX = Math.min(...context.map((node) => node.x)), maxX = Math.max(...context.map((node) => node.x));
   const minY = Math.min(...context.map((node) => node.y)), maxY = Math.max(...context.map((node) => node.y));

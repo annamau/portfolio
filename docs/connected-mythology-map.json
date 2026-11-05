@@ -26,7 +26,7 @@
       "command": "npm run build",
       "exit": 0,
       "failing_lines": [],
-      "result": "50 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
+      "result": "53 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
     },
     {
       "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/MythologyNetwork.tsx src/lib/journal/mythology-map.ts scripts/build-mythology-catalogue.mjs",
@@ -102,6 +102,28 @@
       "score": 9,
       "checked": true,
       "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Source selection reorders the complete network and changes emphasized Melinoe parentage while retaining hidden reveals",
+      "score": 9,
+      "checked": true,
+      "held": true
     }
-  ]
+  ],
+  "comparison": {
+    "tellings": [
+      "All accounts",
+      "Hesiod",
+      "Homer & Homeric hymns",
+      "Orphic traditions",
+      "Apollodorus",
+      "Hades games"
+    ],
+    "behavior": "Changing a telling reorders all 433 nodes, emphasizes selected source relationships, and preserves other accounts as pale context. An individual origin radio overrides only that figure; new telling or figure clears the override.",
+    "browser": "Verified Melinoe changes from Hades/Persephone to Zeus/Persephone, with different coordinates and 952 spoiler-safe connections. Per-origin Hades override within Orphic view passed; telling change clears it. 320px and 390px remain free of horizontal overflow and internal scrollbars.",
+    "review": "One independent code/source review for this follow-up; no findings at or above threshold.",
+    "notes": "These are reading groups, not reconciled single-source family trees. Homeric hymns are not assigned to one author; Orphic traditions remain plural."
+  }
 }

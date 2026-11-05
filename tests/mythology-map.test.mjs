@@ -122,3 +122,31 @@ test('connection navigation offers actual neighbors, including both parents, wit
  assert.ok(!mythologyNeighbors(visible,'dora-game').includes('pandora'));
  for(const entity of catalogue.entities)assert.ok(mythologyNeighbors(visible,entity.id).length,entity.id);
 });
+
+test('selecting a telling emphasizes its parent sets while preserving the full connected network',async()=>{
+ const {traceMythologyEdges}=await import('../src/lib/journal/mythology-map.ts');
+ const game=traceMythologyEdges(catalogue,'hades').filter(edge=>!edge.spoiler);
+ const orphic=traceMythologyEdges(catalogue,'orphic').filter(edge=>!edge.spoiler);
+ const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
+ assert.deepEqual(parents(game),new Set(['hades','persephone']));
+ assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
+ for(const traced of [game,orphic]){assert.equal(traced.length,952);assert.equal(connectedMythologyGroups([...byId.keys()],traced).length,1);}
+});
+
+test('tracing one origin overrides competing parents for that figure only',async()=>{
+ const {traceMythologyEdges}=await import('../src/lib/journal/mythology-map.ts');
+ const claim=origins('melinoe').find(claim=>!isGameTradition(claim.tradition));
+ const traced=traceMythologyEdges(catalogue,'hades',claim.id);
+ assert.deepEqual(new Set(traced.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from)),new Set(['zeus','persephone']));
+ assert.ok(traced.filter(edge=>edge.to==='melinoe'&&edge.from==='hades').every(edge=>!edge.emphasis));
+ assert.ok(traced.find(edge=>edge.from==='dora-game'&&edge.to==='melinoe').emphasis,'Other Hades connections keep the selected telling');
+});
+
+test('all telling layouts retain the same complete cast and genuinely rearrange positions',()=>{
+ for(const reading of ['hesiod','homer','orphic','apollodorus','hades']){
+  const view=layout.readings[reading];assert.ok(view,reading);
+  assert.deepEqual(new Set(view.nodes.map(node=>node.id)),new Set(layout.nodes.map(node=>node.id)));
+  assert.notDeepEqual(view.nodes,layout.nodes,`${reading} must reorder, not merely recolor`);
+  for(const node of view.nodes)assert.ok(Number.isFinite(node.x)&&Number.isFinite(node.y));
+ }
+});

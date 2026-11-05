@@ -20,14 +20,14 @@ const Artwork = memo(function Artwork({ entities, positions, edges, selected, on
   entities: MythologyEntity[]; positions: Map<string, Point>; edges: MythologyEdge[];
   selected: string; onSelect: (id: string) => void; marker: string;
 }) {
-  const neighbors = new Set([selected, ...edges.filter((edge) => edge.from === selected || edge.to === selected).flatMap((edge) => [edge.from, edge.to])]);
+  const neighbors = new Set([selected, ...edges.filter((edge) => edge.emphasis !== false && (edge.from === selected || edge.to === selected)).flatMap((edge) => [edge.from, edge.to])]);
   return <>
     <g className={styles.inkLines} aria-hidden="true">{edges.map((edge) => {
       const from = positions.get(edge.from)!, to = positions.get(edge.to)!;
       const dx = to.x - from.x, dy = to.y - from.y, distance = Math.hypot(dx, dy);
       const ux = dx / distance, uy = dy / distance;
-      const active = edge.from === selected || edge.to === selected;
-      return <path key={edge.id} d={`M${from.x + ux * (from.radius + 4)},${from.y + uy * (from.radius + 4)}L${to.x - ux * (to.radius + 8)},${to.y - uy * (to.radius + 8)}`} data-from={edge.from} data-to={edge.to} data-kind={edge.kind} data-game={edge.game} data-active={active} markerEnd={edge.kind === "relationship" ? undefined : `url(#${marker}${edge.game ? "-game" : ""})`}/>;
+      const active = edge.emphasis !== false && (edge.from === selected || edge.to === selected);
+      return <path key={edge.id} d={`M${from.x + ux * (from.radius + 4)},${from.y + uy * (from.radius + 4)}L${to.x - ux * (to.radius + 8)},${to.y - uy * (to.radius + 8)}`} data-from={edge.from} data-to={edge.to} data-kind={edge.kind} data-game={edge.game} data-active={active} data-emphasis={edge.emphasis !== false} markerEnd={edge.kind === "relationship" ? undefined : `url(#${marker}${edge.game ? "-game" : ""})`}/>;
     })}</g>
     <g className={styles.inkNodes}>{entities.map((entity) => {
       const point = positions.get(entity.id)!;
@@ -43,17 +43,18 @@ const Artwork = memo(function Artwork({ entities, positions, edges, selected, on
   </>;
 });
 
-export default function MythologyNetwork({ entities, layout, edges, selected, onSelect }: {
+export default function MythologyNetwork({ entities, layout, edges, selected, focusKey, onSelect }: {
   entities: MythologyEntity[]; layout: MythologyLayout; edges: MythologyEdge[];
-  selected: string; onSelect: (id: string) => void;
+  selected: string; focusKey: string; onSelect: (id: string) => void;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const positions = useMemo(() => new Map(layout.nodes.map((node) => [node.id, node])), [layout]);
   const [aspect, setAspect] = useState(1.6);
   const [canvasWidth, setCanvasWidth] = useState(720);
   const [moving, setMoving] = useState(false);
-  const [customCamera, setCamera] = useState<(Camera & { selected: string }) | null>(null);
-  const camera: Camera = customCamera?.selected === selected ? { ...customCamera, height: customCamera.width / aspect } : mythologyFocus(layout, edges, selected, aspect);
+  const [customCamera, setCamera] = useState<(Camera & { key: string }) | null>(null);
+  const cameraKey = `${selected}/${focusKey}`;
+  const camera: Camera = customCamera?.key === cameraKey ? { ...customCamera, height: customCamera.width / aspect } : mythologyFocus(layout, edges, selected, aspect);
   const gesture = useRef<{ x: number; y: number; camera: Camera; moved: boolean } | null>(null);
   const marker = useId().replaceAll(":", "");
   useEffect(() => {
@@ -70,14 +71,14 @@ export default function MythologyNetwork({ entities, layout, edges, selected, on
   }, [selected]);
   function zoom(factor: number) {
     setCamera((value) => {
-      const previous = value?.selected === selected ? value : camera;
+      const previous = value?.key === cameraKey ? value : camera;
       const width = Math.max(230, Math.min(layout.bounds.width * 1.2, previous.width * factor)), height = width / aspect;
-      return { selected, x: previous.x + (previous.width - width) / 2, y: previous.y + (previous.height - height) / 2, width, height };
+      return { key: cameraKey, x: previous.x + (previous.width - width) / 2, y: previous.y + (previous.height - height) / 2, width, height };
     });
   }
   function fit() {
     const bounds = layout.bounds, width = Math.max(bounds.width, bounds.height * aspect), height = width / aspect;
-    setCamera({ selected, x: bounds.x + (bounds.width - width) / 2, y: bounds.y + (bounds.height - height) / 2, width, height });
+    setCamera({ key: cameraKey, x: bounds.x + (bounds.width - width) / 2, y: bounds.y + (bounds.height - height) / 2, width, height });
   }
   function down(event: PointerEvent<SVGSVGElement>) {
     if (event.button !== 0 || (event.target as Element).closest('[data-myth-id]')) return;
@@ -91,14 +92,14 @@ export default function MythologyNetwork({ entities, layout, edges, selected, on
     if (Math.hypot(dx, dy) < 4 && !start.moved) return;
     start.moved = true;
     const scale = start.camera.width / element.getBoundingClientRect().width;
-    setCamera({ ...start.camera, selected, x: start.camera.x - dx * scale, y: start.camera.y - dy * scale });
+    setCamera({ ...start.camera, key: cameraKey, x: start.camera.x - dx * scale, y: start.camera.y - dy * scale });
   }
   return <div className={styles.network} data-moving={moving}>
     <svg ref={svg} className={styles.canvas} style={{ "--map-label-size": `${Math.max(14, Math.min(32, camera.width / canvasWidth * 11))}px` } as CSSProperties} viewBox={`${camera.x} ${camera.y} ${camera.width} ${camera.height}`} role="group" aria-label="Mythology network. Search a name, select a circle, or use arrow keys to pan. Focus a circle and use arrow keys to explore names. Plus and minus zoom." tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={() => { gesture.current = null; }} onPointerCancel={() => { gesture.current = null; }} onKeyDown={(event) => {
       if (event.target !== event.currentTarget) return;
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
         event.preventDefault();
-        setCamera((previous) => { const value = previous?.selected === selected ? previous : camera; return ({ ...value, selected, x: value.x + (event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0) * value.width * 0.15, y: value.y + (event.key === "ArrowDown" ? 1 : event.key === "ArrowUp" ? -1 : 0) * value.height * 0.15 }); });
+        setCamera((previous) => { const value = previous?.key === cameraKey ? previous : camera; return ({ ...value, key: cameraKey, x: value.x + (event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0) * value.width * 0.15, y: value.y + (event.key === "ArrowDown" ? 1 : event.key === "ArrowUp" ? -1 : 0) * value.height * 0.15 }); });
       }
       if (event.key === "+" || event.key === "=") { event.preventDefault(); zoom(0.72); }
       if (event.key === "-") { event.preventDefault(); zoom(1 / 0.72); }

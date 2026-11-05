@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY } from 'd3-force';
-import { mythologyEdges, connectedMythologyGroups } from '../src/lib/journal/mythology-map.ts';
+import { mythologyEdges, traceMythologyEdges, mythologyReadings, connectedMythologyGroups } from '../src/lib/journal/mythology-map.ts';
 const root = new URL('../', import.meta.url);
 const union = (values) => [...new Set(values)];
 const refs = (values) => [...new Map(values.map((value) => [`${value.sourceId}:${value.passage}`, value])).values()];
@@ -91,17 +91,18 @@ export async function buildCatalogue() {
   catalogue.metadata.counts = { entities: entities.size, individualFigures: catalogue.entities.filter((entity) => entity.kind === 'individual').length, collectives: catalogue.entities.filter((entity) => entity.kind === 'collective').length, lineageClaims: catalogue.lineages.length, otherRelationships: catalogue.relationships.length, connections: edges.length, sources: sources.size, connectedGroups: groups.length };
   return catalogue;
 }
-export function buildLayout(catalogue) {
+export function buildLayout(catalogue, reading = 'all') {
   const degree = new Map(catalogue.entities.map((entity) => [entity.id, 0])), unique = new Map();
-  for (const edge of mythologyEdges(catalogue).filter((edge) => !edge.spoiler)) {
+  for (const edge of traceMythologyEdges(catalogue, reading).filter((edge) => !edge.spoiler)) {
     const key = [edge.from, edge.to].sort().join(':');
-    if (unique.has(key)) continue;
-    unique.set(key, { source: edge.from, target: edge.to });
+    const strength = edge.emphasis ? 1 : 0.06;
+    if (unique.has(key)) { unique.get(key).strength = Math.max(unique.get(key).strength, strength); continue; }
+    unique.set(key, { source: edge.from, target: edge.to, strength });
     degree.set(edge.from, degree.get(edge.from) + 1); degree.set(edge.to, degree.get(edge.to) + 1);
   }
   const nodes = catalogue.entities.map((entity) => ({ id: entity.id, radius: Math.min(35, 18 + Math.sqrt(degree.get(entity.id)) * 1.7) }));
   const simulation = forceSimulation(nodes)
-    .force('links', forceLink([...unique.values()]).id((node) => node.id).distance(180).strength(1))
+    .force('links', forceLink([...unique.values()]).id((node) => node.id).distance(180).strength((link) => link.strength))
     .force('charge', forceManyBody().strength(-30))
     .force('collide', forceCollide().radius((node) => Math.max(78, node.radius + 50)).iterations(4))
     .force('x', forceX(0).strength(0.005)).force('y', forceY(0).strength(0.005)).stop();
@@ -113,6 +114,7 @@ export function buildLayout(catalogue) {
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const catalogue = await buildCatalogue(), layout = buildLayout(catalogue);
+  layout.readings = Object.fromEntries(mythologyReadings.filter((reading) => reading.id !== 'all').map((reading) => [reading.id, buildLayout(catalogue, reading.id)]));
   const destination = new URL('public/journal/', root);
   await mkdir(destination, { recursive: true });
   await writeFile(new URL('greek-mythology.json', destination), JSON.stringify(catalogue, null, 2) + '\n');
