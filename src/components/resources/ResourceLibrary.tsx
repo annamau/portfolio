@@ -19,7 +19,7 @@ const formats: {value:NonNullable<ResourceFilters["format"]>;en:string;es:string
 ];
 export default function ResourceLibrary({ category }: { category?: ResourceCategory }) {
   const {locale}=useLanguage();const es=locale==="es";
-  const {resources,error,refresh}=useResourceData();
+  const {resources,error,refresh,session}=useResourceData();
   const [query,setQuery]=useState("");
   const [tag,setTag]=useState("");
   const [sort,setSort]=useState<"curated"|"az">("curated");
@@ -37,7 +37,7 @@ export default function ResourceLibrary({ category }: { category?: ResourceCateg
     <section id="resource-directory" className={styles.directory} aria-labelledby="directory-heading">
       <div className={styles.folderHeading}>
         <h1 id="directory-heading"><FolderSimple size={26} weight="duotone" aria-hidden="true"/>{collection?collection.name[locale]:(es?"Todos los recursos":"All resources")}</h1><span>{categoryResources.length}</span>
-        <Link href={`/resources/inbox?add=1${category?`&folder=${category}`:""}`} className={styles.addButton} aria-label={es?"Añadir recurso":"Add resource"}><Plus size={17}/><span>{es?"Añadir recurso":"Add resource"}</span></Link>
+        <Link href={`/resources/inbox?${session?.authenticated?"add=1":""}${category?`&folder=${category}`:""}`} className={styles.addButton} aria-label={session?.authenticated?(es?"Añadir recurso":"Add resource"):(es?"Proponer recurso":"Suggest a resource")}><Plus size={17}/><span>{session?.authenticated?(es?"Añadir recurso":"Add resource"):(es?"Proponer recurso":"Suggest a resource")}</span></Link>
       </div>
       <div className={styles.toolbar}>
         <div className={styles.search}><MagnifyingGlass size={20} aria-hidden="true"/><input type="search" value={query} onChange={(event)=>setQuery(event.target.value)} placeholder={es?"Busca: db, imágenes, audio, AI…":"Search: db, images, audio, AI…"} aria-label={es?"Buscar recursos":"Search resources"} autoComplete="off"/>{query&&<button type="button" aria-label={es?"Borrar búsqueda":"Clear search"} onClick={()=>setQuery("")}><X size={16}/></button>}</div>

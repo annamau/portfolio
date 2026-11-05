@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-05",
+  "project": "portfolio",
+  "status": "pre-deploy checks passed",
+  "changes": [
+    "More outer margins, card padding and grid gaps.",
+    "Removed vague inbox introduction.",
+    "Anonymous resource links and ideas go into a separate private Suggestions queue.",
+    "Owner can review, archive, restore or create a private resource draft.",
+    "No visitor publishing, private draft access or file uploads."
+  ],
+  "checks": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "23 unit tests; production build; bundle privacy gate; 55 API assertions; cloud missing-object regression gate."
+    },
+    {
+      "command": "npx eslint [changed TypeScript files]",
+      "exit": 0,
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "failing_lines": []
+    }
+  ],
+  "chrome": {
+    "browser": "Chrome connector",
+    "tested": [
+      "Anonymous idea without a link receives confirmation.",
+      "Owner sees the suggestion and creates a private draft with prefilled name and description.",
+      "Suggestion moves from Pending to Reviewed after saving.",
+      "320px Spanish form submit button reachable; no horizontal overflow.",
+      "390px English form; no horizontal overflow.",
+      "390px directory has 63 cards and images, 24px outer margins, no horizontal overflow, and observed scrollY greater than 12000."
+    ],
+    "screenshots": [
+      "/tmp/portfolio-suggestions-mobile.jpg",
+      "/tmp/portfolio-suggestions-desktop.jpg",
+      "/tmp/portfolio-resources-spacing-390.jpg"
+    ]
+  },
+  "review": {
+    "rounds": 1,
+    "result": "Owner-only reads and moderation; same-origin public POST; bounded body, honeypot and persistent shared hourly quota; injected status ignored; conditional writes reject stale moderation. No open finding >=4."
+  },
+  "caveats": [
+    "Public submissions are limited to 50 per hour across the directory. No email or identity collected.",
+    "Clerk was tested as a saved private resource; Clerk authentication SDK was not integrated.",
+    "Original sandbox build stayed idle and was stopped (exit 130); approved unsandboxed final build passed."
+  ],
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Visitors need a public submission path while owner moderation stays private",
+      "score": 8,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Separate suggestions preserve draft privacy and require owner review before publishing",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}

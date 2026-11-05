@@ -27,10 +27,10 @@ export async function limitedBody(request: Request, limit = 150_000): Promise<Ui
   }
   return Buffer.concat(chunks);
 }
-export async function jsonBody(request: Request): Promise<Record<string, unknown>> {
+export async function jsonBody(request: Request, limit = 150_000): Promise<Record<string, unknown>> {
   if (!request.headers.get("content-type")?.startsWith("application/json")) throw new ResourceError("Send JSON data.", 415);
   try {
-    const parsed = JSON.parse(Buffer.from(await limitedBody(request)).toString());
+    const parsed = JSON.parse(Buffer.from(await limitedBody(request, limit)).toString());
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new ResourceError("Invalid resource data.");
     return parsed;
   } catch (error) { if (error instanceof ResourceError) throw error; throw new ResourceError("Invalid JSON data."); }

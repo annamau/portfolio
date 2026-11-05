@@ -5,7 +5,7 @@ import { getStore } from "@netlify/blobs";
 import { ResourceError, validId, validAssetId } from "./model.ts";
 import type { SavedResource } from "./model.ts";
 
-const directory = () => process.env.RESOURCE_DATA_DIR || join(process.cwd(), ".resource-data");
+export const directory = () => process.env.RESOURCE_DATA_DIR || join(process.cwd(), ".resource-data");
 export function storageMode(env: Record<string, string | undefined> = process.env): "local" | "netlify" {
   if (env.RESOURCE_STORAGE === "netlify" || env.NETLIFY === "true" || env.NETLIFY_BLOBS_CONTEXT) return "netlify";
   if (env.VERCEL) throw new ResourceError("Persistent resource storage is not configured on this host.", 503);
@@ -13,7 +13,7 @@ export function storageMode(env: Record<string, string | undefined> = process.en
   throw new ResourceError("Persistent resource storage is not configured on this host.", 503);
 }
 const cloud = () => storageMode() === "netlify";
-const blobs = () => getStore({
+export const blobs = () => getStore({
   name: "portfolio-resource-library", consistency: "strong",
   // A signal opts out of Next's cloned fetch responses. SDK cancellation of a
   // missing blob otherwise waits forever on the unread clone's stream branch.
@@ -21,14 +21,14 @@ const blobs = () => getStore({
 });
 let queue = Promise.resolve();
 
-async function locallySerialized<T>(work: () => Promise<T>): Promise<T> {
+export async function locallySerialized<T>(work: () => Promise<T>): Promise<T> {
   const previous = queue;
   let release!: () => void;
   queue = new Promise<void>((resolve) => { release = resolve; });
   await previous;
   try { return await work(); } finally { release(); }
 }
-async function atomicWrite(path: string, data: string | Uint8Array): Promise<void> {
+export async function atomicWrite(path: string, data: string | Uint8Array): Promise<void> {
   await mkdir(directory(), { recursive: true });
   const temporary = `${path}.${randomUUID()}.tmp`;
   await writeFile(temporary, data, { mode: 0o600 });

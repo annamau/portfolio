@@ -11,14 +11,14 @@ import ResourceDialog from "./ResourceDialog";
 import styles from "./ResourceDialogs.module.css";
 
 const kinds: ResourceKind[] = ["tool","library","learning","inspiration","post","article","video","audio","image","file"];
-export default function ResourceCapture({ entry, initialUrl = "", initialCategory = "ideas", onClose, onSaved }: { entry?: SavedResource; initialUrl?: string; initialCategory?: ResourceCategory; onClose: () => void; onSaved: (message: string) => void }) {
+export default function ResourceCapture({ entry, initialUrl = "", initialCategory = "ideas", initialName = "", initialDescription = "", onClose, onSaved }: { entry?: SavedResource; initialUrl?: string; initialCategory?: ResourceCategory; initialName?: string; initialDescription?: string; onClose: () => void; onSaved: (message: string) => void }) {
   const { locale } = useLanguage();
   const es = locale === "es";
   const { refresh } = useResourceData();
   const [mode, setMode] = useState<"link" | "upload" | "import">("link");
   const [url, setUrl] = useState(entry?.url || initialUrl);
-  const [name, setName] = useState(entry?.name || "");
-  const [description, setDescription] = useState(entry?.description[locale] || "");
+  const [name, setName] = useState(entry?.name || initialName);
+  const [description, setDescription] = useState(entry?.description[locale] || initialDescription);
   const [category, setCategory] = useState<ResourceCategory>(entry?.category || initialCategory);
   const [kind, setKind] = useState<ResourceKind>(entry?.kind || "tool");
   const [tags, setTags] = useState(entry?.tags.join(", ") || "");

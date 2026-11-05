@@ -30,6 +30,15 @@ try{
  for(const path of fonts){const response=await fetch(new URL(path,base));const bytes=Buffer.from(await response.arrayBuffer());verify(response.ok&&bytes.subarray(0,4).toString()==="wOF2","Preloaded font files are served as valid WOFF2 data.");}
  let result=await call("/api/resources/session");verify(result.body.authenticated===false,"Public visitors must not have owner access.");
  result=await call("/api/resources?scope=inbox");verify(result.response.status===401,"Private inbox must reject anonymous readers.");
+ const idea={title:"Visitor idea",note:"PRIVATE-SUGGESTION-SENTINEL",category:"ideas",status:"published"};
+ result=await call("/api/resources/suggestions");verify(result.response.status===401,"Anonymous visitors cannot read suggestions.");
+ result=await call("/api/resources/suggestions",{method:"POST",data:idea,origin:"https://attacker.example"});verify(result.response.status===403,"Cross-origin submissions are rejected.");
+ result=await call("/api/resources/suggestions",{method:"POST",data:{...idea,note:"x".repeat(13000)}});verify(result.response.status===413,"Public submission bodies are bounded.");
+ result=await call("/api/resources/suggestions",{method:"POST",data:idea});verify(result.response.status===202&&JSON.stringify(result.body)==='{"received":true}',"Visitors can submit ideas without receiving private data.");
+ result=await call("/api/resources/suggestions",{method:"POST",data:{...idea,url:"https://clerk.com"}});verify(result.response.status===202,"Visitors can submit resource links.");
+ result=await call("/api/resources/suggestions",{method:"POST",data:{...idea,company:"bot"}});verify(result.response.status===202,"Honeypots return a generic receipt.");
+ result=await call("/api/resources/suggestions",{method:"PUT",data:{id:"guess",version:1,status:"reviewed"}});verify(result.response.status===401,"Visitors cannot review suggestions.");
+ result=await call("/api/resources");verify(result.body.resources.length===0&&!JSON.stringify(result.body).includes(idea.note),"Suggestions do not appear in the public feed.");
  const draft={url:"https://example.org/portfolio-private-fixture",name:"Private API fixture",category:"ideas",kind:"article",tags:["Testing"],description:"A private test source",privateNotes:"PRIVATE-API-SENTINEL",status:"published"};
  result=await call("/api/resources",{method:"POST",data:draft});verify(result.response.status===401,"Anonymous visitors cannot save or publish sources.");
  result=await call("/api/resources/preview",{method:"POST",data:{url:draft.url}});verify(result.response.status===401,"Metadata capture is owner-only.");
@@ -47,6 +56,13 @@ try{
  result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"unpublish",version:1},authenticated:true});verify(result.response.status===409,"Stale writes are rejected.");
  result=await call(`/api/resources/${entry.id}`,{method:"PUT",data:{action:"unpublish",version:2},authenticated:true});verify(result.response.status===200,"Owner can return a resource to the inbox.");
  result=await call("/api/resources");verify(result.body.resources.length===0,"Unpublished resources immediately disappear from the public feed.");
+ result=await call("/api/resources/suggestions",{authenticated:true});verify(result.body.suggestions.length===2&&result.body.suggestions.every(item=>item.status==="pending"),"Owner sees pending ideas and links, while honeypot entries are discarded.");
+ const suggestion=result.body.suggestions[0];
+ result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,origin:"https://attacker.example",data:{id:suggestion.id,version:1,status:"archived"}});verify(result.response.status===403,"Cross-origin suggestion moderation is rejected.");
+ result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,data:{id:suggestion.id,version:1,status:"archived"}});verify(result.response.ok,"Owner can archive a suggestion.");
+ result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,data:{id:suggestion.id,version:1,status:"pending"}});verify(result.response.status===409,"Stale suggestion moderation is rejected.");
+ result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,data:{id:suggestion.id,version:2,status:"pending"}});verify(result.response.ok,"Owner can restore an archived suggestion.");
+ result=await call("/api/resources/suggestions");verify(result.response.status===401,"Reviewed suggestions remain private.");
  const png=await sharp({create:{width:3,height:3,channels:3,background:"#df4f2f"}}).png().toBuffer();
  const upload=new FormData();upload.set("data",JSON.stringify({name:"Private image",category:"design",privateNotes:"PRIVATE-UPLOAD-SENTINEL"}));upload.set("file",new File([png],"cover.png",{type:"image/png"}));
  result=await call("/api/resources",{method:"POST",form:upload,authenticated:true});verify(result.response.status===201,"Owner can upload an image.");const image=result.body.resources[0];verify(image.status==="draft"&&image.kind==="image","Uploads start in the private inbox.");
