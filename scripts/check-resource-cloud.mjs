@@ -22,7 +22,9 @@ try{
  assert.equal(login.status,200);const cookie=login.headers.get('set-cookie').split(';')[0];
  const edit=await fetch(`${base}/api/resources/${missing}`,{method:'PUT',headers:{Origin:base,Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({action:'save',version:1}),signal:AbortSignal.timeout(3000)});
  assert.equal(edit.status,404,'Owner edits of missing cloud records must return 404 promptly.');
- console.log('Resource cloud gate: missing media and owner lookups return promptly through the real Next fetch wrapper.');
+ const journal=await fetch(base+'/api/resources/journal',{method:'PUT',headers:{Origin:base,Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({id:'post-00000000-0000-0000-0000-000000000000',version:1,action:'unpublish'}),signal:AbortSignal.timeout(3000)});
+ assert.equal(journal.status,404,'Missing journal records must return 404 promptly through shared cloud storage.');
+ console.log('Resource cloud gate: missing media, owner and journal lookups return promptly through the real Next fetch wrapper.');
 }catch(error){console.error(output.slice(-1500));throw error;}
 finally{
  server.kill('SIGTERM');await Promise.race([once(server,'exit'),new Promise(resolve=>setTimeout(resolve,3000))]);if(server.exitCode===null)server.kill('SIGKILL');backend.closeAllConnections();await new Promise(resolve=>backend.close(resolve));

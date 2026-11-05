@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-05",
+  "project": "portfolio",
+  "status": "verified locally; production verification follows deployment",
+  "features": [
+    "Journal index and individual reading pages at /blog.",
+    "Owner editor at /blog/write, using existing owner sign-in.",
+    "Private drafts, explicit publication, updates, unpublish; stable unique entry URLs.",
+    "Optional topic, summary and public HTTPS cover; headings, lists and quotes; no raw HTML execution.",
+    "Journal linked from projects and resources; sitemap contains published entries only."
+  ],
+  "checks": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "25 unit tests, Next build, bundle privacy gate, 72 API assertions and cloud regression gate passed."
+    },
+    {
+      "command": "node scripts/check-resource-cloud.mjs",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "Additional missing-journal lookup returned promptly through actual Next cloud wrapper."
+    },
+    {
+      "command": "npx tsc --noEmit && npx eslint [changed TS/TSX files]",
+      "exit": 0,
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "failing_lines": []
+    }
+  ],
+  "chrome": {
+    "browser": "Chrome connector",
+    "store": "Separate local test store; no demo entry written to production.",
+    "tested": [
+      "Save private draft, publish, read via public URL, return to draft, confirm empty public index.",
+      "320px editor and reading page: no horizontal overflow; vertical scrolling observed.",
+      "390px Spanish index: no horizontal overflow.",
+      "Heading, list and quotation formatting renders as expected."
+    ],
+    "screenshots": [
+      "/tmp/portfolio-journal-desktop.jpg",
+      "/tmp/portfolio-journal-entry-320.jpg",
+      "/tmp/portfolio-journal-list-390.jpg"
+    ]
+  },
+  "review": {
+    "rounds": 1,
+    "result": "Reviewed private read/publish guards, same-origin checks, stale revisions, immutable URLs, content bounds, HTML escaping and sitemap filtering. No open finding >=4."
+  },
+  "caveats": [
+    "Journal is empty until the owner publishes a real entry. No authored opinions or demo posts were invented for production.",
+    "Editor supports paragraphs, headings, lists and quotes; cover images use a public HTTPS URL.",
+    "No autosave; use Save draft or Save changes.",
+    "Journal is the working English name, Diario in Spanish; name preference was requested."
+  ],
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Journal can reuse existing owner session and versioned storage while keeping drafts private",
+      "score": 8,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Publication makes an entry publicly readable and unpublishing removes it from index, URL and sitemap",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}

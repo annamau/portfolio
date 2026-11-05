@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { BookmarkSimple, FolderSimple, Lightbulb, LockSimple, Plus } from "@phosphor-icons/react";
+import { BookmarkSimple, FolderSimple, Notebook, Lightbulb, LockSimple, Plus } from "@phosphor-icons/react";
 import { resourceCollections } from "@/data/resources";
 import type { ResourceCategory } from "@/data/resources";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -26,6 +26,7 @@ export default function ResourceSidebar({ category, inbox = false, onAdd }: { ca
     </nav>
     <div className={styles.sidebarFooter}>
       {session?.authenticated&&<span>{es ? "Acceso de propietario" : "Owner access"}</span>}
+      <Link href="/blog"><Notebook size={16} aria-hidden="true"/>{es?"Diario":"Journal"}</Link>
       <button type="button" onClick={() => setLocale(es ? "en" : "es")} aria-label={es ? "Switch to English" : "Cambiar a español"}>{es ? "EN" : "ES"}</button>
     </div>
   </aside>;

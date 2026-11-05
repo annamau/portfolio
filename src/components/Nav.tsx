@@ -48,6 +48,9 @@ export default function Nav() {
         <Link href="/resources" aria-current={pathname.startsWith("/resources") ? "page" : undefined}>
           {locale === "es" ? "Recursos" : "Resources"}
         </Link>
+        <Link href="/blog" aria-current={pathname.startsWith("/blog") ? "page" : undefined}>
+          {locale === "es" ? "Diario" : "Journal"}
+        </Link>
       </div>
 
       <div className="island-actions">

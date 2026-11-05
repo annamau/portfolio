@@ -159,7 +159,7 @@
 .privateNotes p { white-space: pre-wrap; line-height: 1.7; }
 .playBadge { position: absolute; inset: 0; display: grid; place-items: center; color: #fff9ef; filter: drop-shadow(0 2px 5px #0008); }
 @media (max-width: 760px) {
-  .ownerBrand { margin-bottom: 0; padding-right: 50px; }
+  .ownerBrand { margin-bottom: 0; padding-right: 85px; }
   .ownerBrand > span { font-size: 22px; }
   .sidebarAdd { display: none; }
   .sidebarFooter > span { display: none; }
