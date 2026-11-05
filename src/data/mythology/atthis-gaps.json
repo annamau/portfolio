@@ -1,0 +1,21 @@
+{
+  "entities": [
+    {"id":"cranaus","name":"Cranaus","aliases":[],"kind":"individual","categories":["mortal","king"],"domains":[],"summary":"An early king of Attica, described as earthborn by Apollodorus.","originStatus":"attested","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5"}]},
+    {"id":"pedias-cranaus","name":"Pedias","aliases":[],"kind":"individual","categories":["mortal"],"domains":[],"summary":"Lacedaemonian daughter of Mynes and wife of Cranaus in Apollodorus.","originStatus":"attested","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5"}]}
+  ],
+  "lineages": [
+
+  ],
+  "relationships": [
+    {"id":"cranaus-pedias-spouse-apollodorus","from":"cranaus","to":"pedias-cranaus","type":"spouse_of","tradition":"Apollodorus","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5"}],"notes":"The same passage names their daughter Atthis; her sourced lineage is in final-gaps.json.","spoiler":false}
+  ],
+  "sources": [
+    {"id":"apollodorus-3","author":"Pseudo-Apollodorus","title":"Library book 3","url":"https://ftp.theoi.com/Text/Apollodorus3.html","type":"ancient_text"}
+  ],
+  "coverage": [
+    {"group":"Parents named for Atthis in Apollodorus 3.14.5","expected":2,"entityIds":["cranaus","pedias-cranaus"],"sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5"}],"notes":"Not an exhaustive account of their family."}
+  ],
+  "unresolved": [
+    {"entityId":"pedias-cranaus","issue":"Apollodorus names her father Mynes; the source does not establish his identity beyond this and no parent edge is added."}
+  ]
+}

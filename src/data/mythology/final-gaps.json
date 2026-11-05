@@ -1,0 +1,49 @@
+{
+  "entities": [
+    {"id":"aphrodite","name":"Aphrodite","aliases":[],"kind":"individual","categories":["goddess"],"domains":["love","desire"],"summary":"Goddess associated with love and desire, with distinct genealogies in Hesiod and Homer.","originStatus":"variant","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"188-206"},{"sourceId":"iliad-5","passage":"370-430, 800-820"}]},
+    {"id":"dione-homer","name":"Dione","aliases":[],"kind":"individual","categories":["goddess"],"domains":[],"summary":"Mother of Aphrodite in Homer’s Iliad; the poem does not identify her as a specific Hesiodic Oceanid.","originStatus":"variant","sourceRefs":[{"sourceId":"iliad-5","passage":"370-430"}],"qualifier":"In Homer"},
+    {"id":"erichthonius-athens","name":"Erichthonius of Athens","aliases":[],"kind":"individual","categories":["mortal"],"domains":[],"summary":"Earth-born early king of Athens raised by Athena, distinct from the Trojan of the same name.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6"}]},
+    {"id":"praxithea-erichthonius","name":"Praxithea","aliases":[],"kind":"individual","categories":["nymph"],"domains":[],"summary":"Naiad and wife of Erichthonius of Athens, mother of Pandion I.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6"}],"qualifier":"Wife of Erichthonius"},
+    {"id":"pandion-i-athens","name":"Pandion I of Athens","aliases":[],"kind":"individual","categories":["mortal"],"domains":[],"summary":"Son of Erichthonius and Praxithea and father of Erechtheus.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6-8"}]},
+    {"id":"zeuxippe-pandion","name":"Zeuxippe","aliases":[],"kind":"individual","categories":["figure"],"domains":[],"summary":"Sister of Praxithea and mother of Erechtheus by Pandion I.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.8"}]},
+    {"id":"atthis-cranaus","name":"Atthis","aliases":[],"kind":"individual","categories":["mortal"],"domains":[],"summary":"Daughter of Cranaus and alternative mother of Erichthonius of Athens in Apollodorus.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5-6"}]},
+    {"id":"praxithea-erechtheus","name":"Praxithea","aliases":[],"kind":"individual","categories":["mortal"],"domains":[],"summary":"Wife of Erechtheus and daughter of Phrasimus and Diogenia; distinct from the Naiad wife of Erichthonius.","originStatus":"variant","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.15.1"}],"qualifier":"Wife of Erechtheus"}
+  ],
+  "lineages": [
+    {"id":"aphrodite-hesiod-foam","child":"aphrodite","parents":["uranus"],"mode":"emergence","tradition":"Hesiod","variantGroup":"aphrodite-origin","sourceRefs":[{"sourceId":"hesiod-theogony","passage":"188-206"}],"notes":"She emerges in sea foam around severed genitals; not a normal biological birth or a two-parent union.","spoiler":false},
+    {"id":"aphrodite-homer-zeus-dione","child":"aphrodite","parents":["zeus","dione-homer"],"mode":"birth","tradition":"Homer","variantGroup":"aphrodite-origin","sourceRefs":[{"sourceId":"iliad-5","passage":"370-430, 800-820"}],"notes":"Dione is explicitly mother and Zeus called father in the poem; Homer does not explicitly identify this Dione with Hesiod’s Oceanid.","spoiler":false},
+    {"id":"erichthonius-earth-apollodorus","child":"erichthonius-athens","parents":["hephaestus","gaia"],"mode":"birth","tradition":"Apollodorus","variantGroup":"erichthonius-athens-origin","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6"}],"notes":"Hephaestus’s seed falls on Earth after Athena wipes it away; Earth produces the child, whom Athena raises. The text also reports an alternative parentage.","spoiler":false},
+    {"id":"erichthonius-atthis-apollodorus","child":"erichthonius-athens","parents":["hephaestus","atthis-cranaus"],"mode":"birth","tradition":"Apollodorus alternate","variantGroup":"erichthonius-athens-origin","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6"}],"notes":"An alternative reported before the Earth-born story; keep separate.","spoiler":false},
+    {"id":"pandion-i-apollodorus","child":"pandion-i-athens","parents":["erichthonius-athens","praxithea-erichthonius"],"mode":"birth","tradition":"Apollodorus","variantGroup":"pandion-i-athens-origin","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.6"}],"notes":"","spoiler":false},
+    {"id":"erechtheus-pandion-apollodorus","child":"erechtheus","parents":["pandion-i-athens","zeuxippe-pandion"],"mode":"birth","tradition":"Apollodorus","variantGroup":"erechtheus-origin","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.8"}],"notes":"Do not conflate Erechtheus with Erichthonius merely because early traditions sometimes overlap.","spoiler":false},
+    {"id":"atthis-cranaus-apollodorus","child":"atthis-cranaus","parents":["cranaus","pedias-cranaus"],"mode":"birth","tradition":"Apollodorus","variantGroup":"atthis-cranaus-origin","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.14.5"}],"notes":"The source also names her mother Pedias in 3.14.5.","spoiler":false}
+  ],
+  "relationships": [
+    {"id":"dora-melinoe-hades2-companions","from":"dora-game","to":"melinoe","type":"companion_of","tradition":"Hades II","sourceRefs":[{"sourceId":"dora-game-characters","passage":"Crossroads characters, Dora"},{"sourceId":"dora-game-wiki","passage":"Overview and introductory description"}],"notes":"They share Melinoë’s tent at the Crossroads; non-spoiler game relationship. No claim about Dora’s hidden identity.","spoiler":false},
+    {"id":"erechtheus-praxithea-marriage","from":"erechtheus","to":"praxithea-erechtheus","type":"spouse_of","tradition":"Pseudo-Apollodorus","sourceRefs":[{"sourceId":"apollodorus-3","passage":"3.15.1"}],"notes":"Erechtheus marries Praxithea. She is distinct from the Praxithea married to Erichthonius.","spoiler":false}
+  ],
+  "sources": [
+    {"id":"hesiod-theogony","author":"Hesiod","title":"Theogony","url":"https://www.theoi.com/Text/HesiodTheogony.html","type":"ancient_text"},
+    {"id":"iliad-5","author":"Homer","title":"Iliad 5","url":"https://www.theoi.com/Text/HomerIliad5.html","type":"ancient_text"},
+    {"id":"apollodorus-3","author":"Pseudo-Apollodorus","title":"Library book 3","url":"https://ftp.theoi.com/Text/Apollodorus3.html","type":"ancient_text"},
+    {"id":"dora-game-characters","author":"GamesRadar+","title":"Hades II character list","url":"https://www.gamesradar.com/hades-2-characters-gods/","type":"game_reference"},
+    {"id":"dora-game-wiki","author":"Hades Wiki contributors","title":"Dora, overview","url":"https://hades.fandom.com/wiki/Dora","type":"game_reference"}
+  ],
+  "coverage": [
+    {"group":"Aphrodite, with two separately attributed origin traditions","expected":1,"entityIds":["aphrodite"],"sourceRefs":[{"sourceId":"hesiod-theogony","passage":"188-206"},{"sourceId":"iliad-5","passage":"370-430, 800-820"}],"notes":"Two selected accounts, not an exhaustive list."}
+  ],
+  "unresolved": [
+    {"entityId":"cranaus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"dora-game","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"erechtheus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"gaia","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"hephaestus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"melinoe","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"pedias-cranaus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"uranus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"zeus","issue":"external endpoint: reconcile with the merged catalogue."},
+    {"entityId":"dione-homer","issue":"Homer names Dione as mother but does not specify her ancestry. Do not automatically equate with dione-oceanid."},
+    {"entityId":"praxithea-erichthonius","issue":"Apollodorus identifies Zeuxippe as her sister, but schema lacks a sibling relationship type. Do not fabricate shared parents."},
+    {"entityId":"erechtheus","issue":"Diodorus 4.76.1 and Apollodorus 3.15.1, 3.15.8 differ in the intermediate Metion/Eupalamus generations; keep source labels on every edge."}
+  ]
+}

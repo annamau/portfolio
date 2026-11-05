@@ -1,30 +1,107 @@
 {
   "date": "2026-11-05",
-  "scope": "Replace the Hades journal entry's two diagrams with one native connected reading map.",
-  "cause": "The previous figure had 772px of content in a 600px iframe viewport. Separate tree and domain data also left 17 disconnected groups in the minimal combined-data reproduction.",
-  "result": "One article figure, 40 nodes, 39 connectors, roles beside names, foldable branches, no embedded viewport or internal scrolling container.",
-  "facts": "Selected Hesiodic relationships. The first-beings category, Underworld and sea-setting links are explicitly contextual; Aphrodite has a distinct emergence link. Co-parents are named where their branches are omitted.",
+  "scope": "Replace the selected nested list with one native sourced mythology network, inspired by TinyCharts #spread.",
+  "cause": "The old nested structure only connected Apollo to Zeus; Leto appeared as a label. A root-reachability test could not detect lost co-parents.",
+  "counts": {
+    "entities": 433,
+    "individualFigures": 400,
+    "collectives": 33,
+    "lineageClaims": 401,
+    "otherRelationships": 235,
+    "connections": 955,
+    "sources": 86,
+    "connectedGroups": 1
+  },
+  "facts": "Each individual has one canonical ID. Lineages retain source-specific parent sets. Emergence, creation, story ties, membership and game continuity remain distinct. Every endpoint and reference resolves. No fabricated universal ancestor.",
   "checks": [
-    { "command": "node .resource-data/hades-ii/reproduce-disconnected-map.mjs", "exit": 1, "expected": "fail before replacement", "failing_lines": ["The map must connect all displayed figures", "17 !== 1"] },
-    { "command": "npm run build", "exit": 0, "failing_lines": [], "result": "30 unit tests; production build; bundle gate; 88 API assertions; real Next cloud lookup regression." },
-    { "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/JournalBody.tsx src/lib/journal/mythology-map.ts && npx tsc --noEmit", "exit": 0, "failing_lines": [] },
-    { "command": "git diff --check", "exit": 0, "failing_lines": [] }
+    {
+      "command": "node .resource-data/mythology/reproduce-parent-links.mjs (before fix)",
+      "exit": 1,
+      "failing_lines": [
+        "Both named parents need real node connections, not a coparent label",
+        "actual: [zeus], expected: [zeus, leto]"
+      ]
+    },
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "50 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
+    },
+    {
+      "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/MythologyNetwork.tsx src/lib/journal/mythology-map.ts scripts/build-mythology-catalogue.mjs",
+      "exit": 0,
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "failing_lines": []
+    }
   ],
   "browser": {
-    "surfaces": ["Chrome connector", "in-app browser"],
-    "widths": [320,390],
+    "surface": "Chrome connector",
+    "cssWidths": [
+      320,
+      390,
+      1745
+    ],
     "maps": 1,
-    "nodes": 40,
-    "connectors": 39,
+    "nodes": 433,
+    "visibleConnectionsWithoutReveals": 952,
+    "connectionsAfterReveals": 955,
     "iframes": 0,
     "internalScrollContainers": 0,
     "horizontalOverflow": 0,
-    "interaction": "Click and keyboard fold branches; Show full tree restores them. Temporary viewport overrides reset."
+    "interactions": [
+      "Search Apollo, Melinoe, Dora and namesakes Arethusa",
+      "Follow Apollo to Leto through the keyboard-accessible neighbor picker",
+      "Arrow-key node traversal transfers real focus",
+      "Zoom and whole-network view",
+      "Map pan through keyboard controls; opt-in Move map switches touch-action from pan-y to none",
+      "Normal page scrolling",
+      "Gray reveal click failed on the old wrapped target, then passed at 320px after contiguous cover fix"
+    ]
   },
-  "privacy": "The authored entry remains a private draft. General mythology facts are application data; the essay body is not committed. Older private HTML figures are retained but unreferenced.",
+  "review": {
+    "researchAgents": 3,
+    "passes": 2,
+    "sourceVariants": "Visible alternative-account note closes the first integration finding.",
+    "ui": "Namesake qualifiers, actual keyboard neighbor picker, opt-in map movement and browser-verified focus close actionable findings.",
+    "lowImpact": "Equivalent same-source claims from overlapping shards can appear more than once; retained as a score-3 observation."
+  },
+  "caveats": [
+    "Growing catalogue of named figures, not every being in every tradition. Coverage records specify enumerated groups.",
+    "Source variants are presented together with attribution, not reconciled into a single biological tree.",
+    "Selected claims independently cross-checked; not an exhaustive scholarly audit of 433 entities.",
+    "Desktop Chrome responsive view tested; physical touch hardware not run.",
+    "The complete downloadable JSON includes game spoilers."
+  ],
+  "privacy": "Journal body and media publication states unchanged. The authored entry remains a private draft; only the general mythology catalogue and native component are committed.",
   "calibration": [
-    { "date": "2026-11-05", "project": "portfolio", "claim": "The old embedded figure overflowed its iframe viewport", "score": 9, "checked": true, "held": true },
-    { "date": "2026-11-05", "project": "portfolio", "claim": "A native connected figure removes internal scrolling while retaining the cast and family relationships", "score": 9, "checked": true, "held": true },
-    { "date": "2026-11-05", "project": "hades-ii", "claim": "The implemented connected map has no sourced relationship or role error meeting the finding threshold", "score": 8, "checked": true, "held": true }
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "A normalized source-specific graph restores both-parent connections lost by the nested list",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "The native network has no internal scroll area or horizontal overflow at 320px and 390px",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Wrapped inline reveal text left a center click gap; a contiguous gray cover fixes the mobile click",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
   ]
 }
