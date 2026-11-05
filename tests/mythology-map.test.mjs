@@ -58,7 +58,8 @@ test('the first beings and uncertain identities never gain invented biological p
 test('character reveal edges stay hidden without disconnecting the graph',()=>{
  const secret=catalogue.relationships.find(claim=>claim.from==='dora-game'&&claim.to==='pandora');
  assert.ok(secret.spoiler);
- assert.ok(origins('zagreus').filter(claim=>isGameTradition(claim.tradition)).every(claim=>claim.spoiler));
+ assert.ok(origins('zagreus').some(claim=>isGameTradition(claim.tradition)&&claim.parents.includes('persephone')&&claim.spoiler));
+ assert.ok(origins('zagreus').some(claim=>isGameTradition(claim.tradition)&&claim.parents.length===1&&claim.parents[0]==='hades'&&!claim.spoiler));
  const visible=edges.filter(edge=>!edge.spoiler);
  assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),visible).length,1);
  assert.ok(!visible.some(edge=>edge.from==='dora-game'&&edge.to==='pandora'));
@@ -130,7 +131,7 @@ test('selecting a telling emphasizes its parent sets while preserving the full c
  const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
  assert.deepEqual(parents(game),new Set(['hades','persephone']));
  assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
- for(const traced of [game,orphic]){assert.equal(traced.length,963);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
+ for(const traced of [game,orphic]){assert.equal(traced.length,964);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
 });
 
 test('tracing one origin overrides competing parents for that figure only',async()=>{
@@ -244,4 +245,12 @@ test('the default small cast keeps both co-parents, even when their seals are no
 test('the downloadable catalogue includes the same short stories and memorable details as the profiles',async()=>{
  const {mythologyStory}=await import('../src/lib/journal/mythology-stories.ts');
  for(const entity of catalogue.entities){const profile=mythologyStory(entity,catalogue);assert.equal(entity.shortStory,profile.story,entity.id);assert.equal(entity.rememberThis,profile.detail,entity.id);}
+});
+
+test('the default game cast stays connected through Zagreus’s public father without exposing his mother',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const graph=mythologyComparison(catalogue,'game',new Set(mainMythologyCast),'all',false);
+ assert.ok(graph.edges.some(edge=>edge.from==='hades'&&edge.to==='zagreus'&&edge.game));
+ assert.ok(!graph.edges.some(edge=>edge.from==='persephone'&&edge.to==='zagreus'));
+ assert.equal(connectedMythologyGroups(graph.entities.map(entity=>entity.id),graph.edges).length,1);
 });

@@ -16,9 +16,9 @@
       "entities": 434,
       "individualFigures": 401,
       "collectives": 33,
-      "lineageClaims": 412,
+      "lineageClaims": 413,
       "otherRelationships": 236,
-      "connections": 968,
+      "connections": 969,
       "sources": 97,
       "connectedGroups": 1
     }
@@ -17026,6 +17026,24 @@
       ],
       "notes": "Game continuity; major story spoiler.",
       "spoiler": true
+    },
+    {
+      "id": "zagreus-hades-public-father",
+      "child": "zagreus",
+      "parents": [
+        "hades"
+      ],
+      "mode": "birth",
+      "tradition": "Hades",
+      "variantGroup": "zagreus-origin",
+      "sourceRefs": [
+        {
+          "sourceId": "hades-story",
+          "passage": "The story so far, opening paragraph: father identified as Hades"
+        }
+      ],
+      "notes": "Public game premise records the father here. The complete maternal account remains a covered game reveal.",
+      "spoiler": false
     },
     {
       "id": "zelus-hesiod",

@@ -5,9 +5,9 @@
     "entities": 434,
     "individualFigures": 401,
     "collectives": 33,
-    "lineageClaims": 412,
+    "lineageClaims": 413,
     "otherRelationships": 236,
-    "connections": 968,
+    "connections": 969,
     "sources": 97,
     "connectedGroups": 1
   },
@@ -28,7 +28,7 @@
       "command": "npm run build",
       "exit": 0,
       "failing_lines": [],
-      "result": "65 unit tests; Next/TypeScript build; bundle privacy; 92 API assertions; real Next cloud lookup regression"
+      "result": "66 unit tests; Next/TypeScript build; bundle privacy; 92 API assertions; real Next cloud lookup regression"
     },
     {
       "command": "ESLint on changed TypeScript/TSX and catalogue generator",
@@ -152,6 +152,15 @@
       "score": 9,
       "checked": true,
       "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "The default game graph stays connected through a public father link while preserving the maternal reveal",
+      "score": 9,
+      "checked": true,
+      "held": true
     }
-  ]
+  ],
+  "spoilerPremise": "The game graph retains the publicly established Hades-to-Zagreus father link. The complete maternal account remains covered. Epic Games story recap, opening paragraph, supplies the public premise."
 }
