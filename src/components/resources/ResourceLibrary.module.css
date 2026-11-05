@@ -87,7 +87,7 @@
 }
 @media (max-width: 760px) {
   .page { display: block; padding: 24px 24px 40px; }
-  .sidebar { position: relative; }
+  .sidebar { position: relative; top: auto; }
   .libraryName { min-height: 32px; font-size: 27px; }
   .libraryName svg { width: 23px; }
   .subtitle, .folderLabel { display: none; }

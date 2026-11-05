@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-05",
+  "project": "portfolio",
+  "cause": "Mobile .sidebar changed sticky to relative while inheriting desktop top:40px; relative positioning shifts its visual box without reserving flow space.",
+  "why_missed": "Previous responsive checks verified horizontal overflow and scrolling, not the vertical relationship between navigation and heading.",
+  "scope": "Only the mobile sidebar position rule; desktop sticky positioning remains.",
+  "regression": {
+    "check": "main > section top minus folder navigation bottom must be >=24px at 320px and 390px.",
+    "before": {
+      "width": 390,
+      "gap": -14,
+      "passed": false,
+      "sidebarTop": "40px"
+    },
+    "after": [
+      {
+        "width": 390,
+        "gap": 26,
+        "passed": true,
+        "horizontalOverflow": 0
+      },
+      {
+        "width": 320,
+        "gap": 26,
+        "passed": true,
+        "horizontalOverflow": 0,
+        "scrollbar": "none"
+      }
+    ],
+    "method": "Real Chrome connector DOM measurements, before and after production build.",
+    "screenshot": "/tmp/portfolio-mobile-gap-fixed.jpg"
+  },
+  "checks": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "25 unit tests; production build; bundle privacy check; 72 API assertions; real Next cloud regression."
+    },
+    {
+      "command": "NETLIFY=true RESOURCE_STORAGE=netlify npm test",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "25 tests passed."
+    },
+    {
+      "command": "node .resource-data/check-directory-journal-production.mjs",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "26 production checks; existing Clerk publication preserved, private X posts preserved, test suggestion archived, no demo blog posts."
+    }
+  ],
+  "test_correction": "The first live check assumed Clerk remained a draft. Inspection showed an owner-published entry with its cover. The check now verifies visibility against the observed owner-selected status; no production resource state was changed to satisfy it.",
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Inherited desktop top offset causes mobile folder row to overlap heading spacing",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}
