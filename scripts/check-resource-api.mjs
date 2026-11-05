@@ -65,7 +65,7 @@ try{
  result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,data:{id:suggestion.id,version:1,status:"pending"}});verify(result.response.status===409,"Stale suggestion moderation is rejected.");
  result=await call("/api/resources/suggestions",{method:"PUT",authenticated:true,data:{id:suggestion.id,version:2,status:"pending"}});verify(result.response.ok,"Owner can restore an archived suggestion.");
  result=await call("/api/resources/suggestions");verify(result.response.status===401,"Reviewed suggestions remain private.");
- const article={title:"Journal API fixture",summary:"A short thought",body:"JOURNAL-PRIVATE-SENTINEL\n\n>!SPOILER-SECRET-SENTINEL!<\n\n<script>JOURNAL-ACTIVE-CONTENT</script>",topic:"Games",status:"published"};
+ const article={title:"Journal API fixture",summary:"A short thought",body:"JOURNAL-PRIVATE-SENTINEL\n\n>!SPOILER-SECRET-SENTINEL!<\n\n<script>JOURNAL-ACTIVE-CONTENT</script>\n\n::chart[greek-mythology]",topic:"Games",status:"published"};
  result=await call("/api/resources/journal?scope=owner");verify(result.response.status===401,"Journal drafts reject anonymous readers.");
  result=await call("/api/resources/journal",{method:"POST",data:article});verify(result.response.status===401,"Anonymous visitors cannot write journal entries.");
  result=await call("/api/resources/journal",{method:"POST",authenticated:true,origin:"https://attacker.example",data:article});verify(result.response.status===403,"Journal creation rejects cross-origin requests.");
@@ -89,6 +89,8 @@ try{
  result=await call("/api/resources/journal");verify(result.body.posts.length===1&&!('version' in result.body.posts[0]),"Published entries expose content without owner edit fields.");
  page=await fetch(base+`/blog/${post.slug}`);let html=await page.text();verify(page.status===200&&html.includes(article.title)&&html.includes('JOURNAL-PRIVATE-SENTINEL')&&!html.includes('<script>JOURNAL-ACTIVE-CONTENT</script>'),"Published entry pages render text safely.");
  const readingHtml=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,"");
+ verify((readingHtml.match(/data-mythology-map=""/g)||[]).length===1,"The combined mythology marker renders one map in the article.");
+ verify(!readingHtml.includes('<iframe')&&readingHtml.includes('Charon')&&readingHtml.includes('Harpies'),"The connected map includes the wider cast without a nested scrolling frame.");
  const covered=readingHtml.match(/<span(?=[^>]*data-spoiler-content="")(?=[^>]*inert="")(?=[^>]*aria-hidden="true")[^>]*>([\s\S]*?)<\/span>/)?.[1]||"";
  verify(covered.includes("SPOILER-SECRET-SENTINEL"),"Spoiler words retain their place inside an inert, accessibility-hidden cover before reveal.");
  verify(!readingHtml.includes('>Reveal spoiler</button>'),"Spoilers do not add visible reveal-button copy.");

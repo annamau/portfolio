@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-05",
+  "scope": "Replace the Hades journal entry's two diagrams with one native connected reading map.",
+  "cause": "The previous figure had 772px of content in a 600px iframe viewport. Separate tree and domain data also left 17 disconnected groups in the minimal combined-data reproduction.",
+  "result": "One article figure, 40 nodes, 39 connectors, roles beside names, foldable branches, no embedded viewport or internal scrolling container.",
+  "facts": "Selected Hesiodic relationships. The first-beings category, Underworld and sea-setting links are explicitly contextual; Aphrodite has a distinct emergence link. Co-parents are named where their branches are omitted.",
+  "checks": [
+    { "command": "node .resource-data/hades-ii/reproduce-disconnected-map.mjs", "exit": 1, "expected": "fail before replacement", "failing_lines": ["The map must connect all displayed figures", "17 !== 1"] },
+    { "command": "npm run build", "exit": 0, "failing_lines": [], "result": "30 unit tests; production build; bundle gate; 88 API assertions; real Next cloud lookup regression." },
+    { "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/JournalBody.tsx src/lib/journal/mythology-map.ts && npx tsc --noEmit", "exit": 0, "failing_lines": [] },
+    { "command": "git diff --check", "exit": 0, "failing_lines": [] }
+  ],
+  "browser": {
+    "surfaces": ["Chrome connector", "in-app browser"],
+    "widths": [320,390],
+    "maps": 1,
+    "nodes": 40,
+    "connectors": 39,
+    "iframes": 0,
+    "internalScrollContainers": 0,
+    "horizontalOverflow": 0,
+    "interaction": "Click and keyboard fold branches; Show full tree restores them. Temporary viewport overrides reset."
+  },
+  "privacy": "The authored entry remains a private draft. General mythology facts are application data; the essay body is not committed. Older private HTML figures are retained but unreferenced.",
+  "calibration": [
+    { "date": "2026-11-05", "project": "portfolio", "claim": "The old embedded figure overflowed its iframe viewport", "score": 9, "checked": true, "held": true },
+    { "date": "2026-11-05", "project": "portfolio", "claim": "A native connected figure removes internal scrolling while retaining the cast and family relationships", "score": 9, "checked": true, "held": true },
+    { "date": "2026-11-05", "project": "hades-ii", "claim": "The implemented connected map has no sourced relationship or role error meeting the finding threshold", "score": 8, "checked": true, "held": true }
+  ]
+}
