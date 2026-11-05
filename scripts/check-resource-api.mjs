@@ -25,6 +25,8 @@ async function call(path,{method="GET",data,authenticated=false,origin=base,head
 try{
  await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error("Test server did not start.")),20000);const read=data=>{if(String(data).includes("Ready")){clearTimeout(timer);resolve();}};server.stdout.on("data",read);server.once("exit",code=>{clearTimeout(timer);reject(new Error(`Test server exited (${code}): ${output.slice(-1500)}`));});});
  const homepage=await fetch(base+"/");const markup=await homepage.text();
+ const navigation=markup.match(/<nav\b[\s\S]*?<\/nav>/)?.[0]||"";
+ verify(["Work","Resources","Journal"].every(label=>navigation.includes(label))&&!navigation.includes("Available for projects")&&!navigation.includes("Disponible para proyectos"),"Homepage navigation shows the three section links without an availability badge.");
  const fonts=[...new Set([...markup.matchAll(/href="([^"\s]+\.woff2)"/g)].map(match=>match[1]))];
  verify(fonts.length>0,"The built homepage preloads its fonts.");
  for(const path of fonts){const response=await fetch(new URL(path,base));const bytes=Buffer.from(await response.arrayBuffer());verify(response.ok&&bytes.subarray(0,4).toString()==="wOF2","Preloaded font files are served as valid WOFF2 data.");}

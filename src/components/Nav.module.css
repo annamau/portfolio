@@ -1,17 +1,14 @@
-.nav { width: min(860px, calc(100vw - 32px)); }
-.sections { position: relative; z-index: 2; display: flex; align-items: center; gap: 2px; margin-right: 10px; }
-.sections a { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 11px; border-radius: 18px; color: #ded4c5; font-size: 10px; text-decoration: none; transition: color 180ms, background 180ms; }
+.nav:global(.dynamic-island) { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); width: min(860px, calc(100vw - 32px)); padding-inline: 10px; }
+.nav :global(.island-brand) { justify-self: start; }
+.nav :global(.island-actions) { justify-self: end; }
+.sections { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; justify-self: center; min-width: 0; gap: 2px; margin: 0; }
+.sections a { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 11px; white-space: nowrap; border-radius: 18px; color: #ded4c5; font-size: 10px; text-decoration: none; transition: color 180ms, background 180ms; }
 .sections a:hover { color: #fff9ed; background: #ffffff12; }
 .sections a[aria-current] { color: #fff4df; background: #ffffff12; }
 .sections a:focus-visible { outline: 2px solid #e9ac82; outline-offset: 2px; }
-@media (max-width: 860px) {
-  .nav :global(.island-status), .nav :global(.island-divider--right) { display: none; }
-  .sections { margin-left: auto; }
-}
 @media (max-width: 540px) {
-  .nav { width: calc(100vw - 24px); }
+  .nav:global(.dynamic-island) { grid-template-columns: auto minmax(0, 1fr) auto; width: calc(100vw - 24px); }
   .nav :global(.island-name), .nav :global(.island-divider) { display: none; }
   .nav :global(.island-actions) > a:not(:global(.island-contact)) { display: none; }
-  .sections { margin-right: auto; margin-left: auto; }
-  .sections a { min-height: 36px; padding-inline: 10px; font-size: 10px; }
+  .sections a { min-height: 36px; padding-inline: 8px; font-size: 10px; }
 }

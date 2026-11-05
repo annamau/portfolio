@@ -32,15 +32,6 @@ export default function Nav() {
         </span>
       </Link>
 
-      <span className="island-divider" aria-hidden="true" />
-
-      <div className="island-status">
-        <span />
-        {locale === "es" ? "Disponible para proyectos" : "Available for projects"}
-      </div>
-
-      <span className="island-divider island-divider--right" aria-hidden="true" />
-
       <div className={styles.sections}>
         <Link href="/" aria-current={pathname === "/" ? "page" : undefined}>
           {locale === "es" ? "Trabajo" : "Work"}

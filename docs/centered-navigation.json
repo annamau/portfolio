@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-05",
+  "project": "portfolio",
+  "change": "Remove availability badge and dividers; center Work, Resources and Journal between brand and action icons.",
+  "implementation": "Three equal-balanced grid columns on desktop; content-sized brand and actions around centered links on mobile.",
+  "checks": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "25 unit tests; production build; bundle privacy gate; 73 API assertions; cloud regression gate."
+    },
+    {
+      "command": "npx eslint src/components/Nav.tsx && git diff --check",
+      "exit": 0,
+      "failing_lines": []
+    }
+  ],
+  "chrome": {
+    "desktop": {
+      "width": 1280,
+      "barCenter": 640,
+      "linksCenter": 640,
+      "difference": 3e-05,
+      "availabilityPresent": false
+    },
+    "mobile": [
+      {
+        "width": 320,
+        "language": "en",
+        "controlsFit": true,
+        "horizontalOverflow": 0
+      },
+      {
+        "width": 320,
+        "language": "es",
+        "controlsFit": true,
+        "horizontalOverflow": 0
+      }
+    ],
+    "screenshots": [
+      "/tmp/portfolio-centered-nav-desktop.jpg",
+      "/tmp/portfolio-centered-nav-mobile.jpg"
+    ]
+  },
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Balanced grid columns center section links independently of side control widths",
+      "score": 8,
+      "checked": true,
+      "held": true
+    }
+  ],
+  "blockers": []
+}
