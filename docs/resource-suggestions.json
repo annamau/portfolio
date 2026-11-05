@@ -68,6 +68,28 @@
       "score": 9,
       "checked": true,
       "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Mobile folder scrollbar comes from the navigation rule; hide it while preserving snapped horizontal movement",
+      "score": 9,
+      "checked": true,
+      "held": true
     }
-  ]
+  ],
+  "carousel": {
+    "before": {
+      "scrollbar": "thin",
+      "height": 10
+    },
+    "after": {
+      "scrollbar": "none",
+      "height": 0,
+      "scrollSnapType": "x mandatory",
+      "scrollLeftAfterKeyboard": 642,
+      "horizontalPageOverflow": 0
+    },
+    "screenshot": "/tmp/portfolio-folder-carousel.jpg"
+  }
 }
