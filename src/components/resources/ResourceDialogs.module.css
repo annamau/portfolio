@@ -17,6 +17,10 @@
 .upload > input { padding: 8px; background: transparent; border: 0; font-size: 11px; }
 .optionalCover { padding-top: 8px; }
 .optionalCover input { font-size: 10px; }
+.pageImage { display:flex; align-items:center; gap:16px; padding:12px; border:1px solid #cebaa0; border-radius:5px; }
+.pageImage img { width:120px; height:64px; object-fit:contain; border-radius:3px; }
+.pageImage>div { display:grid; gap:8px; font-size:11px; color:#80664b; }
+.pageImage button { justify-self:start; padding:0; border:0; background:transparent; color:#9c3d24; font:inherit; font-size:10px; text-decoration:underline; text-underline-offset:3px; }
 .primary,.secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 41px; padding: 9px 14px; border: 1px solid #3e2c1f; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 650; cursor: pointer; }
 .primary { color: #fff5e3; background: #3e2c1f; }
 .secondary { align-self: flex-start; color: #80664b; border-color: #ccb697; background: transparent; }

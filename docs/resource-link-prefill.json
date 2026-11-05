@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-05",
+  "behavior": "Pasting one HTTPS link into a new owner resource form reads page details automatically. Name, description, folder, type, tags and an available page image are suggested before private save.",
+  "editing": "Owner-edited values and selected folders are preserved. Changing links clears only imported values, aborts the earlier request, and rejects stale responses. Bulk links and imports keep their existing flow.",
+  "images": "The form receives a sanitized WebP data preview rather than loading an untrusted remote image in the browser. Saving copies a validated page image into existing private media storage. Image failure falls back without losing the resource.",
+  "network": "Owner-only, same-origin endpoint. HTTPS only, public DNS answers pinned per request, redirects revalidated, no cookies forwarded. Ten-second read budget, 512KB page limit and 4MB image limit. Existing X oEmbed handling retained.",
+  "limits": "Reads HTML metadata and visible source text without running page scripts. Blocked or JavaScript-only pages can require manual entry. Folder, type and tags are editable suggestions. Metadata does not save or publish a resource automatically.",
+  "checks": [
+    { "command": "npm run build", "exit": 0, "failing_lines": [], "result": "39 unit tests, production build, bundle gate, 92 API checks and actual Next cloud regression." },
+    { "command": "npx tsc --noEmit && npx eslint [changed resource files] && git diff --check", "exit": 0, "failing_lines": [] },
+    { "command": "npm audit --json [filtered to newly added lockfile packages]", "exit": 0, "result": "No known advisories in the 24 newly added packages." }
+  ],
+  "regressions": [
+    "Before replacement, the existing preview helper returned april-zhu.com instead of Tinycharts for the supplied ordinary website URL.",
+    "A form regression first failed when surrounding URL whitespace cleared imported details; the trimmed-identity fix passed the same assertion.",
+    "Tests cover private and mixed DNS, redirect-to-private denial, response size limits, sanitized image previews, image fallback, manual field preservation and stale results."
+  ],
+  "chrome": "Verified URL paste autofill, manual name preservation after a metadata refresh, local private save with stored thumbnail, and 390px form fit without horizontal overflow. Viewport override reset.",
+  "calibration": [
+    { "date": "2026-11-05", "project": "portfolio", "claim": "The existing X-only helper causes ordinary website metadata to be missing", "score": 8, "checked": true, "held": true },
+    { "date": "2026-11-05", "project": "portfolio", "claim": "Single-link prefilling can preserve manual edits and store page images privately", "score": 9, "checked": true, "held": true }
+  ]
+}

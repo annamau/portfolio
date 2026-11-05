@@ -6,6 +6,7 @@ import { normalizeResourceUrl, parseDraft, publicResource, ResourceError, savedI
 import type { SavedResource } from "@/lib/resources/model";
 import { listEntries, getEntry, writeEntry, writeMedia } from "@/lib/resources/store";
 import { MAX_UPLOAD_BYTES, validateUpload } from "@/lib/resources/upload";
+import { readPublicResource } from "@/lib/resources/public-page";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
   } catch (error) { return failure(error); }
 }
 
-async function createDraft(input: unknown, upload?: File, role: "cover" | "attachment" = "attachment"): Promise<SavedResource> {
+async function createDraft(input: unknown, upload?: File, role: "cover" | "attachment" = "attachment"): Promise<{ resource: SavedResource; warning?: string }> {
   const now = new Date().toISOString();
   let fileData;
   let baseInput = input;
@@ -37,6 +38,16 @@ async function createDraft(input: unknown, upload?: File, role: "cover" | "attac
     id = savedId(parsed.url);
   }
   if (await getEntry(id)) throw new ResourceError("This link is already saved in your inbox or directory.", 409);
+  let warning: string | undefined;
+  const coverUrl = (input as { coverUrl?: unknown }).coverUrl;
+  if (!upload && typeof coverUrl === "string" && coverUrl) {
+    try {
+      const image = await readPublicResource(coverUrl, "image");
+      fileData = await validateUpload(new File([new Uint8Array(image.body)], "page-image", { type: image.contentType }));
+      if (fileData.kind !== "image") throw new ResourceError("A cover must be an image.");
+      role = "cover";
+    } catch { fileData = undefined; warning = "page-image-unavailable"; }
+  }
   const entry: SavedResource = { ...parseDraft(baseInput), id, status: "draft", createdAt: now, updatedAt: now, version: 1 };
   if (fileData) {
     const asset = randomUUID();
@@ -47,7 +58,7 @@ async function createDraft(input: unknown, upload?: File, role: "cover" | "attac
     await writeMedia(id, asset, fileData.bytes);
   }
   await writeEntry(entry, 0);
-  return entry;
+  return { resource: entry, warning };
 }
 
 export async function POST(request: Request) {
@@ -61,20 +72,22 @@ export async function POST(request: Request) {
       if (!(upload instanceof File)) throw new ResourceError("Choose a file to upload.");
       let data: unknown;
       try { data = JSON.parse(String(form.get("data") || "{}")); } catch { throw new ResourceError("Invalid upload details."); }
-      const resource = await createDraft(data, upload, form.get("role") === "cover" ? "cover" : "attachment");
+      const { resource } = await createDraft(data, upload, form.get("role") === "cover" ? "cover" : "attachment");
       return json({ resources: [resource], duplicates: 0 }, 201);
     }
     const body = await jsonBody(request);
     const items = Array.isArray(body.items) ? body.items : [body];
     if (!items.length || items.length > 50) throw new ResourceError("Add between 1 and 50 links at a time.");
+    if (items.length > 1 && items.some((item) => item && typeof item === "object" && "coverUrl" in item && item.coverUrl)) throw new ResourceError("Save page images one link at a time.");
     // Validate the entire batch before writing any part of an import.
     items.forEach((item) => parseDraft(item));
     const entries: SavedResource[] = [];
     let duplicates = 0;
+    const warnings: string[] = [];
     for (const item of items) {
-      try { entries.push(await createDraft(item)); }
+      try { const result = await createDraft(item); entries.push(result.resource); if (result.warning) warnings.push(result.warning); }
       catch (error) { if (error instanceof ResourceError && error.status === 409) duplicates++; else throw error; }
     }
-    return json({ resources: entries, duplicates }, entries.length ? 201 : 200);
+    return json({ resources: entries, duplicates, warnings }, entries.length ? 201 : 200);
   } catch (error) { return failure(error); }
 }
