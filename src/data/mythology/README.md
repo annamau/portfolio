@@ -1,33 +1,38 @@
-# Greek mythology catalogue
+# Mythology comparison catalogue
 
-The eight JSON shards are the editable research records. `npm run build:mythology` merges and validates them, then writes the public knowledge file and reviewed drawing positions:
+Nine curated JSON shards supply 434 figures and collectives, including separately attributed game adaptations. `npm run build:mythology` explicitly generates the sourced catalogue and reviewed full-cast drawings. `npm run check:mythology` is read-only; normal release builds validate rather than redraw those artifacts.
 
-- `public/journal/greek-mythology.json`: names, aliases, qualifiers, roles, origin notes, source-specific lineages, other relationships, exact references, coverage and unresolved questions.
-- `public/journal/greek-mythology-layout.json`: generated coordinates only. D3 runs during explicit generation, not in the reader's browser.
+The public knowledge file is `public/journal/greek-mythology.json`: canonical IDs, names, aliases, qualifiers, roles, short stories, memorable details, source-specific origins, non-parent relationships, exact source locations, coverage and unresolved questions. It is a growing named catalogue, not every being in every surviving tradition. The full download includes game spoilers.
 
-The current scope is 433 figures and collectives, including named divine groups, nymphs, creatures, relevant mortals and game characters. It is a growing source-backed catalogue, not every named or unnamed being in every surviving tradition. Coverage records state the enumerated groups. In particular, the Theogony says fifty Nereids but its transmitted name list yields 51 distinct entries; the data keeps those names and the discrepancy.
+`public/journal/greek-mythology-layout.json` keeps six top-to-bottom reference layouts, each with an unrevealed and revealed state. A topological parent ordering replaces the old force simulation. Alternate source views reorder names without turning competing origins into one agreed genealogy. Release checks pin the source/generator fingerprints, complete casts, finite positions and non-overlapping circles.
 
-Each figure has one canonical ID. Same-name figures remain separate, with readable qualifiers. Never combine a couple into one entity or conflate Chronos with Kronos, Helios with Apollo, or Selene with Artemis. Claims that identify figures need their own attributed `identified_with` relationship.
+## The two views
 
-A lineage's `parents` is one source's parent set. Alternatives are separate records sharing `variantGroup`, including game adaptations. A one-parent excerpt may be partial, rather than a denial of a second parent. `emergence` and `creation` distinguish foam-born or generated origins from ordinary birth. `originNotes` retain source-specific accounts that name no parent.
+The blog starts with 22 chosen figures. Cast controls can select, deselect or clear names and explicitly show the full available catalogue. Direct parents remain as small markers even when their full seals are unselected. Additional shortest-path markers keep the chosen names connected through sourced relationships; no new parent facts are invented.
 
-Other ties preserve the author's relation, such as marriage, group membership, sequence or companionship. They connect the reading network without fabricating ancestry. No universal editorial ancestor is added: Chaos precedes Gaia in Hesiod's telling, but is not assigned as Gaia's parent. A connected network may contain mutually incompatible traditions; it is not one reconciled biological tree. In particular, the Athenian Daedalus ancestry differs between Apollodorus and Diodorus.
+- Game view: game-attested links are green. Older mythology is pale background where the game has no checked account. A known game parent set replaces a competing ancient parent set, including when the game account remains covered.
+- Ancient view: excludes game-only people and all game-only edges. The reader can choose a source tradition. Homer and the Homeric Hymns are grouped for reading rather than assigned to one author; Orphic traditions remain plural.
 
-Every entity and claim needs source references with a passage or explicit location. Source types distinguish ancient texts, scholarly references, ordinary reference compilations, primary game material and game references. A Theoi quotation page may host several different works; sharing a URL does not make them the same ancient source. Some claims survive through later witnesses or secondary compilations, and retain those limitations. Unresolved notes are research questions, not extra facts.
+The smaller displayed graphs are laid out in the browser from a cropped drawing model. The profile and download retain the original complete parent claims. Cropping does not rewrite the underlying knowledge. Source-specific parent alternatives remain independent records and can be traced individually in their relevant graph.
 
-Game identity and major parentage reveals carry `spoiler: true`. The blog omits their arrows, origin cards, neighbor choices and relationship details until the reader uncovers the gray spoiler text. The full downloadable JSON includes spoilers and says so beside its link. Game-only companion ties keep the unrevealed graph connected. Dusa is not asserted to be Medusa.
+Native dialogs expand either graph, trap focus, restore focus on close and allow free dragging. The ordinary article keeps vertical page scrolling. There is no iframe or internal graph scrollbar. Phones stack the two views; larger screens place them together.
 
-Three research agents gathered and sampled each other's records. An independent integration pass checked endpoints, source IDs and selected high-risk variants. This is not an exhaustive scholarly audit of every entry. Review corrected Athenaeus's Hamadryad passage to Deipnosophistae 3.78b (3.14) and separated differently named or identified sources.
+Every chosen seal retains its name. Familiar figures have individual vector emblems; lesser-known entries use realm marks and name monograms. These are editorial navigation cues. The Met’s divine-attribute guide and Getty’s Apollo example are linked in the component. No generated game portraits or paid TinyCharts template is distributed.
 
-The telling selector reorders a precomputed layout around source-specific ties. Nonselected accounts remain faintly connected, preserving the full network. Presets are Hesiod, Homer and the Homeric Hymns, multiple Orphic traditions, Apollodorus, and the Hades games. The hymns are explicitly grouped for reading, not assigned to a single author. A per-origin radio can trace one exact parent set, including alternatives within the same author. It changes that figure's emphasized parents without discarding the other claims. Choosing a new figure or telling clears that override. Game spoilers stay filtered in every view.
+Profiles have an authored short biography for familiar names, with source-bounded family and role descriptions for lesser-known figures. List-only names do not receive invented adventures. Creation and emergence use different wording from ordinary parentage. The same `shortStory` and `rememberThis` strings are included in the downloadable JSON.
 
-The native SVG component takes visual inspiration from the public TinyCharts `#spread` network example. It uses original application code, the portfolio's fonts and colors, and generated coordinates. It does not embed an external product or distribute the paid Network template.
+## Source and spoiler rules
+
+Do not combine a couple into one entity. Preserve same-name identities and qualifiers. Keep Chronos/Kronos, Helios/Apollo and Selene/Artemis separate unless a source-specific identification is explicitly recorded. Dusa is not asserted to be Medusa.
+
+A lineage’s parents form one attributed account. Unknown parents remain unknown. Relationship records such as mentor, marriage, membership and sequence are not parentage. Hecate’s game care for Melinoë is a mentor link. The new game comparison claims use attributed dialogue transcripts and a game review; source types identify community-maintained game references.
+
+Major reveals carry `spoiler: true` on edges and, where necessary, the person itself. The cast picker, search, profiles and both graphs omit those people and claims until the gray cover is uncovered. Revealed drawings then include the complete ancestry. A covered game origin never falls back to its known-contradictory ancient parent set.
+
+The essay stays a private draft. Its prose is not application data. The localhost draft’s generic chart caption was updated to describe the two views.
 
 ## Acceptance
 
-`npm run build` validates the committed catalogue and reviewed layout, runs unit tests, builds Next, and checks the existing bundle, API and cloud privacy regressions. Mythology tests pin actual parent edges, source-separated alternatives, references, coverage, connectedness with spoilers hidden, collision-free circle positions, namesake search identities, keyboard catalogue traversal, connection navigation and parent-inclusive camera frames.
+`npm run build` checks the accepted data, runs unit tests, builds Next/TypeScript and runs the existing bundle, API and cloud privacy regressions. Tests cover complete parents in the default small cast, source differences, covered people, top-to-bottom ancestry, cast removal, biography semantics, JSON/profile consistency and read-only release validation.
 
-Browser acceptance additionally checks desktop and phone views, actual node focus, searching, source details, whole-network view, zoom/pan, page scrolling, opt-in map movement, spoiler reveal, and no iframe or internal scrolling element. Physical touch hardware is a separate limitation when only desktop Chrome's responsive viewport is available.
-
-
-Release builds deliberately do not regenerate drawing coordinates. Floating-point force simulations on another deployment runtime produced different geometry from the reviewed artifact. `npm run check:mythology` is read-only: it checks the catalogue, source/generator SHA-256 provenance, all six complete casts, finite bounds/positions and nonoverlapping circles. A source or generator change fails until `npm run build:mythology` explicitly regenerates a new layout for review. The regression test pins the release check's no-write behavior, and another test rejects stale provenance.
+Chrome acceptance checks the cast controls, both source graphs, native dialogs and Escape/focus restoration, page scrolling, 320px/390px widths, no horizontal overflow, no graph scrollers, and hidden/revealed game ancestry. Physical touch hardware is not part of the responsive-browser check.

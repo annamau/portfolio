@@ -1,35 +1,37 @@
 {
   "date": "2026-11-05",
-  "scope": "Replace the selected nested list with one native sourced mythology network, inspired by TinyCharts #spread.",
-  "cause": "The old nested structure only connected Apollo to Zeus; Leto appeared as a label. A root-reachability test could not detect lost co-parents.",
+  "scope": "Two compact, selectable top-to-bottom graphs compare Hades continuity with ancient mythology. Each figure has a short profile and an emblem.",
   "counts": {
-    "entities": 433,
-    "individualFigures": 400,
+    "entities": 434,
+    "individualFigures": 401,
     "collectives": 33,
-    "lineageClaims": 401,
-    "otherRelationships": 235,
-    "connections": 955,
-    "sources": 86,
+    "lineageClaims": 412,
+    "otherRelationships": 236,
+    "connections": 968,
+    "sources": 97,
     "connectedGroups": 1
   },
-  "facts": "Each individual has one canonical ID. Lineages retain source-specific parent sets. Emergence, creation, story ties, membership and game continuity remain distinct. Every endpoint and reference resolves. No fabricated universal ancestor.",
+  "selection": {
+    "defaultChosen": 22,
+    "directParents": "Shown as small markers even if their full seals are not chosen",
+    "connectivity": "Additional sourced path markers; no invented genealogy",
+    "allFigures": "Explicit opt-in"
+  },
+  "views": [
+    "Game continuity, with checked game links and pale ancient background",
+    "Ancient accounts, with game-only people and edges removed"
+  ],
+  "fullscreen": "Native dialogs with draggable graphs, Escape, focus restoration and a short profile for the active visible figure.",
+  "stories": "Short biographies and memorable details for every entry, also in the JSON. Creation and emergence stay distinct from ordinary birth.",
   "checks": [
-    {
-      "command": "node .resource-data/mythology/reproduce-parent-links.mjs (before fix)",
-      "exit": 1,
-      "failing_lines": [
-        "Both named parents need real node connections, not a coparent label",
-        "actual: [zeus], expected: [zeus, leto]"
-      ]
-    },
     {
       "command": "npm run build",
       "exit": 0,
       "failing_lines": [],
-      "result": "55 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
+      "result": "65 unit tests; Next/TypeScript build; bundle privacy; 92 API assertions; real Next cloud lookup regression"
     },
     {
-      "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/MythologyNetwork.tsx src/lib/journal/mythology-map.ts scripts/build-mythology-catalogue.mjs",
+      "command": "ESLint on changed TypeScript/TSX and catalogue generator",
       "exit": 0,
       "failing_lines": []
     },
@@ -37,54 +39,55 @@
       "command": "git diff --check",
       "exit": 0,
       "failing_lines": []
-    },
+    }
+  ],
+  "beforeFixReproductions": [
     {
-      "command": "node --test --test-name-pattern='release validation' tests/mythology-map.test.mjs (before fix)",
+      "command": "node --test --test-name-pattern='overview orders' tests/mythology-map.test.mjs",
       "exit": 1,
       "failing_lines": [
-        "Release validation must preserve the reviewed drawing, not regenerate it on the deployment runtime"
+        "oceanus must be above acaste-oceanid"
+      ]
+    },
+    {
+      "command": "node --test --test-name-pattern='default small cast keeps' tests/mythology-map.test.mjs",
+      "exit": 1,
+      "failing_lines": [
+        "rhea → demeter"
       ]
     }
   ],
   "browser": {
-    "surface": "Chrome connector",
-    "cssWidths": [
+    "tool": "Chrome connector",
+    "phoneWidths": [
       320,
-      390,
-      1745
+      390
     ],
-    "maps": 1,
-    "nodes": 433,
-    "visibleConnectionsWithoutReveals": 952,
-    "connectionsAfterReveals": 955,
-    "iframes": 0,
-    "internalScrollContainers": 0,
+    "comparisonPanels": 2,
+    "chosenSealsPerPanel": 22,
     "horizontalOverflow": 0,
-    "interactions": [
-      "Search Apollo, Melinoe, Dora and namesakes Arethusa",
-      "Follow Apollo to Leto through the keyboard-accessible neighbor picker",
-      "Arrow-key node traversal transfers real focus",
-      "Zoom and whole-network view",
-      "Map pan through keyboard controls; opt-in Move map switches touch-action from pan-y to none",
-      "Normal page scrolling",
-      "Gray reveal click failed on the old wrapped target, then passed at 320px after contiguous cover fix"
-    ]
+    "internalGraphScrollers": 0,
+    "checks": [
+      "Remove Ares and add Hypnos in both views",
+      "Clear and restore the main cast",
+      "Demeter: Hyperion in game, Kronos and Rhea in ancient view",
+      "Melinoe: Hades and Persephone vs Zeus and Persephone",
+      "Creation wording for the cosmic egg",
+      "Ancient fullscreen does not substitute Dora’s game biography",
+      "Fullscreen dimensions, story fit, Escape and focus restoration",
+      "A game-only mortal parent is absent from DOM/text before reveal, appears only in game after reveal"
+    ],
+    "physicalTouch": "not run"
   },
-  "review": {
-    "researchAgents": 3,
-    "passes": 2,
-    "sourceVariants": "Visible alternative-account note closes the first integration finding.",
-    "ui": "Namesake qualifiers, actual keyboard neighbor picker, opt-in map movement and browser-verified focus close actionable findings.",
-    "lowImpact": "Equivalent same-source claims from overlapping shards can appear more than once; retained as a score-3 observation."
-  },
+  "review": "Three Terra agents gathered source data; the comparison follow-up used one review plus a fixes-only second pass. Both findings were fixed. Root browser testing additionally caught and fixed missing co-parents in the cropped cast.",
   "caveats": [
-    "Growing catalogue of named figures, not every being in every tradition. Coverage records specify enumerated groups.",
-    "Source variants are presented together with attribution, not reconciled into a single biological tree.",
-    "Selected claims independently cross-checked; not an exhaustive scholarly audit of 433 entities.",
-    "Desktop Chrome responsive view tested; physical touch hardware not run.",
-    "The complete downloadable JSON includes game spoilers."
+    "A growing named catalogue with explicit coverage, not every being in every myth",
+    "Game references include attributed community dialogue transcripts; no game build was inspected",
+    "Unattested game ancestry is pale ancient background, not a new game claim",
+    "Some smaller figures survive mainly as names in lists; no separate adventure is invented",
+    "The full JSON includes spoilers"
   ],
-  "privacy": "Journal body and media publication states unchanged. The authored entry remains a private draft; only the general mythology catalogue and native component are committed.",
+  "privacy": "The journal essay remains private. Only its generic figure caption changes to describe the two views. No essay prose is committed.",
   "calibration": [
     {
       "date": "2026-11-05",
@@ -125,26 +128,30 @@
       "score": 9,
       "checked": true,
       "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Topological layout places displayed parent ancestry above children in normal and revealed source views",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "The compact cast retains both co-parents while reducing full-size seals to the chosen names",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Separate game and ancient graphs preserve checked parentage differences and covered people",
+      "score": 9,
+      "checked": true,
+      "held": true
     }
-  ],
-  "comparison": {
-    "tellings": [
-      "All accounts",
-      "Hesiod",
-      "Homer & Homeric hymns",
-      "Orphic traditions",
-      "Apollodorus",
-      "Hades games"
-    ],
-    "behavior": "Changing a telling reorders all 433 nodes, emphasizes selected source relationships, and preserves other accounts as pale context. An individual origin radio overrides only that figure; new telling or figure clears the override.",
-    "browser": "Verified Melinoe changes from Hades/Persephone to Zeus/Persephone, with different coordinates and 952 spoiler-safe connections. Per-origin Hades override within Orphic view passed; telling change clears it. 320px and 390px remain free of horizontal overflow and internal scrollbars.",
-    "review": "One independent code/source review for this follow-up; no findings at or above threshold.",
-    "notes": "These are reading groups, not reconciled single-source family trees. Homeric hymns are not assigned to one author; Orphic traditions remain plural."
-  },
-  "releaseStability": {
-    "observed": "The first production file comparison found different coordinates for all nodes, with unchanged catalogue facts. prebuild was regenerating a floating-point force simulation on the deployment runtime.",
-    "fix": "Release prebuild now checks the committed catalogue, reviewed drawing, source/generator fingerprints, complete casts and geometry without rewriting files. Explicit build:mythology performs regeneration for review.",
-    "checks": "Read-only mtime regression failed before fix, passed after. All six current layouts match the browser-tested 225bd00 artifact exactly, with only provenance added. Stale provenance is rejected.",
-    "independentReview": "No blocking findings. Hypothetical manually corrupted positive bounds are a logged low-impact gap; current generated bounds are unchanged and browser-tested."
-  }
+  ]
 }

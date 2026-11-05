@@ -2,12 +2,13 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY } from 'd3-force';
-import { mythologyEdges, traceMythologyEdges, mythologyReadings, connectedMythologyGroups } from '../src/lib/journal/mythology-map.ts';
+import { createGenerationalLayout } from '../src/lib/journal/mythology-layout.ts';
+import { mythologyStory } from '../src/lib/journal/mythology-stories.ts';
+import { mythologyEdges, mythologyReadings, connectedMythologyGroups } from '../src/lib/journal/mythology-map.ts';
 const root = new URL('../', import.meta.url);
 const union = (values) => [...new Set(values)];
 const refs = (values) => [...new Map(values.map((value) => [`${value.sourceId}:${value.passage}`, value])).values()];
-const orderedShards = ['primordials-titans', 'olympians-underworld', 'sea-nymphs-creatures', 'primordial-expansion', 'olympian-expansion', 'nymph-expansion', 'final-gaps', 'atthis-gaps'];
+const orderedShards = ['primordials-titans', 'olympians-underworld', 'sea-nymphs-creatures', 'primordial-expansion', 'olympian-expansion', 'nymph-expansion', 'final-gaps', 'atthis-gaps', 'game-comparison-gaps'];
 export async function buildCatalogue() {
   const catalogue = {
     schemaVersion: 1,
@@ -88,43 +89,28 @@ export async function buildCatalogue() {
   }
   const groups = connectedMythologyGroups([...entities.keys()], edges);
   assert.equal(groups.length, 1, `Disconnected groups: ${JSON.stringify(groups.filter((group) => group.length < 50))}`);
-  assert.equal(connectedMythologyGroups([...entities.keys()], edges.filter((edge) => !edge.spoiler)).length, 1, 'Spoilers must not hold the network together');
+  assert.equal(connectedMythologyGroups(catalogue.entities.filter((entity) => !entity.spoiler).map((entity) => entity.id), edges.filter((edge) => !edge.spoiler && !entities.get(edge.from).spoiler && !entities.get(edge.to).spoiler)).length, 1, 'Spoilers must not hold the network together');
   catalogue.metadata.counts = { entities: entities.size, individualFigures: catalogue.entities.filter((entity) => entity.kind === 'individual').length, collectives: catalogue.entities.filter((entity) => entity.kind === 'collective').length, lineageClaims: catalogue.lineages.length, otherRelationships: catalogue.relationships.length, connections: edges.length, sources: sources.size, connectedGroups: groups.length };
+  for (const entity of catalogue.entities) {
+    const story = mythologyStory(entity, catalogue);
+    entity.shortStory = story.story; entity.rememberThis = story.detail;
+  }
   return catalogue;
 }
-export function buildLayout(catalogue, reading = 'all') {
-  const degree = new Map(catalogue.entities.map((entity) => [entity.id, 0])), unique = new Map();
-  for (const edge of traceMythologyEdges(catalogue, reading).filter((edge) => !edge.spoiler)) {
-    const key = [edge.from, edge.to].sort().join(':');
-    const strength = edge.emphasis ? 1 : 0.06;
-    if (unique.has(key)) { unique.get(key).strength = Math.max(unique.get(key).strength, strength); continue; }
-    unique.set(key, { source: edge.from, target: edge.to, strength });
-    degree.set(edge.from, degree.get(edge.from) + 1); degree.set(edge.to, degree.get(edge.to) + 1);
-  }
-  const nodes = catalogue.entities.map((entity) => ({ id: entity.id, radius: Math.min(35, 18 + Math.sqrt(degree.get(entity.id)) * 1.7) }));
-  const simulation = forceSimulation(nodes)
-    .force('links', forceLink([...unique.values()]).id((node) => node.id).distance(180).strength((link) => link.strength))
-    .force('charge', forceManyBody().strength(-30))
-    .force('collide', forceCollide().radius((node) => Math.max(78, node.radius + 50)).iterations(4))
-    .force('x', forceX(0).strength(0.005)).force('y', forceY(0).strength(0.005)).stop();
-  simulation.tick(650);
-  const positions = nodes.map(({ id, x, y, radius }) => ({ id, x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10, radius: Math.round(radius) }));
-  const minX = Math.min(...positions.map((node) => node.x)) - 100, minY = Math.min(...positions.map((node) => node.y)) - 100;
-  const maxX = Math.max(...positions.map((node) => node.x)) + 100, maxY = Math.max(...positions.map((node) => node.y)) + 100;
-  return { nodes: positions, bounds: { x: minX, y: minY, width: maxX - minX, height: maxY - minY } };
-}
+export const buildLayout = createGenerationalLayout;
 
 export async function drawingProvenance(catalogue) {
   const hash = (value) => createHash('sha256').update(value).digest('hex');
-  const [builder, model] = await Promise.all([readFile(import.meta.url.startsWith('file:') ? new URL(import.meta.url) : import.meta.url, 'utf8'), readFile(new URL('src/lib/journal/mythology-map.ts', root), 'utf8')]);
-  return { catalogueSha256: hash(JSON.stringify(catalogue)), generatorSha256: hash(builder + '\n' + model) };
+  const [builder, model, layout] = await Promise.all([readFile(import.meta.url.startsWith('file:') ? new URL(import.meta.url) : import.meta.url, 'utf8'), readFile(new URL('src/lib/journal/mythology-map.ts', root), 'utf8'), readFile(new URL('src/lib/journal/mythology-layout.ts', root), 'utf8')]);
+  return { catalogueSha256: hash(JSON.stringify(catalogue)), generatorSha256: hash(builder + '\n' + model + '\n' + layout) };
 }
 
 export function validateAcceptedDrawing(catalogue, layout, provenance) {
   assert.deepEqual(layout.provenance, provenance, 'Drawing inputs changed. Run npm run build:mythology and review the regenerated map.');
   const ids = catalogue.entities.map((entity) => entity.id).sort();
   for (const reading of mythologyReadings) {
-    const view = reading.id === 'all' ? layout : layout.readings?.[reading.id];
+    const normal = reading.id === 'all' ? layout : layout.readings?.[reading.id];
+    for (const view of [normal, normal?.revealed]) {
     assert.ok(view, `Missing drawing: ${reading.id}`);
     assert.deepEqual(view.nodes.map((node) => node.id).sort(), ids, `Drawing cast: ${reading.id}`);
     assert.ok(Object.values(view.bounds).every(Number.isFinite) && view.bounds.width > 0 && view.bounds.height > 0, `Invalid bounds: ${reading.id}`);
@@ -132,6 +118,7 @@ export function validateAcceptedDrawing(catalogue, layout, provenance) {
       const node = view.nodes[i];
       assert.ok(Number.isFinite(node.x) && Number.isFinite(node.y) && node.radius > 0, `Invalid position: ${node.id}`);
       for (const other of view.nodes.slice(i + 1)) assert.ok(Math.hypot(node.x - other.x, node.y - other.y) > node.radius + other.radius, `Overlapping circles: ${node.id}/${other.id}`);
+    }
     }
   }
 }
@@ -143,8 +130,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     assert.deepEqual(JSON.parse(await readFile(new URL('greek-mythology.json', destination), 'utf8')), catalogue, 'Catalogue inputs changed. Run npm run build:mythology.');
     validateAcceptedDrawing(catalogue, JSON.parse(await readFile(new URL('greek-mythology-layout.json', destination), 'utf8')), provenance);
   } else {
-    const layout = buildLayout(catalogue);
-    layout.readings = Object.fromEntries(mythologyReadings.filter((reading) => reading.id !== 'all').map((reading) => [reading.id, buildLayout(catalogue, reading.id)]));
+    const drawing = (reading) => ({ ...buildLayout(catalogue, reading), revealed: buildLayout(catalogue, reading, true) });
+    const layout = drawing('all');
+    layout.readings = Object.fromEntries(mythologyReadings.filter((reading) => reading.id !== 'all').map((reading) => [reading.id, drawing(reading.id)]));
     layout.provenance = provenance;
     validateAcceptedDrawing(catalogue, layout, provenance);
     await mkdir(destination, { recursive: true });

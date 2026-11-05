@@ -2,23 +2,16 @@
 
 import { memo, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { adjacentMythologyId, mythologyFocus, type MythologyEdge, type MythologyEntity, type MythologyLayout } from "@/lib/journal/mythology-map";
+import MythologyEmblem from "./MythologyEmblem";
+import { mythologyEmblem } from "@/lib/journal/mythology-emblems";
 import styles from "./MythologyMap.module.css";
 
 type Point = MythologyLayout["nodes"][number];
 type Camera = { x: number; y: number; width: number; height: number };
-const symbol = (entity: MythologyEntity) => {
-  const words = entity.categories.join(" ") + " " + entity.domains.join(" ");
-  if (/sea|river|ocean|water|naiad|nereid/i.test(words)) return "≈";
-  if (/nymph|tree|wood|forest|dryad/i.test(words)) return "❧";
-  if (/primordial|orphic|night|star|moon|sun/i.test(words)) return "✧";
-  if (/monster|gorgon|giant|harp/i.test(words)) return "⋈";
-  if (/underworld|death|shade|ferry/i.test(words)) return "⌒";
-  return "✦";
-};
 
-const Artwork = memo(function Artwork({ entities, positions, edges, selected, onSelect, marker }: {
+const Artwork = memo(function Artwork({ entities, positions, edges, selected, connectorIds, onSelect, marker }: {
   entities: MythologyEntity[]; positions: Map<string, Point>; edges: MythologyEdge[];
-  selected: string; onSelect: (id: string) => void; marker: string;
+  selected: string; connectorIds: Set<string>; onSelect: (id: string) => void; marker: string;
 }) {
   const neighbors = new Set([selected, ...edges.filter((edge) => edge.emphasis !== false && (edge.from === selected || edge.to === selected)).flatMap((edge) => [edge.from, edge.to])]);
   return <>
@@ -26,32 +19,40 @@ const Artwork = memo(function Artwork({ entities, positions, edges, selected, on
       const from = positions.get(edge.from)!, to = positions.get(edge.to)!;
       const dx = to.x - from.x, dy = to.y - from.y, distance = Math.hypot(dx, dy);
       const ux = dx / distance, uy = dy / distance;
+      const fromRadius = connectorIds.has(edge.from) ? 6 : from.radius, toRadius = connectorIds.has(edge.to) ? 6 : to.radius;
       const active = edge.emphasis !== false && (edge.from === selected || edge.to === selected);
-      return <path key={edge.id} d={`M${from.x + ux * (from.radius + 4)},${from.y + uy * (from.radius + 4)}L${to.x - ux * (to.radius + 8)},${to.y - uy * (to.radius + 8)}`} data-from={edge.from} data-to={edge.to} data-kind={edge.kind} data-game={edge.game} data-active={active} data-emphasis={edge.emphasis !== false} markerEnd={edge.kind === "relationship" ? undefined : `url(#${marker}${edge.game ? "-game" : ""})`}/>;
+      const family = edge.kind !== "relationship";
+      const down = to.y > from.y;
+      const midY = (from.y + to.y) / 2;
+      const path = family && down
+        ? `M${from.x},${from.y + fromRadius + 4}C${from.x},${midY} ${to.x},${midY} ${to.x},${to.y - toRadius - 8}`
+        : `M${from.x + ux * (fromRadius + 4)},${from.y + uy * (fromRadius + 4)}L${to.x - ux * (toRadius + 8)},${to.y - uy * (toRadius + 8)}`;
+      return <path key={edge.id} d={path} data-from={edge.from} data-to={edge.to} data-kind={edge.kind} data-game={edge.game} data-active={active} data-emphasis={edge.emphasis !== false} markerEnd={edge.kind === "relationship" ? undefined : `url(#${marker}${edge.game ? "-game" : ""})`}/>;
     })}</g>
     <g className={styles.inkNodes}>{entities.map((entity) => {
       const point = positions.get(entity.id)!;
-      return <g key={entity.id} className={styles.inkNode} transform={`translate(${point.x} ${point.y})`} data-myth-id={entity.id} data-selected={selected === entity.id} data-neighbor={neighbors.has(entity.id)} data-collective={entity.kind === "collective"} role="button" aria-label={`Explore ${entity.name}${entity.qualifier ? `, ${entity.qualifier}` : ""}`} tabIndex={entity.id === selected ? 0 : -1} onClick={() => onSelect(entity.id)} onKeyDown={(event) => { if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) { event.preventDefault(); const next = adjacentMythologyId(entities, entity.id, ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1); if (next) onSelect(next); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelect(entity.id); } }}>
+      const connector = connectorIds.has(entity.id);
+      return <g key={entity.id} className={styles.inkNode} transform={`translate(${point.x} ${point.y})`} data-myth-id={entity.id} data-connector={connector} data-selected={selected === entity.id} data-neighbor={neighbors.has(entity.id)} data-collective={entity.kind === "collective"} role="button" aria-label={`Explore ${entity.name}${entity.qualifier ? `, ${entity.qualifier}` : ""}`} tabIndex={entity.id === selected ? 0 : -1} onClick={() => onSelect(entity.id)} onKeyDown={(event) => { if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) { event.preventDefault(); const next = adjacentMythologyId(entities, entity.id, ["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1); if (next) onSelect(next); } if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelect(entity.id); } }}>
         <circle className={styles.nodeHit} r={point.radius + 15}/>
-        <circle className={styles.nodeWash} cx="-2" cy="2" r={point.radius + 2}/>
-        <ellipse className={styles.nodeRing} rx={point.radius} ry={point.radius * 0.96} transform="rotate(-7)"/>
-        <text className={styles.nodeSymbol} textAnchor="middle" dominantBaseline="central" aria-hidden="true">{symbol(entity)}</text>
-        <text className={styles.nodeName} textAnchor="middle" y={point.radius + 22} aria-hidden="true">{entity.name}</text>
-        <title>{entity.name}{entity.qualifier ? ` (${entity.qualifier})` : ""} · {entity.domains.join(", ") || entity.categories.join(", ")}</title>
+        <circle className={styles.nodeWash} cx="-2" cy="2" r={connector ? 8 : point.radius + 2}/>
+        <ellipse className={styles.nodeRing} rx={connector ? 6 : point.radius} ry={connector ? 6 : point.radius * 0.96} transform="rotate(-7)"/>
+        {!connector && <g className={styles.nodeEmblem}><MythologyEmblem entity={entity}/></g>}
+        <text className={styles.nodeName} textAnchor="middle" y={connector ? 22 : point.radius + 22} aria-hidden="true">{entity.name}</text>
+        <title>{entity.name}{entity.qualifier ? ` (${entity.qualifier})` : ""} · {mythologyEmblem(entity).label} · {entity.domains.join(", ") || entity.categories.join(", ")}</title>
       </g>;
     })}</g>
   </>;
 });
 
-export default function MythologyNetwork({ entities, layout, edges, selected, focusKey, onSelect }: {
+export default function MythologyNetwork({ entities, layout, edges, selected, focusKey, connectorIds, expanded = false, onSelect }: {
   entities: MythologyEntity[]; layout: MythologyLayout; edges: MythologyEdge[];
-  selected: string; focusKey: string; onSelect: (id: string) => void;
+  selected: string; focusKey: string; connectorIds: Set<string>; expanded?: boolean; onSelect: (id: string) => void;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const positions = useMemo(() => new Map(layout.nodes.map((node) => [node.id, node])), [layout]);
   const [aspect, setAspect] = useState(1.6);
   const [canvasWidth, setCanvasWidth] = useState(720);
-  const [moving, setMoving] = useState(false);
+  const [moving, setMoving] = useState(expanded);
   const [customCamera, setCamera] = useState<(Camera & { key: string }) | null>(null);
   const cameraKey = `${selected}/${focusKey}`;
   const camera: Camera = customCamera?.key === cameraKey ? { ...customCamera, height: customCamera.width / aspect } : mythologyFocus(layout, edges, selected, aspect);
@@ -106,9 +107,9 @@ export default function MythologyNetwork({ entities, layout, edges, selected, fo
       if (event.key === "Home") { event.preventDefault(); fit(); }
     }}>
       <defs><marker id={marker} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L6,3.5 L0,7" fill="none" stroke="#ad4b34" strokeWidth="1.2"/></marker><marker id={`${marker}-game`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L6,3.5 L0,7" fill="none" stroke="#687665" strokeWidth="1.2"/></marker></defs>
-      <Artwork entities={entities} positions={positions} edges={edges} selected={selected} onSelect={onSelect} marker={marker}/>
+      <Artwork entities={entities} positions={positions} edges={edges} selected={selected} connectorIds={connectorIds} onSelect={onSelect} marker={marker}/>
     </svg>
-    <div className={styles.mapTools} aria-label="Map controls"><button type="button" aria-label="Zoom in" onClick={() => zoom(0.72)}>+</button><button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 0.72)}>−</button><button type="button" onClick={fit}>Whole family</button><button type="button" aria-pressed={moving} onClick={() => setMoving((value) => !value)}>{moving ? "Scroll page" : "Move map"}</button></div>
-    <span className={styles.mapStamp} aria-hidden="true">FOLLOW THE THREAD ↗</span>
+    <div className={styles.mapTools} aria-label="Map controls"><button type="button" aria-label="Zoom in" onClick={() => zoom(0.72)}>+</button><button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 0.72)}>−</button><button type="button" onClick={fit}>Whole family</button>{!expanded && <button type="button" aria-pressed={moving} onClick={() => setMoving((value) => !value)}>{moving ? "Scroll page" : "Move map"}</button>}</div>
+    <span className={styles.mapStamp} aria-hidden="true">PARENTS ABOVE · CHILDREN BELOW</span>
   </div>;
 }

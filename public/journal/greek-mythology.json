@@ -13,13 +13,13 @@
       "Research was cross-checked on selected claims. Late, fragmentary and secondary attestations retain their limitations."
     ],
     "counts": {
-      "entities": 433,
-      "individualFigures": 400,
+      "entities": 434,
+      "individualFigures": 401,
       "collectives": 33,
-      "lineageClaims": 401,
-      "otherRelationships": 235,
-      "connections": 955,
-      "sources": 86,
+      "lineageClaims": 412,
+      "otherRelationships": 236,
+      "connections": 968,
+      "sources": 97,
       "connectedGroups": 1
     }
   },
@@ -41,7 +41,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Acaste, named in oceanids in this source. Acaste is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Acaste among the Oceanids."
     },
     {
       "id": "aceso",
@@ -59,7 +61,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Suda s.v. Epione"
         }
-      ]
+      ],
+      "shortStory": "Healing figure named in the Byzantine Suda among Epione’s daughters. Aceso is named as a child of Asclepius and Epione in Byzantine Suda.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "achelous",
@@ -77,7 +81,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Achelous, named in rivers in this source. Achelous is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Achelous among the River gods."
     },
     {
       "id": "achilles",
@@ -95,7 +101,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.3.14"
         }
-      ]
+      ],
+      "shortStory": "Greek warrior and son of Peleus and Thetis. Achilles is named as a child of Peleus and Thetis in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "acholoe-harpy",
@@ -113,7 +121,9 @@
           "sourceId": "theoi-harpies-reference",
           "passage": "Encyclopedia, Harpyiae"
         }
-      ]
+      ],
+      "shortStory": "Name listed for a Harpy in the cited encyclopedia; the original passage and identity require verification. This entry follows Theoi Project, Harpies, Dictionary of Greek and Roman Biography and Mythology excerpt.",
+      "rememberThis": "This entry places Acholoe among the Harpies."
     },
     {
       "id": "actaea-nereid",
@@ -132,7 +142,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Actaea, named in nereids in this source. Actaea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Actaea among the Nereids."
     },
     {
       "id": "admete-oceanid",
@@ -151,7 +163,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Admete, named in oceanids in this source. Admete is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Admete among the Oceanids."
     },
     {
       "id": "adrasteia-crete",
@@ -169,7 +183,9 @@
           "sourceId": "apollodorus-lib-1",
           "passage": "1.1.6"
         }
-      ]
+      ],
+      "shortStory": "Cretan nurse of Zeus and daughter of Melisseus in Pseudo-Apollodorus; distinct from same-named figures. Adrasteia is named as a child of Melisseus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Adrasteia among the Nymphs."
     },
     {
       "id": "aeetes",
@@ -187,7 +203,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "956-962"
         }
-      ]
+      ],
+      "shortStory": "Ruler of Colchis and father of Medea. Aeetes is named as a child of Helios and Perseis in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "aegle-asclepiad",
@@ -206,7 +224,9 @@
           "passage": "Greek Lyric V fragment 939"
         }
       ],
-      "qualifier": "Child of Asclepius"
+      "qualifier": "Child of Asclepius",
+      "shortStory": "Radiance, named among children of Asclepius and Epione. Aegle is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "aegle-hesperid",
@@ -225,7 +245,9 @@
           "passage": "2.5.11"
         }
       ],
-      "qualifier": "Hesperid"
+      "qualifier": "Hesperid",
+      "shortStory": "Aegle, named in hesperides in this source. This entry follows Pseudo-Apollodorus, Library book 2.",
+      "rememberThis": "This entry places Aegle among the Hesperides."
     },
     {
       "id": "aello-harpy",
@@ -243,7 +265,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "265-269"
         }
-      ]
+      ],
+      "shortStory": "Aello, named in harpies in this source. Aello is named as a child of Thaumas and Electra in Hesiod.",
+      "rememberThis": "This entry places Aello among the Harpies."
     },
     {
       "id": "aellopus-harpy",
@@ -267,7 +291,9 @@
           "sourceId": "hyginus-harpies",
           "passage": "Fabulae 14"
         }
-      ]
+      ],
+      "shortStory": "This entry places Aellopus among the Harpies. Aellopus is named as a child of Thaumas and Ozomene in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Aellopus among the Harpies."
     },
     {
       "id": "aeolus-hellen",
@@ -285,7 +311,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.3"
         }
-      ]
+      ],
+      "shortStory": "Thessalian ancestor of the Aeolians, son of Hellen. Aeolus is named as a child of Hellen and Orseis in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "aesepus-river",
@@ -303,7 +331,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Aesepus, named in rivers in this source. Aesepus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Aesepus among the River gods."
     },
     {
       "id": "aether",
@@ -323,7 +353,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "124–125"
         }
-      ]
+      ],
+      "shortStory": "Aether is associated with Upper air. Aether is named as a child of Nyx and Erebus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "agaue-nereid",
@@ -342,7 +374,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Agaue, named in nereids in this source. Agaue is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Agaue among the Nereids."
     },
     {
       "id": "aglaea",
@@ -362,7 +396,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "907–911"
         }
-      ]
+      ],
+      "shortStory": "Aglaea is associated with Grace. Aglaea is named as a child of Zeus and Eurynome in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "aglaope-siren",
@@ -380,7 +416,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.18-19"
         }
-      ]
+      ],
+      "shortStory": "Aglaope, named in sirens in this source. Aglaope is named as a child of Achelous and Melpomene in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Aglaope among the Sirens."
     },
     {
       "id": "agrius-giant",
@@ -398,7 +436,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Agrius is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Agrius among the Gigantes."
     },
     {
       "id": "aigeiros-hamadryad",
@@ -417,7 +457,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Aigeiros, named in hamadryads in this source. Aigeiros is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Aigeiros among the Hamadryads."
     },
     {
       "id": "alcmene",
@@ -435,7 +477,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "943-944"
         }
-      ]
+      ],
+      "shortStory": "Mother of Heracles by Zeus. Heracles continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "alcyone-pleiad",
@@ -453,7 +497,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Alcyone, named in pleiades in this source. Alcyone is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Alcyone among the Pleiades."
     },
     {
       "id": "alcyoneus-giant",
@@ -471,7 +517,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Alcyoneus is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Alcyoneus among the Gigantes."
     },
     {
       "id": "alecto",
@@ -497,7 +545,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.1.4"
         }
-      ]
+      ],
+      "shortStory": "One of the named Furies in Apollodorus. Alecto emerges from Uranus in Apollodorus.",
+      "rememberThis": "This entry places Alecto among the Erinyes."
     },
     {
       "id": "algea",
@@ -517,7 +567,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Algea is associated with Pains. Algea is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "alimede-nereid",
@@ -536,7 +588,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Alimede, named in nereids in this source. Alimede is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Alimede among the Nereids."
     },
     {
       "id": "alpheus-river",
@@ -554,7 +608,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Alpheus, named in rivers in this source. Alpheus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Alpheus among the River gods."
     },
     {
       "id": "amalthea-goat",
@@ -572,7 +628,9 @@
           "sourceId": "diodorus-amalthea",
           "passage": "5.70.1"
         }
-      ]
+      ],
+      "shortStory": "A goat that nurses Zeus in Diodorus; other sources describe Amalthea as a nymph. This entry follows Diodorus Siculus, Library 5.70.1, quoted on Melisseus page.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "ambrosia-hyad",
@@ -590,7 +648,9 @@
           "sourceId": "hyginus-hyades",
           "passage": "Fabulae 192"
         }
-      ]
+      ],
+      "shortStory": "Ambrosia, named in hyades in this source. Ambrosia is named as a child of Atlas and Pleione in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Ambrosia among the Hyades."
     },
     {
       "id": "ampelos-hamadryad",
@@ -609,7 +669,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Ampelos, named in hamadryads in this source. Ampelos is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Ampelos among the Hamadryads."
     },
     {
       "id": "amphilogiai",
@@ -629,7 +691,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Amphilogiai is associated with Disputes. Amphilogiai is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "amphirho-oceanid",
@@ -648,7 +712,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Amphirho, named in oceanids in this source. Amphirho is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Amphirho among the Oceanids."
     },
     {
       "id": "amphitrite",
@@ -667,7 +733,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Amphitrite, named in nereids in this source. Amphitrite is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Amphitrite among the Nereids."
     },
     {
       "id": "ananke",
@@ -688,7 +756,9 @@
           "sourceId": "damascius-principles",
           "passage": "On First Principles III.160–161, Hieronyman account"
         }
-      ]
+      ],
+      "shortStory": "Ananke is associated with Necessity. This entry follows Damascius, On First Principles, Orphic theogonies.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "androktasiai",
@@ -708,7 +778,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Androktasiai is associated with Manslaughters. Androktasiai is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "apate",
@@ -728,7 +800,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Apate is associated with Deceit. Apate is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "aphrodite",
@@ -753,7 +827,9 @@
           "sourceId": "iliad-5",
           "passage": "370-430, 800-820"
         }
-      ]
+      ],
+      "shortStory": "Aphrodite is the goddess associated with love and desire. Even her beginnings depend on which ancient telling you follow.",
+      "rememberThis": "Hesiod describes a sea-foam emergence connected to Uranus. Homer calls her a daughter of Zeus and Dione. These are separate accounts."
     },
     {
       "id": "apollo",
@@ -778,7 +854,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 21 to Apollo, lines 1-4"
         }
-      ]
+      ],
+      "shortStory": "Apollo is associated with music and prophecy. In Hesiod, Zeus and Leto are his parents, and Artemis is his sister.",
+      "rememberThis": "His lyre is the visual cue here. Helios, the Sun, remains a separate figure rather than being silently folded into Apollo."
     },
     {
       "id": "arachne",
@@ -800,7 +878,9 @@
           "sourceId": "ovid-6",
           "passage": "6.1-145"
         }
-      ]
+      ],
+      "shortStory": "Lydian weaver who contests Athena in Ovid. Arachne is named as a child of Idmon in Ovid.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ardescus-river",
@@ -818,7 +898,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Ardescus, named in rivers in this source. Ardescus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ardescus among the River gods."
     },
     {
       "id": "ares",
@@ -842,7 +924,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 8 to Ares, lines 1-4"
         }
-      ]
+      ],
+      "shortStory": "Ares is associated with war and battle. Hesiod names him among the children of Zeus and Hera.",
+      "rememberThis": "A shield and spear identify his seal. Compare his place in battle with Athena’s rather different range of war, wisdom and craft."
     },
     {
       "id": "arethusa-hesperid",
@@ -861,7 +945,9 @@
           "passage": "2.5.11"
         }
       ],
-      "qualifier": "Hesperid"
+      "qualifier": "Hesperid",
+      "shortStory": "Arethusa, named in hesperides in this source. This entry follows Pseudo-Apollodorus, Library book 2.",
+      "rememberThis": "This entry places Arethusa among the Hesperides."
     },
     {
       "id": "arethusa-nymph",
@@ -880,7 +966,9 @@
           "passage": "5.572-641"
         }
       ],
-      "qualifier": "Spring nymph"
+      "qualifier": "Spring nymph",
+      "shortStory": "This entry places Arethusa among the Nymphs. This entry follows Ovid, Metamorphoses book 5.",
+      "rememberThis": "This entry places Arethusa among the Nymphs."
     },
     {
       "id": "arges",
@@ -900,7 +988,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "139–146"
         }
-      ]
+      ],
+      "shortStory": "Arges is associated with Cyclops. Arges is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "arion-horse",
@@ -918,7 +1008,9 @@
           "sourceId": "pausanias-8b",
           "passage": "8.25.5-7"
         }
-      ]
+      ],
+      "shortStory": "Horse born to Poseidon and Demeter in an Arcadian account. Arion is named as a child of Poseidon and Demeter in Pausanias.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "artemis",
@@ -942,7 +1034,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 9 to Artemis, lines 1-9"
         }
-      ]
+      ],
+      "shortStory": "Artemis belongs to the wild world of hunting and animals. She and Apollo share Zeus and Leto as parents in the cited genealogy.",
+      "rememberThis": "Her bow distinguishes her from Selene, the Moon. The two remain separate names in this catalogue."
     },
     {
       "id": "asclepius",
@@ -960,7 +1054,9 @@
           "sourceId": "asclepius-testimonia",
           "passage": "Pindar Pythian 3.5-46 and Apollodorus 3.10.3-4"
         }
-      ]
+      ],
+      "shortStory": "Asclepius appears in the source as a named figure. Asclepius is named as a child of Apollo and Coronis in Pindar.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "asia-oceanid",
@@ -979,7 +1075,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Asia, named in oceanids in this source. Asia is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Asia among the Oceanids."
     },
     {
       "id": "asteria",
@@ -999,7 +1097,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "404–411"
         }
-      ]
+      ],
+      "shortStory": "Asteria is associated with Mother of Hecate. Asteria is named as a child of Coeus and Phoebe in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "astraeus",
@@ -1019,7 +1119,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "375–377"
         }
-      ]
+      ],
+      "shortStory": "Astraeus is associated with Starry deity. Astraeus is named as a child of Crius and Eurybia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ate",
@@ -1039,7 +1141,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Ate is associated with Ruin. Ate is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "athena",
@@ -1064,7 +1168,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 11 to Athena, lines 1-5; Hymn 20 to Hephaestus, lines 1-4"
         }
-      ]
+      ],
+      "shortStory": "Athena brings together wisdom, skilled crafts and war. The ancient accounts connect her birth with Zeus and Metis rather than giving her an ordinary two-parent birth story.",
+      "rememberThis": "Look for the owl. Her broad range is a useful reminder that a deity rarely fits one neat god-of-something label."
     },
     {
       "id": "atlas",
@@ -1089,7 +1195,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Atlas is associated with Bearer of heaven. Atlas is named as a child of Iapetus and Clymene in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "atropos",
@@ -1110,7 +1218,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "217–222, 901–906"
         }
-      ]
+      ],
+      "shortStory": "This entry places Atropos among the Moirai. Atropos is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "This entry places Atropos among the Moirai."
     },
     {
       "id": "atthis-cranaus",
@@ -1128,7 +1238,9 @@
           "sourceId": "apollodorus-3-final-gaps",
           "passage": "3.14.5-6"
         }
-      ]
+      ],
+      "shortStory": "Daughter of Cranaus and alternative mother of Erichthonius of Athens in Apollodorus. Atthis is named as a child of Cranaus and Pedias in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "autonoe-nereid",
@@ -1147,7 +1259,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Autonoe, named in nereids in this source. Autonoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Autonoe among the Nereids."
     },
     {
       "id": "balanos-hamadryad",
@@ -1166,7 +1280,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Balanos, named in hamadryads in this source. Balanos is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Balanos among the Hamadryads."
     },
     {
       "id": "bia",
@@ -1186,7 +1302,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "383–385"
         }
-      ]
+      ],
+      "shortStory": "Bia is associated with Force. Bia is named as a child of Pallas and Styx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "boreas",
@@ -1206,7 +1324,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "378–382"
         }
-      ]
+      ],
+      "shortStory": "Boreas is associated with North wind. Boreas is named as a child of Astraeus and Eos in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "briareus",
@@ -1226,7 +1346,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "147–153"
         }
-      ]
+      ],
+      "shortStory": "Briareus is associated with Hundred Hander. Briareus is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "brontes",
@@ -1246,7 +1368,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "139–146"
         }
-      ]
+      ],
+      "shortStory": "Brontes is associated with Cyclops. Brontes is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "caicus-river",
@@ -1264,7 +1388,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Caicus, named in rivers in this source. Caicus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Caicus among the River gods."
     },
     {
       "id": "calliope",
@@ -1284,7 +1410,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Calliope is associated with Muse. Calliope is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "callirrhoe-oceanid",
@@ -1303,7 +1431,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Callirrhoe, named in oceanids in this source. Callirrhoe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Callirrhoe among the Oceanids."
     },
     {
       "id": "callisto",
@@ -1322,7 +1452,9 @@
           "sourceId": "apollodorus-lib-3",
           "passage": "3.8.2"
         }
-      ]
+      ],
+      "shortStory": "Follower of Artemis; ancient accounts disagree about her parentage. Callisto is named as a child of Ceteus in Pherecydes via Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Callisto among the Nymphs."
     },
     {
       "id": "calypso-atlas-daughter",
@@ -1341,7 +1473,9 @@
           "passage": "1.14-15, 50-54"
         }
       ],
-      "qualifier": "Daughter of Atlas"
+      "qualifier": "Daughter of Atlas",
+      "shortStory": "Nymph of Ogygia and daughter of Atlas in Homer; identity with Hesiod’s Oceanid is uncertain. Calypso is named as a child of Atlas in Homer.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "calypso-oceanid",
@@ -1361,7 +1495,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Calypso, named in oceanids in this source. Calypso is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Calypso among the Oceanids."
     },
     {
       "id": "celaeno-harpy",
@@ -1380,7 +1516,9 @@
           "passage": "Preface"
         }
       ],
-      "qualifier": "Harpy"
+      "qualifier": "Harpy",
+      "shortStory": "This entry places Celaeno among the Harpies. Celaeno is named as a child of Thaumas and Ozomene in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Celaeno among the Harpies."
     },
     {
       "id": "celaeno-pleiad",
@@ -1399,7 +1537,9 @@
           "passage": "3.10.1"
         }
       ],
-      "qualifier": "Pleiad"
+      "qualifier": "Pleiad",
+      "shortStory": "Celaeno, named in pleiades in this source. Celaeno is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Celaeno among the Pleiades."
     },
     {
       "id": "cephissus-narcissus",
@@ -1417,7 +1557,9 @@
           "sourceId": "ovid-3",
           "passage": "339-345"
         }
-      ]
+      ],
+      "shortStory": "River god and father of Narcissus in Ovid. Cephissus is named as a child of Oceanus and Tethys in Hyginus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "cerberus",
@@ -1435,7 +1577,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "306-325"
         }
-      ]
+      ],
+      "shortStory": "Cerberus appears in the source as a named figure. Cerberus is named as a child of Typhon and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "cerceis-oceanid",
@@ -1454,7 +1598,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Cerceis, named in oceanids in this source. Cerceis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Cerceis among the Oceanids."
     },
     {
       "id": "ceteus",
@@ -1472,7 +1618,9 @@
           "sourceId": "apollodorus-lib-3",
           "passage": "3.8.2"
         }
-      ]
+      ],
+      "shortStory": "Ceteus is a proposed father of Callisto in an author attributed by Pseudo-Apollodorus. Callisto continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "ceto",
@@ -1490,7 +1638,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "233-239"
         }
-      ]
+      ],
+      "shortStory": "Ceto appears in the source as a named figure. Ceto is named as a child of Pontus and Gaia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "chaos",
@@ -1522,7 +1672,9 @@
             }
           ]
         }
-      ]
+      ],
+      "shortStory": "In Hesiod, the story opens with Chaos: a primordial opening, before the familiar divine family takes shape. Night and Darkness emerge from it.",
+      "rememberThis": "Coming first does not make Chaos everybody’s parent. Other ancient accounts begin differently."
     },
     {
       "id": "charites",
@@ -1540,7 +1692,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "907-911"
         }
-      ]
+      ],
+      "shortStory": "The Graces, a collective of goddesses. Charites is named as a child of Zeus and Eurynome in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "charon",
@@ -1572,7 +1726,9 @@
             }
           ]
         }
-      ]
+      ],
+      "shortStory": "Charon ferries the dead through the Underworld. His work makes him familiar even when the older sources give us little about his family.",
+      "rememberThis": "No ancient parents are established in the passages checked here. Hades II dialogue names Nyx as his mother."
     },
     {
       "id": "charybdis",
@@ -1590,7 +1746,9 @@
           "sourceId": "homer-odyssey-12",
           "passage": "101-110"
         }
-      ]
+      ],
+      "shortStory": "Charybdis appears in the source as a named figure. Charybdis is named as a child of Poseidon and Gaia in Servius via Dictionary.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "chimaera-monster",
@@ -1608,7 +1766,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "306-325"
         }
-      ]
+      ],
+      "shortStory": "Chimaera appears in the source as a named figure. Chimaera is named as a child of Typhon and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "chronos-time",
@@ -1629,7 +1789,9 @@
           "sourceId": "damascius-principles",
           "passage": "On First Principles III.160–161, Hieronyman account"
         }
-      ]
+      ],
+      "shortStory": "Chronos here is Time, a primordial figure in the Orphic account reported by Damascius. He generates the egg from which Phanes emerges.",
+      "rememberThis": "This is a separate entry from Kronos the Titan. The similar names can make an already complicated family rather confusing."
     },
     {
       "id": "chrysaor",
@@ -1647,7 +1809,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "280-294"
         }
-      ]
+      ],
+      "shortStory": "Chrysaor appears in the source as a named figure. Chrysaor is named as a child of Medusa and Poseidon in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "chryseis-oceanid",
@@ -1666,7 +1830,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Chryseis, named in oceanids in this source. Chryseis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Chryseis among the Oceanids."
     },
     {
       "id": "circe",
@@ -1688,7 +1854,9 @@
           "sourceId": "odyssey-10",
           "passage": "210-347"
         }
-      ]
+      ],
+      "shortStory": "Enchantress encountered by Odysseus. Circe is named as a child of Helios and Perseis in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "clio",
@@ -1708,7 +1876,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Clio is associated with Muse. Clio is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "clotho",
@@ -1729,7 +1899,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "217–222, 901–906"
         }
-      ]
+      ],
+      "shortStory": "This entry places Clotho among the Moirai. Clotho is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "This entry places Clotho among the Moirai."
     },
     {
       "id": "clymene-oceanid",
@@ -1748,7 +1920,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Clymene, named in oceanids in this source. Clymene is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Clymene among the Oceanids."
     },
     {
       "id": "clytie-oceanid",
@@ -1767,7 +1941,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Clytie, named in oceanids in this source. Clytie is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Clytie among the Oceanids."
     },
     {
       "id": "clytius-giant",
@@ -1785,7 +1961,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Clytius is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Clytius among the Gigantes."
     },
     {
       "id": "coeus",
@@ -1805,7 +1983,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Coeus is associated with Elder divine generation. Coeus is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "colchian-dragon",
@@ -1823,7 +2003,9 @@
           "sourceId": "hyginus-151",
           "passage": "Fabulae 151"
         }
-      ]
+      ],
+      "shortStory": "Colchian dragon appears in the source as a named figure. Colchian dragon is named as a child of Typhon and Echidna in Pseudo-Hyginus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "coronis-hyad",
@@ -1842,7 +2024,9 @@
           "passage": "Fabulae 192"
         }
       ],
-      "qualifier": "Hyad"
+      "qualifier": "Hyad",
+      "shortStory": "Coronis, named in hyades in this source. Coronis is named as a child of Atlas and Pleione in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Coronis among the Hyades."
     },
     {
       "id": "coronis-phlegyas",
@@ -1861,7 +2045,9 @@
           "passage": "Pindar Pythian 3.5-46"
         }
       ],
-      "qualifier": "Mother of Asclepius"
+      "qualifier": "Mother of Asclepius",
+      "shortStory": "Daughter of Phlegyas and mother of Asclepius by Apollo. Asclepius continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "cosmic-egg",
@@ -1882,7 +2068,9 @@
           "sourceId": "damascius-principles",
           "passage": "On First Principles III.159–161"
         }
-      ]
+      ],
+      "shortStory": "In one Orphic telling, the cosmic egg is generated by Chronos, Time. Phanes emerges from it. A very different way to begin a divine family.",
+      "rememberThis": "This is creation followed by emergence, rather than an ordinary birth. The account is preserved through later witnesses."
     },
     {
       "id": "cottus",
@@ -1902,7 +2090,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "147–153"
         }
-      ]
+      ],
+      "shortStory": "Cottus is associated with Hundred Hander. Cottus is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "cranaus",
@@ -1921,7 +2111,9 @@
           "sourceId": "apollodorus-3-atthis-gaps",
           "passage": "3.14.5"
         }
-      ]
+      ],
+      "shortStory": "An early king of Attica, described as earthborn by Apollodorus. Atthis continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "crataeis",
@@ -1939,7 +2131,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.20"
         }
-      ]
+      ],
+      "shortStory": "Crataeis appears in the source as a named figure. Scylla continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "creusa-peneus",
@@ -1957,7 +2151,9 @@
           "sourceId": "pindar-cyrene",
           "passage": "Pythian 9.6 ff"
         }
-      ]
+      ],
+      "shortStory": "Nymph, daughter of Earth and mother of Hypseus in Pindar; distinct from other Creusas. Creusa is named as a child of Gaia in Pindar.",
+      "rememberThis": "This entry places Creusa among the Nymphs."
     },
     {
       "id": "crius",
@@ -1977,7 +2173,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Crius is associated with Elder divine generation. Crius is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "cyane-naiad",
@@ -1995,7 +2193,9 @@
           "sourceId": "ovid-metamorphoses-5",
           "passage": "5.409-437"
         }
-      ]
+      ],
+      "shortStory": "This entry places Cyane among the Nymphs. This entry follows Ovid, Metamorphoses book 5.",
+      "rememberThis": "This entry places Cyane among the Nymphs."
     },
     {
       "id": "cymatolege-nereid",
@@ -2014,7 +2214,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Cymatolege, named in nereids in this source. Cymatolege is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Cymatolege among the Nereids."
     },
     {
       "id": "cymo-nereid",
@@ -2033,7 +2235,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Cymo, named in nereids in this source. Cymo is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Cymo among the Nereids."
     },
     {
       "id": "cymodoce-nereid",
@@ -2052,7 +2256,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Cymodoce, named in nereids in this source. Cymodoce is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Cymodoce among the Nereids."
     },
     {
       "id": "cymothoe-nereid",
@@ -2071,7 +2277,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Cymothoe, named in nereids in this source. Cymothoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Cymothoe among the Nereids."
     },
     {
       "id": "cyrene",
@@ -2090,7 +2298,9 @@
           "sourceId": "cyrene-theoi",
           "passage": "Family and quoted sources"
         }
-      ]
+      ],
+      "shortStory": "Huntress and mother of Aristaeus; sources differ on her ancestry. Cyrene is named as a child of Hypseus in Pindar.",
+      "rememberThis": "This entry places Cyrene among the Nymphs."
     },
     {
       "id": "daedalus",
@@ -2108,7 +2318,9 @@
           "sourceId": "ovid-8",
           "passage": "183-235"
         }
-      ]
+      ],
+      "shortStory": "Craftsman who makes wings to escape Crete. Daedalus is named as a child of Metion in Diodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "daphne",
@@ -2126,7 +2338,9 @@
           "sourceId": "daphne-theoi",
           "passage": "Family of Daphne; classical quotations"
         }
-      ]
+      ],
+      "shortStory": "A nymph associated with laurel; parent traditions differ. Daphne is named as a child of Ladon in Nonnus.",
+      "rememberThis": "This entry places Daphne among the Nymphs."
     },
     {
       "id": "deimachus-enarete",
@@ -2144,7 +2358,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.3"
         }
-      ]
+      ],
+      "shortStory": "Father of Enarete in Apollodorus. Enarete continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "demeter",
@@ -2164,7 +2380,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "453-458"
         }
-      ]
+      ],
+      "shortStory": "Demeter is associated with grain, harvest and the growing world. She is Persephone’s mother, which places her at the centre of one of the mythology’s most important family relationships.",
+      "rememberThis": "The ancient and game graphs diverge here: Kronos and Rhea in Hesiod, Hyperion as her father in Hades dialogue."
     },
     {
       "id": "despoina",
@@ -2182,7 +2400,9 @@
           "sourceId": "pausanias-8c",
           "passage": "8.37.9"
         }
-      ]
+      ],
+      "shortStory": "Arcadian Mistress and daughter of Poseidon and Demeter in Pausanias. Despoina is named as a child of Poseidon and Demeter in Pausanias.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "deucalion",
@@ -2200,7 +2420,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.2-3"
         }
-      ]
+      ],
+      "shortStory": "Survivor of the flood and father of Hellen in Apollodorus. Deucalion is named as a child of Prometheus in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "dike",
@@ -2220,7 +2442,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "901–903"
         }
-      ]
+      ],
+      "shortStory": "Dike is associated with Justice. Dike is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "dione-homer",
@@ -2239,7 +2463,9 @@
           "passage": "370-430"
         }
       ],
-      "qualifier": "In Homer"
+      "qualifier": "In Homer",
+      "shortStory": "Mother of Aphrodite in Homer’s Iliad; the poem does not identify her as a specific Hesiodic Oceanid. Aphrodite continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "dione-oceanid",
@@ -2259,7 +2485,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Dione, named in oceanids in this source. Dione is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Dione among the Oceanids."
     },
     {
       "id": "dionysus",
@@ -2283,7 +2511,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 7 to Dionysus, lines 1-59"
         }
-      ]
+      ],
+      "shortStory": "Dionysus is associated with wine and revelry. Hesiod names Zeus and Semele as his parents, while other traditions preserve further divine connections.",
+      "rememberThis": "Grapes make his seal easy to recognise. Keep an eye on the sources when his story overlaps other underworld traditions."
     },
     {
       "id": "dora-game",
@@ -2302,7 +2532,9 @@
           "sourceId": "hades2-cast",
           "passage": "Dora quest section"
         }
-      ]
+      ],
+      "shortStory": "Dora is the friendly shade who shares Melinoë’s tent at the Crossroads. Her conversations gradually suggest that there is more behind her name and personality.",
+      "rememberThis": "Her identity connection stays hidden here until you uncover the game spoilers. The seal only shows a shade."
     },
     {
       "id": "doris-nereid",
@@ -2322,7 +2554,9 @@
           "passage": "240-264"
         }
       ],
-      "qualifier": "Nereid"
+      "qualifier": "Nereid",
+      "shortStory": "Doris, named in nereids in this source. Doris is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Doris among the Nereids."
     },
     {
       "id": "doris-oceanid",
@@ -2342,7 +2576,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Doris, named in oceanids in this source. Doris is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Doris among the Oceanids."
     },
     {
       "id": "doto-nereid",
@@ -2361,7 +2597,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Doto, named in nereids in this source. Doto is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Doto among the Nereids."
     },
     {
       "id": "dryads",
@@ -2380,7 +2618,9 @@
           "sourceId": "theoi-dryads",
           "passage": "Overview and classical literature"
         }
-      ]
+      ],
+      "shortStory": "Dryads, a collective; membership and parentage depend on source. This entry follows Theoi Project, Dryads and Oreads.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "dryops-daughter",
@@ -2398,7 +2638,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 19, lines 27-47"
         }
-      ]
+      ],
+      "shortStory": "Unnamed nymph who bears Pan to Hermes in the Homeric Hymn. Daughter of Dryops is named as a child of Dryops in Homeric Hymn.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "dryops-pan",
@@ -2416,7 +2658,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 19, lines 27-47"
         }
-      ]
+      ],
+      "shortStory": "Father of the unnamed mother of Pan in the Homeric Hymn. Daughter of Dryops continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "dusa-game",
@@ -2435,7 +2679,9 @@
           "sourceId": "dusa-dialogue",
           "passage": "Dusa introductory dialogue, custodian"
         }
-      ]
+      ],
+      "shortStory": "Dusa is the floating Gorgon custodian in the first Hades. A minor encounter can still make the Underworld feel like a place full of individual lives.",
+      "rememberThis": "This entry keeps her game identity separate rather than automatically assigning her another Gorgon’s ancient biography."
     },
     {
       "id": "dynamene-nereid",
@@ -2454,7 +2700,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Dynamene, named in nereids in this source. Dynamene is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Dynamene among the Nereids."
     },
     {
       "id": "dysnomia",
@@ -2474,7 +2722,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Dysnomia is associated with Lawlessness. Dysnomia is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "echidna",
@@ -2493,7 +2743,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "295-305"
         }
-      ]
+      ],
+      "shortStory": "Echidna appears in the source as a named figure. Cerberus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "echo",
@@ -2519,7 +2771,9 @@
           "sourceId": "ovid-3",
           "passage": "3.339-510"
         }
-      ]
+      ],
+      "shortStory": "Nymph whose voice repeats others and who loves Narcissus in Ovid. This entry follows Ovid, Metamorphoses, book 3.",
+      "rememberThis": "This entry places Echo among the Nymphs."
     },
     {
       "id": "eileithyia",
@@ -2539,7 +2793,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "921-923"
         }
-      ]
+      ],
+      "shortStory": "Goddess of childbirth. Eileithyia is named as a child of Zeus and Hera in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eione-nereid",
@@ -2558,7 +2814,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Eione, named in nereids in this source. Eione is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eione among the Nereids."
     },
     {
       "id": "eirene",
@@ -2578,7 +2836,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "901–903"
         }
-      ]
+      ],
+      "shortStory": "Eirene is associated with Peace. Eirene is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "electra-oceanid",
@@ -2598,7 +2858,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Electra, named in oceanids in this source. Electra is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Electra among the Oceanids."
     },
     {
       "id": "electra-pleiad",
@@ -2617,7 +2879,9 @@
           "passage": "3.10.1"
         }
       ],
-      "qualifier": "Pleiad"
+      "qualifier": "Pleiad",
+      "shortStory": "Electra, named in pleiades in this source. Electra is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Electra among the Pleiades."
     },
     {
       "id": "enarete",
@@ -2635,7 +2899,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.3"
         }
-      ]
+      ],
+      "shortStory": "Daughter of Deimachus and wife of Aeolus. Enarete is named as a child of Deimachus in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "enceladus",
@@ -2653,7 +2919,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Enceladus is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Enceladus among the Gigantes."
     },
     {
       "id": "enyo-graea",
@@ -2671,7 +2939,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-280"
         }
-      ]
+      ],
+      "shortStory": "Enyo, named in graeae in this source. Enyo is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "This entry places Enyo among the Graeae."
     },
     {
       "id": "eos",
@@ -2691,7 +2961,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "371–374"
         }
-      ]
+      ],
+      "shortStory": "Eos is associated with Dawn. Eos is named as a child of Hyperion and Theia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eosphorus",
@@ -2711,7 +2983,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "378–382"
         }
-      ]
+      ],
+      "shortStory": "Eosphorus is associated with Dawn star. Eosphorus is named as a child of Astraeus and Eos in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ephialtes-gigante",
@@ -2729,7 +3003,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Ephialtes is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Ephialtes among the Gigantes."
     },
     {
       "id": "epimetheus",
@@ -2749,7 +3025,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "507–514"
         }
-      ]
+      ],
+      "shortStory": "Epimetheus is associated with Son of Iapetus. Epimetheus is named as a child of Iapetus and Clymene in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "epione",
@@ -2767,7 +3045,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Pausanias 2.29.1; Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Wife of Asclepius and mother of healing figures in the cited testimonia. Aceso continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "erato-dryad",
@@ -2786,7 +3066,9 @@
           "passage": "8.4.2"
         }
       ],
-      "qualifier": "Dryad"
+      "qualifier": "Dryad",
+      "shortStory": "A Dryad wife of Arcas in Pausanias, distinct from Erato the Muse and the Nereid. This entry follows Pausanias, Description of Greece book 8.1–16.",
+      "rememberThis": "This entry places Erato among the Dryads."
     },
     {
       "id": "erato-muse",
@@ -2807,7 +3089,9 @@
           "passage": "53–62, 75–79"
         }
       ],
-      "qualifier": "Muse"
+      "qualifier": "Muse",
+      "shortStory": "Erato is associated with Muse. Erato is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "erato-nereid",
@@ -2827,7 +3111,9 @@
           "passage": "240-264"
         }
       ],
-      "qualifier": "Nereid"
+      "qualifier": "Nereid",
+      "shortStory": "Erato, named in nereids in this source. Erato is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Erato among the Nereids."
     },
     {
       "id": "erebus",
@@ -2847,7 +3133,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "123–125"
         }
-      ]
+      ],
+      "shortStory": "Erebus personifies Darkness. Hesiod places him with Nyx among the children of Chaos; together they become the parents of Aether and Hemera.",
+      "rememberThis": "Darkness, Night, Day and the bright upper air all sit on the same family branch."
     },
     {
       "id": "erechtheus",
@@ -2865,7 +3153,9 @@
           "sourceId": "diodorus-4d",
           "passage": "4.76.1"
         }
-      ]
+      ],
+      "shortStory": "Athenian ancestor of Daedalus in Diodorus’s genealogy. Erechtheus is named as a child of Pandion I of Athens and Zeuxippe in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "erichthonius-athens",
@@ -2883,7 +3173,9 @@
           "sourceId": "apollodorus-3-final-gaps",
           "passage": "3.14.6"
         }
-      ]
+      ],
+      "shortStory": "Earth-born early king of Athens raised by Athena, distinct from the Trojan of the same name. Erichthonius of Athens is named as a child of Hephaestus and Atthis in Apollodorus alternate.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eridanus",
@@ -2901,7 +3193,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Eridanus, named in rivers in this source. Eridanus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Eridanus among the River gods."
     },
     {
       "id": "erinyes",
@@ -2933,7 +3227,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "176-187"
         }
-      ]
+      ],
+      "shortStory": "The Furies, avenging goddesses who emerge from Uranus’s blood in Hesiod. Erinyes emerges from Gaia and Uranus in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "eris",
@@ -2953,7 +3249,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Eris personifies Strife and belongs to Nyx’s family in Hesiod. She makes conflict a character you can encounter rather than just a thing that happens.",
+      "rememberThis": "She is another reason the boundary between a god and a personification does not stay neat for very long."
     },
     {
       "id": "eris-good",
@@ -2975,7 +3273,9 @@
           "sourceId": "hesiod-works-days",
           "passage": "11–24"
         }
-      ]
+      ],
+      "shortStory": "The elder Strife, who stirs people to work, in Works and Days. Eris (productive rivalry) is named as a child of Nyx in Hesiod, Works and Days.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eros-primordial",
@@ -3009,7 +3309,9 @@
             }
           ]
         }
-      ]
+      ],
+      "shortStory": "Eros is associated with Primordial desire. This entry follows Hesiod, Theogony.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "erythia-hesperid",
@@ -3027,7 +3329,9 @@
           "sourceId": "apollodorus-library-2",
           "passage": "2.5.11"
         }
-      ]
+      ],
+      "shortStory": "Erythia, named in hesperides in this source. This entry follows Pseudo-Apollodorus, Library book 2.",
+      "rememberThis": "This entry places Erythia among the Hesperides."
     },
     {
       "id": "euagore-nereid",
@@ -3046,7 +3350,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Euagore, named in nereids in this source. Euagore is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Euagore among the Nereids."
     },
     {
       "id": "euarne-nereid",
@@ -3065,7 +3371,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Euarne, named in nereids in this source. Euarne is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Euarne among the Nereids."
     },
     {
       "id": "eucrante-nereid",
@@ -3084,7 +3392,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Eucrante, named in nereids in this source. Eucrante is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eucrante among the Nereids."
     },
     {
       "id": "eudora-hyad",
@@ -3103,7 +3413,9 @@
           "passage": "Fabulae 192"
         }
       ],
-      "qualifier": "Hyad"
+      "qualifier": "Hyad",
+      "shortStory": "Eudora, named in hyades in this source. Eudora is named as a child of Atlas and Pleione in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Eudora among the Hyades."
     },
     {
       "id": "eudora-nereid",
@@ -3123,7 +3435,9 @@
           "passage": "240-264"
         }
       ],
-      "qualifier": "Nereid"
+      "qualifier": "Nereid",
+      "shortStory": "Eudora, named in nereids in this source. Eudora is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eudora among the Nereids."
     },
     {
       "id": "eudora-oceanid",
@@ -3143,7 +3457,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Eudora, named in oceanids in this source. Eudora is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Eudora among the Oceanids."
     },
     {
       "id": "euenus-river",
@@ -3161,7 +3477,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Euenus, named in rivers in this source. Euenus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Euenus among the River gods."
     },
     {
       "id": "eulimene-nereid",
@@ -3180,7 +3498,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Eulimene, named in nereids in this source. Eulimene is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eulimene among the Nereids."
     },
     {
       "id": "eunice-nereid",
@@ -3199,7 +3519,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Eunice, named in nereids in this source. Eunice is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eunice among the Nereids."
     },
     {
       "id": "eunomia",
@@ -3219,7 +3541,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "901–903"
         }
-      ]
+      ],
+      "shortStory": "Eunomia is associated with Good order. Eunomia is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eupalamus-athenian",
@@ -3237,7 +3561,9 @@
           "sourceId": "diodorus-4d",
           "passage": "4.76.1"
         }
-      ]
+      ],
+      "shortStory": "Father of Metion in Diodorus’s Athenian genealogy. Eupalamus is named as a child of Erechtheus in Diodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "euphrosyne",
@@ -3257,7 +3583,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "907–911"
         }
-      ]
+      ],
+      "shortStory": "Euphrosyne is associated with Grace. Euphrosyne is named as a child of Zeus and Eurynome in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eupompe-nereid",
@@ -3276,7 +3604,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Eupompe, named in nereids in this source. Eupompe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Eupompe among the Nereids."
     },
     {
       "id": "europa-oceanid",
@@ -3295,7 +3625,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Europa, named in oceanids in this source. Europa is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Europa among the Oceanids."
     },
     {
       "id": "euryale-gorgon",
@@ -3313,7 +3645,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-280"
         }
-      ]
+      ],
+      "shortStory": "Euryale, named in gorgons in this source. Euryale is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "This entry places Euryale among the Gorgons."
     },
     {
       "id": "eurybia",
@@ -3331,7 +3665,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "233-239"
         }
-      ]
+      ],
+      "shortStory": "Eurybia appears in the source as a named figure. Eurybia is named as a child of Pontus and Gaia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "eurydice-orpheus",
@@ -3349,7 +3685,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.3.2"
         }
-      ]
+      ],
+      "shortStory": "Wife of Orpheus, lost again during his journey from the underworld. This entry follows Pseudo-Apollodorus, Library, book 1.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "eurynome-oceanid",
@@ -3368,7 +3706,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Eurynome, named in oceanids in this source. Eurynome is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Eurynome among the Oceanids."
     },
     {
       "id": "eurytus-giant",
@@ -3386,7 +3726,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Eurytus is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Eurytus among the Gigantes."
     },
     {
       "id": "euterpe",
@@ -3406,7 +3748,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Euterpe is associated with Muse. Euterpe is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "gaia",
@@ -3440,7 +3784,9 @@
             }
           ]
         }
-      ]
+      ],
+      "shortStory": "Gaia is Earth herself, both the ground beneath the stories and a divine ancestor. She bears Sky and Sea and stands near the beginning of many family lines.",
+      "rememberThis": "A personification can still be a god. The categories overlap from the very beginning."
     },
     {
       "id": "galatea-nereid",
@@ -3459,7 +3805,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Galatea, named in nereids in this source. Galatea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Galatea among the Nereids."
     },
     {
       "id": "galaxaura-oceanid",
@@ -3478,7 +3826,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Galaxaura, named in oceanids in this source. Galaxaura is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Galaxaura among the Oceanids."
     },
     {
       "id": "galene-nereid",
@@ -3497,7 +3847,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Galene, named in nereids in this source. Galene is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Galene among the Nereids."
     },
     {
       "id": "geras",
@@ -3517,7 +3869,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Geras is associated with Old age. Geras is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "geryon",
@@ -3535,7 +3889,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "287-294"
         }
-      ]
+      ],
+      "shortStory": "Geryon appears in the source as a named figure. Geryon is named as a child of Chrysaor and Callirrhoe in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "gigantes",
@@ -3556,7 +3912,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "Gigantes appears in the source as a collective group. Gigantes is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "glauce-nereid",
@@ -3575,7 +3933,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Glauce, named in nereids in this source. Glauce is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Glauce among the Nereids."
     },
     {
       "id": "glauconome-nereid",
@@ -3594,7 +3954,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Glauconome, named in nereids in this source. Glauconome is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Glauconome among the Nereids."
     },
     {
       "id": "gorgons",
@@ -3613,7 +3975,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-294"
         }
-      ]
+      ],
+      "shortStory": "Gorgons, a collective; membership and parentage depend on source. This entry follows Hesiod, Theogony.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "graeae",
@@ -3632,7 +3996,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-273"
         }
-      ]
+      ],
+      "shortStory": "Graeae, a collective; membership and parentage depend on source. This entry follows Hesiod, Theogony.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "granicus-river",
@@ -3650,7 +4016,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Granicus, named in rivers in this source. Granicus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Granicus among the River gods."
     },
     {
       "id": "gration",
@@ -3668,7 +4036,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Gration is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Gration among the Gigantes."
     },
     {
       "id": "gyges-hundred-hander",
@@ -3688,7 +4058,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "147–153"
         }
-      ]
+      ],
+      "shortStory": "Gyges is associated with Hundred Hander. Gyges is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hades",
@@ -3708,7 +4080,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "453-458"
         }
-      ]
+      ],
+      "shortStory": "Hades rules the realm of the dead. He belongs to the same divine generation as Zeus and Poseidon, but his stories lead into a different part of the world.",
+      "rememberThis": "Hades rules the dead. Thanatos is Death itself. Same neighbourhood, very different job descriptions."
     },
     {
       "id": "haliacmon-river",
@@ -3726,7 +4100,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Haliacmon, named in rivers in this source. Haliacmon is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Haliacmon among the River gods."
     },
     {
       "id": "halie-nereid",
@@ -3745,7 +4121,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Halie, named in nereids in this source. Halie is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Halie among the Nereids."
     },
     {
       "id": "hamadryads",
@@ -3764,7 +4142,9 @@
           "sourceId": "theoi-dryads",
           "passage": "Overview and classical literature"
         }
-      ]
+      ],
+      "shortStory": "Hamadryads, a collective; membership and parentage depend on source. This entry follows Theoi Project, Dryads and Oreads.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "hamadryas-mother",
@@ -3782,7 +4162,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Mother of named Hamadryads in Pherenicus, distinct from the collective. Aigeiros continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "harpies",
@@ -3801,7 +4183,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "265-269"
         }
-      ]
+      ],
+      "shortStory": "The Harpies are winged beings born to Thaumas and Electra in Hesiod. Other tellings add different names to the family.",
+      "rememberThis": "They have a genealogy and individual names, rather than being only a generic monster category."
     },
     {
       "id": "hebe",
@@ -3821,7 +4205,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "921-923"
         }
-      ]
+      ],
+      "shortStory": "Divine personification of youth. Hebe is named as a child of Zeus and Hera in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hecate",
@@ -3848,7 +4234,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "404-452"
         }
-      ]
+      ],
+      "shortStory": "Hecate is associated with magic and crossroads. Hesiod names Asteria and Perses as her parents.",
+      "rememberThis": "In Hades II she cares for and trains Melinoë. That is a mentorship connection, not a claim that she is Melinoë’s biological mother."
     },
     {
       "id": "helios",
@@ -3868,7 +4256,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "371–374"
         }
-      ]
+      ],
+      "shortStory": "Helios is associated with Sun. Helios is named as a child of Hyperion and Theia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hellen-deucalion",
@@ -3886,7 +4276,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.2-3"
         }
-      ]
+      ],
+      "shortStory": "Son of Deucalion and Pyrrha and ancestor of the Hellenes. Hellen is named as a child of Deucalion and Pyrrha in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hemera",
@@ -3906,7 +4298,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "124–125"
         }
-      ]
+      ],
+      "shortStory": "Hemera is associated with Day. Hemera is named as a child of Nyx and Erebus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hephaestus",
@@ -3930,7 +4324,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 20 to Hephaestus, lines 1-5"
         }
-      ]
+      ],
+      "shortStory": "Hephaestus is the divine smith, associated with metalworking and skilled craft. His family story is one of the places where ancient authors differ.",
+      "rememberThis": "Hesiod gives Hera a birth without a partner. Other accounts involve Zeus too, so the two parent sets stay separate."
     },
     {
       "id": "heptaporus-river",
@@ -3948,7 +4344,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Heptaporus, named in rivers in this source. Heptaporus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Heptaporus among the River gods."
     },
     {
       "id": "hera",
@@ -3968,7 +4366,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "453-458"
         }
-      ]
+      ],
+      "shortStory": "Hera is the queen of the gods, associated with marriage and her relationship with Zeus. She is much more than a supporting character in somebody else’s family drama.",
+      "rememberThis": "Hesiod places her under Kronos and Rhea. The Hades dialogue instead names Hyperion as her father."
     },
     {
       "id": "heracles",
@@ -3988,7 +4388,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "943-944"
         }
-      ]
+      ],
+      "shortStory": "Hero born to Zeus and Alcmene. Heracles is named as a child of Zeus and Alcmene in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hermaphroditus",
@@ -4006,7 +4408,9 @@
           "sourceId": "diodorus-4a",
           "passage": "4.6.5"
         }
-      ]
+      ],
+      "shortStory": "Figure named as child of Hermes and Aphrodite in Diodorus. Hermaphroditus is named as a child of Hermes and Aphrodite in Diodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hermes",
@@ -4030,7 +4434,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 19 to Pan, lines 27-47"
         }
-      ]
+      ],
+      "shortStory": "Hermes is a traveller, messenger and trickster, with Zeus and Maia as his parents in Hesiod. His stories move easily between different parts of the divine world.",
+      "rememberThis": "The winged herald’s staff is his cue. Maia also opens another branch through Atlas and the Pleiades."
     },
     {
       "id": "hermus-river",
@@ -4048,7 +4454,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Hermus, named in rivers in this source. Hermus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Hermus among the River gods."
     },
     {
       "id": "hesperia-hesperid",
@@ -4066,7 +4474,9 @@
           "sourceId": "apollodorus-library-2",
           "passage": "2.5.11"
         }
-      ]
+      ],
+      "shortStory": "Hesperia, named in hesperides in this source. This entry follows Pseudo-Apollodorus, Library book 2.",
+      "rememberThis": "This entry places Hesperia among the Hesperides."
     },
     {
       "id": "hesperian-dragon",
@@ -4084,7 +4494,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "333-335"
         }
-      ]
+      ],
+      "shortStory": "Hesperian dragon appears in the source as a named figure. Hesperian dragon is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hesperides",
@@ -4110,7 +4522,9 @@
           "sourceId": "apollodorus-library-2",
           "passage": "2.5.11"
         }
-      ]
+      ],
+      "shortStory": "Hesperides, a collective; membership and parentage depend on source. Hesperides is named as a child of Nyx in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "hestia",
@@ -4134,7 +4548,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 29 to Hestia, lines 1-13"
         }
-      ]
+      ],
+      "shortStory": "Hestia is the goddess of the hearth and the shared fire of a household. Her domain is quieter than thunder or war, but it belongs at the centre of everyday life.",
+      "rememberThis": "Her ancient family includes Kronos and Rhea. Hades dialogue instead groups her with Hyperion’s daughters."
     },
     {
       "id": "hippo-oceanid",
@@ -4153,7 +4569,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Hippo, named in oceanids in this source. Hippo is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Hippo among the Oceanids."
     },
     {
       "id": "hippolytus-giant",
@@ -4171,7 +4589,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Hippolytus is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Hippolytus among the Gigantes."
     },
     {
       "id": "hipponoe-nereid",
@@ -4190,7 +4610,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Hipponoe, named in nereids in this source. Hipponoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Hipponoe among the Nereids."
     },
     {
       "id": "hippothoe-nereid",
@@ -4209,7 +4631,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Hippothoe, named in nereids in this source. Hippothoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Hippothoe among the Nereids."
     },
     {
       "id": "horae",
@@ -4227,7 +4651,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "901-906"
         }
-      ]
+      ],
+      "shortStory": "A collective of goddesses associated with order, justice and peace. Horae is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "horkos",
@@ -4247,7 +4673,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Horkos is associated with Oath. Horkos is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hyades",
@@ -4266,7 +4694,9 @@
           "sourceId": "hyginus-hyades",
           "passage": "Fabulae 192"
         }
-      ]
+      ],
+      "shortStory": "Hyades, a collective; membership and parentage depend on source. This entry follows Pseudo-Hyginus, Fabulae 192 quoted on Atlas page.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "hydra-monster",
@@ -4284,7 +4714,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "306-325"
         }
-      ]
+      ],
+      "shortStory": "Hydra appears in the source as a named figure. Hydra is named as a child of Typhon and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hygieia",
@@ -4302,7 +4734,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Health, named among children of Asclepius and Epione. Hygieia is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hyperion",
@@ -4322,7 +4756,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Hyperion is one of the Titans. In Hesiod, his children with Theia include Helios, Selene and Eos: Sun, Moon and Dawn.",
+      "rememberThis": "Hades dialogue gives him another family connection: Hera, Hestia and Demeter call him their father."
     },
     {
       "id": "hypnos",
@@ -4342,7 +4778,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Hypnos personifies Sleep and belongs to Nyx’s family. His connection with Thanatos puts Sleep and Death on the same remarkable branch.",
+      "rememberThis": "The sleeping eye and wing are navigation cues. A personified experience can have a family and a personality in these stories."
     },
     {
       "id": "hypseus-lapith",
@@ -4360,7 +4798,9 @@
           "sourceId": "pindar-cyrene",
           "passage": "Pythian 9.6 ff"
         }
-      ]
+      ],
+      "shortStory": "King and father of Cyrene in Pindar. Hypseus is named as a child of Peneus and Creusa in Pindar.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "hysminai",
@@ -4380,7 +4820,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Hysminai is associated with Fightings. Hysminai is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "iacchus",
@@ -4398,7 +4840,9 @@
           "sourceId": "iacchus-testimonia",
           "passage": "Strabo Geography 10.3.10; Pausanias 1.2.4"
         }
-      ]
+      ],
+      "shortStory": "Torch-bearing figure associated with Eleusinian ritual and sometimes identified with Dionysus. This entry follows Theoi Project, Iacchus: Strabo and other ancient testimonia.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "ianeira-oceanid",
@@ -4417,7 +4861,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Ianeira, named in oceanids in this source. Ianeira is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ianeira among the Oceanids."
     },
     {
       "id": "ianthe-oceanid",
@@ -4436,7 +4882,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Ianthe, named in oceanids in this source. Ianthe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ianthe among the Oceanids."
     },
     {
       "id": "iapetus",
@@ -4456,7 +4904,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Iapetus is associated with Elder divine generation. Iapetus is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "iasion",
@@ -4474,7 +4924,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "969-974"
         }
-      ]
+      ],
+      "shortStory": "Consort of Demeter and father of Plutus in Hesiod. Plutus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "iaso",
@@ -4492,7 +4944,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Healing, named among children of Asclepius and Epione. Iaso is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "icarus",
@@ -4510,7 +4964,9 @@
           "sourceId": "ovid-8",
           "passage": "183-235"
         }
-      ]
+      ],
+      "shortStory": "Son of Daedalus, lost during their flight. Icarus is named as a child of Daedalus in Ovid.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ida-crete",
@@ -4528,7 +4984,9 @@
           "sourceId": "apollodorus-lib-1",
           "passage": "1.1.6"
         }
-      ]
+      ],
+      "shortStory": "Cretan nurse of Zeus and daughter of Melisseus in Pseudo-Apollodorus; distinct from same-named figures. Ida is named as a child of Melisseus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Ida among the Nymphs."
     },
     {
       "id": "idmon-arachne",
@@ -4546,7 +5004,9 @@
           "sourceId": "ovid-6",
           "passage": "1-25"
         }
-      ]
+      ],
+      "shortStory": "Lydian dyer and father of Arachne in Ovid. Arachne continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "idyia-oceanid",
@@ -4565,7 +5025,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Idyia, named in oceanids in this source. Idyia is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Idyia among the Oceanids."
     },
     {
       "id": "iris",
@@ -4583,7 +5045,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "265-269"
         }
-      ]
+      ],
+      "shortStory": "Iris appears in the source as a named figure. Iris is named as a child of Thaumas and Electra in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ister-river",
@@ -4601,7 +5065,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Ister, named in rivers in this source. Ister is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ister among the River gods."
     },
     {
       "id": "karya-hamadryad",
@@ -4620,7 +5086,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Karya, named in hamadryads in this source. Karya is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Karya among the Hamadryads."
     },
     {
       "id": "ker",
@@ -4640,7 +5108,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Ker is associated with Doom or death-fate. Ker is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "keres",
@@ -4660,7 +5130,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Keres is associated with Death fates. Keres is named as a child of Nyx in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "kraneia-hamadryad",
@@ -4679,7 +5151,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Kraneia, named in hamadryads in this source. Kraneia is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Kraneia among the Hamadryads."
     },
     {
       "id": "kratos",
@@ -4699,7 +5173,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "383–385"
         }
-      ]
+      ],
+      "shortStory": "Kratos is associated with Strength. Kratos is named as a child of Pallas and Styx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "kronos",
@@ -4721,7 +5197,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Kronos belongs to the Titans and, with Rhea, fathers the generation of Zeus, Poseidon and Hades. Family succession is rather dramatic in this part of the mythology.",
+      "rememberThis": "Kronos the Titan and Chronos as Time have separate entries here. Similar names, different source traditions."
     },
     {
       "id": "lachesis",
@@ -4742,7 +5220,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "217–222, 901–906"
         }
-      ]
+      ],
+      "shortStory": "This entry places Lachesis among the Moirai. Lachesis is named as a child of Zeus and Themis in Hesiod.",
+      "rememberThis": "This entry places Lachesis among the Moirai."
     },
     {
       "id": "ladon-river",
@@ -4760,7 +5240,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Ladon, named in rivers in this source. Ladon is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ladon among the River gods."
     },
     {
       "id": "laertes",
@@ -4778,7 +5260,9 @@
           "sourceId": "odyssey-11",
           "passage": "90-100"
         }
-      ]
+      ],
+      "shortStory": "Father of Odysseus. Odysseus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "laomedea-nereid",
@@ -4797,7 +5281,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Laomedea, named in nereids in this source. Laomedea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Laomedea among the Nereids."
     },
     {
       "id": "leagore-nereid",
@@ -4816,7 +5302,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Leagore, named in nereids in this source. Leagore is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Leagore among the Nereids."
     },
     {
       "id": "lethe",
@@ -4836,7 +5324,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Lethe is associated with Forgetfulness. Lethe is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "leto",
@@ -4861,7 +5351,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "404-411, 918-920"
         }
-      ]
+      ],
+      "shortStory": "Titaness and mother of Apollo and Artemis. Leto is named as a child of Coeus and Phoebe in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "leuce",
@@ -4879,7 +5371,9 @@
           "sourceId": "leuce-theoi",
           "passage": "Encyclopedia, citing Servius on Eclogues 7.61"
         }
-      ]
+      ],
+      "shortStory": "Nymph of a white-poplar story; daughter of Oceanus according to the cited secondary excerpt. Leuce is named as a child of Oceanus in Servius via Dictionary.",
+      "rememberThis": "This entry places Leuce among the Nymphs."
     },
     {
       "id": "limos",
@@ -4899,7 +5393,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Limos is associated with Famine. Limos is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "liriope",
@@ -4921,7 +5417,9 @@
           "sourceId": "ovid-meta-3",
           "passage": "3.339-348"
         }
-      ]
+      ],
+      "shortStory": "Nymph and mother of Narcissus in Ovid; her own parentage is not supplied here. Narcissus continues this family branch.",
+      "rememberThis": "This entry places Liriope among the Nymphs."
     },
     {
       "id": "lycaon-arcadian",
@@ -4939,7 +5437,9 @@
           "sourceId": "apollodorus-lib-3",
           "passage": "3.8.2"
         }
-      ]
+      ],
+      "shortStory": "Lycaon is a proposed father of Callisto in an author attributed by Pseudo-Apollodorus. Callisto continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "lysianassa-nereid",
@@ -4958,7 +5458,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Lysianassa, named in nereids in this source. Lysianassa is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Lysianassa among the Nereids."
     },
     {
       "id": "machai",
@@ -4978,7 +5480,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Machai is associated with Battles. Machai is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "machaon",
@@ -4996,7 +5500,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Healer named as a child of Asclepius and Epione. Machaon is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "maia-pleiad",
@@ -5019,7 +5525,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Daughter of Atlas and mother of Hermes. Maia is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Maia among the Pleiades."
     },
     {
       "id": "meander-river",
@@ -5037,7 +5545,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Meander, named in rivers in this source. Meander is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Meander among the River gods."
     },
     {
       "id": "medea",
@@ -5055,7 +5565,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.9.23-28"
         }
-      ]
+      ],
+      "shortStory": "Sorceress and daughter of Aeetes in Apollodorus. Medea is named as a child of Aeetes and Idyia in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "medusa",
@@ -5078,7 +5590,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-280"
         }
-      ]
+      ],
+      "shortStory": "A mortal Gorgon in Hesiod. Medusa is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "This entry places Medusa among the Gorgons."
     },
     {
       "id": "megaera",
@@ -5104,7 +5618,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.1.4"
         }
-      ]
+      ],
+      "shortStory": "One of the named Furies in Apollodorus. Megaera emerges from Uranus in Apollodorus.",
+      "rememberThis": "This entry places Megaera among the Erinyes."
     },
     {
       "id": "meliae",
@@ -5123,7 +5639,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "183-187"
         }
-      ]
+      ],
+      "shortStory": "Ash-tree nymphs, born from the blood of Uranus in Hesiod. Meliae is named as a child of Uranus and Gaia in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "melinoe",
@@ -5143,7 +5661,9 @@
           "sourceId": "orphic-melinoe",
           "passage": "Hymn 70 in Taylor translation, modern numbering 71"
         }
-      ]
+      ],
+      "shortStory": "Melinoë is an underworld deity invoked in an Orphic hymn and the protagonist reimagined for Hades II. She is a perfect starting point for comparing an ancient figure with a game adaptation.",
+      "rememberThis": "The Orphic hymn names Zeus and Persephone. Hades II gives her Hades and Persephone. Same name, a different branch."
     },
     {
       "id": "melisseus-crete",
@@ -5161,7 +5681,9 @@
           "sourceId": "apollodorus-lib-1",
           "passage": "1.1.6"
         }
-      ]
+      ],
+      "shortStory": "Father of Zeus nurses Adrasteia and Ida in Pseudo-Apollodorus. Adrasteia continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "melite-nereid",
@@ -5180,7 +5702,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Melite, named in nereids in this source. Melite is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Melite among the Nereids."
     },
     {
       "id": "melobosis-oceanid",
@@ -5199,7 +5723,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Melobosis, named in oceanids in this source. Melobosis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Melobosis among the Oceanids."
     },
     {
       "id": "melpomene",
@@ -5219,7 +5745,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Melpomene is associated with Muse. Melpomene is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "menestho-oceanid",
@@ -5238,7 +5766,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Menestho, named in oceanids in this source. Menestho is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Menestho among the Oceanids."
     },
     {
       "id": "menippe-nereid",
@@ -5257,7 +5787,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Menippe, named in nereids in this source. Menippe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Menippe among the Nereids."
     },
     {
       "id": "menoetius-patroclus",
@@ -5276,7 +5808,9 @@
           "passage": "3.13.8"
         }
       ],
-      "qualifier": "Father of Patroclus"
+      "qualifier": "Father of Patroclus",
+      "shortStory": "Father of Patroclus in Apollodorus. Patroclus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "menoetius-titan",
@@ -5297,7 +5831,9 @@
           "passage": "507–516"
         }
       ],
-      "qualifier": "Titan"
+      "qualifier": "Titan",
+      "shortStory": "Menoetius is associated with Son of Iapetus. Menoetius is named as a child of Iapetus and Clymene in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "merope-pleiad",
@@ -5315,7 +5851,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Merope, named in pleiades in this source. Merope is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Merope among the Pleiades."
     },
     {
       "id": "metion-erechthid",
@@ -5333,7 +5871,9 @@
           "sourceId": "diodorus-4d",
           "passage": "4.76.1"
         }
-      ]
+      ],
+      "shortStory": "Father of Daedalus in Diodorus’s account. Metion is named as a child of Eupalamus in Diodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "metis",
@@ -5352,7 +5892,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Metis, named in oceanids in this source. Metis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Metis among the Oceanids."
     },
     {
       "id": "mimas-giant",
@@ -5370,7 +5912,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Mimas is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Mimas among the Gigantes."
     },
     {
       "id": "minthe",
@@ -5388,7 +5932,9 @@
           "sourceId": "minthe-oppian",
           "passage": "Halieutica 3.485 ff"
         }
-      ]
+      ],
+      "shortStory": "Underworld nymph of Cocytus in Oppian; this phrase alone does not establish parentage. This entry follows Oppian, Halieutica 3.485 ff quoted on Minthe page.",
+      "rememberThis": "This entry places Minthe among the Nymphs."
     },
     {
       "id": "mnemosyne",
@@ -5408,7 +5954,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Mnemosyne is associated with Elder divine generation. Mnemosyne is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "moirai",
@@ -5433,7 +5981,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "901-906"
         }
-      ]
+      ],
+      "shortStory": "The Moirai are the Fates: Clotho, Lachesis and Atropos. They are one of the clearest examples of a collective with individually named members.",
+      "rememberThis": "Even Hesiod preserves different origins for the Fates, connecting them with Nyx in one passage and Zeus and Themis in another."
     },
     {
       "id": "momus",
@@ -5453,7 +6003,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Momus is associated with Blame. Momus is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "morea-hamadryad",
@@ -5472,7 +6024,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Morea, named in hamadryads in this source. Morea is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Morea among the Hamadryads."
     },
     {
       "id": "moros",
@@ -5492,7 +6046,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Moros personifies Doom and is one of Nyx’s children in Hesiod. Hades II turns that ominous name into someone you can actually get to know.",
+      "rememberThis": "Doom, Sleep and Death being relatives is quite a family introduction."
     },
     {
       "id": "muses",
@@ -5510,7 +6066,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "915-917"
         }
-      ]
+      ],
+      "shortStory": "The Muses are the nine daughters of Zeus and Mnemosyne in Hesiod. They connect divine genealogy with poetry and song.",
+      "rememberThis": "Mnemosyne is Memory. Putting Memory beside the goddesses of poetry is a connection worth following."
     },
     {
       "id": "naiads",
@@ -5529,7 +6087,9 @@
           "sourceId": "theoi-naiads",
           "passage": "Overview and classical literature"
         }
-      ]
+      ],
+      "shortStory": "Naiads, a collective; membership and parentage depend on source. This entry follows Theoi Project, Naiads.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "narcissus",
@@ -5547,7 +6107,9 @@
           "sourceId": "ovid-3",
           "passage": "339-510"
         }
-      ]
+      ],
+      "shortStory": "Youth who falls in love with his reflection in Ovid. Narcissus is named as a child of Liriope and Cephissus in Ovid.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "neikea",
@@ -5567,7 +6129,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Neikea is associated with Quarrels. Neikea is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "nemean-lion",
@@ -5585,7 +6149,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "326-332"
         }
-      ]
+      ],
+      "shortStory": "Nemean lion appears in the source as a named figure. Nemean lion is named as a child of Orthus and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "nemertes-nereid",
@@ -5604,7 +6170,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Nemertes, named in nereids in this source. Nemertes is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Nemertes among the Nereids."
     },
     {
       "id": "nemesis",
@@ -5624,7 +6192,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Nemesis is associated with retribution and the correction of excess. She is another figure whose abstract role becomes a strong personality in Hades II.",
+      "rememberThis": "Her scales are a useful visual cue. The game’s character introduction calls her Retribution Incarnate."
     },
     {
       "id": "nereids",
@@ -5643,7 +6213,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "The Nereids are the sea nymphs born to Nereus and Doris in Hesiod. Thetis and Amphitrite are among their more familiar names.",
+      "rememberThis": "The poem says fifty, but the transmitted list used here yields 51 distinct names. That discrepancy stays visible in the coverage notes."
     },
     {
       "id": "nereus",
@@ -5661,7 +6233,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "233-239"
         }
-      ]
+      ],
+      "shortStory": "Nereus appears in the source as a named figure. Nereus is named as a child of Pontus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "neso-nereid",
@@ -5680,7 +6254,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Neso, named in nereids in this source. Neso is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Neso among the Nereids."
     },
     {
       "id": "nessus-river",
@@ -5698,7 +6274,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Nessus, named in rivers in this source. Nessus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Nessus among the River gods."
     },
     {
       "id": "nike",
@@ -5718,7 +6296,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "383–385"
         }
-      ]
+      ],
+      "shortStory": "Nike is associated with Victory. Nike is named as a child of Pallas and Styx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "nilus-river",
@@ -5736,7 +6316,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Nilus, named in rivers in this source. Nilus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Nilus among the River gods."
     },
     {
       "id": "nisaea-nereid",
@@ -5755,7 +6337,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Nisaea, named in nereids in this source. Nisaea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Nisaea among the Nereids."
     },
     {
       "id": "notus",
@@ -5775,7 +6359,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "378–382"
         }
-      ]
+      ],
+      "shortStory": "Notus is associated with South wind. Notus is named as a child of Astraeus and Eos in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "nycteus",
@@ -5793,7 +6379,9 @@
           "sourceId": "apollodorus-lib-3",
           "passage": "3.8.2"
         }
-      ]
+      ],
+      "shortStory": "Nycteus is a proposed father of Callisto in an author attributed by Pseudo-Apollodorus. Callisto continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "nymphs",
@@ -5812,7 +6400,9 @@
           "sourceId": "nymph-taxonomy",
           "passage": "Classification of nymphs"
         }
-      ]
+      ],
+      "shortStory": "Nymphs are the many divine nature figures associated with places such as trees, rivers and springs. This is a broad category, rather than one person with a single agreed parentage.",
+      "rememberThis": "A dotted seal represents a collective. The individual names have their own family links and source passages."
     },
     {
       "id": "nyx",
@@ -5832,7 +6422,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "123–125"
         }
-      ]
+      ],
+      "shortStory": "Nyx is Night herself, a primordial divine figure. Her children include beings associated with Sleep, Death, Doom and Strife.",
+      "rememberThis": "She is not simply a goddess with a night shift. Night is what she represents, which is why divine categories can overlap."
     },
     {
       "id": "oceanids",
@@ -5851,7 +6443,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "The Oceanids belong to the vast family of Oceanus and Tethys. Names such as Metis and Styx have important individual connections within that much larger group.",
+      "rememberThis": "Being part of a collective does not give every member the same story. Follow the individual names to see the differences."
     },
     {
       "id": "oceanus",
@@ -5871,7 +6465,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Oceanus is one of the Titans. With Tethys, he stands at the head of the enormous family of Oceanids and river gods.",
+      "rememberThis": "The poem mentions thousands, even though its named lists preserve only a selection. Each named river or nymph can have a separate entry."
     },
     {
       "id": "ocypete-harpy",
@@ -5893,7 +6489,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "265-269"
         }
-      ]
+      ],
+      "shortStory": "Ocypetes, named in harpies in this source. Ocypetes is named as a child of Thaumas and Electra in Hesiod.",
+      "rememberThis": "This entry places Ocypetes among the Harpies."
     },
     {
       "id": "ocyrrhoe-oceanid",
@@ -5912,7 +6510,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Ocyrrhoe, named in oceanids in this source. Ocyrrhoe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Ocyrrhoe among the Oceanids."
     },
     {
       "id": "odysseus",
@@ -5930,7 +6530,9 @@
           "sourceId": "odyssey-11",
           "passage": "lines 90-100, 615-620"
         }
-      ]
+      ],
+      "shortStory": "Ithacan hero whose long return from Troy is narrated in the Odyssey. Odysseus is named as a child of Laertes in Homer.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "oeagrus",
@@ -5948,7 +6550,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.3.2"
         }
-      ]
+      ],
+      "shortStory": "Father of Orpheus in one account reported by Apollodorus. Orpheus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "oizys",
@@ -5968,7 +6572,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Oizys is associated with Misery. Oizys is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "oneiroi",
@@ -5988,7 +6594,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Oneiroi is associated with Dreams. Oneiroi is named as a child of Nyx in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "oreads",
@@ -6007,7 +6615,9 @@
           "sourceId": "theoi-dryads",
           "passage": "Overview and classical literature"
         }
-      ]
+      ],
+      "shortStory": "Oreads, a collective; membership and parentage depend on source. This entry follows Theoi Project, Dryads and Oreads.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "oreios-mountain",
@@ -6025,7 +6635,9 @@
           "sourceId": "athenaeus-oreios",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Father of Oxylus in Pherenicus as quoted by Athenaeus; not automatically a son of Gaia. Oxylus continues this family branch.",
+      "rememberThis": "This entry places Oreios among the Ourea."
     },
     {
       "id": "orpheus",
@@ -6044,7 +6656,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.3.2"
         }
-      ]
+      ],
+      "shortStory": "Singer who descends to the underworld for his wife. Orpheus is named as a child of Calliope and Oeagrus in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "orseis",
@@ -6062,7 +6676,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.3"
         }
-      ]
+      ],
+      "shortStory": "Nymph and mother of Aeolus by Hellen. Aeolus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "orthus",
@@ -6080,7 +6696,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "306-325"
         }
-      ]
+      ],
+      "shortStory": "Orthus appears in the source as a named figure. Orthus is named as a child of Typhon and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ourea",
@@ -6100,7 +6718,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "129–130"
         }
-      ]
+      ],
+      "shortStory": "Ourea is associated with Mountains. Ourea is named as a child of Gaia in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "oxylus-forest",
@@ -6118,7 +6738,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Oxylus appears in the source as a named figure. Oxylus is named as a child of Oreios in Pherenicus via Athenaeus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "ozomene",
@@ -6136,7 +6758,9 @@
           "sourceId": "hyginus-harpies",
           "passage": "Fabulae 14"
         }
-      ]
+      ],
+      "shortStory": "Ozomene appears in the source as a named figure. Aellopus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "pallas-giant",
@@ -6155,7 +6779,9 @@
           "passage": "1.6.1–2"
         }
       ],
-      "qualifier": "Giant"
+      "qualifier": "Giant",
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Pallas is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Pallas among the Gigantes."
     },
     {
       "id": "pallas-titan",
@@ -6176,7 +6802,9 @@
           "passage": "375–377"
         }
       ],
-      "qualifier": "Titan"
+      "qualifier": "Titan",
+      "shortStory": "Pallas is associated with Titan god. Pallas is named as a child of Crius and Eurybia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pan",
@@ -6194,7 +6822,9 @@
           "sourceId": "homeric-hymn-pan",
           "passage": "Hymn 19, lines 1-49"
         }
-      ]
+      ],
+      "shortStory": "Goat-footed god of shepherds and wild places. Pan is named as a child of Hermes and Daughter of Dryops in Homeric Hymn.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "panacea",
@@ -6212,7 +6842,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Cure-all, named among children of Asclepius and Epione. Panacea is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pandion-i-athens",
@@ -6230,7 +6862,9 @@
           "sourceId": "apollodorus-3-final-gaps",
           "passage": "3.14.6-8"
         }
-      ]
+      ],
+      "shortStory": "Son of Erichthonius and Praxithea and father of Erechtheus. Pandion I of Athens is named as a child of Erichthonius of Athens and Praxithea in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pandora",
@@ -6250,7 +6884,9 @@
           "sourceId": "hesiod-works-days",
           "passage": "lines 60-105"
         }
-      ]
+      ],
+      "shortStory": "First woman fashioned by divine command in Hesiod’s account. Pandora is generated by Hephaestus in Hesiod Works and Days.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "panopea-nereid",
@@ -6269,7 +6905,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Panopea, named in nereids in this source. Panopea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Panopea among the Nereids."
     },
     {
       "id": "parthenius-river",
@@ -6287,7 +6925,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Parthenius, named in rivers in this source. Parthenius is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Parthenius among the River gods."
     },
     {
       "id": "pasithea-nereid",
@@ -6306,7 +6946,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Pasithea, named in nereids in this source. Pasithea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Pasithea among the Nereids."
     },
     {
       "id": "pasithoe-oceanid",
@@ -6325,7 +6967,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Pasithoe, named in oceanids in this source. Pasithoe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Pasithoe among the Oceanids."
     },
     {
       "id": "patroclus",
@@ -6343,7 +6987,9 @@
           "sourceId": "apollodorus-3",
           "passage": "3.13.8"
         }
-      ]
+      ],
+      "shortStory": "Companion of Achilles whose parentage varies in the sources. Patroclus is named as a child of Menoetius and Sthenele in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pedias-cranaus",
@@ -6361,7 +7007,9 @@
           "sourceId": "apollodorus-3-atthis-gaps",
           "passage": "3.14.5"
         }
-      ]
+      ],
+      "shortStory": "Lacedaemonian daughter of Mynes and wife of Cranaus in Apollodorus. Atthis continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "pegasus",
@@ -6379,7 +7027,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "280-286"
         }
-      ]
+      ],
+      "shortStory": "Pegasus appears in the source as a named figure. Pegasus is named as a child of Medusa and Poseidon in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "peitho-oceanid",
@@ -6398,7 +7048,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Peitho, named in oceanids in this source. Peitho is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Peitho among the Oceanids."
     },
     {
       "id": "peleus",
@@ -6416,7 +7068,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.3.14"
         }
-      ]
+      ],
+      "shortStory": "Father of Achilles by Thetis. Achilles continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "pemphredo",
@@ -6434,7 +7088,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-280"
         }
-      ]
+      ],
+      "shortStory": "Pemphredo, named in graeae in this source. Pemphredo is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "This entry places Pemphredo among the Graeae."
     },
     {
       "id": "peneus-river",
@@ -6452,7 +7108,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Peneus, named in rivers in this source. Peneus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Peneus among the River gods."
     },
     {
       "id": "periopis",
@@ -6470,7 +7128,9 @@
           "sourceId": "apollodorus-3",
           "passage": "3.13.8"
         }
-      ]
+      ],
+      "shortStory": "An alternative mother of Patroclus in Apollodorus. Patroclus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "perseis-oceanid",
@@ -6489,7 +7149,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Perseis, named in oceanids in this source. Perseis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Perseis among the Oceanids."
     },
     {
       "id": "persephone",
@@ -6509,7 +7171,31 @@
           "sourceId": "hesiod-theogony",
           "passage": "912-914"
         }
-      ]
+      ],
+      "shortStory": "Persephone is Demeter’s daughter and queen of the Underworld. Her place between divine families makes her a particularly interesting name to follow in both the myths and the games.",
+      "rememberThis": "Her family changes between ancient accounts and Hades continuity. The game’s more revealing origin details remain covered until you choose to uncover them."
+    },
+    {
+      "id": "persephone-mortal-father-game",
+      "name": "Persephone’s unnamed mortal father",
+      "aliases": [],
+      "kind": "individual",
+      "categories": [
+        "mortal",
+        "game character"
+      ],
+      "domains": [],
+      "summary": "An unnamed mortal father referred to in Persephone’s Hades dialogue.",
+      "originStatus": "unknown",
+      "spoiler": true,
+      "sourceRefs": [
+        {
+          "sourceId": "game-persephone-dialogue",
+          "passage": "Demeter discussion, dialogue 02"
+        }
+      ],
+      "shortStory": "The game’s Persephone speaks of a mortal father, but the checked dialogue does not give him a name. This entry keeps him anonymous instead of borrowing a name from ancient genealogy.",
+      "rememberThis": "This is a game-continuity difference. The ancient account naming Zeus remains in the other graph."
     },
     {
       "id": "perses-titan",
@@ -6529,7 +7215,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "375–377"
         }
-      ]
+      ],
+      "shortStory": "Perses is associated with Titan god. Perses is named as a child of Crius and Eurybia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "petraea-oceanid",
@@ -6548,7 +7236,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Petraea, named in oceanids in this source. Petraea is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Petraea among the Oceanids."
     },
     {
       "id": "phaesyla-hyad",
@@ -6566,7 +7256,9 @@
           "sourceId": "hyginus-hyades",
           "passage": "Fabulae 192"
         }
-      ]
+      ],
+      "shortStory": "Phaesyla, named in hyades in this source. Phaesyla is named as a child of Atlas and Pleione in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Phaesyla among the Hyades."
     },
     {
       "id": "phanes",
@@ -6587,7 +7279,9 @@
           "sourceId": "damascius-principles",
           "passage": "On First Principles III.159–161"
         }
-      ]
+      ],
+      "shortStory": "Phanes emerges from the cosmic egg in the Orphic material quoted by later writers. His place near the beginning is one reason there is no single Greek creation story.",
+      "rememberThis": "These are reported Orphic traditions, rather than another chapter of Hesiod. Their sources stay separate here."
     },
     {
       "id": "phasis-river",
@@ -6605,7 +7299,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Phasis, named in rivers in this source. Phasis is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Phasis among the River gods."
     },
     {
       "id": "pherusa-nereid",
@@ -6624,7 +7320,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Pherusa, named in nereids in this source. Pherusa is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Pherusa among the Nereids."
     },
     {
       "id": "philotes",
@@ -6644,7 +7342,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Philotes is associated with Affection or friendship. Philotes is named as a child of Nyx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "phoebe",
@@ -6664,7 +7364,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Phoebe is associated with Elder divine generation. Phoebe is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "phonoi",
@@ -6684,7 +7386,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Phonoi is associated with Murders. Phonoi is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "phorcys",
@@ -6702,7 +7406,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "233-239"
         }
-      ]
+      ],
+      "shortStory": "Phorcys appears in the source as a named figure. Phorcys is named as a child of Pontus and Gaia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pisinoe-siren",
@@ -6720,7 +7426,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.18-19"
         }
-      ]
+      ],
+      "shortStory": "Pisinoe, named in sirens in this source. Pisinoe is named as a child of Achelous and Melpomene in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Pisinoe among the Sirens."
     },
     {
       "id": "pleiades",
@@ -6739,7 +7447,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Pleiades, a collective; membership and parentage depend on source. This entry follows Pseudo-Apollodorus, Library book 3.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "pleione",
@@ -6757,7 +7467,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Pleione appears in the source as a named figure. Pleione is named as a child of Oceanus in Pseudo-Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "plexaura-oceanid",
@@ -6776,7 +7488,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Plexaura, named in oceanids in this source. Plexaura is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Plexaura among the Oceanids."
     },
     {
       "id": "ploto-nereid",
@@ -6795,7 +7509,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Ploto, named in nereids in this source. Ploto is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Ploto among the Nereids."
     },
     {
       "id": "pluto-oceanid",
@@ -6814,7 +7530,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Pluto, named in oceanids in this source. Pluto is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Pluto among the Oceanids."
     },
     {
       "id": "plutus",
@@ -6832,7 +7550,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "969-974"
         }
-      ]
+      ],
+      "shortStory": "Wealth, born to Demeter and Iasion in Hesiod. Plutus is named as a child of Demeter and Iasion in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "podalirius",
@@ -6850,7 +7570,9 @@
           "sourceId": "epione-testimonia",
           "passage": "Greek Lyric V fragment 939"
         }
-      ]
+      ],
+      "shortStory": "Healer named as a child of Asclepius and Epione. Podalirius is named as a child of Asclepius and Epione in Erythrai inscription.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "podarce-harpy",
@@ -6868,7 +7590,9 @@
           "sourceId": "hyginus-preface",
           "passage": "Preface"
         }
-      ]
+      ],
+      "shortStory": "This entry places Podarce among the Harpies. Podarce is named as a child of Thaumas and Electra in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Podarce among the Harpies."
     },
     {
       "id": "podarge-harpy",
@@ -6886,7 +7610,9 @@
           "sourceId": "homer-iliad-16",
           "passage": "16.148-151"
         }
-      ]
+      ],
+      "shortStory": "A Harpy and mother of Achilles’ horses in Homer; identification with Podarce is uncertain. This entry follows Homer, Iliad 16 quoted on Harpies page.",
+      "rememberThis": "This entry places Podarge among the Harpies."
     },
     {
       "id": "polybotes",
@@ -6904,7 +7630,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Polybotes is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Polybotes among the Gigantes."
     },
     {
       "id": "polydora-oceanid",
@@ -6923,7 +7651,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Polydora, named in oceanids in this source. Polydora is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Polydora among the Oceanids."
     },
     {
       "id": "polyhymnia",
@@ -6943,7 +7673,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Polyhymnia is associated with Muse. Polyhymnia is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "polymele-peleid",
@@ -6961,7 +7693,9 @@
           "sourceId": "apollodorus-3",
           "passage": "3.13.8"
         }
-      ]
+      ],
+      "shortStory": "An alternative mother of Patroclus reported by Philocrates. Patroclus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "polynoe-nereid",
@@ -6980,7 +7714,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Polynoe, named in nereids in this source. Polynoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Polynoe among the Nereids."
     },
     {
       "id": "polyxo-hyad",
@@ -6998,7 +7734,9 @@
           "sourceId": "hyginus-hyades",
           "passage": "Fabulae 192"
         }
-      ]
+      ],
+      "shortStory": "Polyxo, named in hyades in this source. Polyxo is named as a child of Atlas and Pleione in Pseudo-Hyginus.",
+      "rememberThis": "This entry places Polyxo among the Hyades."
     },
     {
       "id": "ponos",
@@ -7018,7 +7756,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Ponos is associated with Toil. Ponos is named as a child of Eris in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pontoporea-nereid",
@@ -7037,7 +7777,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Pontoporea, named in nereids in this source. Pontoporea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Pontoporea among the Nereids."
     },
     {
       "id": "pontus",
@@ -7057,7 +7799,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "131–132"
         }
-      ]
+      ],
+      "shortStory": "Pontus is associated with Sea. Pontus is named as a child of Gaia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "porphyrion-giant",
@@ -7075,7 +7819,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Porphyrion is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Porphyrion among the Gigantes."
     },
     {
       "id": "poseidon",
@@ -7099,7 +7845,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "453-458, 930-933"
         }
-      ]
+      ],
+      "shortStory": "Poseidon rules the sea and is also associated with earthquakes. In Hesiod’s genealogy he is a brother of Zeus and Hades.",
+      "rememberThis": "His trident makes him easy to spot. The sea itself, its primordial beings and its many nymphs have their own entries too."
     },
     {
       "id": "praxithea-erechtheus",
@@ -7118,7 +7866,9 @@
           "passage": "3.15.1"
         }
       ],
-      "qualifier": "Wife of Erechtheus"
+      "qualifier": "Wife of Erechtheus",
+      "shortStory": "Wife of Erechtheus and daughter of Phrasimus and Diogenia; distinct from the Naiad wife of Erichthonius. This entry follows Pseudo-Apollodorus, Library book 3.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "praxithea-erichthonius",
@@ -7137,7 +7887,9 @@
           "passage": "3.14.6"
         }
       ],
-      "qualifier": "Wife of Erichthonius"
+      "qualifier": "Wife of Erichthonius",
+      "shortStory": "Naiad and wife of Erichthonius of Athens, mother of Pandion I. Pandion I of Athens continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "priapus",
@@ -7155,7 +7907,9 @@
           "sourceId": "diodorus-4a",
           "passage": "4.6.1-4"
         }
-      ]
+      ],
+      "shortStory": "God associated with fertility and gardens in Diodorus. Priapus is named as a child of Dionysus and Aphrodite in Diodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "prometheus",
@@ -7180,7 +7934,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "507-616"
         }
-      ]
+      ],
+      "shortStory": "Titan who helps mortals and suffers punishment by Zeus. Prometheus is named as a child of Iapetus and Clymene in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "pronoe-nereid",
@@ -7199,7 +7955,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Pronoe, named in nereids in this source. Pronoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Pronoe among the Nereids."
     },
     {
       "id": "proto-nereid",
@@ -7218,7 +7976,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Proto, named in nereids in this source. Proto is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Proto among the Nereids."
     },
     {
       "id": "protomedea-nereid",
@@ -7237,7 +7997,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Protomedea, named in nereids in this source. Protomedea is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Protomedea among the Nereids."
     },
     {
       "id": "prymno-oceanid",
@@ -7256,7 +8018,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Prymno, named in oceanids in this source. Prymno is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Prymno among the Oceanids."
     },
     {
       "id": "psamathe-nereid",
@@ -7275,7 +8039,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Psamathe, named in nereids in this source. Psamathe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Psamathe among the Nereids."
     },
     {
       "id": "pseudologoi",
@@ -7295,7 +8061,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "226–232"
         }
-      ]
+      ],
+      "shortStory": "Pseudologoi is associated with Lying words. Pseudologoi is named as a child of Eris in Hesiod.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "ptelea-hamadryad",
@@ -7314,7 +8082,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Ptelea, named in hamadryads in this source. Ptelea is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Ptelea among the Hamadryads."
     },
     {
       "id": "pyrrha",
@@ -7332,7 +8102,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.7.2"
         }
-      ]
+      ],
+      "shortStory": "Daughter of Pandora and Epimetheus, wife of Deucalion. Pyrrha is named as a child of Epimetheus and Pandora in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "rhea",
@@ -7352,7 +8124,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Rhea is a Titan and the mother of the six divine siblings named by Hesiod: Hestia, Demeter, Hera, Hades, Poseidon and Zeus.",
+      "rememberThis": "Her branch is a good place to see how closely connected the familiar Olympian names are."
     },
     {
       "id": "rhesus-river",
@@ -7370,7 +8144,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Rhesus, named in rivers in this source. Rhesus is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Rhesus among the River gods."
     },
     {
       "id": "rhodea-oceanid",
@@ -7389,7 +8165,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Rhodea, named in oceanids in this source. Rhodea is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Rhodea among the Oceanids."
     },
     {
       "id": "rhodius-river",
@@ -7407,7 +8185,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Rhodius, named in rivers in this source. Rhodius is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Rhodius among the River gods."
     },
     {
       "id": "rivers",
@@ -7426,7 +8206,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "River gods, a collective; membership and parentage depend on source. This entry follows Hesiod, Theogony.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "salmacis",
@@ -7444,7 +8226,9 @@
           "sourceId": "ovid-metamorphoses-4",
           "passage": "4.285-388"
         }
-      ]
+      ],
+      "shortStory": "This entry places Salmacis among the Naiads. This entry follows Ovid, Metamorphoses book 4.",
+      "rememberThis": "This entry places Salmacis among the Naiads."
     },
     {
       "id": "sangarius-river",
@@ -7462,7 +8246,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Sangarius, named in rivers in this source. Sangarius is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Sangarius among the River gods."
     },
     {
       "id": "sao-nereid",
@@ -7481,7 +8267,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Sao, named in nereids in this source. Sao is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Sao among the Nereids."
     },
     {
       "id": "scamander-river",
@@ -7499,7 +8287,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Scamander, named in rivers in this source. Scamander is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Scamander among the River gods."
     },
     {
       "id": "scylla",
@@ -7517,7 +8307,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.20"
         }
-      ]
+      ],
+      "shortStory": "Scylla appears in the source as a named figure. Scylla is named as a child of Crataeis and Phorcys in Pseudo-Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "selene",
@@ -7537,7 +8329,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "371–374"
         }
-      ]
+      ],
+      "shortStory": "Selene is associated with Moon. Selene is named as a child of Hyperion and Theia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "semele",
@@ -7555,7 +8349,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "940-942"
         }
-      ]
+      ],
+      "shortStory": "Mother of Dionysus by Zeus. Dionysus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "simois-river",
@@ -7573,7 +8369,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Simois, named in rivers in this source. Simois is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Simois among the River gods."
     },
     {
       "id": "sirens",
@@ -7592,7 +8390,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.18-19"
         }
-      ]
+      ],
+      "shortStory": "Sirens, a collective; membership and parentage depend on source. Sirens is named as a child of Achelous and Terpsichore in Apollonius Rhodius.",
+      "rememberThis": "This seal represents a group. The individual members have their own entries where the sources name them."
     },
     {
       "id": "sisyphus",
@@ -7614,7 +8414,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.9.3"
         }
-      ]
+      ],
+      "shortStory": "King condemned to roll a stone in the underworld. Sisyphus is named as a child of Aeolus and Enarete in Apollodorus.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "speo-nereid",
@@ -7633,7 +8435,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Speo, named in nereids in this source. Speo is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Speo among the Nereids."
     },
     {
       "id": "sphinx",
@@ -7651,7 +8455,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "326-332"
         }
-      ]
+      ],
+      "shortStory": "Sphinx appears in the source as a named figure. Sphinx is named as a child of Orthus and Echidna in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "sterope-pleiad",
@@ -7669,7 +8475,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Sterope, named in pleiades in this source. Sterope is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Sterope among the Pleiades."
     },
     {
       "id": "steropes",
@@ -7689,7 +8497,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "139–146"
         }
-      ]
+      ],
+      "shortStory": "Steropes is associated with Cyclops. Steropes is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "sthenele",
@@ -7707,7 +8517,9 @@
           "sourceId": "apollodorus-3",
           "passage": "3.13.8"
         }
-      ]
+      ],
+      "shortStory": "One mother of Patroclus named by Apollodorus. Patroclus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "sthenno",
@@ -7725,7 +8537,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "270-280"
         }
-      ]
+      ],
+      "shortStory": "Sthenno, named in gorgons in this source. Sthenno is named as a child of Phorcys and Ceto in Hesiod.",
+      "rememberThis": "This entry places Sthenno among the Gorgons."
     },
     {
       "id": "strymon-river",
@@ -7743,7 +8557,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "334-345"
         }
-      ]
+      ],
+      "shortStory": "Strymon, named in rivers in this source. Strymon is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Strymon among the River gods."
     },
     {
       "id": "styx",
@@ -7762,7 +8578,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Styx, named in oceanids in this source. Styx is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Styx among the Oceanids."
     },
     {
       "id": "syke-hamadryad",
@@ -7781,7 +8599,9 @@
           "sourceId": "athenaeus-hamadryads",
           "passage": "3.78b (3.14)"
         }
-      ]
+      ],
+      "shortStory": "Syke, named in hamadryads in this source. Syke is named as a child of Oxylus and Hamadryas in Pherenicus via Athenaeus.",
+      "rememberThis": "This entry places Syke among the Hamadryads."
     },
     {
       "id": "syrinx",
@@ -7799,7 +8619,9 @@
           "sourceId": "ovid-meta-1",
           "passage": "1.689-712"
         }
-      ]
+      ],
+      "shortStory": "Naiad pursued by Pan, transformed into reeds in Ovid. This entry follows Ovid, Metamorphoses book 1.",
+      "rememberThis": "This entry places Syrinx among the Naiads."
     },
     {
       "id": "tartarus",
@@ -7831,7 +8653,9 @@
             }
           ]
         }
-      ]
+      ],
+      "shortStory": "Tartarus is associated with Deep abyss. Typhon continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "taygete-pleiad",
@@ -7849,7 +8673,9 @@
           "sourceId": "apollodorus-library-3",
           "passage": "3.10.1"
         }
-      ]
+      ],
+      "shortStory": "Taygete, named in pleiades in this source. Taygete is named as a child of Atlas and Pleione in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Taygete among the Pleiades."
     },
     {
       "id": "telesto-oceanid",
@@ -7868,7 +8694,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Telesto, named in oceanids in this source. Telesto is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Telesto among the Oceanids."
     },
     {
       "id": "terpsichore",
@@ -7888,7 +8716,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "53–62, 75–79"
         }
-      ]
+      ],
+      "shortStory": "Terpsichore is associated with Muse. Terpsichore is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "tethys",
@@ -7908,7 +8738,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Tethys is a Titan and, with Oceanus, a parent of the Oceanids and river gods. Water becomes an enormous divine family through this branch.",
+      "rememberThis": "Tethys the Titan is a separate figure from Thetis, the Nereid associated with Achilles."
     },
     {
       "id": "thalia-grace",
@@ -7929,7 +8761,9 @@
           "passage": "907–911"
         }
       ],
-      "qualifier": "Grace"
+      "qualifier": "Grace",
+      "shortStory": "Thalia is associated with Grace. Thalia is named as a child of Zeus and Eurynome in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "thalia-muse",
@@ -7950,7 +8784,9 @@
           "passage": "53–62, 75–79"
         }
       ],
-      "qualifier": "Muse"
+      "qualifier": "Muse",
+      "shortStory": "Thalia is associated with Muse. Thalia is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "thanatos",
@@ -7970,7 +8806,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "211–225"
         }
-      ]
+      ],
+      "shortStory": "Thanatos personifies Death. He belongs among the children of Night in Hesiod and appears in the first Hades.",
+      "rememberThis": "He is distinct from Hades, the ruler of the dead. Following both names makes that difference much easier to remember."
     },
     {
       "id": "thaumas",
@@ -7988,7 +8826,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "233-239"
         }
-      ]
+      ],
+      "shortStory": "Thaumas appears in the source as a named figure. Thaumas is named as a child of Pontus and Gaia in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "theia",
@@ -8008,7 +8848,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Theia is associated with Elder divine generation. Theia is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "thelpusa-nymph",
@@ -8026,7 +8868,9 @@
           "sourceId": "pausanias-thelpusa",
           "passage": "8.25.2"
         }
-      ]
+      ],
+      "shortStory": "A nymph and eponym of Thelpusa. Thelpusa is named as a child of Ladon in Pausanias.",
+      "rememberThis": "This entry places Thelpusa among the Nymphs."
     },
     {
       "id": "thelxiepia-siren",
@@ -8044,7 +8888,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.18-19"
         }
-      ]
+      ],
+      "shortStory": "Thelxiepia, named in sirens in this source. Thelxiepia is named as a child of Achelous and Melpomene in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Thelxiepia among the Sirens."
     },
     {
       "id": "themis",
@@ -8064,7 +8910,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "133–138"
         }
-      ]
+      ],
+      "shortStory": "Themis is associated with Elder divine generation. Themis is named as a child of Gaia and Uranus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "themisto-nereid",
@@ -8083,7 +8931,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Themisto, named in nereids in this source. Themisto is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Themisto among the Nereids."
     },
     {
       "id": "thetis",
@@ -8102,7 +8952,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "240-264"
         }
-      ]
+      ],
+      "shortStory": "Thetis, named in nereids in this source. Thetis is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Thetis among the Nereids."
     },
     {
       "id": "thoas-giant",
@@ -8120,7 +8972,9 @@
           "sourceId": "apollodorus-library-1",
           "passage": "1.6.1–2"
         }
-      ]
+      ],
+      "shortStory": "One of the Giants named in the battle against the gods in this source. Thoas is named as a child of Gaia and Uranus in Pseudo-Apollodorus.",
+      "rememberThis": "This entry places Thoas among the Gigantes."
     },
     {
       "id": "thoe-nereid",
@@ -8140,7 +8994,9 @@
           "passage": "240-264"
         }
       ],
-      "qualifier": "Nereid"
+      "qualifier": "Nereid",
+      "shortStory": "Thoe, named in nereids in this source. Thoe is named as a child of Nereus and Doris in Hesiod.",
+      "rememberThis": "This entry places Thoe among the Nereids."
     },
     {
       "id": "thoe-oceanid",
@@ -8160,7 +9016,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Thoe, named in oceanids in this source. Thoe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Thoe among the Oceanids."
     },
     {
       "id": "tisiphone",
@@ -8186,7 +9044,9 @@
           "sourceId": "apollodorus-1",
           "passage": "1.1.4"
         }
-      ]
+      ],
+      "shortStory": "One of the named Furies in Apollodorus. Tisiphone emerges from Uranus in Apollodorus.",
+      "rememberThis": "This entry places Tisiphone among the Erinyes."
     },
     {
       "id": "trienus",
@@ -8204,7 +9064,9 @@
           "sourceId": "apollodorus-epitome",
           "passage": "E.7.20"
         }
-      ]
+      ],
+      "shortStory": "Trienus appears in the source as a named figure. Scylla continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "triton",
@@ -8224,7 +9086,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "930-933"
         }
-      ]
+      ],
+      "shortStory": "Sea god and son of Poseidon and Amphitrite in Hesiod. Triton is named as a child of Poseidon and Amphitrite in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "tyche-oceanid",
@@ -8243,7 +9107,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Tyche, named in oceanids in this source. Tyche is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Tyche among the Oceanids."
     },
     {
       "id": "typhon",
@@ -8261,7 +9127,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "820-822"
         }
-      ]
+      ],
+      "shortStory": "Typhon appears in the source as a named figure. Typhon is named as a child of Gaia and Tartarus in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "urania-muse",
@@ -8282,7 +9150,9 @@
           "passage": "53–62, 75–79"
         }
       ],
-      "qualifier": "Muse"
+      "qualifier": "Muse",
+      "shortStory": "Urania is associated with Muse. Urania is named as a child of Zeus and Mnemosyne in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "urania-oceanid",
@@ -8302,7 +9172,9 @@
           "passage": "346-370"
         }
       ],
-      "qualifier": "Oceanid"
+      "qualifier": "Oceanid",
+      "shortStory": "Urania, named in oceanids in this source. Urania is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Urania among the Oceanids."
     },
     {
       "id": "uranus",
@@ -8322,7 +9194,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "126–128"
         }
-      ]
+      ],
+      "shortStory": "Uranus is the Sky, born from Gaia in Hesiod. Their descendants include the Titans, placing him a generation before Kronos and Rhea.",
+      "rememberThis": "Aphrodite’s sea-foam origin also connects to Uranus. Emergence is shown separately from ordinary birth."
     },
     {
       "id": "xanthe-oceanid",
@@ -8341,7 +9215,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Xanthe, named in oceanids in this source. Xanthe is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Xanthe among the Oceanids."
     },
     {
       "id": "zagreus",
@@ -8361,7 +9237,9 @@
           "sourceId": "zag-fragment",
           "passage": "Fragment 377, reported attribution to Aeschylus"
         }
-      ]
+      ],
+      "shortStory": "Zagreus appears in fragmentary ancient underworld traditions and becomes the protagonist of the first Hades. The surviving ancient material is much less tidy than the game’s family story.",
+      "rememberThis": "An Aeschylean fragment names Hades as his father. Other identifications need their own sources, and the game’s major family reveal stays hidden."
     },
     {
       "id": "zelus",
@@ -8381,7 +9259,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "383–385"
         }
-      ]
+      ],
+      "shortStory": "Zelus is associated with Emulation. Zelus is named as a child of Pallas and Styx in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "zephyrus",
@@ -8401,7 +9281,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "378–382"
         }
-      ]
+      ],
+      "shortStory": "Zephyrus is associated with West wind. Zephyrus is named as a child of Astraeus and Eos in Hesiod.",
+      "rememberThis": "The cited entry preserves a name and a family connection. The source list below is the place to explore further."
     },
     {
       "id": "zeus",
@@ -8426,7 +9308,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "881-886, 501-506"
         }
-      ]
+      ],
+      "shortStory": "Zeus is the Olympian ruler associated with the sky and thunder. He is a son of Kronos and Rhea, and a parent in many of the later divine families.",
+      "rememberThis": "Recognise the thunderbolt. Then follow his children and see how quickly a simple family tree stops being simple."
     },
     {
       "id": "zeuxippe-pandion",
@@ -8444,7 +9328,9 @@
           "sourceId": "apollodorus-3-final-gaps",
           "passage": "3.14.8"
         }
-      ]
+      ],
+      "shortStory": "Sister of Praxithea and mother of Erechtheus by Pandion I. Erechtheus continues this family branch.",
+      "rememberThis": "The checked sources do not establish parents for this entry. An unknown origin stays unknown here."
     },
     {
       "id": "zeuxo-oceanid",
@@ -8463,7 +9349,9 @@
           "sourceId": "hesiod-theogony",
           "passage": "346-370"
         }
-      ]
+      ],
+      "shortStory": "Zeuxo, named in oceanids in this source. Zeuxo is named as a child of Oceanus and Tethys in Hesiod.",
+      "rememberThis": "This entry places Zeuxo among the Oceanids."
     }
   ],
   "lineages": [
@@ -9917,6 +10805,24 @@
       "spoiler": false
     },
     {
+      "id": "charon-hades-ii-comparison",
+      "child": "charon",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "charon-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-charon-dialogue",
+          "passage": "Melinoë addresses Charon’s mother Nyx"
+        }
+      ],
+      "notes": "Game relationship; no other parent asserted."
+    },
+    {
       "id": "charybdis-poseidon-gaia-servius",
       "child": "charybdis",
       "parents": [
@@ -10420,6 +11326,24 @@
       ],
       "notes": "Mother not specified in this passage; different river tradition.",
       "spoiler": false
+    },
+    {
+      "id": "demeter-hades-ii-comparison",
+      "child": "demeter",
+      "parents": [
+        "hyperion"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "demeter-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-hera-dialogue",
+          "passage": "Hyperion section"
+        }
+      ],
+      "notes": "The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."
     },
     {
       "id": "demeter-hesiod",
@@ -11059,6 +11983,24 @@
       ],
       "notes": "The poem distinguishes two Strifes; the identity of this figure with the Theogony Strife must not be assumed.",
       "spoiler": false
+    },
+    {
+      "id": "eris-hades-ii-comparison",
+      "child": "eris",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "eris-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-eris-dialogue",
+          "passage": "About Self, dialogue 01–02"
+        }
+      ],
+      "notes": "No other parent asserted."
     },
     {
       "id": "eris-hesiod",
@@ -11892,6 +12834,24 @@
       "spoiler": false
     },
     {
+      "id": "hera-hades-ii-comparison",
+      "child": "hera",
+      "parents": [
+        "hyperion"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "hera-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-hera-dialogue",
+          "passage": "Hyperion section"
+        }
+      ],
+      "notes": "The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."
+    },
+    {
       "id": "hera-hesiod",
       "child": "hera",
       "parents": [
@@ -12041,6 +13001,24 @@
       ],
       "notes": "No father specified in this passage; translations differ on the scope of the unpartnered birth clause.",
       "spoiler": false
+    },
+    {
+      "id": "hestia-hades-ii-comparison",
+      "child": "hestia",
+      "parents": [
+        "hyperion"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "hestia-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-hera-dialogue",
+          "passage": "Hyperion section"
+        }
+      ],
+      "notes": "The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."
     },
     {
       "id": "hestia-hesiod",
@@ -12230,6 +13208,24 @@
       ],
       "notes": "",
       "spoiler": false
+    },
+    {
+      "id": "hypnos-hades-comparison",
+      "child": "hypnos",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades",
+      "variantGroup": "hypnos-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-nyx-dialogue-one",
+          "passage": "Hypnos conversation, Zagreus calls Hypnos her son"
+        }
+      ],
+      "notes": "No other parent asserted."
     },
     {
       "id": "hypnos-hesiod",
@@ -13339,6 +14335,24 @@
       "spoiler": false
     },
     {
+      "id": "moros-hades-ii-comparison",
+      "child": "moros",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "moros-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-nyx-dialogue",
+          "passage": "Moros, Nyx calls Moros her son"
+        }
+      ],
+      "notes": "No other parent asserted."
+    },
+    {
       "id": "moros-hesiod",
       "child": "moros",
       "parents": [
@@ -13468,6 +14482,24 @@
       ],
       "notes": "",
       "spoiler": false
+    },
+    {
+      "id": "nemesis-hades-ii-comparison",
+      "child": "nemesis",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades II",
+      "variantGroup": "nemesis-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-nemesis-dialogue",
+          "passage": "About Nyx: Nemesis calls Nyx mother"
+        }
+      ],
+      "notes": "No other parent asserted."
     },
     {
       "id": "nemesis-hesiod",
@@ -13618,6 +14650,24 @@
       ],
       "notes": "",
       "spoiler": false
+    },
+    {
+      "id": "nyx-hades-comparison",
+      "child": "nyx",
+      "parents": [
+        "chaos"
+      ],
+      "mode": "birth",
+      "tradition": "Hades",
+      "variantGroup": "nyx-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-chaos-dialogue",
+          "passage": "Nyx, dialogue 09"
+        }
+      ],
+      "notes": "Game calls Chaos her parent; do not import a second parent or infer a biological process from this graphical mode."
     },
     {
       "id": "nyx-hesiod",
@@ -14200,6 +15250,25 @@
       ],
       "notes": "",
       "spoiler": false
+    },
+    {
+      "id": "persephone-hades-comparison",
+      "child": "persephone",
+      "parents": [
+        "demeter",
+        "persephone-mortal-father-game"
+      ],
+      "mode": "birth",
+      "tradition": "Hades",
+      "variantGroup": "persephone-origin",
+      "spoiler": true,
+      "sourceRefs": [
+        {
+          "sourceId": "game-persephone-dialogue",
+          "passage": "Demeter, dialogue 02"
+        }
+      ],
+      "notes": "Major Hades I family-story spoiler. Her father is unnamed in this exchange; no occupation or name is asserted."
     },
     {
       "id": "persephone-hesiod",
@@ -15523,6 +16592,24 @@
       ],
       "notes": "",
       "spoiler": false
+    },
+    {
+      "id": "thanatos-hades-comparison",
+      "child": "thanatos",
+      "parents": [
+        "nyx"
+      ],
+      "mode": "birth",
+      "tradition": "Hades",
+      "variantGroup": "thanatos-origin",
+      "spoiler": false,
+      "sourceRefs": [
+        {
+          "sourceId": "game-thanatos-dialogue",
+          "passage": "Nyx conversation, dialogue 01"
+        }
+      ],
+      "notes": "No other parent asserted."
     },
     {
       "id": "thanatos-hesiod",
@@ -17688,6 +18775,21 @@
       "spoiler": false
     },
     {
+      "id": "hecate-melinoe-mentor-hades-ii-comparison",
+      "from": "hecate",
+      "to": "melinoe",
+      "type": "mentor_of",
+      "tradition": "Hades II",
+      "sourceRefs": [
+        {
+          "sourceId": "game-hecate-review",
+          "passage": "Early story section: Hecate takes Melinoë into her care and trains her"
+        }
+      ],
+      "notes": "Hecate takes Melinoë into her care and trains her. This is a mentorship and caregiver relationship, not biological parentage.",
+      "spoiler": false
+    },
+    {
       "id": "heptaporus-river-member-of-rivers",
       "from": "heptaporus-river",
       "to": "rivers",
@@ -19767,6 +20869,83 @@
       "type": "ancient_text"
     },
     {
+      "id": "game-chaos-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Chaos dialogue transcription, Hades",
+      "url": "https://hades.fandom.com/wiki/Chaos/Quotes_%28Hades%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-charon-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Charon dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Charon/Quotes_%28Hades_II%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-demeter-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Demeter dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Demeter/Quotes_%28Hades_II%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-eris-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Eris dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Eris/Quotes",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-hecate-review",
+      "author": "TechRadar",
+      "title": "Hades II review",
+      "url": "https://www.techradar.com/gaming/hades-2-review",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-hera-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Hera dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Hera/Quotes",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-nemesis-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Nemesis dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Nemesis/Quotes",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-nyx-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Nyx dialogue transcription, Hades II",
+      "url": "https://hades.fandom.com/wiki/Nyx/Quotes_%28Hades_II%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-nyx-dialogue-one",
+      "author": "Hades Wiki contributors",
+      "title": "Nyx dialogue transcription, Hades",
+      "url": "https://hades.fandom.com/wiki/Nyx/Quotes_%28Hades%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-persephone-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Persephone dialogue transcription, Hades",
+      "url": "https://hades.fandom.com/wiki/Persephone/Quotes_%28Hades%29",
+      "type": "game_reference"
+    },
+    {
+      "id": "game-thanatos-dialogue",
+      "author": "Hades Wiki contributors",
+      "title": "Thanatos dialogue transcription, Hades",
+      "url": "https://hades.fandom.com/wiki/Thanatos/Quotes",
+      "type": "game_reference"
+    },
+    {
       "id": "hades-nyx-quotes",
       "author": "Hades Wiki contributors",
       "title": "Nyx dialogue transcription, Hades",
@@ -20748,6 +21927,45 @@
         }
       ],
       "notes": "Not an exhaustive account of their family."
+    },
+    {
+      "group": "Selected game-specific family and mentor claims",
+      "expected": null,
+      "entityIds": [
+        "demeter",
+        "hera",
+        "hestia",
+        "persephone",
+        "nyx",
+        "chaos",
+        "charon",
+        "moros",
+        "thanatos",
+        "hypnos",
+        "nemesis",
+        "eris",
+        "hecate",
+        "melinoe"
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "game-hera-dialogue",
+          "passage": "Hyperion section"
+        },
+        {
+          "sourceId": "game-persephone-dialogue",
+          "passage": "Demeter, dialogue 02"
+        },
+        {
+          "sourceId": "game-nyx-dialogue",
+          "passage": "Moros conversation"
+        },
+        {
+          "sourceId": "game-hecate-review",
+          "passage": "Early story section"
+        }
+      ],
+      "notes": "Selected claims only; these sources do not individually cover every listed figure."
     }
   ],
   "unresolved": [
@@ -20950,6 +22168,22 @@
     {
       "entityId": "pedias-cranaus",
       "issue": "Apollodorus names her father Mynes; the source does not establish his identity beyond this and no parent edge is added."
+    },
+    {
+      "entityId": "demeter",
+      "issue": "Demeter and Poseidon explicitly call one another foster siblings in Hades II duo dialogue. Current schema has no foster_sibling relationship; add a source-labelled relation type instead of inventing foster parents."
+    },
+    {
+      "entityId": "hera",
+      "issue": "The source says Hera, Demeter and Hestia are sisters and share Hyperion as father. It does not establish their mother or who fostered them."
+    },
+    {
+      "entityId": "hecate",
+      "issue": "Mentorship and caregiving do not establish parentage; the game graph must not import ancient Titan parentage unless independently evidenced in game."
+    },
+    {
+      "entityId": "persephone-mortal-father-game",
+      "issue": "Major spoiler: the unknown father node and its entire lineage must remain hidden until spoilers are revealed. Entity-level spoiler hiding may require UI support."
     }
   ]
 }

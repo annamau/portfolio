@@ -1,0 +1,58 @@
+{
+  "entities": [
+    {"id":"persephone-mortal-father-game","name":"Persephone’s unnamed mortal father","aliases":[],"kind":"individual","categories":["mortal","game character"],"domains":[],"summary":"An unnamed mortal father referred to in Persephone’s Hades dialogue.","originStatus":"unknown","spoiler":true,"sourceRefs":[{"sourceId":"game-persephone-dialogue","passage":"Demeter discussion, dialogue 02"}]}
+  ],
+  "lineages": [
+    {"id":"demeter-hades-ii-comparison","child":"demeter","parents":["hyperion"],"mode":"birth","tradition":"Hades II","variantGroup":"demeter-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-hera-dialogue","passage":"Hyperion section"}],"notes":"The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."},
+    {"id":"hera-hades-ii-comparison","child":"hera","parents":["hyperion"],"mode":"birth","tradition":"Hades II","variantGroup":"hera-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-hera-dialogue","passage":"Hyperion section"}],"notes":"The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."},
+    {"id":"hestia-hades-ii-comparison","child":"hestia","parents":["hyperion"],"mode":"birth","tradition":"Hades II","variantGroup":"hestia-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-hera-dialogue","passage":"Hyperion section"}],"notes":"The game names Hyperion as father but this passage does not identify a mother. Partial parent set; no other parent is implied."},
+    {"id":"persephone-hades-comparison","child":"persephone","parents":["demeter","persephone-mortal-father-game"],"mode":"birth","tradition":"Hades","variantGroup":"persephone-origin","spoiler":true,"sourceRefs":[{"sourceId":"game-persephone-dialogue","passage":"Demeter, dialogue 02"}],"notes":"Major Hades I family-story spoiler. Her father is unnamed in this exchange; no occupation or name is asserted."},
+    {"id":"nyx-hades-comparison","child":"nyx","parents":["chaos"],"mode":"birth","tradition":"Hades","variantGroup":"nyx-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-chaos-dialogue","passage":"Nyx, dialogue 09"}],"notes":"Game calls Chaos her parent; do not import a second parent or infer a biological process from this graphical mode."},
+    {"id":"charon-hades-ii-comparison","child":"charon","parents":["nyx"],"mode":"birth","tradition":"Hades II","variantGroup":"charon-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-charon-dialogue","passage":"Melinoë addresses Charon’s mother Nyx"}],"notes":"Game relationship; no other parent asserted."},
+    {"id":"moros-hades-ii-comparison","child":"moros","parents":["nyx"],"mode":"birth","tradition":"Hades II","variantGroup":"moros-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-nyx-dialogue","passage":"Moros, Nyx calls Moros her son"}],"notes":"No other parent asserted."},
+    {"id":"thanatos-hades-comparison","child":"thanatos","parents":["nyx"],"mode":"birth","tradition":"Hades","variantGroup":"thanatos-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-thanatos-dialogue","passage":"Nyx conversation, dialogue 01"}],"notes":"No other parent asserted."},
+    {"id":"hypnos-hades-comparison","child":"hypnos","parents":["nyx"],"mode":"birth","tradition":"Hades","variantGroup":"hypnos-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-nyx-dialogue-one","passage":"Hypnos conversation, Zagreus calls Hypnos her son"}],"notes":"No other parent asserted."},
+    {"id":"nemesis-hades-ii-comparison","child":"nemesis","parents":["nyx"],"mode":"birth","tradition":"Hades II","variantGroup":"nemesis-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-nemesis-dialogue","passage":"About Nyx: Nemesis calls Nyx mother"}],"notes":"No other parent asserted."},
+    {"id":"eris-hades-ii-comparison","child":"eris","parents":["nyx"],"mode":"birth","tradition":"Hades II","variantGroup":"eris-origin","spoiler":false,"sourceRefs":[{"sourceId":"game-eris-dialogue","passage":"About Self, dialogue 01–02"}],"notes":"No other parent asserted."}
+  ],
+  "relationships": [
+    {"id":"hecate-melinoe-mentor-hades-ii-comparison","from":"hecate","to":"melinoe","type":"mentor_of","tradition":"Hades II","sourceRefs":[{"sourceId":"game-hecate-review","passage":"Early story section: Hecate takes Melinoë into her care and trains her"}],"notes":"Hecate takes Melinoë into her care and trains her. This is a mentorship and caregiver relationship, not biological parentage.","spoiler":false}
+  ],
+  "sources": [
+    {"id":"game-hera-dialogue","author":"Hades Wiki contributors","title":"Hera dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Hera/Quotes","type":"game_reference"},
+    {"id":"game-demeter-dialogue","author":"Hades Wiki contributors","title":"Demeter dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Demeter/Quotes_%28Hades_II%29","type":"game_reference"},
+    {"id":"game-persephone-dialogue","author":"Hades Wiki contributors","title":"Persephone dialogue transcription, Hades","url":"https://hades.fandom.com/wiki/Persephone/Quotes_%28Hades%29","type":"game_reference"},
+    {"id":"game-chaos-dialogue","author":"Hades Wiki contributors","title":"Chaos dialogue transcription, Hades","url":"https://hades.fandom.com/wiki/Chaos/Quotes_%28Hades%29","type":"game_reference"},
+    {"id":"game-charon-dialogue","author":"Hades Wiki contributors","title":"Charon dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Charon/Quotes_%28Hades_II%29","type":"game_reference"},
+    {"id":"game-nyx-dialogue","author":"Hades Wiki contributors","title":"Nyx dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Nyx/Quotes_%28Hades_II%29","type":"game_reference"},
+    {"id":"game-nyx-dialogue-one","author":"Hades Wiki contributors","title":"Nyx dialogue transcription, Hades","url":"https://hades.fandom.com/wiki/Nyx/Quotes_%28Hades%29","type":"game_reference"},
+    {"id":"game-thanatos-dialogue","author":"Hades Wiki contributors","title":"Thanatos dialogue transcription, Hades","url":"https://hades.fandom.com/wiki/Thanatos/Quotes","type":"game_reference"},
+    {"id":"game-eris-dialogue","author":"Hades Wiki contributors","title":"Eris dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Eris/Quotes","type":"game_reference"},
+    {"id":"game-nemesis-dialogue","author":"Hades Wiki contributors","title":"Nemesis dialogue transcription, Hades II","url":"https://hades.fandom.com/wiki/Nemesis/Quotes","type":"game_reference"},
+    {"id":"game-hecate-review","author":"TechRadar","title":"Hades II review","url":"https://www.techradar.com/gaming/hades-2-review","type":"game_reference"}
+  ],
+  "coverage": [
+    {"group":"Selected game-specific family and mentor claims","expected":null,"entityIds":["demeter","hera","hestia","persephone","nyx","chaos","charon","moros","thanatos","hypnos","nemesis","eris","hecate","melinoe"],"sourceRefs":[{"sourceId":"game-hera-dialogue","passage":"Hyperion section"},{"sourceId":"game-persephone-dialogue","passage":"Demeter, dialogue 02"},{"sourceId":"game-nyx-dialogue","passage":"Moros conversation"},{"sourceId":"game-hecate-review","passage":"Early story section"}],"notes":"Selected claims only; these sources do not individually cover every listed figure."}
+  ],
+  "unresolved": [
+    {"entityId":"chaos","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"charon","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"demeter","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"eris","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"hecate","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"hera","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"hestia","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"hyperion","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"hypnos","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"melinoe","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"moros","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"nemesis","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"nyx","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"persephone","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"thanatos","issue":"external endpoint: resolve against existing catalogue."},
+    {"entityId":"demeter","issue":"Demeter and Poseidon explicitly call one another foster siblings in Hades II duo dialogue. Current schema has no foster_sibling relationship; add a source-labelled relation type instead of inventing foster parents."},
+    {"entityId":"hera","issue":"The source says Hera, Demeter and Hestia are sisters and share Hyperion as father. It does not establish their mother or who fostered them."},
+    {"entityId":"hecate","issue":"Mentorship and caregiving do not establish parentage; the game graph must not import ancient Titan parentage unless independently evidenced in game."},
+    {"entityId":"persephone-mortal-father-game","issue":"Major spoiler: the unknown father node and its entire lineage must remain hidden until spoilers are revealed. Entity-level spoiler hiding may require UI support."}
+  ]
+}

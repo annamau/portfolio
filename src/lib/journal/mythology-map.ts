@@ -1,7 +1,8 @@
 export interface MythologyReference { sourceId: string; passage: string }
 export interface MythologyEntity {
-  id: string; name: string; qualifier?: string; originNotes?: { tradition: string; summary: string; sourceRefs: MythologyReference[] }[]; aliases: string[]; kind: "individual" | "collective";
+  id: string; name: string; spoiler?: boolean; qualifier?: string; originNotes?: { tradition: string; summary: string; sourceRefs: MythologyReference[] }[]; aliases: string[]; kind: "individual" | "collective";
   categories: string[]; domains: string[]; summary: string;
+  shortStory?: string; rememberThis?: string;
   originStatus: "attested" | "variant" | "unknown" | "primordial";
   sourceRefs: MythologyReference[];
 }
@@ -39,6 +40,7 @@ export interface MythologyLayout {
   nodes: { id: string; x: number; y: number; radius: number }[];
   bounds: { x: number; y: number; width: number; height: number };
   readings?: Partial<Record<MythologyReading, MythologyLayout>>;
+  revealed?: MythologyLayout;
 }
 export function isGameTradition(tradition: string) { return /^hades(?:\s|$)/i.test(tradition); }
 // Each parent gets a real connection. Alternative parent sets stay separate claims.
@@ -105,7 +107,9 @@ export function mythologyNeighbors(edges: MythologyEdge[], selected: string) {
 
 // Keep the selected person and every displayed parent within the same view.
 export function mythologyFocus(layout: MythologyLayout, edges: MythologyEdge[], selected: string, aspect: number) {
-  const ids = new Set([selected, ...edges.filter((edge) => edge.emphasis !== false && edge.to === selected && edge.kind !== "relationship").map((edge) => edge.from)]);
+  const parents = edges.filter((edge) => edge.to === selected && edge.kind !== "relationship");
+  const emphasized = parents.filter((edge) => edge.emphasis !== false);
+  const ids = new Set([selected, ...(emphasized.length ? emphasized : parents).map((edge) => edge.from)]);
   const context = layout.nodes.filter((node) => ids.has(node.id));
   const minX = Math.min(...context.map((node) => node.x)), maxX = Math.max(...context.map((node) => node.x));
   const minY = Math.min(...context.map((node) => node.y)), maxY = Math.max(...context.map((node) => node.y));

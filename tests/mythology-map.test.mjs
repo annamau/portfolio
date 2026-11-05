@@ -60,7 +60,7 @@ test('character reveal edges stay hidden without disconnecting the graph',()=>{
  assert.ok(secret.spoiler);
  assert.ok(origins('zagreus').filter(claim=>isGameTradition(claim.tradition)).every(claim=>claim.spoiler));
  const visible=edges.filter(edge=>!edge.spoiler);
- assert.equal(connectedMythologyGroups([...byId.keys()],visible).length,1);
+ assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),visible).length,1);
  assert.ok(!visible.some(edge=>edge.from==='dora-game'&&edge.to==='pandora'));
  assert.ok(visible.some(edge=>edge.from==='dora-game'&&edge.to==='melinoe'));
 });
@@ -120,7 +120,7 @@ test('connection navigation offers actual neighbors, including both parents, wit
  assert.ok(mythologyNeighbors(visible,'apollo').includes('leto'));
  assert.ok(mythologyNeighbors(visible,'chaos').includes('erebus'));
  assert.ok(!mythologyNeighbors(visible,'dora-game').includes('pandora'));
- for(const entity of catalogue.entities)assert.ok(mythologyNeighbors(visible,entity.id).length,entity.id);
+ for(const entity of catalogue.entities.filter(entity=>!entity.spoiler))assert.ok(mythologyNeighbors(visible,entity.id).length,entity.id);
 });
 
 test('selecting a telling emphasizes its parent sets while preserving the full connected network',async()=>{
@@ -130,7 +130,7 @@ test('selecting a telling emphasizes its parent sets while preserving the full c
  const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
  assert.deepEqual(parents(game),new Set(['hades','persephone']));
  assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
- for(const traced of [game,orphic]){assert.equal(traced.length,952);assert.equal(connectedMythologyGroups([...byId.keys()],traced).length,1);}
+ for(const traced of [game,orphic]){assert.equal(traced.length,963);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
 });
 
 test('tracing one origin overrides competing parents for that figure only',async()=>{
@@ -167,4 +167,81 @@ test('release validation rejects stale drawing inputs instead of silently accept
  const provenance=await drawingProvenance(catalogue);
  validateAcceptedDrawing(catalogue,layout,provenance);
  assert.throws(()=>validateAcceptedDrawing(catalogue,{...layout,provenance:{...provenance,generatorSha256:'outdated'}},provenance),/Drawing inputs changed/);
+});
+
+test('the overview orders every attested parent above their child',()=>{
+ const points=new Map(layout.nodes.map(node=>[node.id,node]));
+ for(const edge of edges.filter(edge=>!edge.spoiler&&edge.kind!=='relationship'))assert.ok(points.get(edge.from).y<points.get(edge.to).y,`${edge.from} must be above ${edge.to}`);
+});
+
+test('revealed ancestry and individually traced alternatives also run from top to bottom',()=>{
+ for(const view of [layout,...Object.values(layout.readings)])for(const [drawing,visible] of [[view,edges.filter(edge=>!edge.spoiler)],[view.revealed,edges]]){
+  const points=new Map(drawing.nodes.map(node=>[node.id,node]));
+  for(const edge of visible.filter(edge=>edge.kind!=='relationship'))assert.ok(points.get(edge.from).y<points.get(edge.to).y,`${edge.from} → ${edge.to}`);
+ }
+});
+
+test('recognizable personal emblems distinguish the principal gods and preserve every smaller name',async()=>{
+ const {mythologyEmblem}=await import('../src/lib/journal/mythology-emblems.ts');
+ for(const [id,symbol] of [['zeus','bolt'],['poseidon','trident'],['apollo','lyre'],['athena','owl'],['persephone','pomegranate'],['charon','boat'],['hecate','torches'],['melinoe','moon-torch']])assert.equal(mythologyEmblem(byId.get(id)).symbol,symbol);
+ for(const entity of catalogue.entities){const emblem=mythologyEmblem(entity);assert.ok(emblem.symbol&&emblem.label);if(!emblem.personal)assert.ok(emblem.monogram);}
+ assert.notEqual(mythologyEmblem(byId.get('dora-game')).symbol,'box','Do not disclose Dora’s identity through an emblem');
+});
+
+test('small game and ancient graphs use different sourced parent sets and keep the same chosen cast',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const chosen=new Set([...mainMythologyCast,'hyperion','kronos','rhea']);
+ const game=mythologyComparison(catalogue,'game',chosen,'all',false);
+ const ancient=mythologyComparison(catalogue,'ancient',chosen,'all',false);
+ const parents=(graph,id)=>new Set(graph.edges.filter(edge=>edge.to===id&&edge.kind!=='relationship').map(edge=>edge.from));
+ assert.deepEqual(parents(game,'demeter'),new Set(['hyperion']));
+ assert.deepEqual(parents(ancient,'demeter'),new Set(['kronos','rhea']));
+ assert.deepEqual(parents(game,'melinoe'),new Set(['hades','persephone']));
+ assert.deepEqual(parents(ancient,'melinoe'),new Set(['zeus','persephone']));
+ assert.ok(game.entities.length<60&&ancient.entities.length<60,'Default cast stays manageable');
+ assert.ok(ancient.edges.every(edge=>!edge.game));
+});
+
+test('cast controls can remove seals, clear the graph and add smaller figures',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const chosen=new Set(mainMythologyCast);chosen.delete('ares');chosen.add('hypnos');
+ const graph=mythologyComparison(catalogue,'ancient',chosen,'all',false);
+ assert.ok(graph.entities.some(entity=>entity.id==='hypnos'));
+ assert.ok(!graph.entities.some(entity=>entity.id==='ares')||graph.connectors.has('ares'),'An unchosen intermediate can only be a small connector');
+ assert.equal(mythologyComparison(catalogue,'game',new Set(),'all',false).entities.length,0);
+});
+
+test('new game-only spoiler people remain absent until the reader uncovers them',async()=>{
+ const {mythologyComparison}=await import('../src/lib/journal/mythology-comparison.ts');
+ const chosen=new Set(['persephone','demeter','zeus','persephone-mortal-father-game']);
+ const hidden=mythologyComparison(catalogue,'game',chosen,'all',false);
+ const revealed=mythologyComparison(catalogue,'game',chosen,'all',true);
+ assert.ok(!hidden.entities.some(entity=>entity.id==='persephone-mortal-father-game'));
+ assert.ok(!hidden.edges.some(edge=>edge.to==='persephone'&&edge.from==='zeus'),'Do not substitute a known-contradictory ancient father for a covered game origin');
+ assert.ok(revealed.entities.some(entity=>entity.id==='persephone-mortal-father-game'));
+ assert.ok(revealed.edges.some(edge=>edge.to==='persephone'&&edge.from==='persephone-mortal-father-game'));
+ assert.ok(!mythologyComparison(catalogue,'ancient',chosen,'all',true).entities.some(entity=>entity.id==='persephone-mortal-father-game'));
+});
+
+test('every catalogue figure has a readable short story and a bounded memorable detail',async()=>{
+ const {mythologyStory}=await import('../src/lib/journal/mythology-stories.ts');
+ for(const entity of catalogue.entities){const story=mythologyStory(entity,catalogue);assert.ok(story.story.length>35,entity.id);assert.ok(story.detail.length>25,entity.id);assert.ok(!story.story.includes('appears in the cited tradition'),entity.id);assert.ok(!story.story.includes('—'));}
+});
+
+test('short stories preserve creation and emergence instead of inventing ordinary births',async()=>{
+ const {mythologyStory}=await import('../src/lib/journal/mythology-stories.ts');
+ assert.match(mythologyStory(byId.get('cosmic-egg'),catalogue).story,/generated by/);
+ assert.match(mythologyStory(byId.get('phanes'),catalogue).story,/emerges from/);
+ assert.ok(!mythologyStory(byId.get('cosmic-egg'),catalogue).story.includes('child of'));
+});
+
+test('the default small cast keeps both co-parents, even when their seals are not selected',async()=>{
+ const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
+ const graph=mythologyComparison(catalogue,'ancient',new Set(mainMythologyCast),'all',false);
+ for(const [child,parents] of [['demeter',['kronos','rhea']],['apollo',['zeus','leto']],['hermes',['zeus','maia-pleiad']],['hecate',['perses-titan','asteria']]])for(const parent of parents)assert.ok(graph.edges.some(edge=>edge.from===parent&&edge.to===child),`${parent} → ${child}`);
+});
+
+test('the downloadable catalogue includes the same short stories and memorable details as the profiles',async()=>{
+ const {mythologyStory}=await import('../src/lib/journal/mythology-stories.ts');
+ for(const entity of catalogue.entities){const profile=mythologyStory(entity,catalogue);assert.equal(entity.shortStory,profile.story,entity.id);assert.equal(entity.rememberThis,profile.detail,entity.id);}
 });

@@ -1,99 +1,69 @@
 "use client";
 
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { isGameTradition, matchesMythologyReading, mythologyReadings, traceMythologyEdges, mythologyNeighbors, searchMythology, type MythologyCatalogue, type MythologyLayout, type MythologyReading, type MythologyReference } from "@/lib/journal/mythology-map";
-import MythologyNetwork from "./MythologyNetwork";
+import { useCallback, useEffect, useId, useMemo, useState } from "react";
+import { mythologyReadings, searchMythology, type MythologyCatalogue, type MythologyReading } from "@/lib/journal/mythology-map";
+import { mainMythologyCast } from "@/lib/journal/mythology-comparison";
+import MythologyCastPicker from "./MythologyCastPicker";
+import MythologyComparisonPanel from "./MythologyComparisonPanel";
+import MythologyProfile from "./MythologyProfile";
+import MythologyEmblem from "./MythologyEmblem";
 import styles from "./MythologyMap.module.css";
 
-let request: Promise<{ catalogue: MythologyCatalogue; layout: MythologyLayout }> | undefined;
-function loadMap() {
-  if (!request) request = Promise.all(["greek-mythology.json", "greek-mythology-layout.json"].map(async (name) => {
-    const response = await fetch(`/journal/${name}`);
-    if (!response.ok) throw new Error("The map could not be loaded.");
-    return response.json();
-  })).then(([catalogue, layout]) => ({ catalogue, layout })).catch((error) => { request = undefined; throw error; });
-  return request;
+let catalogueRequest: Promise<MythologyCatalogue> | undefined;
+function loadCatalogue() {
+  if (!catalogueRequest) catalogueRequest = fetch("/journal/greek-mythology.json").then((response) => {
+    if (!response.ok) throw new Error("The catalogue could not be loaded.");
+    return response.json() as Promise<MythologyCatalogue>;
+  }).catch((error) => { catalogueRequest = undefined; throw error; });
+  return catalogueRequest;
 }
 
 export default function MythologyMap() {
-  const [data, setData] = useState<Awaited<ReturnType<typeof loadMap>>>();
+  const [catalogue, setCatalogue] = useState<MythologyCatalogue>();
   const [error, setError] = useState(false);
-  const [selected, setSelected] = useState("chaos");
+  const [selected, setSelected] = useState("melinoe");
+  const [chosen, setChosen] = useState(() => new Set(mainMythologyCast));
   const [query, setQuery] = useState("");
   const [spoilers, setSpoilers] = useState(false);
-  const [reading, setReading] = useState<MythologyReading>("all");
+  const [reading, setReading] = useState<MythologyReading>("orphic");
   const [originId, setOriginId] = useState<string>();
   const searchId = useId();
-  const root = useRef<HTMLElement>(null);
   useEffect(() => {
     let active = true;
-    loadMap().then((result) => { if (active) setData(result); }).catch(() => { if (active) setError(true); });
+    loadCatalogue().then((result) => { if (active) setCatalogue(result); }).catch(() => { if (active) setError(true); });
     return () => { active = false; };
   }, []);
-  const catalogue = data?.catalogue;
-  const byId = useMemo(() => new Map(catalogue?.entities.map((entity) => [entity.id, entity])), [catalogue]);
-  const sourceById = useMemo(() => new Map(catalogue?.sources.map((source) => [source.id, source])), [catalogue]);
-  const edges = useMemo(() => catalogue ? traceMythologyEdges(catalogue, reading, originId).filter((edge) => spoilers || !edge.spoiler) : [], [catalogue, spoilers, reading, originId]);
-  const results = useMemo(() => catalogue ? searchMythology(catalogue.entities, query) : [], [catalogue, query]);
-  const entity = byId.get(selected);
-  const tracedOrigin = catalogue?.lineages.find((claim) => claim.id === originId);
-  const origins = catalogue?.lineages.filter((claim) => claim.child === selected && (spoilers || !claim.spoiler)).sort((a, b) => Number(matchesMythologyReading(b.tradition, reading)) - Number(matchesMythologyReading(a.tradition, reading)) || Number(isGameTradition(a.tradition)) - Number(isGameTradition(b.tradition))) || [];
-  const children = catalogue?.lineages.filter((claim) => claim.parents.includes(selected) && (spoilers || !claim.spoiler)) || [];
-  const relationships = catalogue?.relationships.filter((claim) => (claim.from === selected || claim.to === selected) && (spoilers || !claim.spoiler)) || [];
-  const choose = useCallback((id: string) => { setSelected(id); setQuery(""); setOriginId(undefined); }, []);
-  function name(id: string) { return byId.get(id)?.name || id; }
-  function nodeLink(id: string) { return <button type="button" className={styles.textLink} onClick={() => choose(id)}>{name(id)}</button>; }
-  function references(refs: MythologyReference[]) {
-    return <span className={styles.references}>{refs.map((ref, index) => {
-      const source = sourceById.get(ref.sourceId);
-      return source && <a key={`${ref.sourceId}-${index}`} href={source.url} target="_blank" rel="noopener noreferrer">{source.author}, {source.title} · {ref.passage}</a>;
-    })}</span>;
+  const available = useMemo(() => catalogue?.entities.filter((entity) => spoilers || !entity.spoiler) || [], [catalogue, spoilers]);
+  const results = useMemo(() => searchMythology(available, query), [available, query]);
+  const choose = useCallback((id: string) => {
+    setSelected(id); setQuery(""); setOriginId(undefined);
+    setChosen((previous) => previous.has(id) ? previous : new Set([...previous, id]));
+  }, []);
+  function changeCast(ids: Set<string>) {
+    setChosen(ids); setOriginId(undefined);
+    if (!ids.has(selected)) setSelected([...ids][0] || "");
   }
-  function reveal() { setSpoilers(true); }
-  return <section ref={root} className={styles.map} data-mythology-map="" data-mythology-reading={reading} data-traced-origin={originId || ""} aria-label="Connected Greek mythology map">
-    <header className={styles.header}>
-      <p className={styles.kicker}>THE FAMILY IS COMPLICATED</p>
-      <h3>One very extended family.</h3>
-      <p>From Chaos and Gaia to Melinoë, Zagreus, Charon and the Harpies. Follow a name. See where it takes you.</p>
-    </header>
-    <div className={styles.exploreControls}><div className={styles.search}>
-      <label htmlFor={searchId}>Find a familiar face</label>
-      <div className={styles.searchField}><span aria-hidden="true">⌕</span><input id={searchId} type="search" placeholder="A name, a power, a rabbit hole…" value={query} disabled={!data} aria-controls={query ? `${searchId}-results` : undefined} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && results[0]) { event.preventDefault(); choose(results[0].id); } if (event.key === "Escape") setQuery(""); }}/></div>
-      {query && <div className={styles.searchResults} id={`${searchId}-results`}><p role="status">{results.length ? `${results.length} ${results.length === 1 ? "match" : "matches"}` : "No match yet. Try another spelling."}</p>{results.slice(0, 8).map((result) => <button key={result.id} type="button" onClick={() => choose(result.id)}><span>{result.name}{result.qualifier && <em>{result.qualifier}</em>}</span><small>{result.domains.join(" · ") || result.categories.join(" · ")}</small></button>)}{results.length > 8 && <p>Keep typing to narrow it down.</p>}</div>}
-    </div><label className={styles.readingPicker}>Follow a telling
-      <select value={reading} onChange={(event) => { setReading(event.target.value as MythologyReading); setOriginId(undefined); }} disabled={!data}>
-        {mythologyReadings.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
-      </select>
-    </label></div>
-    <div className={styles.legend} aria-label="Connection key"><span>Parent → child</span><span>Emergence / creation</span><span>Story / membership</span><span>Hades games</span></div>
-    <p className={styles.variantNote}>Parent arrows include alternative accounts. Select a figure to read each version separately.</p>
-    <p className={styles.readingStatus} role="status">{mythologyReadings.find((option) => option.id === reading)?.note}{tracedOrigin && <> Tracing {tracedOrigin.tradition}: {tracedOrigin.parents.map(name).join(" + ")} → {name(tracedOrigin.child)}.</>}</p>
-    {data ? <MythologyNetwork entities={data.catalogue.entities} layout={data.layout.readings?.[reading] || data.layout} edges={edges} selected={selected} focusKey={`${reading}/${originId || ""}`} onSelect={choose}/> : <div className={styles.loading} role="status">{error ? <>The map couldn&apos;t load. <button type="button" onClick={() => { setError(false); loadMap().then(setData).catch(() => setError(true)); }}>Try again</button></> : "Unravelling the family…"}</div>}
-    <div className={styles.mapCaption}><span>{catalogue ? `${catalogue.metadata.counts.entities} figures & collectives · one connected network` : "A sourced map, with room to keep exploring."}</span><span>Drag to explore · + / − to zoom</span></div>
-    <div className={styles.detail} aria-live="polite" aria-atomic="false" data-mythology-detail={selected}>
-      {entity && <>
-        <div className={styles.detailHeading}><div><p className={styles.kicker}>{entity.kind === "collective" ? "COLLECTIVE" : entity.categories.join(" · ").replaceAll("-", " ")}</p><h4>{entity.name}</h4>{entity.qualifier && <p className={styles.qualifier}>{entity.qualifier}</p>}</div><span className={styles.index}>↗</span></div>
-        {entity.domains.length > 0 && <p className={styles.domains}>{entity.domains.join(" · ")}</p>}
-        <p className={styles.summary}>{entity.summary}</p>
-        <label className={styles.connectionPicker}>Follow a connection
-          <select aria-label={`Follow a connection from ${entity.name}`} value="" onChange={(event) => choose(event.target.value)}>
-            <option value="" disabled>Choose a connected figure</option>
-            {mythologyNeighbors(edges, selected).sort((a, b) => name(a).localeCompare(name(b))).map((id) => <option key={id} value={id}>{name(id)}{byId.get(id)?.qualifier ? ` (${byId.get(id)!.qualifier})` : ""}</option>)}
-          </select>
-        </label>
-        <div className={styles.originList}>
-          <h5>{origins.length > 1 ? "Compare the origins" : `Where ${entity.kind === "collective" ? "they" : "the story"} begins`}</h5>
-          {origins.length > 1 && <label className={styles.traceChoice}><input type="radio" name={`${searchId}-origin`} checked={!originId} onChange={() => setOriginId(undefined)}/>Use the telling above</label>}
-          {entity.originNotes?.map((note) => <div key={note.tradition} className={styles.claim}><p className={styles.tradition}>{note.tradition}</p><p className={styles.claimNote}>{note.summary}</p>{references(note.sourceRefs)}</div>)}
-          {origins.length ? origins.map((claim) => <div key={claim.id} className={styles.claim} data-game={isGameTradition(claim.tradition)} data-traced={originId === claim.id}><p className={styles.tradition}>{claim.tradition}{isGameTradition(claim.tradition) ? " · game continuity" : ""}</p><p className={styles.parents}>{claim.parents.map((parent, index) => <span key={parent}>{index > 0 && <span className={styles.join}> + </span>}{nodeLink(parent)}</span>)}<span className={styles.arrow}> → </span>{entity.name}<small>{claim.mode === "birth" ? "Parentage" : claim.mode === "emergence" ? "Emergence, not an ordinary birth" : "Creation, not an ordinary birth"}</small></p>{claim.notes && <p className={styles.claimNote}>{claim.notes}</p>}{references(claim.sourceRefs)}{origins.length > 1 && <label className={styles.traceChoice}><input type="radio" name={`${searchId}-origin`} aria-label={`Trace ${claim.tradition}: ${claim.parents.map(name).join(" and ")} (${claim.sourceRefs[0]?.passage})`} checked={originId === claim.id} onChange={() => setOriginId(claim.id)}/>Trace these parents</label>}</div>) : !entity.originNotes?.length && <p className={styles.claimNote}>{entity.originStatus === "primordial" || entity.categories.includes("primordial") ? "A first being in the cited telling. No parent is assigned here." : "No parentage established in the sources checked here. Story and membership ties keep this figure in the map."}</p>}
-        </div>
-        {!!children.length && <details className={styles.connectionsList}><summary>Children & creations <span>{new Set(children.map((claim) => claim.child)).size}</span></summary>{children.map((claim) => <div key={claim.id} className={styles.related}>{nodeLink(claim.child)}<small>{claim.tradition} · {claim.mode}{isGameTradition(claim.tradition) ? " · game" : ""}</small>{references(claim.sourceRefs)}</div>)}</details>}
-        {!!relationships.length && <details className={styles.connectionsList}><summary>Other connections <span>{relationships.length}</span></summary>{relationships.map((claim) => <div key={claim.id} className={styles.related}><p>{nodeLink(claim.from)} <span className={styles.relationshipType}>{claim.type.replaceAll("_", " ")}</span> {nodeLink(claim.to)}</p><small>{claim.tradition}{isGameTradition(claim.tradition) ? " · game continuity" : ""}</small>{claim.notes && <p className={styles.claimNote}>{claim.notes}</p>}{references(claim.sourceRefs)}</div>)}</details>}
-        <details className={styles.connectionsList}><summary>About this figure <span>sources</span></summary>{references(entity.sourceRefs)}{entity.aliases.length > 0 && <p className={styles.claimNote}>Also found as {entity.aliases.join(", ")}.</p>}</details>
-      </>}
+  const reveal = () => setSpoilers(true);
+  return <section className={styles.map} data-mythology-map="" data-mythology-reading={reading} data-traced-origin={originId || ""} aria-label="Greek mythology and Hades comparison">
+    <header className={styles.header}><p className={styles.kicker}>SAME NAMES. DIFFERENT STORIES.</p><h3>Two tellings of the family.</h3><p>From Chaos and Gaia to Melinoë, Zagreus, Charon and the Harpies. Pick a few names, compare the connections, follow a story.</p></header>
+    <div className={styles.exploreControls}>
+      <div className={styles.search}><label htmlFor={searchId}>Find a familiar face</label><div className={styles.searchField}><span aria-hidden="true">⌕</span><input id={searchId} type="search" value={query} disabled={!catalogue} placeholder="Search a name or a power…" aria-controls={query ? `${searchId}-results` : undefined} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && results[0]) { event.preventDefault(); choose(results[0].id); } if (event.key === "Escape") setQuery(""); }}/></div>
+        {query && <div className={styles.searchResults} id={`${searchId}-results`}><p role="status">{results.length ? `${results.length} matches` : "No match yet. Try another spelling."}</p>{results.slice(0, 8).map((entity) => <button type="button" key={entity.id} onClick={() => choose(entity.id)}><span className={styles.resultIdentity}><svg width="32" height="32" viewBox="-36 -36 72 72" aria-hidden="true"><MythologyEmblem entity={entity}/></svg><span>{entity.name}{entity.qualifier && <em>{entity.qualifier}</em>}</span></span><small>{entity.domains.join(" · ") || entity.categories.join(" · ")}</small></button>)}</div>}
+      </div>
+      <label className={styles.readingPicker}>Ancient reading<select value={reading} disabled={!catalogue} onChange={(event) => { setReading(event.target.value as MythologyReading); setOriginId(undefined); }}>{mythologyReadings.filter((option) => option.id !== "hades").map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
     </div>
+    {catalogue && <MythologyCastPicker entities={available} chosen={chosen} onChange={changeCast}/>}
+    <div className={styles.legend} aria-label="Connection key"><span>Parent → child</span><span>Emergence / creation</span><span>Story / membership</span><span>Hades games</span></div>
+    <p className={styles.variantNote}>Parents above, children below. Ancient stories have several versions. Each account keeps its own source.</p>
+    {catalogue ? <>
+      <div className={styles.comparisonPanels}>
+        <MythologyComparisonPanel catalogue={catalogue} mode="game" chosen={chosen} selected={selected} reading={reading} spoilers={spoilers} originId={originId} onSelect={choose}/>
+        <MythologyComparisonPanel catalogue={catalogue} mode="ancient" chosen={chosen} selected={selected} reading={reading} spoilers={spoilers} originId={originId} onSelect={choose}/>
+      </div>
+      <MythologyProfile catalogue={catalogue} selected={selected} spoilers={spoilers} originId={originId} onTrace={setOriginId} onSelect={choose}/>
+    </> : <div className={styles.loading} role="status">{error ? <>The catalogue couldn&apos;t load. <button type="button" onClick={() => { setError(false); loadCatalogue().then(setCatalogue).catch(() => setError(true)); }}>Try again</button></> : "Unravelling the family…"}</div>}
     <p className={styles.spoilerNote}>Game story connections: {spoilers ? <span>revealed</span> : <span className={styles.covered} role="button" tabIndex={0} aria-label="Reveal game story connections and spoilers" onClick={reveal} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); reveal(); } }}><span aria-hidden="true">Some names have a past. Tap to uncover it.</span></span>}</p>
-    <details className={styles.method}><summary>A note on this slightly chaotic family</summary><p>There isn&apos;t one agreed family tree. Hesiod, Homer and later writers sometimes give the same figure different parents. Each account stays separate here. A dashed story link connects the map without inventing a parent.</p><p>Chaos comes first in Hesiod&apos;s telling. That doesn&apos;t make Chaos everybody&apos;s parent. And yes, Kronos the Titan and Chronos as Time are separate names here.</p><p>This is a growing catalogue of named figures, not every being in every version. The sources sometimes count a group differently from the names they list.</p>{catalogue?.coverage.map((group) => <p key={group.group} className={styles.coverage}><strong>{group.group}</strong> · {group.entityIds.length} named{group.notes && <>. {group.notes}</>}{references(group.sourceRefs)}</p>)}</details>
+    <details className={styles.method}><summary>About the comparison & sources</summary><p>The game graph highlights checked game dialogue and keeps older mythology as pale background where the game does not establish its own genealogy. Ancient parent sets are replaced where the game explicitly names different parents. The ancient graph excludes game-only people and relationships.</p><p>Small markers connect the chosen cast without inventing parents. Every name has a short profile. For figures preserved mostly in a list, the profile says what that source establishes rather than making up an adventure.</p><p>Emblems use familiar attributes and illustrated realm seals with initials. They are navigation cues. See the <a href="https://www.metmuseum.org/essays/greek-gods-and-religious-practices" target="_blank" rel="noopener noreferrer">Met&apos;s guide to divine attributes</a> and <a href="https://www.getty.edu/education/teachers/classroom_resources/curricula/vsi/downloads/vsi_worksheet03_01.pdf" target="_blank" rel="noopener noreferrer">Getty&apos;s Apollo example</a>.</p><p>This is a growing catalogue of named figures, not every being in every tradition.</p>{catalogue?.coverage.map((group) => <p className={styles.coverage} key={group.group}><strong>{group.group}</strong> · {group.entityIds.length} named. {group.notes}</p>)}</details>
     <p className={styles.download}><a href="/journal/greek-mythology.json" download>Take the full JSON ↗</a><span>Names, origins, connections & sources. Includes game spoilers.</span></p>
   </section>;
 }
