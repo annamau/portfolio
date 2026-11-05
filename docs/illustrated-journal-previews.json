@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-05",
+  "status": "local acceptance passed; deployment follows",
+  "features": [
+    "Reddit-style click and keyboard spoiler covers with hidden initial reading text.",
+    "Credited inline images and safe HTTPS source links.",
+    "Private full-reading previews that preserve the selected draft after sign-in.",
+    "Entry-bound interactive figures with owner-only writes, conditional versions and opaque-origin sandboxing.",
+    "Figures inherit the entry publication state and become private again on unpublish."
+  ],
+  "checks": [
+    {
+      "command": "npm run build",
+      "exit": 0,
+      "failing_lines": [],
+      "result": "28 unit tests; production build; private-file bundle gate; 85 API assertions; real Next cloud regression gate."
+    },
+    {
+      "command": "npx eslint [changed journal files] && npx tsc --noEmit",
+      "exit": 0,
+      "failing_lines": []
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "failing_lines": []
+    }
+  ],
+  "chrome": [
+    "Anonymous private preview prompts sign-in without revealing the entry.",
+    "Following a draft link and signing in selects the requested entry; before the fix, the title stayed blank.",
+    "Click reveals a covered passage and its source; Space hides it again. Hidden names are absent from initial visible reading text.",
+    "Diagram controls function inside the private sandboxed iframe.",
+    "390px reading page has zero horizontal overflow and scrolls to the footer.",
+    "All four essay images load in the local reading view; the site-owned cover uses its current preview origin."
+  ],
+  "privacy": "Authored content and compiled personal-use TinyCharts sheets remain outside the repository in private journal storage. No entry was published.",
+  "mediaProvenance": "docs/journal-media-provenance.json",
+  "review": {
+    "rounds": 1,
+    "scope": "Application changes: draft reads, figure write/read authorization, same-origin writes, stale versions, path validation, sandbox response headers and escaped rich content.",
+    "openFindings": []
+  },
+  "calibration": [
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Existing plain journal renderer needs explicit support for spoilers, credited figures and interactive charts",
+      "score": 8,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Private entry-bound figures can share owner authentication while isolating script execution",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Sign-in must select the draft identified by the original entry link",
+      "score": 9,
+      "checked": true,
+      "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Site-owned covers should resolve on the active preview origin",
+      "score": 9,
+      "checked": true,
+      "held": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-05",
+  "assets": [
+    {
+      "file": "public/journal/hades-ii/stories-at-sea.webp",
+      "sha256": "440f305f1aabb1fa332ec4f0faa6fababb513467f48b545ea425e6721ef5298d",
+      "bytes": 504464,
+      "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
+      "historicalArtifact": false,
+      "officialGameArt": false
+    },
+    {
+      "file": "public/journal/hades-ii/night-jar.webp",
+      "sha256": "7ff863fe452a532150a935374e456eda09aba9b727d323efda1f63d229a23bee",
+      "bytes": 300432,
+      "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
+      "historicalArtifact": false,
+      "officialGameArt": false
+    },
+    {
+      "file": "public/journal/hades-ii/night-family-seal.webp",
+      "sha256": "8c7e65c68c1f54304b00b0be34ccfa1dbb6f864f23b5851e1b5ca8cd4669e2fc",
+      "bytes": 300828,
+      "creator": "Original illustration generated for this personal journal with the built-in imagegen tool",
+      "historicalArtifact": false,
+      "officialGameArt": false
+    },
+    {
+      "file": "public/journal/hades-ii/met-siren-earring.jpg",
+      "sha256": "f15eea94d8852919a4b80c23593743216c76453ad4274963686df11390711c31",
+      "bytes": 80710,
+      "creator": "Greek, mid-4th century BCE; photograph from The Metropolitan Museum of Art",
+      "object": "08.258.49",
+      "source": "https://www.metmuseum.org/art/collection/search/248121",
+      "rights": "Public Domain, as marked by the museum"
+    }
+  ],
+  "charts": "Generated personal-use TinyCharts sheets are stored with the private journal entry, not vendored into this repository."
+}
