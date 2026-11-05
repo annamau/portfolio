@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY } from 'd3-force';
 import { mythologyEdges, traceMythologyEdges, mythologyReadings, connectedMythologyGroups } from '../src/lib/journal/mythology-map.ts';
 const root = new URL('../', import.meta.url);
@@ -112,12 +113,43 @@ export function buildLayout(catalogue, reading = 'all') {
   const maxX = Math.max(...positions.map((node) => node.x)) + 100, maxY = Math.max(...positions.map((node) => node.y)) + 100;
   return { nodes: positions, bounds: { x: minX, y: minY, width: maxX - minX, height: maxY - minY } };
 }
+
+export async function drawingProvenance(catalogue) {
+  const hash = (value) => createHash('sha256').update(value).digest('hex');
+  const [builder, model] = await Promise.all([readFile(import.meta.url.startsWith('file:') ? new URL(import.meta.url) : import.meta.url, 'utf8'), readFile(new URL('src/lib/journal/mythology-map.ts', root), 'utf8')]);
+  return { catalogueSha256: hash(JSON.stringify(catalogue)), generatorSha256: hash(builder + '\n' + model) };
+}
+
+export function validateAcceptedDrawing(catalogue, layout, provenance) {
+  assert.deepEqual(layout.provenance, provenance, 'Drawing inputs changed. Run npm run build:mythology and review the regenerated map.');
+  const ids = catalogue.entities.map((entity) => entity.id).sort();
+  for (const reading of mythologyReadings) {
+    const view = reading.id === 'all' ? layout : layout.readings?.[reading.id];
+    assert.ok(view, `Missing drawing: ${reading.id}`);
+    assert.deepEqual(view.nodes.map((node) => node.id).sort(), ids, `Drawing cast: ${reading.id}`);
+    assert.ok(Object.values(view.bounds).every(Number.isFinite) && view.bounds.width > 0 && view.bounds.height > 0, `Invalid bounds: ${reading.id}`);
+    for (let i = 0; i < view.nodes.length; i++) {
+      const node = view.nodes[i];
+      assert.ok(Number.isFinite(node.x) && Number.isFinite(node.y) && node.radius > 0, `Invalid position: ${node.id}`);
+      for (const other of view.nodes.slice(i + 1)) assert.ok(Math.hypot(node.x - other.x, node.y - other.y) > node.radius + other.radius, `Overlapping circles: ${node.id}/${other.id}`);
+    }
+  }
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const catalogue = await buildCatalogue(), layout = buildLayout(catalogue);
-  layout.readings = Object.fromEntries(mythologyReadings.filter((reading) => reading.id !== 'all').map((reading) => [reading.id, buildLayout(catalogue, reading.id)]));
+  const catalogue = await buildCatalogue(), provenance = await drawingProvenance(catalogue);
   const destination = new URL('public/journal/', root);
-  await mkdir(destination, { recursive: true });
-  await writeFile(new URL('greek-mythology.json', destination), JSON.stringify(catalogue, null, 2) + '\n');
-  await writeFile(new URL('greek-mythology-layout.json', destination), JSON.stringify(layout) + '\n');
+  if (process.argv.includes('--check')) {
+    assert.deepEqual(JSON.parse(await readFile(new URL('greek-mythology.json', destination), 'utf8')), catalogue, 'Catalogue inputs changed. Run npm run build:mythology.');
+    validateAcceptedDrawing(catalogue, JSON.parse(await readFile(new URL('greek-mythology-layout.json', destination), 'utf8')), provenance);
+  } else {
+    const layout = buildLayout(catalogue);
+    layout.readings = Object.fromEntries(mythologyReadings.filter((reading) => reading.id !== 'all').map((reading) => [reading.id, buildLayout(catalogue, reading.id)]));
+    layout.provenance = provenance;
+    validateAcceptedDrawing(catalogue, layout, provenance);
+    await mkdir(destination, { recursive: true });
+    await writeFile(new URL('greek-mythology.json', destination), JSON.stringify(catalogue, null, 2) + '\n');
+    await writeFile(new URL('greek-mythology-layout.json', destination), JSON.stringify(layout) + '\n');
+  }
   console.log(JSON.stringify(catalogue.metadata.counts));
 }

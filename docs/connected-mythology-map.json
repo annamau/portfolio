@@ -26,7 +26,7 @@
       "command": "npm run build",
       "exit": 0,
       "failing_lines": [],
-      "result": "53 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
+      "result": "55 unit tests; Next build and TypeScript; bundle privacy gate; 92 API checks; real Next cloud lookup regression."
     },
     {
       "command": "npx eslint src/components/journal/MythologyMap.tsx src/components/journal/MythologyNetwork.tsx src/lib/journal/mythology-map.ts scripts/build-mythology-catalogue.mjs",
@@ -37,6 +37,13 @@
       "command": "git diff --check",
       "exit": 0,
       "failing_lines": []
+    },
+    {
+      "command": "node --test --test-name-pattern='release validation' tests/mythology-map.test.mjs (before fix)",
+      "exit": 1,
+      "failing_lines": [
+        "Release validation must preserve the reviewed drawing, not regenerate it on the deployment runtime"
+      ]
     }
   ],
   "browser": {
@@ -110,6 +117,14 @@
       "score": 9,
       "checked": true,
       "held": true
+    },
+    {
+      "date": "2026-11-05",
+      "project": "portfolio",
+      "claim": "Read-only release validation preserves accepted force layouts and rejects stale generation inputs",
+      "score": 9,
+      "checked": true,
+      "held": true
     }
   ],
   "comparison": {
@@ -125,5 +140,11 @@
     "browser": "Verified Melinoe changes from Hades/Persephone to Zeus/Persephone, with different coordinates and 952 spoiler-safe connections. Per-origin Hades override within Orphic view passed; telling change clears it. 320px and 390px remain free of horizontal overflow and internal scrollbars.",
     "review": "One independent code/source review for this follow-up; no findings at or above threshold.",
     "notes": "These are reading groups, not reconciled single-source family trees. Homeric hymns are not assigned to one author; Orphic traditions remain plural."
+  },
+  "releaseStability": {
+    "observed": "The first production file comparison found different coordinates for all nodes, with unchanged catalogue facts. prebuild was regenerating a floating-point force simulation on the deployment runtime.",
+    "fix": "Release prebuild now checks the committed catalogue, reviewed drawing, source/generator fingerprints, complete casts and geometry without rewriting files. Explicit build:mythology performs regeneration for review.",
+    "checks": "Read-only mtime regression failed before fix, passed after. All six current layouts match the browser-tested 225bd00 artifact exactly, with only provenance added. Stale provenance is rejected.",
+    "independentReview": "No blocking findings. Hypothetical manually corrupted positive bounds are a logged low-impact gap; current generated bounds are unchanged and browser-tested."
   }
 }

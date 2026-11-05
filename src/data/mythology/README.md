@@ -1,9 +1,9 @@
 # Greek mythology catalogue
 
-The eight JSON shards are the editable research records. `npm run build:mythology` merges and validates them, then writes the public knowledge file and deterministic drawing positions:
+The eight JSON shards are the editable research records. `npm run build:mythology` merges and validates them, then writes the public knowledge file and reviewed drawing positions:
 
 - `public/journal/greek-mythology.json`: names, aliases, qualifiers, roles, origin notes, source-specific lineages, other relationships, exact references, coverage and unresolved questions.
-- `public/journal/greek-mythology-layout.json`: generated coordinates only. D3 runs during the build, not in the reader's browser.
+- `public/journal/greek-mythology-layout.json`: generated coordinates only. D3 runs during explicit generation, not in the reader's browser.
 
 The current scope is 433 figures and collectives, including named divine groups, nymphs, creatures, relevant mortals and game characters. It is a growing source-backed catalogue, not every named or unnamed being in every surviving tradition. Coverage records state the enumerated groups. In particular, the Theogony says fifty Nereids but its transmitted name list yields 51 distinct entries; the data keeps those names and the discrepancy.
 
@@ -25,6 +25,9 @@ The native SVG component takes visual inspiration from the public TinyCharts `#s
 
 ## Acceptance
 
-`npm run build` regenerates the data, runs unit tests, builds Next, and checks the existing bundle, API and cloud privacy regressions. Mythology tests pin actual parent edges, source-separated alternatives, references, coverage, connectedness with spoilers hidden, collision-free circle positions, namesake search identities, keyboard catalogue traversal, connection navigation and parent-inclusive camera frames.
+`npm run build` validates the committed catalogue and reviewed layout, runs unit tests, builds Next, and checks the existing bundle, API and cloud privacy regressions. Mythology tests pin actual parent edges, source-separated alternatives, references, coverage, connectedness with spoilers hidden, collision-free circle positions, namesake search identities, keyboard catalogue traversal, connection navigation and parent-inclusive camera frames.
 
 Browser acceptance additionally checks desktop and phone views, actual node focus, searching, source details, whole-network view, zoom/pan, page scrolling, opt-in map movement, spoiler reveal, and no iframe or internal scrolling element. Physical touch hardware is a separate limitation when only desktop Chrome's responsive viewport is available.
+
+
+Release builds deliberately do not regenerate drawing coordinates. Floating-point force simulations on another deployment runtime produced different geometry from the reviewed artifact. `npm run check:mythology` is read-only: it checks the catalogue, source/generator SHA-256 provenance, all six complete casts, finite bounds/positions and nonoverlapping circles. A source or generator change fails until `npm run build:mythology` explicitly regenerates a new layout for review. The regression test pins the release check's no-write behavior, and another test rejects stale provenance.

@@ -150,3 +150,21 @@ test('all telling layouts retain the same complete cast and genuinely rearrange 
   for(const node of view.nodes)assert.ok(Number.isFinite(node.x)&&Number.isFinite(node.y));
  }
 });
+
+test('release validation leaves the accepted drawing artifact untouched',async()=>{
+ const {spawnSync}=await import('node:child_process');
+ const {stat}=await import('node:fs/promises');
+ const artifact=new URL('../public/journal/greek-mythology-layout.json',import.meta.url);
+ const before=await stat(artifact,{bigint:true});
+ const result=spawnSync(process.execPath,['scripts/build-mythology-catalogue.mjs','--check'],{cwd:new URL('../',import.meta.url),encoding:'utf8'});
+ assert.equal(result.status,0,result.stderr);
+ const after=await stat(artifact,{bigint:true});
+ assert.equal(after.mtimeNs,before.mtimeNs,'Release validation must preserve the reviewed drawing, not regenerate it on the deployment runtime');
+});
+
+test('release validation rejects stale drawing inputs instead of silently accepting them',async()=>{
+ const {validateAcceptedDrawing,drawingProvenance}=await import('../scripts/build-mythology-catalogue.mjs');
+ const provenance=await drawingProvenance(catalogue);
+ validateAcceptedDrawing(catalogue,layout,provenance);
+ assert.throws(()=>validateAcceptedDrawing(catalogue,{...layout,provenance:{...provenance,generatorSha256:'outdated'}},provenance),/Drawing inputs changed/);
+});

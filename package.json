@@ -10,7 +10,8 @@
     "lint": "eslint",
     "check:resources": "node scripts/check-resource-bundle.mjs && node scripts/check-resource-api.mjs && node scripts/check-resource-cloud.mjs",
     "build:mythology": "node scripts/build-mythology-catalogue.mjs",
-    "prebuild": "npm run build:mythology"
+    "prebuild": "npm run check:mythology",
+    "check:mythology": "node scripts/build-mythology-catalogue.mjs --check"
   },
   "dependencies": {
     "@google/genai": "^1.44.0",
