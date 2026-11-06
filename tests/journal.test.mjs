@@ -17,11 +17,16 @@ test('journal entries start private, have stable unique URLs and validate conten
  assert.throws(()=>updatePost(live,{...content,action:'unpublish',version:1}),error=>error.status===409);
  const draft=updatePost(live,{action:'unpublish',version:2});assert.equal(draft.status,'draft');assert.equal(draft.body,content.body);
 });
-test('the mythology essay exposes its canonical URL without changing its stored slug',()=>{
- const legacySlug='hades-ii-and-the-stories-i-grew-up-with-54a36721';
- const post={...newPost(content),slug:legacySlug,status:'published'};
- assert.equal(publicPost(post).slug,'fell-in-love-with-greek-mythology-again');
- assert.equal(post.slug,legacySlug);
+test('journal essays expose their canonical URLs without changing their stored slugs',()=>{
+ const cases = [
+  ['hades-ii-and-the-stories-i-grew-up-with-54a36721', 'fell-in-love-with-greek-mythology-again'],
+  ['how-did-they-make-the-arrows-fly-ece5025d', 'how-did-they-make-the-arrows-fly'],
+ ];
+ for (const [storedSlug, canonicalSlug] of cases) {
+  const post = {...newPost(content), slug: storedSlug, status: 'published'};
+  assert.equal(publicPost(post).slug, canonicalSlug);
+  assert.equal(post.slug, storedSlug);
+ }
 });
 test('journal drafts persist separately and reject stale writes',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'portfolio-journal-'));const old={...process.env};
