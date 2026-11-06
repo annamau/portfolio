@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const bodoni = localFont({
@@ -28,59 +29,14 @@ const geistMono = localFont({
   display: "swap",
 });
 
-const BASE_URL = "https://andresnavesmauri.com";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Andrés Naves Mauri — AI Product Engineer",
-    template: "%s | Andrés Naves Mauri",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Selected AI products, agent systems, automation infrastructure and digital experiences by Andrés Naves Mauri, based in Valencia.",
-  keywords: [
-    "AI Engineer",
-    "AI Developer",
-    "Multi-Agent Systems",
-    "LangGraph",
-    "LLM Orchestration",
-    "Automation Engineer",
-    "Full Stack Developer",
-    "Next.js",
-    "React",
-    "Python",
-    "Valencia Spain",
-    "Andrés Naves Mauri",
-  ],
-  authors: [{ name: "Andrés Naves Mauri", url: BASE_URL }],
-  creator: "Andrés Naves Mauri",
-  openGraph: {
-    title: "Andrés Naves Mauri — AI Product Engineer",
-    description:
-      "AI products, agent systems, automation infrastructure and digital experiences—designed and built end to end.",
-    url: BASE_URL,
-    siteName: "Andrés Naves Mauri",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/profile.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Andrés Naves Mauri — AI Developer",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Andrés Naves Mauri — AI Product Engineer",
-    description:
-      "AI products, agent systems, automation infrastructure and digital experiences—designed and built end to end.",
-    images: ["/profile.jpg"],
-  },
-  alternates: {
-    canonical: BASE_URL,
-  },
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
 };
 
 export default function RootLayout({
@@ -100,14 +56,15 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                name: "Andrés Naves Mauri",
-                url: BASE_URL,
+                name: SITE_NAME,
+                url: SITE_URL,
               },
               {
                 "@context": "https://schema.org",
                 "@type": "Person",
-                name: "Andrés Naves Mauri",
-                url: BASE_URL,
+                "@id": `${SITE_URL}/#andres`,
+                name: SITE_NAME,
+                url: SITE_URL,
                 jobTitle: "AI Product Engineer",
                 description:
                   "AI Engineer specializing in multi-agent systems, LangGraph orchestration, and intelligent automation.",

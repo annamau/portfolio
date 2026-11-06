@@ -5,6 +5,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { load } from "cheerio";
 import sharp from "sharp";
 
 const socket=createServer();socket.listen(0,"127.0.0.1");await once(socket,"listening");const port=socket.address().port;await new Promise(resolve=>socket.close(resolve));
@@ -90,6 +91,11 @@ try{
  result=await call("/api/resources/journal",{method:"PUT",authenticated:true,data:{...article,id:post.id,version:1,action:"publish"}});verify(result.response.ok&&result.body.post.status==="published","Owner can publish an entry.");
  result=await call("/api/resources/journal");verify(result.body.posts.length===1&&!('version' in result.body.posts[0]),"Published entries expose content without owner edit fields.");
  page=await fetch(base+`/blog/${post.slug}`);let html=await page.text();verify(page.status===200&&html.includes(article.title)&&html.includes('JOURNAL-PRIVATE-SENTINEL')&&!html.includes('<script>JOURNAL-ACTIVE-CONTENT</script>'),"Published entry pages render text safely.");
+ const shareResponse=await fetch(base+`/blog/${post.slug}`,{headers:{"User-Agent":"Twitterbot/1.0"}});
+ const share=load(await shareResponse.text());
+ const meta=(key)=>share(`head meta[property="${key}"], head meta[name="${key}"]`).attr("content");
+ verify(meta("og:title")===article.title&&meta("twitter:title")===article.title&&meta("og:url")===`https://andresnavesmauri.com/blog/${post.slug}`,"Sharing crawlers receive the article title and canonical URL in the head.");
+ verify(meta("og:image")===meta("twitter:image")&&meta("og:image")?.endsWith("/share/journal.jpg")&&meta("og:image:alt")&&meta("og:image:width")==="1200"&&meta("og:image:height")==="630","Articles without a cover have a correctly sized Journal card on both platforms.");
  const readingHtml=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,"");
  verify((readingHtml.match(/data-mythology-map=""/g)||[]).length===1,"The combined mythology marker renders one map in the article.");
  verify(!readingHtml.includes('<iframe')&&readingHtml.includes('Charon')&&readingHtml.includes('Harpies'),"The connected map includes the wider cast without a nested scrolling frame.");

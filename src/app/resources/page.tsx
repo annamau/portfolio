@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import ResourceLibrary from "@/components/resources/ResourceLibrary";
+import { pageMetadata, shareImages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Resources — Tools, references & good ideas",
+export const metadata = pageMetadata({
+  path: "/resources",
+  title: "Resource Library",
   description: "A personal library of developer tools, AI frameworks, design references and marketing resources, curated from Andrés Naves Mauri’s bookmarks.",
-  alternates: { canonical: "/resources" },
-  openGraph: { url: "/resources", title: "The Resource Library — Andrés Naves Mauri" },
-};
+  socialTitle: "The Resource Library by Andrés Naves Mauri",
+  image: shareImages.resources,
+});
 
 export default function ResourcesPage() {
   return <ResourceLibrary />;
