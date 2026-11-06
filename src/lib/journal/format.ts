@@ -3,6 +3,7 @@ export type JournalBlock =
   | { type: "paragraph" | "heading" | "quote"; content: JournalInline[] }
   | { type: "list"; items: JournalInline[][] }
   | { type: "image"; src: string; alt: string; caption: JournalInline[] }
+  | { type: "video"; id: string; title: string; caption: JournalInline[] }
   | { type: "chart"; name: string; caption: JournalInline[] };
 export function journalUrl(value: string, image = false): string | null {
   if (image && /^\/journal\/[a-z0-9/_-]+\.(?:png|jpe?g|webp|svg)$/i.test(value) && !value.includes("..")) return value;
@@ -25,11 +26,31 @@ export function journalInline(text: string): JournalInline[] {
   if (cursor < text.length) tokens.push({ type: "text", text: text.slice(cursor) });
   return tokens;
 }
+
+function youtubeId(value: string): string | null {
+  const href = journalUrl(value);
+  if (!href) return null;
+  const url = new URL(href);
+  if (url.port) return null;
+  let id: string | null = null;
+  if (url.hostname === "youtu.be") id = url.pathname.slice(1);
+  if (["www.youtube.com", "youtube.com"].includes(url.hostname) && url.pathname === "/watch") {
+    id = url.searchParams.get("v");
+  }
+  return id && /^[\w-]{11}$/.test(id) ? id : null;
+}
+
 export function journalBlocks(body: string): JournalBlock[] {
   return body.split(/\n\s*\n/).filter(Boolean).map((raw) => {
     const block = raw.trim();
     const image = block.match(/^!\[([^\]]*)\]\(([^\s)]+)\)(?:\n([\s\S]+))?$/);
     if (image) { const src = journalUrl(image[2], true); if (src) return { type: "image", src, alt: image[1], caption: journalInline(image[3] || "") }; }
+    const video = block.match(/^::video\[([^\]\n]+)\]\(([^\s)]+)\)(?:\n([\s\S]+))?$/);
+    if (video) {
+      const title = video[1].trim();
+      const id = youtubeId(video[2]);
+      if (title && id) return { type: "video", id, title, caption: journalInline(video[3] || "") };
+    }
     const chart = block.match(/^::chart\[([a-z][a-z0-9-]{0,63})\](?:\n([\s\S]+))?$/);
     if (chart) return { type: "chart", name: chart[1], caption: journalInline(chart[2] || "") };
     if (/^#{1,3} /.test(block)) return { type: "heading", content: journalInline(block.replace(/^#{1,3} /, "")) };

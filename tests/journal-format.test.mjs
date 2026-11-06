@@ -23,3 +23,16 @@ test('site-owned journal covers use the current preview origin while external co
  assert.equal(journalCoverUrl('https://example.org/cover.webp'),'https://example.org/cover.webp');
  assert.equal(journalCoverUrl('https://andresnavesmauri.com.example.org/journal/cover.webp'),'https://andresnavesmauri.com.example.org/journal/cover.webp');
 });
+
+test('video blocks retain a title and source caption and only accept recognized YouTube videos', () => {
+ const [video, shortLink, spoofedHost, invalidId, missingTitle] = journalBlocks([
+  '::video[Official featurette](https://www.youtube.com/watch?v=Hysh_G5ZFM0&feature=share)\n[LAIKA](https://www.laika.com/)',
+  '::video[Official featurette](https://youtu.be/Hysh_G5ZFM0)',
+  '::video[Spoofed host](https://www.youtube.com.evil.example/watch?v=Hysh_G5ZFM0)',
+  '::video[Bad ID](https://www.youtube.com/watch?v=bad-id)',
+  '::video[](https://www.youtube.com/watch?v=Hysh_G5ZFM0)',
+ ].join('\n\n'));
+ assert.deepEqual(video, { type: 'video', id: 'Hysh_G5ZFM0', title: 'Official featurette', caption: [{ type: 'link', text: 'LAIKA', href: 'https://www.laika.com/' }] });
+ assert.equal(shortLink.id, video.id);
+ for (const block of [spoofedHost, invalidId, missingTitle]) assert.equal(block.type, 'paragraph');
+});

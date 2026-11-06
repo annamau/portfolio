@@ -54,6 +54,15 @@
 .figure { margin:44px 0; }
 .figure>img { display:block; width:100%; height:auto; max-height:540px; object-fit:contain; border-radius:5px; background:#e7dece; }
 .figure figcaption { margin-top:16px; color:#80694f; font-size:11px; line-height:1.8; }
+.videoStage { position:relative; aspect-ratio:16/9; border-radius:5px; background:#261f19; }
+.videoStage :is(iframe,button) { position:absolute; inset:0; width:100%; height:100%; border:0; border-radius:inherit; }
+.videoStage button { display:grid; place-items:center; overflow:hidden; color:#fff8ea; background:inherit; }
+.videoStage button img { object-fit:cover; }
+.videoStage button::after { content:""; position:absolute; inset:45% 0 0; background:linear-gradient(transparent,#221913de); }
+.videoPlay { position:relative; z-index:1; display:grid; place-items:center; width:52px; height:52px; border:1px solid #fff8ea8c; border-radius:50%; background:#30261ee8; }
+.videoTitle { position:absolute; z-index:1; inset:auto 16px 12px; text-align:left; font-weight:750; font-size:clamp(12px,2.5vw,17px); line-height:1.35; }
+.prose .videoSource { display:inline-block; margin-top:8px; font-size:11px; }
+.videoSource + figcaption { margin-top:5px; }
 .draftBanner { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px; margin:32px auto 0; max-width:720px; border:1px dashed #b83c2566; color:#9a3a26; font-size:12px; }
 @media(max-width:600px) { .figure { margin-block:32px; } }
 
