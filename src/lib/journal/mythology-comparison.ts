@@ -1,8 +1,12 @@
 import { createGenerationalLayout } from "./mythology-layout.ts";
-import { isGameTradition, matchesMythologyReading, traceMythologyEdges, type MythologyCatalogue, type MythologyReading } from "./mythology-map.ts";
+import { isGameTradition, matchesMythologyReading, mythologyEdges, traceMythologyEdges, type MythologyCatalogue, type MythologyReading } from "./mythology-map.ts";
 
 export const mainMythologyCast = ["chaos", "gaia", "nyx", "zeus", "hera", "poseidon", "hades", "demeter", "hestia", "athena", "apollo", "artemis", "ares", "aphrodite", "hermes", "dionysus", "hephaestus", "persephone", "hecate", "charon", "melinoe", "zagreus", "selene", "eris", "nemesis", "moros", "thanatos", "harpies", "circe", "polyphemus-cyclops"];
 export type MythologyComparisonMode = "game" | "ancient";
+
+export function mythologyGameCast(catalogue: MythologyCatalogue) {
+  return new Set(mythologyEdges(catalogue).filter((edge) => edge.game).flatMap((edge) => [edge.from, edge.to]));
+}
 
 export function mythologyComparison(catalogue: MythologyCatalogue, mode: MythologyComparisonMode, requested: Set<string>, reading: MythologyReading, spoilers: boolean, originId?: string) {
   const game = mode === "game";

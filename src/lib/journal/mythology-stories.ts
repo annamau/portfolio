@@ -51,9 +51,96 @@ const stories: Record<string, Story> = {
   "dusa-game": { story: "Dusa is the floating Gorgon custodian in the first Hades. A minor encounter can still make the Underworld feel like a place full of individual lives.", detail: "This entry keeps her game identity separate rather than automatically assigning her another Gorgon’s ancient biography." },
 };
 
-export function mythologyStory(entity: MythologyEntity, catalogue: MythologyCatalogue): Story {
-  if (stories[entity.id]) return stories[entity.id];
+const hadesStories: Record<string, string> = {
+  aphrodite: "Aphrodite puts the power of love to work in battle. Her blessings weaken enemies, and the banter between her, Ares, and Hephaestus gives the Olympian family plenty to talk about.",
+  apollo: "Apollo offers Melinoë his light and calls Poseidon his uncle. Artemis, his twin, takes a rather different approach to helping out.",
+  ares: "Ares offers Zagreus the power of Doom. When he and Hephaestus speak together, he reminds his brother that they are both sons of Zeus and Hera.",
+  artemis: "Artemis hunts alongside Melinoë when their paths cross. She calls Apollo her twin and speaks of Zeus as her father and Hera as her stepmother.",
+  athena: "Athena helps Zagreus with blessings that turn enemy attacks back at them. Demeter jokes about Athena springing from Zeus’s head, and Athena takes the jab at her father in stride.",
+  chaos: "Chaos remembers a world before Time. The primordial being sometimes offers Zagreus or Melinoë a trial with a cost up front and a reward after they survive it. Nyx is their child.",
+  charon: "Charon runs a shop as well as a ferry. A grunt usually does for conversation, and Hermes takes it in stride. The two work together, and Nyx is Charon’s mother.",
+  "chronos-hades": "Chronos, the Titan of Time, seizes the House of Hades. Melinoë sets out to stop him, which makes the fight a family affair. He is her grandfather and the father of Hades, Zeus, and Poseidon.",
+  circe: "Circe meets Melinoë on the surface and offers magical help. She names the sun god Helios as her father, and Odysseus remembers spending a year on her island with his crew.",
+  daedalus: "Daedalus did work for the House of Hades. His son Icarus talks about that work with Melinoë, a reminder that the famous craftsman has a place in the Underworld too.",
+  demeter: "Demeter freezes the surface after her daughter disappears. In the games she calls Hyperion and Theia her parents and treats Poseidon as a foster brother.",
+  dionysus: "Dionysus would rather keep the party going. When Demeter’s winter threatens the grapes, he asks Zagreus to see if she might ease up. Zeus calls him his son.",
+  "dora-game": "Dora shares Melinoë’s tent at the Crossroads. The shade has a great deal to say about the living for someone who has trouble remembering her own life.",
+  "dusa-game": "Dusa is the floating Gorgon custodian in the House of Hades. Zagreus meets her at work, usually in the middle of cleaning up after someone else.",
+  eris: "Eris, a daughter of Nyx, is Strife in person. She turns up when Melinoë is trying to get on with a job and finds a way to make it more difficult.",
+  hades: "Hades rules the Underworld and tries to keep Zagreus from leaving it. When Chronos takes the House in the sequel, Hades and Persephone’s daughter Melinoë sets out to bring the family back.",
+  harpies: "The Harpies are among the enemies helping Chronos on the surface. He mentions them alongside Polyphemus when he talks about who is on his side.",
+  hecate: "Hecate takes Melinoë in after the fall of the House of Hades. At the Crossroads she raises and trains her, then tests whether her student is ready to face what waits below.",
+  helios: "Helios is the Sun and Circe’s father. Demeter and Selene both call him their brother, and Demeter remarks that he has gone a long time without shining on the surface.",
+  hephaestus: "Hephaestus puts his forge to work for Melinoë. He and Ares are sons of Zeus and Hera, and a conversation between the brothers brings up Hephaestus’s marriage to Aphrodite.",
+  hera: "Hera is the queen of Olympus and Zeus’s wife. She names Hyperion as her father and shares that branch with Demeter and Hestia.",
+  heracles: "Heracles appears on the surface during the war against Chronos. Zeus names him as his son, which puts another famous hero on the Olympian side of the family.",
+  hermes: "Hermes delivers blessings quickly, keeps in touch with his colleague Charon, and casually calls Zeus his dad. Speed is his answer to most problems.",
+  hestia: "Hestia lends Melinoë fire. Hyperion is her father, and Poseidon says he has known her almost as long as he has been alive.",
+  hyperion: "Hera names the Titan Hyperion as her father and the father of Hestia and Demeter. His place in their family is one of the changes the games make to the Olympian genealogy.",
+  hypnos: "Hypnos greets Zagreus when he returns to the House and has a comment on how he died. By the time Melinoë meets him, the son of Nyx is the one who needs waking up.",
+  medea: "Medea meets Melinoë on the surface and helps with witchcraft. She calls Circe her aunt, tying two of the witches Melinoë encounters to the same family.",
+  melinoe: "Melinoë grows up at the Crossroads under Hecate’s care. When Chronos takes the House of Hades, she sets out to rescue her parents, Hades and Persephone, and her brother Zagreus.",
+  moirai: "The three Fates have a say in what happens even to the gods. Nyx calls them her daughters, and their decisions come up when Zagreus learns about his birth.",
+  moros: "Moros is Doom and one of Nyx’s children. He meets Melinoë through the List of Minor Prophecies, giving a face to the sort of fate she is trying to change.",
+  nemesis: "Nemesis brings Retribution to the Crossroads. She is another of Nyx’s children, and when she crosses paths with Melinoë on a run, she can turn it into a competition.",
+  nyx: "Nyx helps Zagreus in the House of Hades and raises him in Persephone’s absence. She is a child of Chaos, with a family that includes Thanatos, Hypnos, and the Fates.",
+  odysseus: "Odysseus advises Melinoë at the Crossroads. He remembers Circe’s island and the trick he used to escape Polyphemus, when he introduced himself as Nobody.",
+  pandora: "The game revisits Pandora through Dora, the shade at the Crossroads. Her conversations with Melinoë gradually bring back memories from her life.",
+  persephone: "Persephone leaves the Underworld for a garden on the surface, where Zagreus eventually finds her. She is Demeter’s daughter and the mother of Zagreus and Melinoë.",
+  "persephone-mortal-father-game": "Persephone says her father was mortal. She speaks about him when explaining her family to Zagreus, and the game leaves him unnamed.",
+  "polyphemus-cyclops": "Polyphemus guards the way to Olympus and remembers losing his eye to Odysseus. Poseidon admits he once fooled the Cyclops into believing they were father and son.",
+  poseidon: "Poseidon offers Melinoë the force of the sea and calls her his niece. Chronos is his father, Hades and Zeus are his brothers, and Demeter is his foster sister.",
+  scylla: "Scylla and the Sirens play as a band in Oceanus. Melinoë has to fight through the performance, while Poseidon remembers when they were already trouble for sailors.",
+  selene: "Selene offers Melinoë the Moon’s power through Hexes. Nyx fostered her, and she calls the sun god Helios her brother.",
+  sirens: "The Sirens perform with Scylla in Oceanus. Their music keeps going during the fight, even as Melinoë tries to take the band apart one member at a time.",
+  thanatos: "Thanatos visits Zagreus on his escape attempts and sometimes challenges him to see who can defeat more enemies. Death is also one of Nyx’s sons.",
+  theia: "Demeter names Theia as her mother while talking to Zagreus about motherhood. Together with Hyperion, she accounts for Demeter’s Titan parentage in the games.",
+  zagreus: "Zagreus tries to escape the Underworld and find his mother, Persephone. He is the son of Persephone and Hades, and in Hades II his sister Melinoë sets out to rescue the family.",
+  zeus: "Zeus brings his thunderbolts to the family’s fight against Chronos, who is also his father. He rules Olympus with Hera and is a brother to Hades and Poseidon.",
+};
+
+const ancientStories: Record<string, string> = {
+  chaos: "Hesiod starts with Chaos, the opening before the familiar gods. Night and Darkness come from it, while Gaia, Tartarus, and Eros are named among the other first beings.",
+  charon: "Charon ferries travellers into the Underworld. In Aristophanes’ Frogs, Dionysus boards his boat and even has to take an oar while the frogs sing.",
+  melinoe: "An Orphic hymn gives Melinoë Zeus and Persephone as parents. It calls on her as a figure who appears to mortals in frightening forms.",
+  moros: "Hesiod lists Moros, or Doom, among the children of Night. Putting Doom next to Sleep and Death gives a face and a family to the things people fear.",
+  nemesis: "Nemesis personifies retribution. Hesiod places her among the children of Night, alongside figures who embody things that can happen to any of us.",
+  eris: "Eris personifies Strife and is a daughter of Night in Hesiod’s Theogony. She has a whole branch of her own, filled with the troubles that follow conflict.",
+  thanatos: "Thanatos personifies Death and is a son of Night in Hesiod. He and his brother Sleep live near one another, with very different consequences for the mortals they visit.",
+  zagreus: "Nonnus tells of a young Zagreus born to Zeus and Persephone who takes up his father’s lightning before the Titans attack him. A fragment attributed to Aeschylus gives Zagreus a different father, Hades.",
+};
+
+const roles: Record<string, string> = {
+  aphrodite: "Goddess of love and desire", apollo: "God of music and prophecy",
+  ares: "God of war", artemis: "Goddess of the hunt", athena: "Goddess of wisdom and war",
+  chaos: "The primordial opening", charon: "Ferryman of the dead", "chronos-hades": "Titan of Time",
+  demeter: "Goddess of the harvest", dionysus: "God of wine and revelry", eris: "Goddess of strife",
+  hades: "God of the Underworld", hecate: "Goddess of magic and crossroads",
+  hephaestus: "God of the forge", hera: "Goddess of marriage", hermes: "God of messengers and travellers",
+  hestia: "Goddess of the hearth", hypnos: "God of sleep", melinoe: "Goddess of ghosts",
+  moirai: "The three Fates", moros: "Doom personified", nemesis: "Goddess of retribution",
+  nyx: "Goddess of night", persephone: "Queen of the Underworld", poseidon: "God of the sea",
+  selene: "Goddess of the Moon", thanatos: "Death personified", zagreus: "Prince of the Underworld",
+  zeus: "God of the sky and thunder",
+};
+
+export function mythologyRole(entity: MythologyEntity) {
+  const role = roles[entity.id] || entity.qualifier || entity.domains.join(" · ") || entity.categories[0] || "Mythical figure";
+  return role[0].toUpperCase() + role.slice(1);
+}
+
+export function mythologyStory(entity: MythologyEntity, catalogue: MythologyCatalogue, mode?: "game" | "ancient"): Story {
+  const selectedStory = mode === "game" ? hadesStories[entity.id] : mode === "ancient" ? ancientStories[entity.id] : undefined;
+  if (selectedStory) return { story: selectedStory, detail: "" };
+  if (mode !== "game" && stories[entity.id]) return stories[entity.id];
   const byId = new Map(catalogue.entities.map((item) => [item.id, item]));
+  if (mode === "game") {
+    const origin = catalogue.lineages.find((claim) => claim.child === entity.id && isGameTradition(claim.tradition));
+    const parents = origin?.parents.map((id) => byId.get(id)?.name).filter(Boolean).join(" and ");
+    if (parents) return { story: `In the games, ${entity.name} is a child of ${parents}.`, detail: "" };
+    const relation = catalogue.relationships.find((claim) => isGameTradition(claim.tradition) && (claim.from === entity.id || claim.to === entity.id));
+    return { story: relation?.notes || entity.summary, detail: "" };
+  }
   const origin = catalogue.lineages.filter((claim) => claim.child === entity.id && !claim.spoiler && !isGameTradition(claim.tradition)).sort((a, b) => b.parents.length - a.parents.length)[0];
   const group = catalogue.relationships.find((claim) => claim.from === entity.id && claim.type === "member_of" && !claim.spoiler);
   const meaningful = !/appears in the cited|in the cited tradition\.?$|in the cited account\.?$/i.test(entity.summary);

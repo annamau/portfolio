@@ -11,7 +11,8 @@ function Inline({ tokens }: { tokens: JournalInline[] }) {
 export default function JournalBody({ body, postId }: { body: string; postId?: string }) {
   return <div className={styles.prose}>{journalBlocks(body).map((block, index) => {
     if (block.type === "image") return <figure key={index} className={styles.figure}><Image src={block.src} alt={block.alt} width={1200} height={900} unoptimized/><figcaption><Inline tokens={block.caption}/></figcaption></figure>;
-    if (block.type === "chart") return <figure key={index} className={styles.figure}>{block.name === "greek-mythology" ? <MythologyMap/> : <JournalChart postId={postId} name={block.name}/>}<figcaption><Inline tokens={block.caption}/></figcaption></figure>;
+    if (block.type === "chart" && block.name === "greek-mythology") return <MythologyMap key={index}/>;
+    if (block.type === "chart") return <figure key={index} className={styles.figure}><JournalChart postId={postId} name={block.name}/>{block.caption.length > 0 && <figcaption><Inline tokens={block.caption}/></figcaption>}</figure>;
     if (block.type === "list") return <ul key={index}>{block.items.map((item, itemIndex) => <li key={itemIndex}><Inline tokens={item}/></li>)}</ul>;
     if (block.type === "heading") return <h2 key={index}><Inline tokens={block.content}/></h2>;
     if (block.type === "quote") return <blockquote key={index}><Inline tokens={block.content}/></blockquote>;

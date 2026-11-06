@@ -1,24 +1,21 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { mythologyComparison, type MythologyComparisonMode } from "@/lib/journal/mythology-comparison";
-import { mythologyStory } from "@/lib/journal/mythology-stories";
-import type { MythologyCatalogue, MythologyReading } from "@/lib/journal/mythology-map";
+import type { MythologyCatalogue } from "@/lib/journal/mythology-map";
 import MythologyNetwork from "./MythologyNetwork";
+import MythologyProfile from "./MythologyProfile";
 import styles from "./MythologyMap.module.css";
 
-export default function MythologyComparisonPanel({ catalogue, mode, chosen, selected, reading, spoilers, originId, onSelect }: {
-  catalogue: MythologyCatalogue; mode: MythologyComparisonMode; chosen: Set<string>; selected: string;
-  reading: MythologyReading; spoilers: boolean; originId?: string; onSelect: (id: string) => void;
+export default function MythologyComparisonPanel({ catalogue, mode, chosen, selected, onSelect }: {
+  catalogue: MythologyCatalogue; mode: MythologyComparisonMode; chosen: Set<string>; selected: string; onSelect: (id: string) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const expandButton = useRef<HTMLButtonElement>(null);
   const wasExpanded = useRef(false);
-  const graph = useMemo(() => mythologyComparison(catalogue, mode, chosen, reading, spoilers, originId), [catalogue, mode, chosen, reading, spoilers, originId]);
-  const active = graph.entities.some((entity) => entity.id === selected) ? selected : graph.entities.find((entity) => chosen.has(entity.id))?.id || "";
-  const title = mode === "game" ? "In Hades" : "In ancient mythology";
-  const selectedEntity = catalogue.entities.find((entity) => entity.id === selected);
-  const activeEntity = graph.entities.find((entity) => entity.id === active);
+  const graph = useMemo(() => mythologyComparison(catalogue, mode, chosen, "hesiod", true), [catalogue, mode, chosen]);
+  const entity = graph.entities.find((item) => item.id === selected) || graph.entities[0];
+
   useEffect(() => {
     if (!expanded) {
       if (wasExpanded.current) expandButton.current?.focus({ preventScroll: true });
@@ -27,19 +24,29 @@ export default function MythologyComparisonPanel({ catalogue, mode, chosen, sele
     }
     if (!dialog.current) return;
     wasExpanded.current = true;
-    const element = dialog.current, overflow = document.body.style.overflow;
-    element.showModal(); document.body.style.overflow = "hidden";
-    return () => { if (element.open) element.close(); document.body.style.overflow = overflow; };
+    const element = dialog.current;
+    const overflow = document.body.style.overflow;
+    element.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      if (element.open) element.close();
+      document.body.style.overflow = overflow;
+    };
   }, [expanded]);
-  const contents = <>
-    <header className={styles.panelHeader}><div><p className={styles.kicker}>{mode === "game" ? "GAME CONTINUITY" : "SOURCE TRADITIONS"}</p><h4>{title}</h4></div><button ref={expandButton} type="button" onClick={() => setExpanded((value) => !value)} aria-label={`${expanded ? "Close" : "Open"} ${mode === "game" ? "Hades graph" : "ancient mythology graph"} full screen`}>{expanded ? "Close ×" : "Expand ↗"}</button></header>
-    <p className={styles.panelNote}>{mode === "game" ? "Explore the House of Hades, Olympus, and the children of Night." : "A family shaped by many ancient writers. Choose a source or trace an origin in a profile."}</p>
-    {graph.entities.length ? <MythologyNetwork entities={graph.entities} layout={graph.layout} edges={graph.edges} selected={active} focusKey={`${mode}/${reading}/${originId || ""}/${spoilers}/${[...chosen].join(",")}`} connectorIds={graph.connectors} expanded={expanded} onSelect={onSelect}/> : <div className={styles.emptyCast}>Choose a few figures to start exploring.</div>}
-    <p className={styles.panelCount}>{graph.picked} chosen figures{graph.connectors.size > 0 && <> + {graph.connectors.size} connecting figures</>}. {mode === "ancient" && selectedEntity?.categories.includes("game character") && <>{selectedEntity.name} appears only in the game telling.</>} {graph.omitted === 1 && <>One chosen figure has no checked game link here.</>}{graph.omitted > 1 && <>{graph.omitted} chosen figures have no checked game link here.</>}</p>
-    {expanded && activeEntity && <div className={styles.expandedStory} data-fullscreen-profile={activeEntity.id}><strong>{activeEntity.name}</strong><p>{mythologyStory(activeEntity, catalogue).story}</p></div>}
-  </>;
+
+  const network = entity && <MythologyNetwork entities={graph.entities} layout={graph.layout} edges={graph.edges} selected={entity.id} focusKey={mode} connectorIds={graph.connectors} expanded={expanded} onSelect={onSelect}/>;
+
   return <div className={styles.comparisonPanel} data-comparison={mode}>
-    {!expanded && contents}
-    <dialog ref={dialog} aria-label={`${title} full screen`} className={styles.expandedPanel} onCancel={(event) => { event.preventDefault(); setExpanded(false); }}>{expanded && contents}</dialog>
+    {!expanded && <>
+      {network}
+      <button ref={expandButton} className={styles.expand} type="button" aria-label="Open family map full screen" onClick={() => setExpanded(true)}>Expand ↗</button>
+    </>}
+    <dialog ref={dialog} aria-label="Family map full screen" className={styles.expandedPanel} onCancel={(event) => { event.preventDefault(); setExpanded(false); }}>
+      {expanded && <div className={styles.expandedBody}>
+        {network}
+        {entity && <MythologyProfile catalogue={catalogue} mode={mode} entity={entity} expanded/>}
+        <button className={styles.expand} type="button" aria-label="Close full screen" onClick={() => setExpanded(false)}>Close ×</button>
+      </div>}
+    </dialog>
   </div>;
 }

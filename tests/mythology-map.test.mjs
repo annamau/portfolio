@@ -322,3 +322,23 @@ test('game dialogue connects the Olympian boon cast without importing ancient or
  assert.deepEqual(new Set(cyclopsParents('ancient')),new Set(['poseidon','thoosa']));
  assert.deepEqual(cyclopsParents('game'),[]);
 });
+
+test('the profile story follows the active telling', async () => {
+ const { mythologyStory } = await import('../src/lib/journal/mythology-stories.ts');
+ const story = (id, mode) => mythologyStory(byId.get(id), catalogue, mode).story;
+ assert.match(story('zeus', 'game'), /Chronos/);
+ assert.match(story('zeus', 'ancient'), /Kronos and Rhea/);
+ assert.match(story('zagreus', 'ancient'), /Nonnus.*Zeus and Persephone/);
+ assert.match(story('zagreus', 'game'), /Melinoë/);
+ assert.match(story('icarus', 'game'), /Daedalus/);
+ assert.doesNotMatch(story('icarus', 'game'), /Ovid/);
+});
+
+test('the complete Hades cast includes the previously covered story connections', async () => {
+ const { mythologyComparison, mythologyGameCast } = await import('../src/lib/journal/mythology-comparison.ts');
+ const cast = mythologyGameCast(catalogue);
+ const graph = mythologyComparison(catalogue, 'game', cast, 'hesiod', true);
+ assert.deepEqual(new Set(graph.entities.map(entity => entity.id)), cast);
+ assert.ok(graph.edges.some(edge => edge.from === 'nyx' && edge.to === 'zagreus' && edge.spoiler));
+ assert.ok(graph.edges.some(edge => edge.from === 'dora-game' && edge.to === 'pandora' && edge.spoiler));
+});
