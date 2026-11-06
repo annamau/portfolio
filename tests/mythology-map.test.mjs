@@ -342,3 +342,13 @@ test('the complete Hades cast includes the previously covered story connections'
  assert.ok(graph.edges.some(edge => edge.from === 'nyx' && edge.to === 'zagreus' && edge.spoiler));
  assert.ok(graph.edges.some(edge => edge.from === 'dora-game' && edge.to === 'pandora' && edge.spoiler));
 });
+
+test('the main profiles tell an episode beyond genealogy', async () => {
+ const { mythologyStory } = await import('../src/lib/journal/mythology-stories.ts');
+ const story = (id, mode) => mythologyStory(byId.get(id), catalogue, mode).story;
+ assert.match(story('zeus', 'ancient'), /Titanomachy.*sky.*Olympus/);
+ assert.match(story('hermes', 'ancient'), /cattle.*lyre/);
+ assert.match(story('persephone', 'ancient'), /pomegranate/);
+ assert.match(story('zeus', 'game'), /lightning.*Chronos/);
+ assert.doesNotMatch(story('zeus', 'game'), /father|brother/);
+});
