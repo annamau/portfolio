@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { DownloadSimple, Lightbulb, LockSimple, MagnifyingGlass, Plus } from "@phosphor-icons/react";
 import type { Resource, ResourceCategory } from "@/data/resources";
 import type { SavedResource } from "@/lib/resources/model";
@@ -10,19 +11,17 @@ import ResourceCard from "./ResourceCard";
 import ResourceCapture from "./ResourceCapture";
 import ResourceSuggestionForm from "./ResourceSuggestionForm";
 import ResourceSuggestionQueue from "./ResourceSuggestionQueue";
-import suggestionStyles from "./ResourceSuggestions.module.css";
 import ResourceViewer from "./ResourceViewer";
 import styles from "./ResourceLibrary.module.css";
 import forms from "./ResourceDialogs.module.css";
 
-export default function ResourceInbox({ initialAdd=false, initialUrl="", initialCategory="ideas" }: { initialAdd?: boolean; initialUrl?: string; initialCategory?: ResourceCategory }) {
+export default function ResourceInbox({ initialAdd=false, initialUrl="", initialCategory="ideas", ownerEntry=false }: { initialAdd?: boolean; initialUrl?: string; initialCategory?: ResourceCategory; ownerEntry?: boolean }) {
   const {locale}=useLanguage();const es=locale==="es";
   const {entries,session,error:dataError,refresh}=useResourceData();
   const [editing,setEditing]=useState<SavedResource|"new"|null>(initialAdd||initialUrl?"new":null);
   const [viewing,setViewing]=useState<Resource|null>(null);
   const [tab,setTab]=useState<"draft"|"published"|"suggestions">("draft");
   const [query,setQuery]=useState("");
-  const [showLogin,setShowLogin]=useState(false);
   const [password,setPassword]=useState("");
   const [busy,setBusy]=useState("");
   const [error,setError]=useState("");
@@ -41,17 +40,15 @@ export default function ResourceInbox({ initialAdd=false, initialUrl="", initial
   return <main className={styles.page}>
     <ResourceSidebar inbox onAdd={()=>setEditing("new")}/>
     <section className={styles.directory} aria-labelledby="inbox-heading">
-      <div className={styles.folderHeading}><h1 id="inbox-heading">{session?.authenticated?<LockSimple size={25} weight="duotone"/>:<Lightbulb size={25} weight="duotone"/>}{session?.authenticated?(es?"Revisar bandeja":"Review inbox"):(es?"Proponer recurso":"Suggest a resource")}</h1>{session?.authenticated&&<button type="button" aria-label={es?"Añadir recurso":"Add resource"} className={styles.addButton} onClick={()=>setEditing("new")}><Plus size={17}/><span>{es?"Añadir recurso":"Add resource"}</span></button>}</div>
+      <div className={styles.folderHeading}><h1 id="inbox-heading">{session?.authenticated||ownerEntry?<LockSimple size={25} weight="duotone"/>:<Lightbulb size={25} weight="duotone"/>}{session?.authenticated?(es?"Revisar bandeja":"Review inbox"):ownerEntry?(es?"Acceso de propietario":"Owner sign-in"):(es?"Proponer recurso":"Suggest a resource")}</h1>{session?.authenticated&&<button type="button" aria-label={es?"Añadir recurso":"Add resource"} className={styles.addButton} onClick={()=>setEditing("new")}><Plus size={17}/><span>{es?"Añadir recurso":"Add resource"}</span></button>}</div>
       {(!session||dataError)&&<div className={styles.dataNotice} role="status">{dataError|| (es?"Abriendo tu bandeja…":"Opening your inbox…")}{dataError&&<button type="button" onClick={()=>void refresh()}>{es?"Reintentar":"Retry"}</button>}</div>}
-      {session&&!session.authenticated&&<>
-        <ResourceSuggestionForm initialCategory={initialCategory} initialUrl={initialUrl}/>
-        <button className={suggestionStyles.ownerLink} onClick={()=>setShowLogin(!showLogin)} type="button">{es?"Acceso de propietario":"Owner sign-in"}</button>
-        {showLogin&&<form onSubmit={login} className={`${forms.form} ${styles.login}`}>
-        <LockSimple size={30} weight="thin"/><h2>{es?"Acceso de propietario":"Owner sign-in"}</h2>
+      {session&&!session.authenticated&&!ownerEntry&&<ResourceSuggestionForm initialCategory={initialCategory} initialUrl={initialUrl}/>}
+      {session&&!session.authenticated&&ownerEntry&&<form onSubmit={login} className={`${forms.form} ${styles.login}`}>
         <p>{es?"Accede para guardar y revisar recursos antes de publicarlos.":"Sign in to save and review resources before publishing."}</p>
         {session.configured?<><label>{es?"Contraseña de propietario":"Owner password"}<input type="password" autoComplete="current-password" value={password} onChange={(event)=>setPassword(event.target.value)} required/></label><button className={forms.primary} type="submit" disabled={!!busy}>{busy?(es?"Accediendo…":"Signing in…"):(es?"Entrar":"Sign in")}</button></>:<p>{es?"El acceso de propietario necesita configurarse en esta web.":"Owner access needs to be configured on this deployment."}</p>}
-      </form>}</>}
+      </form>}
       {session?.authenticated&&<>
+        <Link className={styles.addButton} href="/blog/write">{es?"Escribir en el diario":"Write in the journal"}</Link>
         <div className={styles.inboxTools}><div className={styles.statusTabs}>{(["draft","published","suggestions"] as const).map((status)=><button key={status} type="button" aria-pressed={tab===status} onClick={()=>setTab(status)}>{status==="draft"?(es?"Por revisar":"To review"):status==="published"?(es?"Publicados":"Published"):(es?"Propuestas":"Suggestions")}{status!=="suggestions"&&<span>{entries.filter((entry)=>entry.status===status).length}</span>}</button>)}</div><button type="button" onClick={exportLinks}><DownloadSimple size={14}/>{es?"Exportar enlaces":"Export links"}</button>{!session.local&&<button type="button" onClick={()=>void logout()}>{es?"Salir":"Sign out"}</button>}</div>
         {tab==="suggestions"?<ResourceSuggestionQueue/>:<>
         <div className={styles.search}><MagnifyingGlass size={19}/><input type="search" value={query} onChange={(event)=>setQuery(event.target.value)} aria-label={es?"Buscar en la bandeja":"Search inbox"} placeholder={es?"Busca entre lo que has guardado…":"Find something you’ve saved…"}/></div>

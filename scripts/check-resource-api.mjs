@@ -32,6 +32,16 @@ try{
  verify(fonts.length>0,"The built homepage preloads its fonts.");
  for(const path of fonts){const response=await fetch(new URL(path,base));const bytes=Buffer.from(await response.arrayBuffer());verify(response.ok&&bytes.subarray(0,4).toString()==="wOF2","Preloaded font files are served as valid WOFF2 data.");}
  let result=await call("/api/resources/session");verify(result.body.authenticated===false,"Public visitors must not have owner access.");
+ for (const path of ["/resources", "/resources/inbox", "/blog"]) {
+  const page=await fetch(base+path);
+  const $=load(await page.text());
+  verify(page.ok&&!$('a[href="/resources/owner"], a[href="/blog/write"]').length,`Public navigation on ${path} does not advertise owner access.`);
+ }
+ const ownerPage=await fetch(base+"/resources/owner");
+ const ownerMarkup=load(await ownerPage.text());
+ verify(ownerPage.ok&&ownerMarkup('meta[name="robots"]').attr("content")?.includes("noindex"),"The direct owner page is available and excluded from indexing.");
+ const ownerSitemap=await fetch(base+"/sitemap.xml");
+ verify(ownerSitemap.ok&&!(await ownerSitemap.text()).includes("/resources/owner"),"The owner page stays out of the sitemap.");
  result=await call("/api/resources?scope=inbox");verify(result.response.status===401,"Private inbox must reject anonymous readers.");
  const idea={title:"Visitor idea",note:"PRIVATE-SUGGESTION-SENTINEL",category:"ideas",status:"published"};
  result=await call("/api/resources/suggestions");verify(result.response.status===401,"Anonymous visitors cannot read suggestions.");

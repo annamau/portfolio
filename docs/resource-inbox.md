@@ -2,7 +2,7 @@
 
 The public library lives at `/resources`, with separate pages for Development, AI & agents, Design, Marketing, Ideas & inspiration and Infrastructure. The logo/name returns to `/`.
 
-Open `/resources/inbox` and sign in using the owner password. Choose Add resource to paste a link (or up to 50 lines), upload an image/audio/video/PDF, or import a JSON/Chrome HTML bookmark export. Add a folder, type, description, comma-separated tags and optional private notes. Every new item starts as a draft. Review & edit, then Publish. Published entries can be moved back to the inbox before editing. Private notes never enter public API responses.
+Open the direct owner page and sign in using the owner password. The public suggestion page stays at `/resources/inbox`. Choose Add resource to paste a link (or up to 50 lines), upload an image/audio/video/PDF, or import a JSON/Chrome HTML bookmark export. Add a folder, type, description, comma-separated tags and optional private notes. Every new item starts as a draft. Review & edit, then Publish. Published entries can be moved back to the inbox before editing. Private notes never enter public API responses.
 
 Search understands aliases such as `db`, `images`, `audio` and Spanish equivalents. X URLs are canonicalized, and their official embeds load on demand with an original-post fallback. X articles open on X for full reading. Uploads accept at most 4 MiB; save a source link for larger videos. Images are validated and re-encoded to WebP; active SVG/HTML uploads are rejected.
 

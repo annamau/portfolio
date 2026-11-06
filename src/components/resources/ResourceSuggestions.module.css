@@ -5,7 +5,6 @@
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .receipt { display: grid; justify-items: start; gap: 24px; padding-block: 28px; }
 .receipt h2 { margin: 0; font-size: 26px; font-weight: 400; }
-.ownerLink { margin-top: 32px; padding: 8px 0; border: 0; color: #826b51; background: transparent; font: inherit; font-size: 10px; text-decoration: underline; text-underline-offset: 4px; }
 .queue { display: grid; gap: 24px; margin-top: 24px; }
 .suggestion { min-width: 0; padding: 24px; border: 1px solid #d0bda4; border-radius: 7px; background: #fbf6ec; }
 .suggestion h2 { margin: 0 0 14px; font-size: 24px; font-weight: 500; overflow-wrap: anywhere; }

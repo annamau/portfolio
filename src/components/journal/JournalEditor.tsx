@@ -10,7 +10,7 @@ import styles from "./Journal.module.css";
 const blank = { title: "", summary: "", body: "", topic: "", cover: "" };
 export default function JournalEditor({ initialPostId = "" }: { initialPostId?: string }) {
   const { locale } = useLanguage(); const es = locale === "es";
-  const [owner, setOwner] = useState<boolean | null>(null); const [password, setPassword] = useState("");
+  const [owner, setOwner] = useState<boolean | null>(null);
   const [posts, setPosts] = useState<JournalPost[]>([]); const [post, setPost] = useState<JournalPost | null>(null); const [content, setContent] = useState(blank);
   const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const [notice, setNotice] = useState(""); const [preview, setPreview] = useState(false);
   async function refreshPosts() {
@@ -29,11 +29,6 @@ export default function JournalEditor({ initialPostId = "" }: { initialPostId?: 
     } catch (error) { if (active) setError(error instanceof Error ? error.message : "Could not load editor."); } })();
     return () => { active = false; };
   }, [initialPostId]);
-  async function login(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError("");
-    try { const response = await fetch("/api/resources/session", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password }) }); const data = await response.json(); if (!response.ok) throw new Error(data.error); setPassword(""); setOwner(true); const entries = await refreshPosts(); const initial = entries.find((item) => item.id === initialPostId); if (initial) selectPost(initial); }
-    catch (error) { setError(error instanceof Error ? error.message : "Sign in failed."); } finally { setBusy(false); }
-  }
   function selectPost(value: JournalPost | null) { setPost(value); setContent(value ? { title: value.title, summary: value.summary, body: value.body, topic: value.topic, cover: value.cover } : blank); setNotice(""); setError(""); setPreview(false); }
   async function save(action: "save" | "publish" | "unpublish") {
     setBusy(true); setError(""); setNotice("");
@@ -46,7 +41,7 @@ export default function JournalEditor({ initialPostId = "" }: { initialPostId?: 
   const labels = { title: es ? "Título" : "Title", summary: es ? "Resumen (opcional)" : "Summary (optional)", topic: es ? "Tema (opcional)" : "Topic (optional)", cover: es ? "URL de portada (opcional)" : "Cover URL (optional)" };
   return <section className={styles.editor}><h1>{es ? "Escribir" : "Write"}<span className={styles.editorStatus}>{post?.status === "published" ? (es ? "PUBLICADO" : "PUBLISHED") : (es ? "BORRADOR PRIVADO" : "PRIVATE DRAFT")}</span></h1>
     {error && <p role="alert" className={forms.error}>{error}</p>}{notice && <p role="status" className={styles.notice}>{notice}</p>}
-    {owner === null ? <p role="status">{es ? "Comprobando acceso…" : "Checking access…"}</p> : !owner ? <form className={forms.form} onSubmit={login}><label>{es ? "Contraseña de propietario" : "Owner password"}<input type="password" value={password} autoComplete="current-password" onChange={(event) => setPassword(event.target.value)} required /></label><button className={forms.primary} disabled={busy}>{es ? "Entrar" : "Sign in"}</button></form> : <div className={styles.editorGrid}>
+    {owner === null ? <p role="status">{es ? "Comprobando acceso…" : "Checking access…"}</p> : !owner ? <p>{es ? "Esta página requiere acceso de propietario." : "This page requires owner access."}</p> : <div className={styles.editorGrid}>
       <form className={forms.form} onSubmit={(event) => { event.preventDefault(); void save("save"); }}>
         <label>{labels.title}<input required maxLength={160} value={content.title} onChange={(event) => setContent({ ...content, title: event.target.value })}/></label>
         <label>{labels.summary}<textarea rows={2} maxLength={280} value={content.summary} onChange={(event) => setContent({ ...content, summary: event.target.value })}/></label>
