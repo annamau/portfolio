@@ -58,8 +58,10 @@ test('the first beings and uncertain identities never gain invented biological p
 test('character reveal edges stay hidden without disconnecting the graph',()=>{
  const secret=catalogue.relationships.find(claim=>claim.from==='dora-game'&&claim.to==='pandora');
  assert.ok(secret.spoiler);
- assert.ok(origins('zagreus').some(claim=>isGameTradition(claim.tradition)&&claim.parents.includes('persephone')&&claim.spoiler));
- assert.ok(origins('zagreus').some(claim=>isGameTradition(claim.tradition)&&claim.parents.length===1&&claim.parents[0]==='hades'&&!claim.spoiler));
+ assert.ok(origins('zagreus').some(claim=>isGameTradition(claim.tradition)&&claim.parents.includes('persephone')&&!claim.spoiler));
+ const foster=catalogue.relationships.find(claim=>claim.from==='nyx'&&claim.to==='zagreus');
+ assert.equal(foster.type,'foster_parent_of');
+ assert.ok(foster.spoiler);
  const visible=edges.filter(edge=>!edge.spoiler);
  assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),visible).length,1);
  assert.ok(!visible.some(edge=>edge.from==='dora-game'&&edge.to==='pandora'));
@@ -131,7 +133,7 @@ test('selecting a telling emphasizes its parent sets while preserving the full c
  const parents=edges=>new Set(edges.filter(edge=>edge.to==='melinoe'&&edge.kind!=='relationship'&&edge.emphasis).map(edge=>edge.from));
  assert.deepEqual(parents(game),new Set(['hades','persephone']));
  assert.deepEqual(parents(orphic),new Set(['zeus','persephone']));
- for(const traced of [game,orphic]){assert.equal(traced.length,1009);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
+ for(const traced of [game,orphic]){assert.equal(traced.length,1010);assert.equal(connectedMythologyGroups(catalogue.entities.filter(entity=>!entity.spoiler).map(entity=>entity.id),traced).length,1);}
 });
 
 test('tracing one origin overrides competing parents for that figure only',async()=>{
@@ -221,6 +223,8 @@ test('new game-only spoiler people remain absent until the reader uncovers them'
  assert.ok(!hidden.edges.some(edge=>edge.to==='persephone'&&edge.from==='zeus'),'Do not substitute a known-contradictory ancient father for a covered game origin');
  assert.ok(revealed.entities.some(entity=>entity.id==='persephone-mortal-father-game'));
  assert.ok(revealed.edges.some(edge=>edge.to==='persephone'&&edge.from==='persephone-mortal-father-game'));
+ assert.equal(new Set(revealed.edges.filter(edge=>edge.to==='persephone'&&edge.kind==='birth').map(edge=>edge.claimId)).size,1);
+ assert.ok(hidden.edges.some(edge=>edge.to==='persephone'&&edge.from==='demeter'));
  assert.ok(!mythologyComparison(catalogue,'ancient',chosen,'all',true).entities.some(entity=>entity.id==='persephone-mortal-father-game'));
 });
 
@@ -247,12 +251,24 @@ test('the downloadable catalogue includes the same short stories and memorable d
  for(const entity of catalogue.entities){const profile=mythologyStory(entity,catalogue);assert.equal(entity.shortStory,profile.story,entity.id);assert.equal(entity.rememberThis,profile.detail,entity.id);}
 });
 
-test('the default game cast stays connected through Zagreus’s public father without exposing his mother',async()=>{
+test('Hades opens with one branch from Hades and Persephone to both children',async()=>{
  const {mythologyComparison,mainMythologyCast}=await import('../src/lib/journal/mythology-comparison.ts');
- const graph=mythologyComparison(catalogue,'game',new Set(mainMythologyCast),'all',false);
- assert.ok(graph.edges.some(edge=>edge.from==='hades'&&edge.to==='zagreus'&&edge.game));
- assert.ok(!graph.edges.some(edge=>edge.from==='persephone'&&edge.to==='zagreus'));
- assert.equal(connectedMythologyGroups(graph.entities.map(entity=>entity.id),graph.edges).length,1);
+ const {mythologyBranches}=await import('../src/lib/journal/mythology-branches.ts');
+ for(const spoilers of [false,true]){
+  const graph=mythologyComparison(catalogue,'game',new Set(mainMythologyCast),'all',spoilers);
+  const positions=new Map(graph.layout.nodes.map(node=>[node.id,node]));
+  const branches=[...mythologyBranches(graph.edges,positions).values()];
+  const family=branches.filter(branch=>branch.children.has('zagreus')||branch.children.has('melinoe'));
+  assert.equal(family.length,1);
+  assert.deepEqual(family[0].parents,['hades','persephone']);
+  assert.deepEqual(new Set(family[0].children.keys()),new Set(['melinoe','zagreus']));
+  const [father,mother]=family[0].parents.map(id=>positions.get(id));
+  assert.equal(father.y,mother.y);
+  assert.ok(![...positions.values()].some(node=>node.y===father.y&&node.x>Math.min(father.x,mother.x)&&node.x<Math.max(father.x,mother.x)));
+  const [melinoe,zagreus]=[...family[0].children.keys()].map(id=>positions.get(id));
+  assert.equal((melinoe.x+zagreus.x)/2,(father.x+mother.x)/2);
+  assert.equal(connectedMythologyGroups(graph.entities.map(entity=>entity.id),graph.edges).length,1);
+ }
 });
 
 test('Hades starts with Chaos and uses its own attested family and timeline',async()=>{

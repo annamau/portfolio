@@ -2,7 +2,7 @@ import { connectedMythologyGroups, traceMythologyEdges, type MythologyCatalogue,
 
 // Source-specific parent constraints set the vertical order. Story ties only
 // influence proximity; they never become invented parent relationships.
-export function createGenerationalLayout(catalogue: MythologyCatalogue, reading: MythologyReading = "all", revealed = false, { first, sequence = false }: { first?: string; sequence?: boolean } = {}): MythologyLayout {
+export function createGenerationalLayout(catalogue: MythologyCatalogue, reading: MythologyReading = "all", revealed = false, { first, sequence = false, placeFamilies = false }: { first?: string; sequence?: boolean; placeFamilies?: boolean } = {}): MythologyLayout {
   const edges = traceMythologyEdges(catalogue, reading).filter((edge) => revealed || !edge.spoiler);
   const entities = new Map(catalogue.entities.map((entity) => [entity.id, entity]));
   const parents = new Map(catalogue.entities.map((entity) => [entity.id, new Set<string>()]));
@@ -53,6 +53,9 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
   }
   const bands = new Map<number, string[]>();
   for (const id of order) { const level = rank.get(id)!; bands.set(level, [...(bands.get(level) || []), id]); }
+  const coParents = placeFamilies ? catalogue.lineages
+    .filter((claim) => claim.mode === "birth" && (revealed || !claim.spoiler))
+    .flatMap((claim) => claim.parents.slice(1).map((parent) => ({ from: claim.parents[0], to: parent }))) : [];
   const points = new Map<string, MythologyLayout["nodes"][number]>();
   let y = 74;
   const gapX = 182, gapY = 128;
@@ -65,11 +68,27 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
   };
   for (const [, ids] of [...bands].sort(([a], [b]) => a - b)) {
     ids.sort((a, b) => Number(focal.has(b)) - Number(focal.has(a)) || center(a) - center(b) || a.localeCompare(b));
-    const rowWidth = Math.min(columns, ids.length);
-    const rows = Math.ceil(ids.length / rowWidth);
-    ids.forEach((id, index) => {
-      const row = Math.floor(index / rowWidth), inRow = Math.min(rowWidth, ids.length - row * rowWidth);
-      points.set(id, { id, x: (index % rowWidth - (inRow - 1) / 2) * gapX, y: y + row * gapY, radius: entities.get(id)!.kind === "collective" ? 27 : 31 });
+    let rowIds = ids;
+    if (coParents.length) {
+      const orderInRow = new Map(ids.map((id, index) => [id, index]));
+      const centerOfGroup = (group: string[]) => group.reduce((sum, id) => sum + orderInRow.get(id)!, 0) / group.length;
+      rowIds = connectedMythologyGroups(ids, coParents)
+        .sort((a, b) => centerOfGroup(a) - centerOfGroup(b))
+        .flatMap((group) => group.sort((a, b) => orderInRow.get(a)! - orderInRow.get(b)!));
+    }
+    const rowWidth = Math.min(columns, rowIds.length);
+    const rows = Math.ceil(rowIds.length / rowWidth);
+    let offsetX = 0;
+    if (placeFamilies && rows === 1 && rowWidth <= 5) {
+      const offsets = rowIds.flatMap((id, index) => {
+        if (![...parents.get(id)!].some((parent) => points.has(parent))) return [];
+        return [center(id) - (index - (rowWidth - 1) / 2) * gapX];
+      });
+      if (offsets.length) offsetX = offsets.reduce((sum, value) => sum + value, 0) / offsets.length;
+    }
+    rowIds.forEach((id, index) => {
+      const row = Math.floor(index / rowWidth), inRow = Math.min(rowWidth, rowIds.length - row * rowWidth);
+      points.set(id, { id, x: offsetX + (index % rowWidth - (inRow - 1) / 2) * gapX, y: y + row * gapY, radius: entities.get(id)!.kind === "collective" ? 27 : 31 });
     });
     y += rows * gapY + 24;
   }

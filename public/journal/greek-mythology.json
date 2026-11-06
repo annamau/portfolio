@@ -16,8 +16,8 @@
       "entities": 437,
       "individualFigures": 404,
       "collectives": 33,
-      "lineageClaims": 432,
-      "otherRelationships": 256,
+      "lineageClaims": 431,
+      "otherRelationships": 257,
       "connections": 1014,
       "sources": 115,
       "connectedGroups": 1
@@ -9329,8 +9329,8 @@
           "passage": "Fragment 377, reported attribution to Aeschylus"
         }
       ],
-      "shortStory": "Zagreus appears in fragmentary ancient underworld traditions and becomes the protagonist of the first Hades. The surviving ancient material is much less tidy than the game’s family story.",
-      "rememberThis": "An Aeschylean fragment names Hades as his father. In Nonnus, he is the child of Zeus and Persephone and the earlier Dionysus."
+      "shortStory": "Zagreus spends the first Hades trying to escape the Underworld and make sense of his family. In Hades II, his sister Melinoë takes the lead.",
+      "rememberThis": "Hades II shifts from a brother trying to get out of the Underworld to a sister trying to get her family back."
     },
     {
       "id": "zelus",
@@ -17434,29 +17434,15 @@
       "variantGroup": "zagreus-origin",
       "sourceRefs": [
         {
-          "sourceId": "hades-story",
-          "passage": "Story recap, family revelation"
-        }
-      ],
-      "notes": "Game continuity; major story spoiler.",
-      "spoiler": true
-    },
-    {
-      "id": "zagreus-hades-public-father",
-      "child": "zagreus",
-      "parents": [
-        "hades"
-      ],
-      "mode": "birth",
-      "tradition": "Hades",
-      "variantGroup": "zagreus-origin",
-      "sourceRefs": [
+          "sourceId": "game-persephone-dialogue",
+          "passage": "Greece: Conversations with Zagreus, first and second meetings"
+        },
         {
-          "sourceId": "hades-story",
-          "passage": "The story so far, opening paragraph: father identified as Hades"
+          "sourceId": "supergiant-hades-ii-faq",
+          "passage": "What is Hades II about?"
         }
       ],
-      "notes": "Public game premise records the father here. The complete maternal account remains a covered game reveal.",
+      "notes": "Hades and Persephone are Zagreus’s parents. Supergiant introduces him as Melinoë’s brother in Hades II.",
       "spoiler": false
     },
     {
@@ -20225,6 +20211,21 @@
       ],
       "notes": "Selene was fostered by Nyx.",
       "spoiler": false
+    },
+    {
+      "id": "nyx-zagreus-hades-foster",
+      "from": "nyx",
+      "to": "zagreus",
+      "type": "foster_parent_of",
+      "tradition": "Hades",
+      "sourceRefs": [
+        {
+          "sourceId": "game-persephone-dialogue",
+          "passage": "Greece: Conversations with Zagreus, third meeting"
+        }
+      ],
+      "notes": "Zagreus tells Persephone that Nyx raised him.",
+      "spoiler": true
     },
     {
       "id": "oceanids-nymphs-taxonomy",

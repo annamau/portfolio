@@ -21,11 +21,11 @@ function loadCatalogue() {
 export default function MythologyMap() {
   const [catalogue, setCatalogue] = useState<MythologyCatalogue>();
   const [error, setError] = useState(false);
-  const [selected, setSelected] = useState("chaos");
+  const [selected, setSelected] = useState("zagreus");
   const [chosen, setChosen] = useState(() => new Set(mainMythologyCast));
   const [query, setQuery] = useState("");
   const [spoilers, setSpoilers] = useState(false);
-  const [mode, setMode] = useState<MythologyComparisonMode>("ancient");
+  const [mode, setMode] = useState<MythologyComparisonMode>("game");
   const [reading, setReading] = useState<MythologyReading>("hesiod");
   const [originId, setOriginId] = useState<string>();
   const searchId = useId();

@@ -51,15 +51,19 @@ const Artwork = memo(function Artwork({ entities, positions, edges, selected, co
         const rail = parentBottom + (childTop - parentBottom) * (0.32 + (lane % 5) * 0.09);
         const starts = parentPoints.map((point) => ({ ...point, x: port(point, outgoing, key) }));
         const ends = childPoints.map((point) => ({ ...point, x: port(point, incoming, key) }));
-        const xs = [...starts, ...ends].map((point) => point.x);
+        const joinX = starts.reduce((sum, point) => sum + point.x, 0) / starts.length;
+        const alignedGameParents = sample.game && starts.length > 1 && starts.every((point) => point.y === starts[0].y);
+        const joinY = alignedGameParents ? (parentBottom + rail) / 2 : rail;
+        const xs = alignedGameParents ? [joinX, ...ends.map((point) => point.x)] : [...starts, ...ends].map((point) => point.x);
         const shared = `M${Math.min(...xs)},${rail}H${Math.max(...xs)}`;
         const active = parents.includes(selected) || children.has(selected);
         const connections = { "data-kind": sample.kind, "data-game": sample.game, "data-emphasis": sample.emphasis, "data-active": active };
         return <g key={key} data-family-branch={parents.join(" ")}>
           <path d={shared} {...connections}/>
-          {starts.map((point) => <path key={point.id} d={`M${point.x},${point.y + cardHalfHeight}V${rail}`} {...connections}/>)}
+          {alignedGameParents && <path data-parent-junction="" d={`M${Math.min(...starts.map((point) => point.x))},${joinY}H${Math.max(...starts.map((point) => point.x))}M${joinX},${joinY}V${rail}`} {...connections}/>}
+          {starts.map((point) => <path key={point.id} d={`M${point.x},${point.y + cardHalfHeight}V${joinY}`} {...connections}/>)}
           {ends.map((point) => <path key={point.id} d={`M${point.x},${rail}V${childTop - 4}`} {...connections} data-active={parents.includes(selected) || point.id === selected} data-to={point.id} markerEnd={`url(#${marker}${sample.game ? "-game" : ""})`}/>)}
-          {parents.length > 1 && <circle className={styles.familyJoin} cx={starts.reduce((sum, point) => sum + point.x, 0) / parents.length} cy={rail} r="3.3" data-game={sample.game}/>}
+          {parents.length > 1 && <circle className={styles.familyJoin} cx={joinX} cy={joinY} r="3.3" data-game={sample.game}/>}
         </g>;
       })}
     </g>

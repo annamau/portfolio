@@ -15,7 +15,12 @@ export function mythologyComparison(catalogue: MythologyCatalogue, mode: Mytholo
   const parentlessInReading = new Set(eligible.filter((entity) => entity.originNotes?.some((note) => note.parentless && matchesMythologyReading(note.tradition, reading))).map((entity) => entity.id));
   const activeLineages = lineages.filter((claim) => {
     if (chosenOrigin?.child === claim.child) return claim.id === chosenOrigin.id;
-    if (game || reading === "all") return true;
+    if (game) {
+      // After a reveal, the complete origin takes the place of its public subset.
+      return !lineages.some((other) => other.child === claim.child && other.mode === claim.mode
+        && other.parents.length > claim.parents.length && claim.parents.every((id) => other.parents.includes(id)));
+    }
+    if (reading === "all") return true;
     if (parentlessInReading.has(claim.child)) return false;
     return !preferredChildren.has(claim.child) || matchesMythologyReading(claim.tradition, reading);
   });
@@ -56,6 +61,6 @@ export function mythologyComparison(catalogue: MythologyCatalogue, mode: Mytholo
     relationships: relationships.filter((claim) => claimIds.has(claim.id)),
   };
   const chaosFirst = (game || reading === "hesiod") && visible.has("chaos") && !edges.some((edge) => edge.to === "chaos" && edge.kind !== "relationship");
-  const layout = entities.length ? createGenerationalLayout(drawing, game ? "hades" : reading, spoilers, { first: chaosFirst ? "chaos" : undefined, sequence: game }) : { nodes: [], bounds: { x: 0, y: 0, width: 950, height: 600 } };
+  const layout = entities.length ? createGenerationalLayout(drawing, game ? "hades" : reading, spoilers, { first: chaosFirst ? "chaos" : undefined, sequence: game, placeFamilies: game }) : { nodes: [], bounds: { x: 0, y: 0, width: 950, height: 600 } };
   return { entities, edges, layout, picked: picked.length, omitted: [...requested].filter((id) => eligibleIds.has(id) && !allowedIds.has(id)).length, connectors: new Set([...visible].filter((id) => !requested.has(id))) };
 }
