@@ -352,3 +352,49 @@ test('the main profiles tell an episode beyond genealogy', async () => {
  assert.match(story('zeus', 'game'), /lightning.*Chronos/);
  assert.doesNotMatch(story('zeus', 'game'), /father|brother/);
 });
+
+test('the displayed routes stay between cards and family arrows point down', async () => {
+ const { mythologyComparison, mythologyGameCast, mainMythologyCast } = await import('../src/lib/journal/mythology-comparison.ts');
+ const { mythologyRoutes } = await import('../src/lib/journal/mythology-routing.ts');
+ const { mythologyCard } = await import('../src/lib/journal/mythology-branches.ts');
+ const { width, height } = mythologyCard;
+ const between = (value, lo, hi) => lo + 0.001 < value && value < hi - 0.001;
+ const overlaps = (a, b, lo, hi) => Math.max(Math.min(a, b), lo) + 0.001 < Math.min(Math.max(a, b), hi);
+
+ for (const mode of ['game', 'ancient']) {
+  const chosen = mode === 'game' ? mythologyGameCast(catalogue) : new Set(mainMythologyCast);
+  const { layout, edges } = mythologyComparison(catalogue, mode, chosen, 'hesiod', true);
+  const positions = new Map(layout.nodes.map(node => [node.id, node]));
+  const { family, story } = mythologyRoutes(edges, positions);
+  const segments = [
+   ...family.flatMap(route => [route.rail, ...route.union, ...route.parentPaths, ...route.childPaths.map(child => child.points)]),
+   ...story.map(route => route.points),
+  ];
+  for (const points of segments) for (let i = 1; i < points.length; i++) {
+   const [a, b] = [points[i - 1], points[i]];
+   assert.ok(a.x === b.x || a.y === b.y, mode);
+   for (const { id, x, y } of positions.values()) {
+    const crossesCard = a.x === b.x
+     ? between(a.x, x - width / 2, x + width / 2) && overlaps(a.y, b.y, y - height / 2, y + height / 2)
+     : between(a.y, y - height / 2, y + height / 2) && overlaps(a.x, b.x, x - width / 2, x + width / 2);
+    assert.ok(!crossesCard, `${mode}: ${id}`);
+   }
+  }
+  for (const route of family) {
+   for (const child of route.childPaths) {
+    const [start, tip] = child.points;
+    assert.ok(tip.y > start.y, child.id);
+    assert.equal(tip.y + 4, positions.get(child.id).y - height / 2);
+   }
+   for (const path of route.parentPaths) assert.ok(path.every((point, i) => i === 0 || point.y >= path[i - 1].y));
+  }
+  const rails = family.map(route => route.rail);
+  const joins = family.flatMap(route => route.union.length ? [route.union[0]] : []);
+  for (const tracks of [rails, joins]) for (const [i, [a, b]] of tracks.entries()) {
+   for (const [c, d] of tracks.slice(i + 1)) {
+    if (!overlaps(a.x, b.x, c.x, d.x)) continue;
+    assert.ok(Math.abs(a.y - c.y) > 5, `${mode}: horizontal routes need separate lanes`);
+   }
+  }
+ }
+});

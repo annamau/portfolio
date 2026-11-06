@@ -41,11 +41,12 @@
 .canvas { display:block; width:100%; height:100%; overflow:hidden; cursor:grab; touch-action:pan-y; }
 .canvas:active { cursor:grabbing; }
 .canvas:focus-visible { outline:2px solid var(--map-red); outline-offset:-5px; }
-.inkLines path { stroke:#a16650; stroke-width:1.3; stroke-opacity:.52; fill:none; }
-.inkLines path[data-kind=relationship] { stroke:#796750; stroke-dasharray:4 6; stroke-opacity:.34; }
+.inkLines path { stroke:#a16650; stroke-width:1.3; stroke-opacity:.56; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+.inkLines path[data-kind=relationship] { stroke:#796750; stroke-dasharray:3 7; stroke-opacity:.28; }
 .inkLines path[data-kind=emergence],.inkLines path[data-kind=creation] { stroke-dasharray:2 5; stroke-linecap:round; }
 .inkLines path[data-game=true] { stroke:#53715d; }
-.inkLines path[data-active=true] { stroke-opacity:.94; stroke-width:1.8; }
+.inkLines path[data-active=true] { stroke-opacity:.96; stroke-width:1.9; }
+.inkLines path[data-kind=relationship][data-active=true] { stroke-opacity:.62; stroke-width:1.4; }
 .familyJoin { fill:#a16650; }
 .familyJoin[data-game=true] { fill:#53715d; }
 .inkNode { cursor:pointer; outline:none; }

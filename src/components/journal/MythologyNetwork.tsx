@@ -2,7 +2,8 @@
 
 import { memo, useEffect, useId, useMemo, useRef, useState, type PointerEvent } from "react";
 import { adjacentMythologyId, mythologyFocus, type MythologyEdge, type MythologyEntity, type MythologyLayout } from "@/lib/journal/mythology-map";
-import { mythologyBranches, mythologyCard } from "@/lib/journal/mythology-branches";
+import { mythologyCard } from "@/lib/journal/mythology-branches";
+import { mythologyPath, mythologyRoutes } from "@/lib/journal/mythology-routing";
 import MythologyEmblem from "./MythologyEmblem";
 import { mythologyEmblem } from "@/lib/journal/mythology-emblems";
 import styles from "./MythologyMap.module.css";
@@ -15,55 +16,25 @@ const Artwork = memo(function Artwork({ entities, positions, edges, selected, co
   selected: string; connectorIds: Set<string>; onSelect: (id: string) => void; marker: string;
 }) {
   const neighbors = new Set([selected, ...edges.filter((edge) => edge.emphasis !== false && (edge.from === selected || edge.to === selected)).flatMap((edge) => [edge.from, edge.to])]);
-  const branches = mythologyBranches(edges, positions);
+  const routes = useMemo(() => mythologyRoutes(edges, positions), [edges, positions]);
   const cardHalfHeight = mythologyCard.height / 2;
   const cardHalfWidth = mythologyCard.width / 2;
-  const lanes = new Map<number, number>();
-  const incoming = new Map<string, string[]>();
-  const outgoing = new Map<string, string[]>();
-  for (const [key, branch] of branches) {
-    for (const id of branch.parents) outgoing.set(id, [...(outgoing.get(id) || []), key]);
-    for (const id of branch.children.keys()) incoming.set(id, [...(incoming.get(id) || []), key]);
-  }
-  const port = (point: Point, routes: Map<string, string[]>, key: string) => {
-    const keys = routes.get(point.id)!;
-    const spacing = Math.min(22, 78 / keys.length);
-    return point.x + (keys.indexOf(key) - (keys.length - 1) / 2) * spacing;
-  };
+  const isActive = (route: (typeof routes.family)[number]) => route.parents.includes(selected) || route.childPaths.some((child) => child.id === selected);
+  const families = [...routes.family].sort((a, b) => Number(isActive(a)) - Number(isActive(b)));
   return <>
     <g className={styles.inkLines} aria-hidden="true">
-      {edges.filter((edge) => edge.kind === "relationship").map((edge) => {
-        const from = positions.get(edge.from)!, to = positions.get(edge.to)!;
-        const sameRow = from.y === to.y;
-        const direction = Math.sign(sameRow ? to.x - from.x : to.y - from.y);
-        const xInset = sameRow ? direction * cardHalfWidth : 0;
-        const yInset = sameRow ? 0 : direction * cardHalfHeight;
-        return <path key={edge.id} d={`M${from.x + xInset},${from.y + yInset}L${to.x - xInset},${to.y - yInset}`} data-kind="relationship" data-game={edge.game} data-from={edge.from} data-to={edge.to} data-active={edge.from === selected || edge.to === selected}/>;
-      })}
-      {[...branches].map(([key, { parents, children }]) => {
-        const parentPoints = parents.map((id) => positions.get(id)!);
-        const childPoints = [...children.keys()].map((id) => positions.get(id)!);
-        const sample = children.values().next().value![0];
-        const childTop = childPoints[0].y - cardHalfHeight;
-        const parentBottom = Math.max(...parentPoints.map((point) => point.y)) + cardHalfHeight;
-        const lane = lanes.get(childTop) || 0;
-        lanes.set(childTop, lane + 1);
-        const rail = parentBottom + (childTop - parentBottom) * (0.32 + (lane % 5) * 0.09);
-        const starts = parentPoints.map((point) => ({ ...point, x: port(point, outgoing, key) }));
-        const ends = childPoints.map((point) => ({ ...point, x: port(point, incoming, key) }));
-        const joinX = starts.reduce((sum, point) => sum + point.x, 0) / starts.length;
-        const alignedGameParents = sample.game && starts.length > 1 && starts.every((point) => point.y === starts[0].y);
-        const joinY = alignedGameParents ? (parentBottom + rail) / 2 : rail;
-        const xs = alignedGameParents ? [joinX, ...ends.map((point) => point.x)] : [...starts, ...ends].map((point) => point.x);
-        const shared = `M${Math.min(...xs)},${rail}H${Math.max(...xs)}`;
-        const active = parents.includes(selected) || children.has(selected);
-        const connections = { "data-kind": sample.kind, "data-game": sample.game, "data-emphasis": sample.emphasis, "data-active": active };
-        return <g key={key} data-family-branch={parents.join(" ")}>
-          <path d={shared} {...connections}/>
-          {alignedGameParents && <path data-parent-junction="" d={`M${Math.min(...starts.map((point) => point.x))},${joinY}H${Math.max(...starts.map((point) => point.x))}M${joinX},${joinY}V${rail}`} {...connections}/>}
-          {starts.map((point) => <path key={point.id} d={`M${point.x},${point.y + cardHalfHeight}V${joinY}`} {...connections}/>)}
-          {ends.map((point) => <path key={point.id} d={`M${point.x},${rail}V${childTop - 4}`} {...connections} data-active={parents.includes(selected) || point.id === selected} data-to={point.id} markerEnd={`url(#${marker}${sample.game ? "-game" : ""})`}/>)}
-          {parents.length > 1 && <circle className={styles.familyJoin} cx={joinX} cy={joinY} r="3.3" data-game={sample.game}/>}
+      {routes.story.map(({ edge, points }) =>
+        <path key={edge.id} d={mythologyPath(points)} data-kind="relationship" data-game={edge.game} data-from={edge.from} data-to={edge.to} data-active={edge.from === selected || edge.to === selected}/>
+      )}
+      {families.map((route) => {
+        const { id, edge, parents, rail, junction, union, parentPaths, childPaths } = route;
+        const connections = { "data-kind": edge.kind, "data-game": edge.game, "data-emphasis": edge.emphasis, "data-active": isActive(route) };
+        return <g key={id} data-family-branch={parents.join(" ")}>
+          <path d={mythologyPath(rail)} {...connections}/>
+          {junction && <path data-parent-junction="" d={union.map(mythologyPath).join("")} {...connections}/>}
+          {parentPaths.map((points, index) => <path key={parents[index]} d={mythologyPath(points)} {...connections}/>)}
+          {childPaths.map((child) => <path key={child.id} d={mythologyPath(child.points)} {...connections} data-active={parents.includes(selected) || child.id === selected} data-to={child.id} markerEnd={`url(#${marker}${edge.game ? "-game" : ""})`}/>)}
+          {junction && <circle className={styles.familyJoin} cx={junction.x} cy={junction.y} r="3.3" data-game={edge.game}/>}
         </g>;
       })}
     </g>
@@ -143,7 +114,7 @@ export default function MythologyNetwork({ entities, layout, edges, selected, fo
       if (event.key === "-") { event.preventDefault(); zoom(1 / 0.72); }
       if (event.key === "Home") { event.preventDefault(); fit(); }
     }}>
-      <defs><marker id={marker} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L6,3.5 L0,7" fill="none" stroke="#ad4b34" strokeWidth="1.2"/></marker><marker id={`${marker}-game`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L6,3.5 L0,7" fill="none" stroke="#687665" strokeWidth="1.2"/></marker></defs>
+      <defs><marker id={marker} markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10 Z" fill="#ad4b34"/></marker><marker id={`${marker}-game`} markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10 Z" fill="#53715d"/></marker></defs>
       <Artwork entities={entities} positions={positions} edges={edges} selected={selected} connectorIds={connectorIds} onSelect={onSelect} marker={marker}/>
     </svg>
     <div className={styles.mapTools} aria-label="Map controls"><button type="button" aria-label="Zoom in" onClick={() => zoom(0.72)}>+</button><button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 0.72)}>−</button><button type="button" onClick={fit}>Fit</button>{!expanded && <button type="button" aria-pressed={moving} onClick={() => setMoving((value) => !value)}>{moving ? "Scroll page" : "Move map"}</button>}</div>

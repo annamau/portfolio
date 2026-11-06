@@ -58,7 +58,7 @@ export function createGenerationalLayout(catalogue: MythologyCatalogue, reading:
     .flatMap((claim) => claim.parents.slice(1).map((parent) => ({ from: claim.parents[0], to: parent }))) : [];
   const points = new Map<string, MythologyLayout["nodes"][number]>();
   let y = 74;
-  const gapX = 182, gapY = 128;
+  const gapX = 214, gapY = 184;
   const columns = catalogue.entities.length <= 60 ? Infinity : 8;
   const focal = new Set(edges.filter((edge) => edge.emphasis).flatMap((edge) => [edge.from, edge.to]));
   const center = (id: string) => {
