@@ -8,20 +8,21 @@ type Session = { authenticated: boolean; configured: boolean; local: boolean };
 type ResourceData = { resources: Resource[]; entries: SavedResource[]; session: Session | null; error: string; refresh: () => Promise<void> };
 const Context = createContext<ResourceData | null>(null);
 
-export function ResourceDataProvider({ children }: { children: React.ReactNode }) {
-  const [published, setPublished] = useState<Resource[]>([]);
+export function ResourceDataProvider({ children, initialPublished }: { children: React.ReactNode; initialPublished: Resource[] | null }) {
+  const [published, setPublished] = useState<Resource[]>(initialPublished ?? []);
   const [entries, setEntries] = useState<SavedResource[]>([]);
   const [session, setSession] = useState<Session | null>(null);
   const [error, setError] = useState("");
   const generation = useRef(0);
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (loadPublished = true) => {
     const current = ++generation.current;
     try {
       const [publicResponse, sessionResponse] = await Promise.all([
-        fetch("/api/resources", { cache: "no-store" }), fetch("/api/resources/session", { cache: "no-store" }),
+        loadPublished ? fetch("/api/resources", { cache: "no-store" }) : null,
+        fetch("/api/resources/session", { cache: "no-store" }),
       ]);
-      if (!publicResponse.ok || !sessionResponse.ok) throw new Error("Saved resources could not be loaded.");
-      const publicData = await publicResponse.json();
+      if (publicResponse?.ok === false || !sessionResponse.ok) throw new Error("Saved resources could not be loaded.");
+      const publicData = publicResponse ? await publicResponse.json() : null;
       const owner = await sessionResponse.json() as Session;
       let privateEntries: SavedResource[] = [];
       if (owner.authenticated) {
@@ -30,12 +31,13 @@ export function ResourceDataProvider({ children }: { children: React.ReactNode }
         privateEntries = (await response.json()).resources;
       }
       if (current !== generation.current) return;
-      setPublished(publicData.resources); setSession(owner); setEntries(privateEntries); setError("");
+      if (publicData) setPublished(publicData.resources);
+      setSession(owner); setEntries(privateEntries); setError("");
     } catch (error) {
       if (current === generation.current) setError(error instanceof Error ? error.message : "The library could not be loaded.");
     }
   }, []);
-  useEffect(() => { void refresh(); }, [refresh]);
+  useEffect(() => { void refresh(initialPublished === null); }, [initialPublished, refresh]);
   const resources = useMemo(() => [...new Map([...published, ...seeds].map((resource) => [resource.id, resource])).values()], [published]);
   return <Context.Provider value={{ resources, entries, session, error, refresh }}>{children}</Context.Provider>;
 }

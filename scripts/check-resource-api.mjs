@@ -123,10 +123,23 @@ try{
  result=await call("/api/resources",{method:"POST",form:upload,authenticated:true});verify(result.response.status===201,"Owner can upload an image.");const image=result.body.resources[0];verify(image.status==="draft"&&image.kind==="image","Uploads start in the private inbox.");
  result=await call(image.url);verify(result.response.status===404,"Private upload URLs reject anonymous requests.");
  result=await call(image.url,{authenticated:true});verify(result.response.status===200&&result.response.headers.get("content-type")==="image/webp","Owner can view a validated image.");
+ verify(result.response.headers.get("cache-control")==="private, no-store","Draft images cannot be cached, even by the owner's browser.");
  result=await call(`/api/resources/${image.id}`,{method:"PUT",data:{action:"publish",version:1},authenticated:true});verify(result.response.status===200,"Owner can publish an uploaded image.");
+ for(const route of ["/resources","/resources/design"]){
+  const directoryPage=await fetch(base+route);
+  const $=load(await directoryPage.text());
+  const cards=$("#resource-directory article");
+  const first=cards.first();
+  verify(directoryPage.ok&&first.find("h2").text().includes(image.name)&&first.find("img").attr("src")===image.url&&!$.html().includes("PRIVATE-UPLOAD-SENTINEL"),"The initial directory HTML includes the first published cover and excludes private notes.");
+  verify(first.find("img").attr("fetchpriority")==="high"&&first.find("img").attr("loading")==="eager"&&cards.eq(1).find("img").attr("loading")==="lazy","The first cover loads at high priority while later covers are lazy.");
+ }
  result=await call(image.url);verify(result.response.status===200&&result.response.headers.get("x-content-type-options")==="nosniff","Published media is readable with content-type protection.");
+ const imageTag=result.response.headers.get("etag");
+ verify(result.response.headers.get("cache-control")==="private, max-age=300"&&imageTag,"Published images can be reused in the browser for five minutes.");
+ result=await call(image.url,{headers:{"If-None-Match":imageTag}});verify(result.response.status===304&&!await result.response.text(),"An unchanged published cover can be revalidated without downloading its bytes.");
  result=await call(`/api/resources/${image.id}`,{method:"PUT",data:{action:"unpublish",version:2},authenticated:true});verify(result.response.status===200,"Owner can make a published image private again.");
- result=await call(image.url);verify(result.response.status===404,"Unpublished media is no longer publicly readable.");
+ result=await call(image.url,{headers:{"If-None-Match":imageTag}});verify(result.response.status===404&&result.response.headers.get("cache-control")==="no-store","Unpublished media rejects anonymous revalidation and cannot be cached.");
+ page=await fetch(base+"/resources/design");html=await page.text();verify(page.ok&&!html.includes(image.url),"Unpublished covers disappear from the initial directory HTML.");
  const badUpload=new FormData();badUpload.set("data",JSON.stringify({name:"Unsafe",category:"design"}));badUpload.set("file",new File(["<svg onload='alert(1)'/>"],"unsafe.svg",{type:"image/svg+xml"}));
  result=await call("/api/resources",{method:"POST",form:badUpload,authenticated:true});verify(result.response.status===400,"Active SVG uploads are rejected.");
  const before=(await call("/api/resources?scope=inbox",{authenticated:true})).body.resources.length;

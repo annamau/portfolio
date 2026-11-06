@@ -2,7 +2,7 @@ import { mkdir, readFile, readdir, rename, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 import { getStore } from "@netlify/blobs";
-import { ResourceError, validId, validAssetId } from "./model.ts";
+import { publicResource, ResourceError, validId, validAssetId } from "./model.ts";
 import type { SavedResource } from "./model.ts";
 
 export const directory = () => process.env.RESOURCE_DATA_DIR || join(process.cwd(), ".resource-data");
@@ -50,6 +50,9 @@ export async function listEntries(): Promise<SavedResource[]> {
   const files = (await readdir(directory())).filter((file) => /^saved-[a-f0-9]{24}\.json$/.test(file));
   const rows = await Promise.all(files.map(async (file) => JSON.parse(await readFile(join(directory(), file), "utf8")) as SavedResource));
   return rows.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+}
+export async function listPublishedResources() {
+  return (await listEntries()).filter(({ status }) => status === "published").map(publicResource);
 }
 export async function writeEntry(entry: SavedResource, expectedVersion: number): Promise<void> {
   if (!validId(entry.id)) throw new ResourceError("Invalid resource ID.");

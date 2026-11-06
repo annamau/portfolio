@@ -2,9 +2,9 @@ import { randomUUID } from "node:crypto";
 import { resources as seedResources } from "@/data/resources";
 import { isOwner } from "@/lib/resources/auth";
 import { failure, json, jsonBody, limitedBody, ownerWrite } from "@/lib/resources/http";
-import { normalizeResourceUrl, parseDraft, publicResource, ResourceError, savedId } from "@/lib/resources/model";
+import { normalizeResourceUrl, parseDraft, ResourceError, savedId } from "@/lib/resources/model";
 import type { SavedResource } from "@/lib/resources/model";
-import { listEntries, getEntry, writeEntry, writeMedia } from "@/lib/resources/store";
+import { listEntries, listPublishedResources, getEntry, writeEntry, writeMedia } from "@/lib/resources/store";
 import { MAX_UPLOAD_BYTES, validateUpload } from "@/lib/resources/upload";
 import { readPublicResource } from "@/lib/resources/public-page";
 
@@ -15,8 +15,7 @@ export async function GET(request: Request) {
   try {
     const privateScope = new URL(request.url).searchParams.get("scope") === "inbox";
     if (privateScope && !isOwner(request)) return json({ error: "Sign in to open your private inbox." }, 401);
-    const entries = await listEntries();
-    return json({ resources: privateScope ? entries : entries.filter((entry) => entry.status === "published").map(publicResource) });
+    return json({ resources: privateScope ? await listEntries() : await listPublishedResources() });
   } catch (error) { return failure(error); }
 }
 

@@ -16,7 +16,7 @@ export default function ResourceCard({ resource, index, locale, onOpen }: { reso
   return <article className={styles.card} style={{"--resource-color":group.color} as React.CSSProperties}>
     <a href={resource.url} target="_blank" rel="noopener noreferrer" className={styles.cardLink} aria-haspopup={opensViewer?"dialog":undefined} onClick={(event)=>{if(opensViewer&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey){event.preventDefault();onOpen(resource);}}}>
       <div className={styles.preview}>
-        <Image src={preview} alt={`${locale==="es"?"Miniatura de":"Thumbnail for"} ${resource.name}`} width={840} height={440} sizes="(max-width: 600px) 100vw, (max-width: 1100px) 45vw, 30vw" loading={index<3?"eager":"lazy"} unoptimized={preview.startsWith("/api/")||preview.startsWith("data:")} onError={()=>setFailed(true)}/>
+        <Image src={preview} alt={`${locale==="es"?"Miniatura de":"Thumbnail for"} ${resource.name}`} width={840} height={440} sizes="(max-width: 600px) 100vw, (max-width: 1100px) 45vw, 30vw" loading={index===0?"eager":"lazy"} fetchPriority={index===0?"high":index<3?"auto":"low"} unoptimized={preview.startsWith("/api/")||preview.startsWith("data:")} onError={()=>setFailed(true)}/>
         {(resource.kind==="video"||resource.kind==="audio") && <span className={styles.playBadge}><PlayCircle size={38} weight="fill"/></span>}
         <span className={styles.typeBadge}>{resource.source&&"X · "}{kindLabel(resource.kind,locale)}</span>
       </div>
