@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="426" viewBox="0 0 720 426" role="img" aria-labelledby="title desc">
+  <title id="title">How to make an arrow fly in stop motion</title>
+  <desc id="desc">Fix the camera and shoot the empty set. Support a miniature arrow on a stand. Photograph it at successive points along its path. Use the empty set image to remove the stand from each frame.</desc>
+  <defs>
+    <g id="arrow" fill="none" stroke="#9e3925" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0h88m-16-11L88 0 72 11M0-8l11 8L0 8"/></g>
+    <g id="stand" fill="none" stroke="#554639" stroke-width="4" stroke-linecap="round"><path d="M0 0v34m-15 0h30"/></g>
+    <g id="set" fill="none" stroke="#79806a" stroke-width="2" stroke-linecap="round"><path d="M0 40h188M12 40V8m-8 10 8-10 8 10M165 40V0m-12 15 12-15 12 15"/></g>
+  </defs>
+  <rect width="720" height="426" rx="16" fill="#f2e9d7"/>
+  <path d="M28 84h664" stroke="#b9aa8f"/>
+  <text x="28" y="31" fill="#8b3525" font-family="sans-serif" font-size="18" font-weight="700" letter-spacing="2">01 / FLIGHT</text>
+  <text x="28" y="68" fill="#30261e" font-family="Georgia,serif" font-size="37">How to make an arrow fly</text>
+  <g fill="#e9e0cc" stroke="#c8b99c"><rect x="28" y="101" width="322" height="143" rx="10"/><rect x="370" y="101" width="322" height="143" rx="10"/><rect x="28" y="257" width="322" height="143" rx="10"/><rect x="370" y="257" width="322" height="143" rx="10"/></g>
+  <g fill="#30261e" font-family="sans-serif" font-size="27" font-weight="700">
+    <text x="49" y="136">1. Shoot the empty set</text><text x="391" y="136">2. Put it on a rig</text>
+    <text x="49" y="292">3. Move and shoot</text><text x="391" y="292">4. Paint out the rig</text>
+  </g>
+  <use href="#set" x="109" y="180"/><path d="M59 180h31v20H59zM90 186l12-6v20l-12-6m-15 6v10m-10 9 10-9 10 9" fill="none" stroke="#554639" stroke-width="3" stroke-linejoin="round"/>
+  <use href="#set" x="450" y="180"/><use href="#stand" x="545" y="186"/><use href="#arrow" x="500" y="184" transform="rotate(-12 545 184)"/>
+  <path d="M56 375Q175 309 321 349" stroke="#877b63" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
+  <use href="#arrow" transform="translate(62 365) rotate(-24) scale(.7)" opacity=".42"/><use href="#arrow" transform="translate(150 337) rotate(-8) scale(.7)" opacity=".64"/><use href="#arrow" transform="translate(243 334) rotate(12) scale(.7)"/>
+  <use href="#set" x="450" y="336"/><use href="#arrow" x="500" y="340" transform="rotate(-12 545 340)"/>
+</svg>

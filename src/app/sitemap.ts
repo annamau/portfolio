@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { listPosts } from "@/lib/journal/store";
+import { journalSlug } from "@/lib/journal/permalinks";
 import { resourceCollections } from "@/data/resources";
 
 const BASE_URL = "https://andresnavesmauri.com";
@@ -26,6 +27,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    ...posts.map((post)=>({url:`${BASE_URL}/blog/${post.slug}`,lastModified:new Date(post.updatedAt),changeFrequency:"monthly" as const,priority:0.6})),
+    ...posts.map((post)=>({url:`${BASE_URL}/blog/${journalSlug(post.slug)}`,lastModified:new Date(post.updatedAt),changeFrequency:"monthly" as const,priority:0.6})),
   ];
 }

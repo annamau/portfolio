@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { JournalPost } from "@/lib/journal/model";
+import { journalSlug } from "@/lib/journal/permalinks";
 import { useLanguage } from "@/contexts/LanguageContext";
 import JournalBody from "./JournalBody";
 import forms from "../resources/ResourceDialogs.module.css";
@@ -53,7 +54,7 @@ export default function JournalEditor({ initialPostId = "" }: { initialPostId?: 
         <label>{es ? "Entrada" : "Entry"}<textarea className={styles.writingArea} rows={18} required maxLength={40_000} value={content.body} onChange={(event) => setContent({ ...content, body: event.target.value })}/><small>{es ? "Párrafos separados por una línea vacía. # Título · - Lista · > Cita · >!Spoiler!<" : "Separate paragraphs with a blank line. # Heading · - List · > Quote · >!Spoiler!<"}</small></label>
         <div className={styles.actions}><button className={forms.primary} disabled={busy} type="submit">{busy ? (es ? "Guardando…" : "Saving…") : post?.status === "published" ? (es ? "Guardar cambios" : "Save changes") : (es ? "Guardar borrador" : "Save draft")}</button>{post && <button className={forms.secondary} disabled={busy} type="button" onClick={() => void save(post.status === "published" ? "unpublish" : "publish")}>{post.status === "published" ? (es ? "Retirar publicación" : "Unpublish") : (es ? "Publicar" : "Publish")}</button>}<button className={forms.secondary} type="button" onClick={() => setPreview(!preview)}>{preview ? (es ? "Ocultar vista previa" : "Hide preview") : (es ? "Vista previa" : "Preview")}</button></div>
         {post && <Link className={styles.back} href={`/blog/preview/${post.id}`}>{es ? "Vista previa completa" : "Full preview"} ↗</Link>}
-        {post?.status === "published" && <Link className={styles.back} href={`/blog/${post.slug}`}>{es ? "Abrir entrada" : "View entry"} ↗</Link>}
+        {post?.status === "published" && <Link className={styles.back} href={`/blog/${journalSlug(post.slug)}`}>{es ? "Abrir entrada" : "View entry"} ↗</Link>}
         {preview && <section aria-label={es ? "Vista previa" : "Preview"}><h2>{content.title}</h2><JournalBody body={content.body} postId={post?.id}/></section>}
       </form>
       <aside className={styles.postList}><button disabled={busy} onClick={() => selectPost(null)}>+ {es ? "Nueva entrada" : "New entry"}</button>{posts.map((item) => <button disabled={busy} aria-pressed={post?.id === item.id} key={item.id} onClick={() => selectPost(item)}>{item.title}<small>{item.status === "published" ? (es ? "Publicado" : "Published") : (es ? "Borrador" : "Draft")}</small></button>)}</aside>

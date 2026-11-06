@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="426" viewBox="0 0 720 426" role="img" aria-labelledby="title desc">
+  <title id="title">How replacement faces become an expression</title>
+  <desc id="desc">Plan the expression over time, make a series of face pieces, fit them to the puppet one at a time, and photograph each pose. Playback turns a series of small changes into a reaction.</desc>
+  <defs>
+    <g id="head"><path d="M-20-3c0-30 40-30 40 0v9c0 28-40 28-40 0z" fill="#f6e8cb" stroke="#514133" stroke-width="3"/><g fill="#514133"><circle cx="-7" cy="-5" r="2.4"/><circle cx="7" cy="-5" r="2.4"/></g></g>
+    <g id="neutral"><use href="#head"/><path d="M-5 9h10" stroke="#983c2c" stroke-width="3" stroke-linecap="round"/></g>
+    <g id="small"><use href="#head"/><path d="M-6 9q7 4 12-2" fill="none" stroke="#983c2c" stroke-width="3" stroke-linecap="round"/></g>
+    <g id="smile"><use href="#head"/><path d="M-9 6q9 12 18 0" fill="none" stroke="#983c2c" stroke-width="3" stroke-linecap="round"/></g>
+  </defs>
+  <rect width="720" height="426" rx="16" fill="#f2e9d7"/>
+  <path d="M28 84h664" stroke="#b9aa8f"/>
+  <text x="28" y="31" fill="#8b3525" font-family="sans-serif" font-size="18" font-weight="700" letter-spacing="2">02 / PERFORMANCE</text>
+  <text x="28" y="68" fill="#30261e" font-family="Georgia,serif" font-size="37">How a puppet smiles</text>
+  <g fill="#e9e0cc" stroke="#c8b99c"><rect x="28" y="101" width="322" height="143" rx="10"/><rect x="370" y="101" width="322" height="143" rx="10"/><rect x="28" y="257" width="322" height="143" rx="10"/><rect x="370" y="257" width="322" height="143" rx="10"/></g>
+  <g fill="#30261e" font-family="sans-serif" font-size="27" font-weight="700">
+    <text x="49" y="136">1. Plan the change</text><text x="391" y="136">2. Make the faces</text>
+    <text x="49" y="292">3. Swap and shoot</text><text x="391" y="292">4. Play it back</text>
+  </g>
+  <path d="M76 214h223m-201-17 37 1 40-5 44-14 49-9" fill="none" stroke="#817761" stroke-width="2"/><g fill="#9e3925"><circle cx="98" cy="197" r="4"/><circle cx="135" cy="198" r="4"/><circle cx="175" cy="193" r="4"/><circle cx="219" cy="179" r="4"/><circle cx="268" cy="170" r="4"/></g>
+  <use href="#neutral" x="455" y="186"/><use href="#small" x="531" y="186"/><use href="#smile" x="607" y="186"/>
+  <use href="#neutral" x="100" y="342" opacity=".65"/><path d="M130 341h34m-7-6 7 6-7 6" fill="none" stroke="#9e3925" stroke-width="3" stroke-linecap="round"/><path d="M170 384c0-28 53-28 53 0m-26-21v-8" fill="none" stroke="#59614e" stroke-width="4"/><use href="#small" x="197" y="337"/><path d="M250 328h31v20h-31zm31 6 12-6v20l-12-6" fill="none" stroke="#514133" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="416" y="310" width="230" height="70" rx="5" fill="#6a7059"/><g fill="#e9e0cc"><rect x="427" y="321" width="61" height="48" rx="2"/><rect x="500" y="321" width="61" height="48" rx="2"/><rect x="573" y="321" width="61" height="48" rx="2"/></g>
+  <use href="#neutral" transform="translate(457 344) scale(.65)"/><use href="#small" transform="translate(530 344) scale(.65)"/><use href="#smile" transform="translate(603 344) scale(.65)"/>
+</svg>

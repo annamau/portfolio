@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -104,6 +104,13 @@ try{
  page=await fetch(base+`/blog/${post.slug}`);verify(page.status===404,"Unpublished entries are no longer publicly readable.");
  const hiddenFigure=await fetch(base+figurePath);verify(hiddenFigure.status===404,"Unpublishing hides the attached figure again.");
  result=await call("/api/resources/journal");verify(result.body.posts.length===0,"Unpublishing removes the entry from the public feed.");
+ const legacySlug="hades-ii-and-the-stories-i-grew-up-with-54a36721";
+ const canonicalPath="/blog/fell-in-love-with-greek-mythology-again";
+ await writeFile(join(directory,`journal-${post.id}.json`),JSON.stringify({...post,slug:legacySlug,status:"published",publishedAt:post.createdAt,version:4}));
+ const redirect=await fetch(base+`/blog/${legacySlug}`,{redirect:"manual"});verify(redirect.status===308&&redirect.headers.get("location")===canonicalPath,"The old mythology permalink redirects permanently to the new URL.");
+ page=await fetch(base+canonicalPath);html=await page.text();verify(page.ok&&html.includes(article.title)&&html.includes(`rel="canonical" href="https://andresnavesmauri.com${canonicalPath}"`),"The new mythology URL serves the published essay and its canonical metadata.");
+ page=await fetch(base+"/blog");verify((await page.text()).includes(`href="${canonicalPath}"`),"The Journal index links directly to the new mythology URL.");
+ page=await fetch(base+"/sitemap.xml");const sitemap=await page.text();verify(sitemap.includes(`<loc>https://andresnavesmauri.com${canonicalPath}</loc>`)&&!sitemap.includes(legacySlug),"The sitemap lists the new mythology URL and omits its legacy URL.");
  const png=await sharp({create:{width:3,height:3,channels:3,background:"#df4f2f"}}).png().toBuffer();
  const upload=new FormData();upload.set("data",JSON.stringify({name:"Private image",category:"design",privateNotes:"PRIVATE-UPLOAD-SENTINEL"}));upload.set("file",new File([png],"cover.png",{type:"image/png"}));
  result=await call("/api/resources",{method:"POST",form:upload,authenticated:true});verify(result.response.status===201,"Owner can upload an image.");const image=result.body.resources[0];verify(image.status==="draft"&&image.kind==="image","Uploads start in the private inbox.");

@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { ResourceError, normalizeResourceUrl } from "../resources/model.ts";
+import { journalSlug } from "./permalinks.ts";
 export interface JournalPost {
   id: string; slug: string; title: string; summary: string; body: string; topic: string; cover: string;
   status: "draft" | "published"; createdAt: string; updatedAt: string; publishedAt?: string; version: number;
@@ -24,5 +25,5 @@ export function updatePost(existing: JournalPost, input: Record<string, unknown>
   return { ...existing, ...content, id: existing.id, slug: existing.slug, status: input.action === "publish" ? "published" : input.action === "unpublish" ? "draft" : existing.status, publishedAt: input.action === "publish" ? existing.publishedAt || new Date().toISOString() : existing.publishedAt, updatedAt: new Date().toISOString(), version: existing.version + 1 };
 }
 export function publicPost(post: JournalPost) {
-  return { id: post.id, slug: post.slug, title: post.title, summary: post.summary, body: post.body, topic: post.topic, cover: post.cover, publishedAt: post.publishedAt };
+  return { id: post.id, slug: journalSlug(post.slug), title: post.title, summary: post.summary, body: post.body, topic: post.topic, cover: post.cover, publishedAt: post.publishedAt };
 }
