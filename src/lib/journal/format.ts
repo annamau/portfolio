@@ -4,6 +4,7 @@ export type JournalBlock =
   | { type: "list"; items: JournalInline[][] }
   | { type: "image"; src: string; alt: string; caption: JournalInline[] }
   | { type: "video"; id: string; title: string; caption: JournalInline[] }
+  | { type: "gallery"; name: string; caption: JournalInline[] }
   | { type: "chart"; name: string; caption: JournalInline[] };
 export function journalUrl(value: string, image = false): string | null {
   if (image && /^\/journal\/[a-z0-9/_-]+\.(?:png|jpe?g|webp|svg)$/i.test(value) && !value.includes("..")) return value;
@@ -53,6 +54,8 @@ export function journalBlocks(body: string): JournalBlock[] {
     }
     const chart = block.match(/^::chart\[([a-z][a-z0-9-]{0,63})\](?:\n([\s\S]+))?$/);
     if (chart) return { type: "chart", name: chart[1], caption: journalInline(chart[2] || "") };
+    const gallery = block.match(/^::gallery\[([a-z][a-z0-9-]{0,63})\](?:\n([\s\S]+))?$/);
+    if (gallery) return { type: "gallery", name: gallery[1], caption: journalInline(gallery[2] || "") };
     if (/^#{1,3} /.test(block)) return { type: "heading", content: journalInline(block.replace(/^#{1,3} /, "")) };
     const lines = block.split("\n");
     if (lines.every((line) => /^[-*] /.test(line))) return { type: "list", items: lines.map((line) => journalInline(line.slice(2))) };

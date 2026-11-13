@@ -36,3 +36,9 @@ test('video blocks retain a title and source caption and only accept recognized 
  assert.equal(shortLink.id, video.id);
  for (const block of [spoofedHost, invalidId, missingTitle]) assert.equal(block.type, 'paragraph');
 });
+
+test('gallery blocks identify an attached gallery and preserve a source caption', () => {
+ const [gallery, unsafe] = journalBlocks('::gallery[family-paintings]\nA few paintings from my parents.\n\n::gallery[../../private]');
+ assert.deepEqual(gallery, { type: 'gallery', name: 'family-paintings', caption: [{ type: 'text', text: 'A few paintings from my parents.' }] });
+ assert.equal(unsafe.type, 'paragraph');
+});
